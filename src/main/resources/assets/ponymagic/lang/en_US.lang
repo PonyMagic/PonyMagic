@@ -1,0 +1,31 @@
+key.categories.ponymagic=Pony Magic!
+key.skills=Skills menu
+
+commands.stamina.playerHasNoProps='%s' has no Stamina properties. This is a bug.
+commands.stamina.usage=/stamina <check|zero|fill|set|add|freeze>
+
+commands.stamina.check.success=%1$s's stamina: %2$.2f/%3$.2f
+commands.stamina.check.usage=/stamina check [player]
+
+commands.stamina.add.failure.negativeTime=Couldn't add %1$.2f to %3$s's %2$s STAMINA. Time cannot be a negative value.
+commands.stamina.add.success=Added %1$.2f stamina for %3$s. Value is now %2$.2f.
+commands.stamina.add.usage=/stamina add [player] <value>
+
+commands.stamina.zero.success=Burn all stamina for %s.
+commands.stamina.zero.usage=/stamina zero [player]
+
+commands.stamina.freeze.success.freeze=Froze stamina for %s.
+commands.stamina.freeze.success.unfreeze=Unfroze stamina for %s.
+commands.stamina.freeze.usage=/stamina freeze [player] true/false
+
+commands.stamina.fill.success=Restore all stamina for %s.
+commands.stamina.fill.usage=/stamina fill [player]
+
+commands.stamina.set.failure.abovePossibleVaule=Couldn't set %4$s's %1$s STAMINA to %2$.2f. Value is above highest possible stamina: %f.
+commands.stamina.set.failure.negativeValue=Couldn't set %3$s's %1$s STAMINA to %2$.2f. Must be a positive value.
+
+commands.stamina.set.success=Set current stamina to %1$.2f for %2$s
+commands.stamina.set.usage=/stamina set [player] <value>
+
+commands.stamina.setmax.success=Set maximum stamina to %1$.2f for %2$s
+commands.stamina.setmax.usage=/stamina setmax [player] <value>
