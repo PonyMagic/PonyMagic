@@ -1,5 +1,6 @@
 package net.braunly.ponymagic.data;
 
+import net.braunly.ponymagic.race.EnumRace;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,6 +18,7 @@ public class PlayerData implements IExtendedEntityProperties{
 
 	public String playername = "";
 	public String uuid = "";
+	public EnumRace race;
 
 
 	@Override
@@ -27,9 +29,6 @@ public class PlayerData implements IExtendedEntityProperties{
 	@Override
 	public void loadNBTData(NBTTagCompound compound) {
 		NBTTagCompound data = PlayerDataController.instance.loadPlayerData(player.getPersistentID().toString());
-		if(data.hasNoTags()){
-			data = PlayerDataController.instance.loadPlayerDataOld(player.getCommandSenderName());
-		}
 		setNBT(data);
 	}
 
@@ -43,6 +42,8 @@ public class PlayerData implements IExtendedEntityProperties{
 			playername = data.getString("PlayerName");
 			uuid = data.getString("UUID");
 		}
+		
+		race = EnumRace.getByName(data.getString("Race"));
 	}
 	
 	public NBTTagCompound getNBT() {
@@ -55,6 +56,7 @@ public class PlayerData implements IExtendedEntityProperties{
 		
 		compound.setString("PlayerName", playername);
 		compound.setString("UUID", uuid);
+		compound.setString("Race", race.name());
 		
 		return compound;
 	}

@@ -1,4 +1,4 @@
-package net.braunly.ponymagic.events;
+package net.braunly.ponymagic.event;
 
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.PonyMagicModPermissions;
@@ -49,7 +49,8 @@ public class FlyEventHandler
 				}
 
 				if (player.capabilities.isFlying) {
-					PonyMagic.channel.sendToServer(new TotalStaminaPacket(props.getStaminaValue(StaminaType.CURRENT)));
+					player.addExhaustion(0.016F);  // FIXME в конфиг
+					props.addToQueue(StaminaType.CURRENT, -1 * Config.flySpendingValue);  // 0.8 stps
 				}
 				if (props.getStaminaValue(StaminaType.CURRENT) < Config.flyDisableValue && fly) {
 					props.setFly(false);

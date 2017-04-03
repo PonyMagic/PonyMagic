@@ -1,4 +1,4 @@
-package net.braunly.ponymagic.events;
+package net.braunly.ponymagic.event;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.braunly.ponymagic.exp.PlaceBlock;
