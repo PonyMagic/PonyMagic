@@ -16,29 +16,29 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
 
-public class CommandMagic extends CommandBase 
+public class CommandCast extends CommandBase 
 {	
 	@Override
 	public List getCommandAliases()
 	{
 		List aliases = new ArrayList();
-	    aliases.add("magic");
+	    aliases.add("cast");
 	    return aliases;
 	}
 	
 	@Override
 	public String getCommandName() {
-		return "magic";
+		return "cast";
 	}
 	
 	@Override
 	public int getRequiredPermissionLevel() {
-		return 2;
+		return 0;
 	}
 
 	@Override
 	public String getCommandUsage(ICommandSender var1) {
-		return "command.magic.usage";  // TODO
+		return "USAGE"; // TODO
 	}
 
 	@Override
@@ -47,35 +47,28 @@ public class CommandMagic extends CommandBase
 			
 			EntityPlayerMP player = (EntityPlayerMP) commandSender;
 			
-			if (args.length < 3) {
-				throw new WrongUsageException("commands.magic.usage", new Object[0]);
+			if (args.length < 1) {
+				throw new WrongUsageException("commands.cast.usage", new Object[0]);
 			}
 			
-			if (args[0].equalsIgnoreCase("race")) {
-				String playerName = args[1];
-				EnumRace race = EnumRace.getByName(args[2]);
-				
-				if (race != null) {
-					PlayerData playerData = PlayerDataController.instance.getDataFromUsername(playerName);
-					playerData.race = race;
-					playerData.saveNBTData(null);
-					player.addChatMessage(new ChatComponentText(playerName + " теперь - " + race.getLocalizedName()));  // TODO lang file
+			String spellName = args[0];
+			
+			PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
+			EnumRace playerRace = playerData.race;
+			
+			if (playerRace != null && playerRace != EnumRace.REGULAR) {
+				if (Arrays.asList(playerRace.getSpells()).contains(spellName)) {
+					int spellLevel = playerData.spellData.getSpellLevel(spellName);
+					if (spellLevel > 0) {
+						((Spell) PonyMagic.spells.get(spellName)).castOnSelf(player, spellLevel);
+					} else {
+						player.addChatComponentMessage(new ChatComponentText("Заклинание не изучено!")); // TODO lang file
+					}
 				} else {
-					player.addChatMessage(new ChatComponentText("Неизвестная раса!")); // TODO lang file
+					player.addChatComponentMessage(new ChatComponentText("Твоя раса не может использовать это заклинание!")); // TODO lang
 				}
-				
-			} else if (args[0].equalsIgnoreCase("spell")) {
-				String playerName = args[1];
-				String spellName = args[2];
-				
-				PlayerData playerData = PlayerDataController.instance.getDataFromUsername(playerName);
-				
-				if (Arrays.asList(playerData.race.getSpells()).contains(spellName)) {
-					playerData.spellData.upLevel(spellName);
-					playerData.saveNBTData(null);
-				} else {
-					player.addChatComponentMessage(new ChatComponentText(playerName + " не может использовать это заклинание!")); // TODO lang
-				}
+			} else {
+				player.addChatComponentMessage(new ChatComponentText("Ты не имеешь расы!")); // TODO lang
 			}
 			
 		} else {

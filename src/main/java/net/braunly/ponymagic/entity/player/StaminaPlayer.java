@@ -18,7 +18,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 public class StaminaPlayer implements IExtendedEntityProperties
 {
 	public final static String NAME = "StaminaPlayer";
-	public final static float DEFAULT_STAMINA = Config.defaultStamina;
+	public final static float DEFAULT_STAMINA = Config.defaultStaminaPool;
 	
 	private final EntityPlayer player;
 	private final DataWatcher dw;

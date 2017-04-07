@@ -1,5 +1,6 @@
 package net.braunly.ponymagic.data;
 
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.race.EnumRace;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +12,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 public class PlayerData implements IExtendedEntityProperties{
 	
 	public LevelData levelData = new LevelData();
+	public SpellData spellData = new SpellData();
 	
 	public NBTTagCompound cloned;
 	
@@ -18,7 +20,7 @@ public class PlayerData implements IExtendedEntityProperties{
 
 	public String playername = "";
 	public String uuid = "";
-	public EnumRace race;
+	public EnumRace race = EnumRace.REGULAR;
 
 
 	@Override
@@ -34,6 +36,7 @@ public class PlayerData implements IExtendedEntityProperties{
 
 	public void setNBT(NBTTagCompound data){
 		levelData.loadNBTData(data);
+		spellData.loadNBTData(data);
 		
 		if(player != null){
 			playername = player.getCommandSenderName();
@@ -53,10 +56,15 @@ public class PlayerData implements IExtendedEntityProperties{
 		}
 		NBTTagCompound compound = new NBTTagCompound();
 		levelData.saveNBTData(compound);
+		spellData.saveNBTData(compound);
 		
 		compound.setString("PlayerName", playername);
 		compound.setString("UUID", uuid);
-		compound.setString("Race", race.name());
+		if (race != null) {
+			compound.setString("Race", race.name());
+		} else {
+			compound.setString("Race", EnumRace.REGULAR.name());
+		}
 		
 		return compound;
 	}

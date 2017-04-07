@@ -1,29 +1,24 @@
 package net.braunly.ponymagic.race;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum EnumRace {
-	Regular, Pegas, Unicorn, Earthpony, Zebra;
+	REGULAR("Регуляр", new String[]{}),
+	PEGAS("Пегас", new String[]{""}),
+	UNICORN("Единорог", new String[]{""}),
+	EARTHPONY("Земнопони", new String[]{""}),
+	ZEBRA("Зебра", new String[]{"antidote", "climbing"});
 	
-//	regular("Regular", 0),
-//	pegas("Pegas", 1),
-//	unicorn("Unicorn", 2),
-//	earthpony("Earthpony", 3),
-//	zebra("Zebra", 4);
-//	
-//	private final String name;
-//	private final Integer id;
-//	
-//	private EnumRace(String name, Integer id) {
-//		this.name = name;
-//		this.id = id;
-//	}
-//	
-//	public int getId() {
-//		return this.id;
-//	}
-//	
-//	public String getName() {
-//		return this.name();
-//	}
+
+	private final String[] spells;
+	private final String localizedName;
+
+	private EnumRace(String localizedName, String[] spells) {
+		this.localizedName = localizedName;  // TODO lang file
+		this.spells = spells;
+	}
+
 	
 	public static EnumRace getById(Integer id) {
 		return EnumRace.values()[id];
@@ -35,7 +30,15 @@ public enum EnumRace {
 				return race;
 			}
 		}
-		return EnumRace.Regular;
+		return null;
+	}
+	
+	public String getLocalizedName() {
+		return this.localizedName;
+	}
+	
+	public String[] getSpells() {
+		return this.spells;
 	}
 
 }

@@ -12,6 +12,7 @@ import net.braunly.ponymagic.KeyBindings;
 import net.braunly.ponymagic.KeyInputHandler;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.PonyMagicModPermissions;
+import net.braunly.ponymagic.command.CommandCast;
 import net.braunly.ponymagic.command.CommandMagic;
 import net.braunly.ponymagic.command.CommandStamina;
 import net.braunly.ponymagic.config.Config;
@@ -23,6 +24,7 @@ import net.braunly.ponymagic.event.PlaceEventHandler;
 import net.braunly.ponymagic.exp.Exp;
 import net.braunly.ponymagic.network.packets.FreezePacket;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
+import net.braunly.ponymagic.spell.SpellAntidote;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
@@ -59,12 +61,22 @@ public class CommonProxy {
 		
     	PonyMagic.log.info("Experience loading...");
 		new Exp().load();
+		
+		initSpells();
     }
+    
+	public void serverStarting(FMLServerStartingEvent event) 
+	{
+		event.registerServerCommand(new CommandCast());
+		event.registerServerCommand(new CommandMagic());
+    	event.registerServerCommand(new CommandStamina());
+	}
 
 	public void registerRenderers() {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 	public EntityPlayer getPlayerFromMessageContext(MessageContext ctx)
 	{
@@ -84,10 +96,8 @@ public class CommonProxy {
         }
         return null;
 	}
-
-	public void serverStarting(FMLServerStartingEvent event) 
-	{
-		event.registerServerCommand(new CommandMagic());
-    	event.registerServerCommand(new CommandStamina());
-	}	
+	
+	private void initSpells() {
+		PonyMagic.spells.put("antidote", new SpellAntidote());
+	}
 }

@@ -28,55 +28,55 @@ public class FlyEventHandler
 	
 	public FlyEventHandler() {	}
 
-	@SubscribeEvent
-	public void handlePlayerUpdate(LivingUpdateEvent event) 
-	{
-		if (!(event.entity instanceof EntityPlayer)) return;
-
-		EntityPlayer player = (EntityPlayer) event.entity;
-		StaminaPlayer props = StaminaPlayer.get(player);
-
-		if (props != null && !player.capabilities.isCreativeMode) 
-		{
-			fly = props.getFly();
-			hasP = PonyMagicModPermissions.hasPermission(player, PonyMagicModPermissions.PEGAS);
-			if (hasP)
-			{
-				if (props.getStaminaValue(StaminaType.CURRENT) > Config.flyEnableValue && !fly) {
-					props.setFly(true);
-					player.capabilities.allowFlying = true;
-					player.sendPlayerAbilities();
-				}
-
-				if (player.capabilities.isFlying) {
-					player.addExhaustion(0.016F);  // FIXME в конфиг
-					props.addToQueue(StaminaType.CURRENT, -1 * Config.flySpendingValue);  // 0.8 stps
-				}
-				if (props.getStaminaValue(StaminaType.CURRENT) < Config.flyDisableValue && fly) {
-					props.setFly(false);
-					player.fallDistance = 0;
-					player.capabilities.isFlying = false;
-					player.capabilities.allowFlying = false;
-					player.sendPlayerAbilities();
-				}
-			}
-			
-			if (player.onGround) {
-				if (player.getFoodStats().getFoodLevel() > Config.highFoodLevel){
-					props.addToQueue(StaminaType.CURRENT, Config.regenerationValue);
-				} else if (player.getFoodStats().getFoodLevel() > Config.lowFoodLevel){
-					props.addToQueue(StaminaType.CURRENT, Config.lowFoodRegenValue);
-				}
-			} else if (player.isInWater() && player.getFoodStats().getFoodLevel() > Config.lowFoodLevel) {
-				props.addToQueue(StaminaType.CURRENT, Config.waterRegenValue);
-			}
-
-			if (player.getFoodStats().getFoodLevel() <= Config.lowFoodLevel && Config.burnStaminaWhenHungry) {
-				props.zero();
-			}
-			props.update();
-		}
-	}
+//	@SubscribeEvent
+//	public void handlePlayerUpdate(LivingUpdateEvent event) 
+//	{
+//		if (!(event.entity instanceof EntityPlayer)) return;
+//
+//		EntityPlayer player = (EntityPlayer) event.entity;
+//		StaminaPlayer props = StaminaPlayer.get(player);
+//
+//		if (props != null && !player.capabilities.isCreativeMode) 
+//		{
+//			fly = props.getFly();
+//			hasP = PonyMagicModPermissions.hasPermission(player, PonyMagicModPermissions.PEGAS);
+//			if (hasP)
+//			{
+//				if (props.getStaminaValue(StaminaType.CURRENT) > Config.flyEnableValue && !fly) {
+//					props.setFly(true);
+//					player.capabilities.allowFlying = true;
+//					player.sendPlayerAbilities();
+//				}
+//
+//				if (player.capabilities.isFlying) {
+//					player.addExhaustion(0.016F);  // FIXME в конфиг
+//					props.addToQueue(StaminaType.CURRENT, -1 * Config.flySpendingValue);  // 0.8 stps
+//				}
+//				if (props.getStaminaValue(StaminaType.CURRENT) < Config.flyDisableValue && fly) {
+//					props.setFly(false);
+//					player.fallDistance = 0;
+//					player.capabilities.isFlying = false;
+//					player.capabilities.allowFlying = false;
+//					player.sendPlayerAbilities();
+//				}
+//			}
+//			
+//			if (player.onGround) {
+//				if (player.getFoodStats().getFoodLevel() > Config.highFoodLevel){
+//					props.addToQueue(StaminaType.CURRENT, Config.regenerationValue);
+//				} else if (player.getFoodStats().getFoodLevel() > Config.lowFoodLevel){
+//					props.addToQueue(StaminaType.CURRENT, Config.lowFoodRegenValue);
+//				}
+//			} else if (player.isInWater() && player.getFoodStats().getFoodLevel() > Config.lowFoodLevel) {
+//				props.addToQueue(StaminaType.CURRENT, Config.waterRegenValue);
+//			}
+//
+//			if (player.getFoodStats().getFoodLevel() <= Config.lowFoodLevel && Config.burnStaminaWhenHungry) {
+//				props.zero();
+//			}
+//			props.update();
+//		}
+//	}
 	
 	@SubscribeEvent
 	public void livingDeath(LivingDeathEvent event){

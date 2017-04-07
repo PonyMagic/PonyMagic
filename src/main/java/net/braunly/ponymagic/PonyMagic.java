@@ -1,5 +1,8 @@
 package net.braunly.ponymagic;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +19,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.proxy.CommonProxy;
+import net.braunly.ponymagic.spell.Spell;
 
 @Mod(modid = PonyMagic.MODID, version = PonyMagic.VERSION, useMetadata = true)
 public class PonyMagic 
@@ -25,17 +29,17 @@ public class PonyMagic
 	public static final String CLIENTPROXY = "net.braunly.ponymagic.proxy.ClientProxy";
 	public static final String COMMONPROXY = "net.braunly.ponymagic.proxy.CommonProxy";
 	
-	public static final int MAX_LVL = 5;
-	
-	public static SimpleNetworkWrapper channel;
+	public static final int MAX_LVL = 15;
 	
     @Instance(MODID)
 	public static PonyMagic instance;
-    
     @SidedProxy(clientSide = CLIENTPROXY, serverSide = COMMONPROXY)
     public static CommonProxy proxy;
-    
     public static Logger log = LogManager.getLogger(MODID);
+    public static SimpleNetworkWrapper channel;
+    
+    public static Map spells = new HashMap<String, Spell>();
+    
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
     	PonyMagic.log.info("Initializing...");
