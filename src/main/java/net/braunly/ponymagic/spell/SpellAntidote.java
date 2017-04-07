@@ -1,10 +1,8 @@
 package net.braunly.ponymagic.spell;
 
-import java.util.List;
-
 import com.tmtravlr.potioncore.PotionCoreHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.braunly.ponymagic.config.Config;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -14,7 +12,8 @@ public class SpellAntidote extends Spell {
 	@Override
 	public boolean castOnSelf(EntityPlayer player, Integer level) {
 		Potion potion = PotionCoreHelper.potions.get("potion.antidote");
-		player.addPotionEffect(new PotionEffect(potion.getId(), 1200, 10));  // TODO config
+		int dur = Config.potions.get("antidote")[0] * 20;
+		player.addPotionEffect(new PotionEffect(potion.getId(), dur, 0));
 		return true;
 	}
 

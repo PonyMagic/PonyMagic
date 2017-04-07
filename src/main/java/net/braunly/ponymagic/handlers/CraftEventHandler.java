@@ -1,4 +1,4 @@
-package net.braunly.ponymagic.event;
+package net.braunly.ponymagic.handlers;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;

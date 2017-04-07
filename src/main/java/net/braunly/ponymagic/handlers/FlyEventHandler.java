@@ -1,4 +1,4 @@
-package net.braunly.ponymagic.event;
+package net.braunly.ponymagic.handlers;
 
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.PonyMagicModPermissions;
