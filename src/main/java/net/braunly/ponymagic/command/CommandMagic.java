@@ -76,6 +76,11 @@ public class CommandMagic extends CommandBase
 				} else {
 					player.addChatComponentMessage(new ChatComponentText(playerName + " не может использовать это заклинание!")); // TODO lang
 				}
+			} else if (args[0].equalsIgnoreCase("test")) {
+				PlayerData playerData = PlayerDataController.instance.getDataFromUsername(player.getCommandSenderName());
+				playerData.race = EnumRace.ZEBRA;
+				playerData.spellData.upLevel("antidote");
+				playerData.saveNBTData(null);
 			}
 			
 		} else {

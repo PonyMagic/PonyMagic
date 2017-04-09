@@ -60,7 +60,12 @@ public class CommandCast extends CommandBase
 				if (Arrays.asList(playerRace.getSpells()).contains(spellName)) {
 					int spellLevel = playerData.spellData.getSpellLevel(spellName);
 					if (spellLevel > 0) {
-						((Spell) PonyMagic.spells.get(spellName)).castOnSelf(player, spellLevel);
+						boolean status = ((Spell) PonyMagic.spells.get(spellName)).castOnSelf((EntityPlayer)player, spellLevel);
+						if (status) {
+							player.addChatComponentMessage(new ChatComponentText("Успешно")); // TODO lang file
+						} else {
+							player.addChatComponentMessage(new ChatComponentText("Не достаточно энергии!")); // TODO lang file
+						}
 					} else {
 						player.addChatComponentMessage(new ChatComponentText("Заклинание не изучено!")); // TODO lang file
 					}

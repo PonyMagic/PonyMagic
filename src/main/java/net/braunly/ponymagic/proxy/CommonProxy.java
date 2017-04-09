@@ -19,10 +19,9 @@ import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.exp.Exp;
 import net.braunly.ponymagic.handlers.CraftEventHandler;
 import net.braunly.ponymagic.handlers.DeathEventHandler;
-import net.braunly.ponymagic.handlers.FlyEventHandler;
+import net.braunly.ponymagic.handlers.StaminaHandler;
 import net.braunly.ponymagic.handlers.MineEventHandler;
 import net.braunly.ponymagic.handlers.PlaceEventHandler;
-import net.braunly.ponymagic.network.packets.FreezePacket;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
 import net.braunly.ponymagic.spell.SpellAntidote;
 import net.minecraft.entity.Entity;
@@ -35,7 +34,6 @@ public class CommonProxy {
     {
     	PonyMagic.channel = NetworkRegistry.INSTANCE.newSimpleChannel(PonyMagic.MODID);
     	PonyMagic.channel.registerMessage(TotalStaminaPacket.class, TotalStaminaPacket.class, 0, Side.CLIENT);
-    	PonyMagic.channel.registerMessage(FreezePacket.class, FreezePacket.class, 1, Side.CLIENT);
 		Config.load(event.getSuggestedConfigurationFile());
     	PonyMagic.log.info("Config loaded!");
     }
@@ -47,7 +45,7 @@ public class CommonProxy {
     	MinecraftForge.EVENT_BUS.register(new MineEventHandler());
     	MinecraftForge.EVENT_BUS.register(new PlaceEventHandler());
     	FMLCommonHandler.instance().bus().register(new CraftEventHandler());
-    	MinecraftForge.EVENT_BUS.register(new FlyEventHandler());
+    	MinecraftForge.EVENT_BUS.register(new StaminaHandler());
     	MinecraftForge.EVENT_BUS.register(new DeathEventHandler());
     	
     	FMLCommonHandler.instance().bus().register(new KeyInputHandler());

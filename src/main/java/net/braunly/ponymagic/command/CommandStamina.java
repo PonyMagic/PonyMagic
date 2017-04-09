@@ -98,44 +98,44 @@ public class CommandStamina extends CommandBase
 				}
 				
 				float value = 0;
-				props = getProps();
 				
 				if (args.length == 2) {
 					player = getCommandSenderAsPlayer(commandSender);			
-					value = (float) parseDoubleBounded(commandSender, args[1], 0, props.getStaminaValue(StaminaType.MAXIMUM));
+					value = (float) parseDoubleWithMin(commandSender, args[1], 0);
 				
 				} else if (args.length == 3) {
 					player = getPlayer(commandSender, args[1]);			
-					value = (float) parseDoubleBounded(commandSender, args[2], 0, props.getStaminaValue(StaminaType.MAXIMUM));
-				
+					value = (float) parseDoubleWithMin(commandSender, args[2], 0);
+			
 				} else {
 					throw new WrongUsageException("commands.stamina.set.usage", new Object[0]);
 				}
 				
+				props = getProps();
 				props.set(StaminaType.CURRENT, value);
 				func_152373_a(commandSender, this, "commands.stamina.set.success", new Object[] {value, player.getCommandSenderName()});
 		
-//			} else if (args[0].equals("setmax")) {
-//				if (args.length < 2) {
-//					throw new WrongUsageException("commands.stamina.setmax.usage", new Object[0]);
-//				}
-//				
-//				float value = 0;
-//				
-//				if (args.length == 2) {
-//					player = getCommandSenderAsPlayer(commandSender);			
-//					value = (float) parseDoubleWithMin(commandSender, args[1], 0);
-//					
-//				} else if (args.length == 3) {
-//					player = getPlayer(commandSender, args[1]);			
-//					value = (float) parseDoubleWithMin(commandSender, args[2], 0);
-//					
-//				} else {
-//					throw new WrongUsageException("commands.stamina.setmax.usage", new Object[0]);
-//				}
-//				props = getProps();
-//				props.set(StaminaType.MAXIMUM, value);
-//				func_152373_a(commandSender, this, "commands.stamina.setmax.success", new Object[] {value, player.getCommandSenderName()});
+			} else if (args[0].equals("setmax")) {
+				if (args.length < 2) {
+					throw new WrongUsageException("commands.stamina.setmax.usage", new Object[0]);
+				}
+				
+				float value = 0;
+				
+				if (args.length == 2) {
+					player = getCommandSenderAsPlayer(commandSender);			
+					value = (float) parseDoubleWithMin(commandSender, args[1], 0);
+					
+				} else if (args.length == 3) {
+					player = getPlayer(commandSender, args[1]);			
+					value = (float) parseDoubleWithMin(commandSender, args[2], 0);
+					
+				} else {
+					throw new WrongUsageException("commands.stamina.setmax.usage", new Object[0]);
+				}
+				props = getProps();
+				props.set(StaminaType.MAXIMUM, value);
+				func_152373_a(commandSender, this, "commands.stamina.setmax.success", new Object[] {value, player.getCommandSenderName()});
 				
 			} else if (args[0].equals("add")) {
 				if (args.length < 2) {
@@ -156,35 +156,8 @@ public class CommandStamina extends CommandBase
 					throw new WrongUsageException("commands.stamina.add.usage", new Object[0]);
 				}
 				props = getProps();
-				props.addToQueue(StaminaType.CURRENT, value);
+				props.add(StaminaType.CURRENT, value);
 				func_152373_a(commandSender, this, "commands.stamina.add.success", new Object[] {value, props.getStaminaValue(StaminaType.CURRENT), player.getCommandSenderName()});
-				
-			} else if (args[0].equals("freeze")) {
-				if (args.length == 1) {
-					throw new WrongUsageException("commands.stamina.freeze.usage", new Object[0]);
-				}
-				
-				boolean value;
-				
-				if (args.length == 2) {
-					player = getCommandSenderAsPlayer(commandSender);
-					value = parseBoolean(commandSender, args[1]);
-					
-				} else if (args.length == 3) {
-					player = getPlayer(commandSender, args[1]);
-					value = parseBoolean(commandSender, args[2]);
-					
-				} else {
-					throw new WrongUsageException("commands.stamina.freeze.usage", new Object[0]);
-				}
-
-				props = getProps();
-				props.setFrozen(StaminaType.CURRENT, value);
-				if (value) {
-					func_152373_a(commandSender, this, "commands.stamina.freeze.success.freeze", new Object[] {player.getCommandSenderName()});
-				} else {
-					func_152373_a(commandSender, this, "commands.stamina.freeze.success.unfreeze", new Object[] {player.getCommandSenderName()});
-				}
 				
 			} else {
 				throw new WrongUsageException("commands.stamina.usage", new Object[0]);

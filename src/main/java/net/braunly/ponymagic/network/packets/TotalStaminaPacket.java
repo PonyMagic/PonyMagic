@@ -25,7 +25,7 @@ public class TotalStaminaPacket implements IMessage, IMessageHandler<TotalStamin
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		totalStamina = buf.readInt();
+		totalStamina = buf.readFloat();
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class TotalStaminaPacket implements IMessage, IMessageHandler<TotalStamin
 		EntityPlayer player = PonyMagic.proxy.getPlayerFromMessageContext(ctx);
 		if (ctx.side == Side.CLIENT) {
 			StaminaPlayer props = StaminaPlayer.get(player);
-			props.set(StaminaType.STAMINA, totalStamina);
+			props.set(StaminaType.MAXIMUM, totalStamina);
 		}
 		return null;
 	}
