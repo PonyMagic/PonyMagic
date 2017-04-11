@@ -9,20 +9,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class SpellAntidote extends Spell {
+public class SpellJump extends Spell {
 	
-	public SpellAntidote() {
-		this.spellName = "antidote";
+	public SpellJump() {
+		this.spellName = "jump";
 	}
 
 	@Override
 	public boolean castOnSelf(EntityPlayer player, Integer level) {
-		Potion potion = PotionCoreHelper.potions.get("potion." + spellName);
 		StaminaPlayer props = StaminaPlayer.get(player);
 		if (props.remove(StaminaType.CURRENT, Config.potions.get(spellName)[1])) {
 			int dur = Config.potions.get(spellName)[0] * 20;
 			int lvl = Config.potions.get(spellName)[2] - 1;
-			player.addPotionEffect(new PotionEffect(potion.getId(), dur, lvl));
+			player.addPotionEffect(new PotionEffect(8, dur, lvl));
 			return true;
 		}
 		return false;

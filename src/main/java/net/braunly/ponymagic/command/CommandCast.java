@@ -51,7 +51,7 @@ public class CommandCast extends CommandBase
 				throw new WrongUsageException("commands.cast.usage", new Object[0]);
 			}
 			
-			String spellName = args[0];
+			String spellName = args[0].toLowerCase();
 			
 			PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
 			EnumRace playerRace = playerData.race;

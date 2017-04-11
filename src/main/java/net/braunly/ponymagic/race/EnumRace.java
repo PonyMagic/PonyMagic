@@ -6,9 +6,12 @@ import java.util.List;
 public enum EnumRace {
 	REGULAR("Регуляр", new String[]{}),
 	PEGAS("Пегас", new String[]{""}),
-	UNICORN("Единорог", new String[]{""}),
-	EARTHPONY("Земнопони", new String[]{""}),
-	ZEBRA("Зебра", new String[]{"antidote", "climbing"});
+	UNICORN("Единорог", new String[]{"fireresistance"}),
+	EARTHPONY("Земнопони", new String[]{"jump"}),
+	ZEBRA("Зебра", new String[]{"jump",
+			"dispel", "fireresistance", "drowning",
+			"slow", "purity", "nightvision",
+			"vulnerability", "antidote", "climbing"});
 	
 
 	private final String[] spells;

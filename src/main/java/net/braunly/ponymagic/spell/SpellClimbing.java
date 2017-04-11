@@ -9,12 +9,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class SpellAntidote extends Spell {
-	
-	public SpellAntidote() {
-		this.spellName = "antidote";
-	}
+public class SpellClimbing extends Spell {
 
+	public SpellClimbing() {
+		this.spellName = "climbing";
+	}
+	
 	@Override
 	public boolean castOnSelf(EntityPlayer player, Integer level) {
 		Potion potion = PotionCoreHelper.potions.get("potion." + spellName);

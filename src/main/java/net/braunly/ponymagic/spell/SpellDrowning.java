@@ -9,10 +9,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class SpellAntidote extends Spell {
+public class SpellDrowning extends Spell {
 	
-	public SpellAntidote() {
-		this.spellName = "antidote";
+	public SpellDrowning() {
+		this.spellName = "drowning";
 	}
 
 	@Override

@@ -24,6 +24,15 @@ import net.braunly.ponymagic.handlers.MineEventHandler;
 import net.braunly.ponymagic.handlers.PlaceEventHandler;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
 import net.braunly.ponymagic.spell.SpellAntidote;
+import net.braunly.ponymagic.spell.SpellClimbing;
+import net.braunly.ponymagic.spell.SpellDispel;
+import net.braunly.ponymagic.spell.SpellDrowning;
+import net.braunly.ponymagic.spell.SpellFireResistance;
+import net.braunly.ponymagic.spell.SpellJump;
+import net.braunly.ponymagic.spell.SpellNightVision;
+import net.braunly.ponymagic.spell.SpellPurity;
+import net.braunly.ponymagic.spell.SpellSlow;
+import net.braunly.ponymagic.spell.SpellVulnerability;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
@@ -97,5 +106,14 @@ public class CommonProxy {
 	
 	private void initSpells() {
 		PonyMagic.spells.put("antidote", new SpellAntidote());
+		PonyMagic.spells.put("climbing", new SpellClimbing());
+		PonyMagic.spells.put("jump", new SpellJump());
+		PonyMagic.spells.put("dispel", new SpellDispel());
+		PonyMagic.spells.put("fireresistance", new SpellFireResistance());
+		PonyMagic.spells.put("drowning", new SpellDrowning());
+		PonyMagic.spells.put("slow", new SpellSlow());
+		PonyMagic.spells.put("purity", new SpellPurity());
+		PonyMagic.spells.put("nightvision", new SpellNightVision());
+		PonyMagic.spells.put("vulnerability", new SpellVulnerability());
 	}
 }
