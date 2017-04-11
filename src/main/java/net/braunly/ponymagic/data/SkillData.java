@@ -46,6 +46,13 @@ public class SkillData {
 		}
 		return skillData.get(name);
 	}
+	
+	public boolean isSkillLearned(String skillName) {
+		if (getSkillLevel(skillName) > 0) {
+			return true;
+		}
+		return false;
+	}
 
 	public void upLevel(String name) {
 		skillData.put(name, getSkillLevel(name) + 1);

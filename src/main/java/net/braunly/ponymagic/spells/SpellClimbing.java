@@ -16,7 +16,7 @@ public class SpellClimbing extends Spell {
 	}
 	
 	@Override
-	public boolean castOnSelf(EntityPlayer player, Integer level) {
+	public boolean cast(EntityPlayer player, Integer level) {
 		Potion potion = PotionCoreHelper.potions.get("potion." + spellName);
 		StaminaPlayer props = StaminaPlayer.get(player);
 		if (props.remove(StaminaType.CURRENT, Config.potions.get(spellName)[1])) {
@@ -25,12 +25,6 @@ public class SpellClimbing extends Spell {
 			player.addPotionEffect(new PotionEffect(potion.getId(), dur, lvl));
 			return true;
 		}
-		return false;
-	}
-
-	@Override
-	public boolean castSplash(EntityPlayer player, Integer level, Integer range) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

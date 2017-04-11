@@ -9,21 +9,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class SpellJump extends Spell {
+public class SpellWorkbench extends Spell {
 	
-	public SpellJump() {
-		this.spellName = "jump";
+	public SpellWorkbench() {
+		this.spellName = "workbench";
 	}
 
 	@Override
 	public boolean cast(EntityPlayer player, Integer level) {
-		StaminaPlayer props = StaminaPlayer.get(player);
-		if (props.remove(StaminaType.CURRENT, Config.potions.get(spellName)[1])) {
-			int dur = Config.potions.get(spellName)[0] * 20;
-			int lvl = Config.potions.get(spellName)[2] - 1;
-			player.addPotionEffect(new PotionEffect(Potion.jump.getId(), dur, lvl));
-			return true;
-		}
-		return false;
+		player.displayGUIWorkbench((int)player.posX, (int)player.posY, (int)player.posZ);
+		return true;
 	}
 }

@@ -33,6 +33,7 @@ import net.braunly.ponymagic.spells.SpellNightVision;
 import net.braunly.ponymagic.spells.SpellPurity;
 import net.braunly.ponymagic.spells.SpellSlow;
 import net.braunly.ponymagic.spells.SpellVulnerability;
+import net.braunly.ponymagic.spells.SpellWorkbench;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
@@ -115,5 +116,6 @@ public class CommonProxy {
 		PonyMagic.spells.put("purity", new SpellPurity());
 		PonyMagic.spells.put("nightvision", new SpellNightVision());
 		PonyMagic.spells.put("vulnerability", new SpellVulnerability());
+		PonyMagic.spells.put("workbench", new SpellWorkbench());
 	}
 }

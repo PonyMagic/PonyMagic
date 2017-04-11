@@ -16,7 +16,7 @@ public class SpellNightVision extends Spell {
 	}
 
 	@Override
-	public boolean castOnSelf(EntityPlayer player, Integer level) {
+	public boolean cast(EntityPlayer player, Integer level) {
 		StaminaPlayer props = StaminaPlayer.get(player);
 		if (props.remove(StaminaType.CURRENT, Config.potions.get(spellName)[1])) {
 			int dur = Config.potions.get(spellName)[0] * 20;
@@ -24,12 +24,6 @@ public class SpellNightVision extends Spell {
 			player.addPotionEffect(new PotionEffect(Potion.nightVision.getId(), dur, lvl));
 			return true;
 		}
-		return false;
-	}
-
-	@Override
-	public boolean castSplash(EntityPlayer player, Integer level, Integer range) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }
