@@ -21,7 +21,7 @@ public class SpellJump extends Spell {
 		if (props.remove(StaminaType.CURRENT, Config.potions.get(spellName)[1])) {
 			int dur = Config.potions.get(spellName)[0] * 20;
 			int lvl = Config.potions.get(spellName)[2] - 1;
-			player.addPotionEffect(new PotionEffect(8, dur, lvl));
+			player.addPotionEffect(new PotionEffect(Potion.jump.getId(), dur, lvl));
 			return true;
 		}
 		return false;
