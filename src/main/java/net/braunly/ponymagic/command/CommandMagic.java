@@ -8,7 +8,7 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.race.EnumRace;
-import net.braunly.ponymagic.spell.Spell;
+import net.braunly.ponymagic.spells.Spell;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -71,7 +71,7 @@ public class CommandMagic extends CommandBase
 				PlayerData playerData = PlayerDataController.instance.getDataFromUsername(playerName);
 				
 				if (Arrays.asList(playerData.race.getSpells()).contains(spellName)) {
-					playerData.spellData.upLevel(spellName);
+					playerData.skillData.upLevel(spellName);
 					playerData.saveNBTData(null);
 				} else {
 					player.addChatComponentMessage(new ChatComponentText(playerName + " не может использовать это заклинание!")); // TODO lang
@@ -79,7 +79,7 @@ public class CommandMagic extends CommandBase
 			} else if (args[0].equalsIgnoreCase("test")) {
 				PlayerData playerData = PlayerDataController.instance.getDataFromUsername(player.getCommandSenderName());
 				playerData.race = EnumRace.ZEBRA;
-				playerData.spellData.upLevel("fireresistance");
+				playerData.skillData.upLevel("fireresistance");
 				playerData.saveNBTData(null);
 			}
 			

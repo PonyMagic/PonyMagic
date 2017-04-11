@@ -1,4 +1,4 @@
-package net.braunly.ponymagic.spell;
+package net.braunly.ponymagic.spells;
 
 import com.tmtravlr.potioncore.PotionCoreHelper;
 

@@ -1,4 +1,4 @@
-package net.braunly.ponymagic.spell;
+package net.braunly.ponymagic.spells;
 
 import com.tmtravlr.potioncore.PotionCoreHelper;
 
@@ -9,10 +9,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class SpellDrowning extends Spell {
+public class SpellDispel extends Spell {
 	
-	public SpellDrowning() {
-		this.spellName = "drowning";
+	public SpellDispel() {
+		this.spellName = "dispel";
 	}
 
 	@Override

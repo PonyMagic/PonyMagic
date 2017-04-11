@@ -8,12 +8,13 @@ import net.minecraftforge.common.config.Configuration;
 
 public class Config {
 	
+	public static boolean expModifier;
+	public static float expModifierAmount;
+	
 	public static float defaultStaminaPool;
 	public static float defaultStaminaRegen;
-	
 	public static float lowFoodStaminaRegen;
 	public static float waterStaminaRegen;
-	
 	public static boolean burnStaminaWhenHungry;
 	public static int highFoodLevel;
 	public static int lowFoodLevel;
@@ -25,14 +26,18 @@ public class Config {
 		Configuration config = new Configuration(file);
 		config.load();
 		
-		defaultStaminaPool = config.getFloat("defaultStaminaPool", "Главное", 100.0F, 0.0F, 1000.0F, "Стандартное значение стамины");
-		defaultStaminaRegen = config.getFloat("defaultStaminaRegen", "Главное", 0.15F, 0.0F, 100.0F, "Стандартный реген в тик");
-		waterStaminaRegen = config.getFloat("waterStaminaRegen", "Главное", 0.025F, 0.0F, 100.0F, "Реген в воде в тик");
+		// Опыт
+		expModifier = config.getBoolean("expModifier", "Опыт", false, "Использовать модификатор опыта?");
+		expModifierAmount = config.getFloat("expModifierAmount", "Опыт", 1.0F, 0.0F, 100.0F, "Модификатор опыта");
 		
-		burnStaminaWhenHungry = config.getBoolean("burnStaminaWhenHungry", "Еда", true, "Обнулить стамину при голоде");
-		lowFoodStaminaRegen = config.getFloat("lowFoodStaminaRegen", "Еда", 0.05F, 0.0F, 100.0F, "Реген в тик при низком голоде");
-		highFoodLevel = config.getInt("highFoodLevel", "Еда", 12, 0, 20, "Уменьшить реген, если голода меньше");
-		lowFoodLevel = config.getInt("lowFoodLevel", "Еда", 6, 0, 20, "Отключить реген, если голода меньше");
+		// Stamina
+		defaultStaminaPool = config.getFloat("defaultStaminaPool", "Стамина", 100.0F, 0.0F, 1000.0F, "Стандартное значение стамины");
+		defaultStaminaRegen = config.getFloat("defaultStaminaRegen", "Стамина", 0.15F, 0.0F, 100.0F, "Стандартный реген в тик");
+		waterStaminaRegen = config.getFloat("waterStaminaRegen", "Стамина", 0.025F, 0.0F, 100.0F, "Реген в воде в тик");
+		burnStaminaWhenHungry = config.getBoolean("burnStaminaWhenHungry", "Стамина", true, "Обнулить стамину при голоде");
+		lowFoodStaminaRegen = config.getFloat("lowFoodStaminaRegen", "Стамина", 0.05F, 0.0F, 100.0F, "Реген в тик при низком голоде");
+		highFoodLevel = config.getInt("highFoodLevel", "Стамина", 12, 0, 20, "Уменьшить реген, если голода меньше");
+		lowFoodLevel = config.getInt("lowFoodLevel", "Стамина", 6, 0, 20, "Отключить реген, если голода меньше");
 		
 		// POTIONS
 		potions.put("jump", new Integer[] {

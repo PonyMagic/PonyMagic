@@ -8,7 +8,7 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.race.EnumRace;
-import net.braunly.ponymagic.spell.Spell;
+import net.braunly.ponymagic.spells.Spell;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -58,7 +58,7 @@ public class CommandCast extends CommandBase
 			
 			if (playerRace != null && playerRace != EnumRace.REGULAR) {
 				if (Arrays.asList(playerRace.getSpells()).contains(spellName)) {
-					int spellLevel = playerData.spellData.getSpellLevel(spellName);
+					int spellLevel = playerData.skillData.getSkillLevel(spellName);
 					if (spellLevel > 0) {
 						boolean status = ((Spell) PonyMagic.spells.get(spellName)).castOnSelf((EntityPlayer)player, spellLevel);
 						if (status) {

@@ -19,7 +19,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.proxy.CommonProxy;
-import net.braunly.ponymagic.spell.Spell;
+import net.braunly.ponymagic.spells.Spell;
 
 @Mod(modid = PonyMagic.MODID, version = PonyMagic.VERSION, useMetadata = true)
 public class PonyMagic 

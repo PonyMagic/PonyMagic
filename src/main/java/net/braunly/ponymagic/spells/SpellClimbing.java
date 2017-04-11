@@ -1,4 +1,4 @@
-package net.braunly.ponymagic.spell;
+package net.braunly.ponymagic.spells;
 
 import com.tmtravlr.potioncore.PotionCoreHelper;
 
@@ -9,12 +9,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class SpellVulnerability extends Spell {
-	
-	public SpellVulnerability() {
-		this.spellName = "vulnerability";
-	}
+public class SpellClimbing extends Spell {
 
+	public SpellClimbing() {
+		this.spellName = "climbing";
+	}
+	
 	@Override
 	public boolean castOnSelf(EntityPlayer player, Integer level) {
 		Potion potion = PotionCoreHelper.potions.get("potion." + spellName);

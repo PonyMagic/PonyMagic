@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import net.braunly.ponymagic.PonyMagic;
+import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.data.LevelData;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataController;
@@ -72,11 +73,16 @@ public class Exp {
 		
 		
 		if (levelData.getLevel() < PonyMagic.MAX_LVL) {
+			if (Config.expModifier) {
+				expCount *= Config.expModifierAmount;
+			}
 			levelData.increaseExp(expCount);
 			
 			if (levelData.getExp() >= Exp.lvlExp.get(levelData.getLevel())) {
-				levelData.upFreeSkillPoints();
 				levelData.upLevel();
+			}
+			if (levelData.getLevel() % 3 == 0) {
+				levelData.upFreeSkillPoints();
 			}
 		}
 		

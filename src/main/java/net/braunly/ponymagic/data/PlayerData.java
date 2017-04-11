@@ -12,7 +12,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 public class PlayerData implements IExtendedEntityProperties{
 	
 	public LevelData levelData = new LevelData();
-	public SpellData spellData = new SpellData();
+	public SkillData skillData = new SkillData();
 	
 	public NBTTagCompound cloned;
 	
@@ -36,7 +36,7 @@ public class PlayerData implements IExtendedEntityProperties{
 
 	public void setNBT(NBTTagCompound data){
 		levelData.loadNBTData(data);
-		spellData.loadNBTData(data);
+		skillData.loadNBTData(data);
 		
 		if(player != null){
 			playername = player.getCommandSenderName();
@@ -56,7 +56,7 @@ public class PlayerData implements IExtendedEntityProperties{
 		}
 		NBTTagCompound compound = new NBTTagCompound();
 		levelData.saveNBTData(compound);
-		spellData.saveNBTData(compound);
+		skillData.saveNBTData(compound);
 		
 		compound.setString("PlayerName", playername);
 		compound.setString("UUID", uuid);

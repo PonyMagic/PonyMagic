@@ -1,4 +1,4 @@
-package net.braunly.ponymagic.spell;
+package net.braunly.ponymagic.spells;
 
 import com.tmtravlr.potioncore.PotionCoreHelper;
 
@@ -9,10 +9,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class SpellFireResistance extends Spell {
+public class SpellSlow extends Spell {
 	
-	public SpellFireResistance() {
-		this.spellName = "fireResistance";
+	public SpellSlow() {
+		this.spellName = "slow";
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class SpellFireResistance extends Spell {
 		if (props.remove(StaminaType.CURRENT, Config.potions.get(spellName)[1])) {
 			int dur = Config.potions.get(spellName)[0] * 20;
 			int lvl = Config.potions.get(spellName)[2] - 1;
-			player.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), dur, lvl));
+			player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), dur, lvl));
 			return true;
 		}
 		return false;

@@ -1,4 +1,4 @@
-package net.braunly.ponymagic.spell;
+package net.braunly.ponymagic.spells;
 
 import com.tmtravlr.potioncore.PotionCoreHelper;
 
@@ -9,20 +9,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class SpellClimbing extends Spell {
-
-	public SpellClimbing() {
-		this.spellName = "climbing";
-	}
+public class SpellNightVision extends Spell {
 	
+	public SpellNightVision() {
+		this.spellName = "nightVision";
+	}
+
 	@Override
 	public boolean castOnSelf(EntityPlayer player, Integer level) {
-		Potion potion = PotionCoreHelper.potions.get("potion." + spellName);
 		StaminaPlayer props = StaminaPlayer.get(player);
 		if (props.remove(StaminaType.CURRENT, Config.potions.get(spellName)[1])) {
 			int dur = Config.potions.get(spellName)[0] * 20;
 			int lvl = Config.potions.get(spellName)[2] - 1;
-			player.addPotionEffect(new PotionEffect(potion.getId(), dur, lvl));
+			player.addPotionEffect(new PotionEffect(Potion.nightVision.getId(), dur, lvl));
 			return true;
 		}
 		return false;
