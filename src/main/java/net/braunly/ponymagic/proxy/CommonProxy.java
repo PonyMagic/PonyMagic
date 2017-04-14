@@ -23,17 +23,8 @@ import net.braunly.ponymagic.handlers.StaminaHandler;
 import net.braunly.ponymagic.handlers.MineEventHandler;
 import net.braunly.ponymagic.handlers.PlaceEventHandler;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
-import net.braunly.ponymagic.spells.SpellAntidote;
-import net.braunly.ponymagic.spells.SpellClimbing;
-import net.braunly.ponymagic.spells.SpellDispel;
-import net.braunly.ponymagic.spells.SpellDrowning;
-import net.braunly.ponymagic.spells.SpellFireResistance;
-import net.braunly.ponymagic.spells.SpellJump;
-import net.braunly.ponymagic.spells.SpellNightVision;
-import net.braunly.ponymagic.spells.SpellPurity;
-import net.braunly.ponymagic.spells.SpellSlow;
-import net.braunly.ponymagic.spells.SpellVulnerability;
-import net.braunly.ponymagic.spells.SpellWorkbench;
+import net.braunly.ponymagic.spells.SpellPotion;
+import net.braunly.ponymagic.spells.SpellPotionSplash;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
@@ -106,16 +97,15 @@ public class CommonProxy {
 	}
 	
 	private void initSpells() {
-		PonyMagic.spells.put("antidote", new SpellAntidote());
-		PonyMagic.spells.put("climbing", new SpellClimbing());
-		PonyMagic.spells.put("jump", new SpellJump());
-		PonyMagic.spells.put("dispel", new SpellDispel());
-		PonyMagic.spells.put("fireresistance", new SpellFireResistance());
-		PonyMagic.spells.put("drowning", new SpellDrowning());
-		PonyMagic.spells.put("slow", new SpellSlow());
-		PonyMagic.spells.put("purity", new SpellPurity());
-		PonyMagic.spells.put("nightvision", new SpellNightVision());
-		PonyMagic.spells.put("vulnerability", new SpellVulnerability());
-		PonyMagic.spells.put("workbench", new SpellWorkbench());
+		PonyMagic.spells.put("antidote", new SpellPotion("antidote"));
+		PonyMagic.spells.put("climbing", new SpellPotion("climbing"));
+		PonyMagic.spells.put("jump", new SpellPotion("jump", 8));
+		PonyMagic.spells.put("dispel", new SpellPotion("dispel"));
+		PonyMagic.spells.put("fireresistance", new SpellPotion("fireResistance", 12));
+		PonyMagic.spells.put("drowning", new SpellPotion("drowning"));
+		PonyMagic.spells.put("slow", new SpellPotionSplash("slow", 2, 2));
+		PonyMagic.spells.put("purity", new SpellPotion("purity"));
+		PonyMagic.spells.put("nightvision", new SpellPotion("nightVision", 16));
+		PonyMagic.spells.put("vulnerability", new SpellPotion("vulnerability"));
 	}
 }
