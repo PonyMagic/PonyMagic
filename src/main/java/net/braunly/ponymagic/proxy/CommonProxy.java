@@ -23,6 +23,7 @@ import net.braunly.ponymagic.handlers.StaminaHandler;
 import net.braunly.ponymagic.handlers.MineEventHandler;
 import net.braunly.ponymagic.handlers.PlaceEventHandler;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
+import net.braunly.ponymagic.spells.SpellGrow;
 import net.braunly.ponymagic.spells.SpellPotion;
 import net.braunly.ponymagic.spells.SpellPotionSplash;
 import net.minecraft.entity.Entity;
@@ -97,15 +98,20 @@ public class CommonProxy {
 	}
 	
 	private void initSpells() {
+		// Potions
 		PonyMagic.spells.put("antidote", new SpellPotion("antidote"));
-		PonyMagic.spells.put("climbing", new SpellPotion("climbing"));
+		PonyMagic.spells.put("climb", new SpellPotion("climb"));
 		PonyMagic.spells.put("jump", new SpellPotion("jump", 8));
 		PonyMagic.spells.put("dispel", new SpellPotion("dispel"));
 		PonyMagic.spells.put("fireresistance", new SpellPotion("fireResistance", 12));
-		PonyMagic.spells.put("drowning", new SpellPotion("drowning"));
+		PonyMagic.spells.put("drown", new SpellPotion("drown"));
 		PonyMagic.spells.put("slow", new SpellPotionSplash("slow", 2, 2));
 		PonyMagic.spells.put("purity", new SpellPotion("purity"));
 		PonyMagic.spells.put("nightvision", new SpellPotion("nightVision", 16));
-		PonyMagic.spells.put("vulnerability", new SpellPotion("vulnerability"));
+		PonyMagic.spells.put("vulnerable", new SpellPotion("vulnerable"));
+		PonyMagic.spells.put("stepup", new SpellPotion("stepUp"));
+		
+		// Spells
+		PonyMagic.spells.put("grow", new SpellGrow("grow"));
 	}
 }

@@ -8,11 +8,12 @@ public enum EnumRace {
 	PEGAS("Пегас", new String[]{""}),
 	UNICORN("Единорог", new String[]{"fireresistance"}),
 	EARTHPONY("Земнопони", new String[]{"jump",
-			"workbench"}),
+			"stepup",
+			"grow"}),
 	ZEBRA("Зебра", new String[]{"jump",
-			"dispel", "fireresistance", "drowning",
+			"dispel", "fireresistance", "drown",
 			"slow", "purity", "nightvision",
-			"vulnerability", "antidote", "climbing"});
+			"vulnerable", "antidote", "climb"});
 	
 
 	private final String[] spells;

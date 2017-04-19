@@ -12,7 +12,11 @@ public class KillEntity extends Exp {
 	public static HashMap<String, Double> exp = new HashMap<String, Double>();
 	
 	public static void process(Entity entity, EntityPlayer player) {
-		double expCount = exp.get(EntityList.getEntityString(entity));
-		addExp(player, expCount);
+		try {
+			double expCount = exp.get(EntityList.getEntityString(entity));
+			addExp(player, expCount);
+		} catch (NullPointerException e) {
+			
+		}
 	}
 }

@@ -14,8 +14,8 @@ public class SpellPotion extends Spell {
 	private int potionId;
 	
 	public SpellPotion(String potionName) {
-		this.spellName = potionName.substring(7);
-		this.potionId = PotionCoreHelper.potions.get(potionName).getId();
+		this.spellName = potionName;
+		this.potionId = PotionCoreHelper.potions.get("potion." + potionName.toLowerCase()).getId();
 	}
 	
 	// For vanilla potions

@@ -9,7 +9,11 @@ public class PlaceBlock extends Exp {
 	public static HashMap<Integer, Double> exp = new HashMap<Integer, Double>();
 	
 	public static void process(Block block, EntityPlayer player) {
-		double expCount = exp.get(Block.getIdFromBlock(block));
-		addExp(player, expCount);
+		try {
+			double expCount = exp.get(Block.getIdFromBlock(block));
+			addExp(player, expCount);
+		} catch (NullPointerException e) {
+			
+		}
 	}
 }

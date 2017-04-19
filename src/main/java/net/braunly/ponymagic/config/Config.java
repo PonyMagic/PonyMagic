@@ -20,6 +20,7 @@ public class Config {
 	public static int lowFoodLevel;
 	
 	public static Map<String, Integer[]> potions = new HashMap<String, Integer[]>();
+	public static Map<String, Integer[]> spells = new HashMap<String, Integer[]>();
 	
 	
 	public static void load(File file){
@@ -50,10 +51,10 @@ public class Config {
 				config.getInt("antidoteStamina", "Potions", 30, 0, 100, "Стамина за antidote."),
 				config.getInt("antidoteLvl", "Potions", 1, 1, 5, "Уровень эффекта antidote.")
 		});
-		potions.put("climbing", new Integer[] {
-				config.getInt("climbingDur", "Potions", 60, 0, 600, "Длительность climbing. (сек)"),
-				config.getInt("climbingStamina", "Potions", 30, 0, 100, "Стамина за climbing."),
-				config.getInt("climbingLvl", "Potions", 1, 1, 5, "Уровень эффекта climbing.")
+		potions.put("climb", new Integer[] {
+				config.getInt("climbDur", "Potions", 60, 0, 600, "Длительность climb. (сек)"),
+				config.getInt("climbStamina", "Potions", 30, 0, 100, "Стамина за climb."),
+				config.getInt("climbLvl", "Potions", 1, 1, 5, "Уровень эффекта climb.")
 		});
 		potions.put("dispel", new Integer[] {
 				config.getInt("dispelDur", "Potions", 1, 0, 600, "Длительность dispel. (сек)"),
@@ -65,10 +66,10 @@ public class Config {
 				config.getInt("fireResistanceStamina", "Potions", 60, 0, 100, "Стамина за fireResistance."),
 				config.getInt("fireResistanceLvl", "Potions", 1, 1, 5, "Уровень эффекта fireResistance.")
 		});
-		potions.put("drowning", new Integer[] {
-				config.getInt("drowningDur", "Potions", 60, 0, 600, "Длительность drowning. (сек)"),
-				config.getInt("drowningStamina", "Potions", 30, 0, 100, "Стамина за drowning."),
-				config.getInt("drowningLvl", "Potions", 1, 1, 5, "Уровень эффекта drowning.")
+		potions.put("drown", new Integer[] {
+				config.getInt("drownDur", "Potions", 60, 0, 600, "Длительность drown. (сек)"),
+				config.getInt("drownStamina", "Potions", 30, 0, 100, "Стамина за drown."),
+				config.getInt("drownLvl", "Potions", 1, 1, 5, "Уровень эффекта drown.")
 		});
 		potions.put("slow", new Integer[] {
 				config.getInt("slowDur", "Potions", 30, 0, 600, "Длительность slow. (сек)"),
@@ -85,10 +86,21 @@ public class Config {
 				config.getInt("nightVisionStamina", "Potions", 30, 0, 100, "Стамина за nightVision."),
 				config.getInt("nightVisionLvl", "Potions", 1, 1, 5, "Уровень эффекта nightVision.")
 		});
-		potions.put("vulnerability", new Integer[] {
-				config.getInt("vulnerabilityDur", "Potions", 30, 0, 600, "Длительность vulnerability. (сек)"),
-				config.getInt("vulnerabilityStamina", "Potions", 30, 0, 100, "Стамина за vulnerability."),
-				config.getInt("vulnerabilityLvl", "Potions", 1, 1, 5, "Уровень эффекта vulnerability.")
+		potions.put("vulnerable", new Integer[] {
+				config.getInt("vulnerableDur", "Potions", 30, 0, 600, "Длительность vulnerable. (сек)"),
+				config.getInt("vulnerableStamina", "Potions", 30, 0, 100, "Стамина за vulnerable."),
+				config.getInt("vulnerableLvl", "Potions", 1, 1, 5, "Уровень эффекта vulnerable.")
+		});
+		potions.put("stepUp", new Integer[] {
+				config.getInt("stepUpDur", "Potions", 60, 0, 600, "Длительность stepUp. (сек)"),
+				config.getInt("stepUpStamina", "Potions", 30, 0, 100, "Стамина за stepUp."),
+				config.getInt("stepUpLvl", "Potions", 2, 1, 5, "Уровень эффекта stepUp.")
+		});
+		
+		
+		// Spells
+		spells.put("grow", new Integer[] {
+				config.getInt("growStamina", "Spells", 10, 0, 100, "Стамина за grow."),
 		});
 		
 		config.save();

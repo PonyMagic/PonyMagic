@@ -79,7 +79,7 @@ public class CommandMagic extends CommandBase
 			} else if (args[0].equalsIgnoreCase("test")) {
 				PlayerData playerData = PlayerDataController.instance.getDataFromUsername(player.getCommandSenderName());
 				playerData.race = EnumRace.EARTHPONY;
-				playerData.skillData.upLevel("workbench");
+				playerData.skillData.upLevel("grow");
 				playerData.saveNBTData(null);
 			}
 			
