@@ -112,13 +112,12 @@ public class StaminaPlayer implements IExtendedEntityProperties
 	}
 	
 	public boolean remove(StaminaType type, float amount) {
-		if (amount <= getStaminaValue(type)) {
-			amount = getStaminaValue(type) - amount;
-			set(type, amount);
-			return true;
-		} else {
-			return false;
-		}
+		if (amount > getStaminaValue(type)) return false;
+		
+		amount = getStaminaValue(type) - amount;
+		set(type, amount);
+		return true;
+		
 	}
 	
 	public void zero() {

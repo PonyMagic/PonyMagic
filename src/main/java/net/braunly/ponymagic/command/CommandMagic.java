@@ -47,9 +47,9 @@ public class CommandMagic extends CommandBase
 			
 			EntityPlayerMP player = (EntityPlayerMP) commandSender;
 			
-			if (args.length < 3) {
-				throw new WrongUsageException("commands.magic.usage", new Object[0]);
-			}
+//			if (args.length < 3) {
+//				throw new WrongUsageException("commands.magic.usage", new Object[0]);
+//			}
 			
 			if (args[0].equalsIgnoreCase("race")) {
 				String playerName = args[1];
@@ -78,8 +78,8 @@ public class CommandMagic extends CommandBase
 				}
 			} else if (args[0].equalsIgnoreCase("test")) {
 				PlayerData playerData = PlayerDataController.instance.getDataFromUsername(player.getCommandSenderName());
-				playerData.race = EnumRace.EARTHPONY;
-				playerData.skillData.upLevel("grow");
+				playerData.race = EnumRace.UNICORN;
+				playerData.skillData.upLevel("shield");
 				playerData.saveNBTData(null);
 			}
 			

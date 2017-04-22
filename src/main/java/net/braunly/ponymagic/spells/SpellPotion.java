@@ -2,6 +2,7 @@ package net.braunly.ponymagic.spells;
 
 import com.tmtravlr.potioncore.PotionCoreHelper;
 
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.entity.player.StaminaPlayer;
 import net.braunly.ponymagic.entity.player.StaminaPlayer.StaminaType;
@@ -27,9 +28,10 @@ public class SpellPotion extends Spell {
 	@Override
 	public boolean cast(EntityPlayer player, Integer level) {
 		StaminaPlayer props = StaminaPlayer.get(player);
-		if (props.remove(StaminaType.CURRENT, Config.potions.get(this.spellName)[1])) {
-			int dur = Config.potions.get(this.spellName)[0] * 20;
-			int lvl = Config.potions.get(this.spellName)[2] - 1;
+		Integer conf[] = Config.potions.get(this.spellName + "#" + level);
+		if (props.remove(StaminaType.CURRENT, conf[1])) {
+			int dur = conf[0] * 20;
+			int lvl = conf[2] - 1;
 			player.addPotionEffect(new PotionEffect(this.potionId, dur, lvl));
 			return true;
 		}

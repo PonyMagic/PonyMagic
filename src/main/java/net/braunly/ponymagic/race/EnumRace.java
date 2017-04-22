@@ -5,12 +5,18 @@ import java.util.List;
 
 public enum EnumRace {
 	REGULAR("Регуляр", new String[]{}),
-	PEGAS("Пегас", new String[]{""}),
-	UNICORN("Единорог", new String[]{"fireresistance"}),
-	EARTHPONY("Земнопони", new String[]{"jump",
+	PEGAS("Пегас", new String[]{"speed", "haste"}),
+	UNICORN("Единорог", new String[]{
+			"fireresistance", "hpregen", "unenchant",
+			"solidcore", "tpbed",
+			"shield", "heal", "enchant"}),
+	EARTHPONY("Земнопони", new String[]{
+			"jump", "grow",
 			"stepup",
-			"grow"}),
-	ZEBRA("Зебра", new String[]{"jump",
+			"speed", "strength",
+			"haste",
+			"solidcore"}),
+	ZEBRA("Зебра", new String[]{  // Jump
 			"dispel", "fireresistance", "drown",
 			"slow", "purity", "nightvision",
 			"vulnerable", "antidote", "climb"});

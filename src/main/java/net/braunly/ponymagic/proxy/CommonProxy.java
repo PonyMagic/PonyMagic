@@ -20,12 +20,16 @@ import net.braunly.ponymagic.exp.Exp;
 import net.braunly.ponymagic.handlers.CraftEventHandler;
 import net.braunly.ponymagic.handlers.DeathEventHandler;
 import net.braunly.ponymagic.handlers.StaminaHandler;
+import net.braunly.ponymagic.handlers.StaminaShieldHandler;
 import net.braunly.ponymagic.handlers.MineEventHandler;
 import net.braunly.ponymagic.handlers.PlaceEventHandler;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
+import net.braunly.ponymagic.spells.SpellEnchant;
 import net.braunly.ponymagic.spells.SpellGrow;
 import net.braunly.ponymagic.spells.SpellPotion;
 import net.braunly.ponymagic.spells.SpellPotionSplash;
+import net.braunly.ponymagic.spells.SpellShield;
+import net.braunly.ponymagic.spells.SpellUnEnchant;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
@@ -47,8 +51,10 @@ public class CommonProxy {
     	MinecraftForge.EVENT_BUS.register(new MineEventHandler());
     	MinecraftForge.EVENT_BUS.register(new PlaceEventHandler());
     	FMLCommonHandler.instance().bus().register(new CraftEventHandler());
-    	MinecraftForge.EVENT_BUS.register(new StaminaHandler());
     	MinecraftForge.EVENT_BUS.register(new DeathEventHandler());
+    	
+    	MinecraftForge.EVENT_BUS.register(new StaminaHandler());
+    	MinecraftForge.EVENT_BUS.register(new StaminaShieldHandler());
     	
     	FMLCommonHandler.instance().bus().register(new KeyInputHandler());
     	KeyBindings.init(); 
@@ -110,8 +116,18 @@ public class CommonProxy {
 		PonyMagic.spells.put("nightvision", new SpellPotion("nightVision", 16));
 		PonyMagic.spells.put("vulnerable", new SpellPotion("vulnerable"));
 		PonyMagic.spells.put("stepup", new SpellPotion("stepUp"));
+		PonyMagic.spells.put("speed", new SpellPotion("speedBoost", 1));
+		PonyMagic.spells.put("strength", new SpellPotion("strength", 5));
+		PonyMagic.spells.put("haste", new SpellPotion("haste", 3));
+		PonyMagic.spells.put("hpregen", new SpellPotion("hpRegen", 10));
+		PonyMagic.spells.put("solidcore", new SpellPotion("solidCore"));
+		PonyMagic.spells.put("tpbed", new SpellPotion("teleportSpawn"));
+		PonyMagic.spells.put("heal", new SpellPotion("heal", 6));
 		
 		// Spells
 		PonyMagic.spells.put("grow", new SpellGrow("grow"));
+		PonyMagic.spells.put("unenchant", new SpellUnEnchant("unenchant"));
+		PonyMagic.spells.put("enchant", new SpellEnchant("enchant"));
+		PonyMagic.spells.put("shield", new SpellShield("shield"));
 	}
 }

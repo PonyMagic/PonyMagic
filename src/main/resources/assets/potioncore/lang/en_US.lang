@@ -76,3 +76,5 @@ potion.invert=Inversion
 potion.invert.postfix=Potion of Inversion
 potion.revival=Revival
 potion.revival.postfix=Potion of 1-Up
+potion.shield=Stamina shield
+potion.shield.postfix=Potion of Stamina shield

@@ -34,6 +34,7 @@ import com.tmtravlr.potioncore.effects.PotionRecoil;
 import com.tmtravlr.potioncore.effects.PotionRepair;
 import com.tmtravlr.potioncore.effects.PotionRevival;
 import com.tmtravlr.potioncore.effects.PotionRust;
+import com.tmtravlr.potioncore.effects.PotionShield;
 import com.tmtravlr.potioncore.effects.PotionSlowfall;
 import com.tmtravlr.potioncore.effects.PotionSolidCore;
 import com.tmtravlr.potioncore.effects.PotionSpin;
@@ -105,6 +106,7 @@ public class PotionCoreEffects {
 		potionMap.put(PotionTeleportSpawn.NAME, new PotionData(-1, PotionTeleportSpawn.class));
 		potionMap.put(PotionInvert.NAME, new PotionData(-1, PotionInvert.class));
 		potionMap.put(PotionRevival.NAME, new PotionData(-1, PotionRevival.class));
+		potionMap.put(PotionShield.NAME, new PotionData(-1, PotionShield.class));
 	}
 	
 	public static void loadPotionEffects() {
