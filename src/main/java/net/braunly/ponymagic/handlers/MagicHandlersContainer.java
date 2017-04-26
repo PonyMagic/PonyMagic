@@ -94,8 +94,6 @@ public class MagicHandlersContainer
 		
 		if (playerData.race == EnumRace.PEGAS) {
 			if (player.isPotionActive(Potion.moveSpeed.getId()) && player.getActivePotionEffect(Potion.moveSpeed).getDuration() < 2) {
-				PonyMagic.log.info("SPELL OFF");
-				
 				PonyMagic.proxy.setPlayerFlySpeed(player, 0);
 			}
 		}
@@ -103,7 +101,6 @@ public class MagicHandlersContainer
 	
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void handlePegasusFlySpeed(PlayerLoggedInEvent event) {		
-		PonyMagic.log.info("LOGGED IN");
 		PonyMagic.proxy.setPlayerFlySpeed(event.player, 0);
 	}
 	
