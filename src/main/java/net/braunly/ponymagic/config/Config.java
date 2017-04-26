@@ -19,6 +19,8 @@ public class Config {
 	public static int highFoodLevel;
 	public static int lowFoodLevel;
 	
+	public static float flySpendingValue;
+	
 	public static Map<String, Integer[]> potions = new HashMap<String, Integer[]>();
 	public static Map<String, Integer[]> spells = new HashMap<String, Integer[]>();
 	
@@ -39,6 +41,7 @@ public class Config {
 		lowFoodStaminaRegen = config.getFloat("lowFoodStaminaRegen", "Стамина", 0.05F, 0.0F, 100.0F, "Реген в тик при низком голоде");
 		highFoodLevel = config.getInt("highFoodLevel", "Стамина", 12, 0, 20, "Уменьшить реген, если голода меньше");
 		lowFoodLevel = config.getInt("lowFoodLevel", "Стамина", 6, 0, 20, "Отключить реген, если голода меньше");
+		flySpendingValue = config.getFloat("flySpendingValue", "Стамина", 0.04F, 0.0F, 100.0F, "Уменьшение при обычном полёте");
 		
 		// POTIONS
 		potions.put("jump#1", new Integer[] {
@@ -146,8 +149,6 @@ public class Config {
 				config.getInt("hpRegenStamina2", "Potions", 30, 0, 100, "Стамина за heal уровня 2."),
 				config.getInt("hpRegenLvl2", "Potions", 1, 1, 5, "Уровень эффекта heal уровня 2.")
 		});
-		
-		
 		
 		// Spells
 		spells.put("grow", new Integer[] {
