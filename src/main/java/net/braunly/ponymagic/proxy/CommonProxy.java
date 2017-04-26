@@ -17,6 +17,8 @@ import net.braunly.ponymagic.command.CommandStamina;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataController;
+import net.braunly.ponymagic.entity.player.StaminaPlayer;
+import net.braunly.ponymagic.entity.player.StaminaPlayer.StaminaType;
 import net.braunly.ponymagic.exp.Exp;
 import net.braunly.ponymagic.handlers.CraftEventHandler;
 import net.braunly.ponymagic.handlers.DeathEventHandler;
@@ -122,11 +124,22 @@ public class CommonProxy {
 		
 		PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
 		
-		if (playerData.race == EnumRace.PEGAS && playerData.skillData.isSkillLearned("flyspeed")) {
-			int lvl = playerData.skillData.getSkillLevel("flyspeed");
+		if (playerData.race == EnumRace.PEGAS && playerData.skillData.isSkillLearned("flySpeed")) {
+			int lvl = playerData.skillData.getSkillLevel("flySpeed");
 			float flySpeedMod = (float) lvl/100.0F + mod;
 			
 			PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod), (EntityPlayerMP) player);
+		}
+	}
+	
+	public void setPlayerMaxStamina(EntityPlayer player) {	
+		if (player.worldObj.isRemote) return;
+		
+		PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
+		StaminaPlayer props = StaminaPlayer.get(player);
+		if (playerData.skillData.isSkillLearned("staminaPool")) {
+			int lvl = playerData.skillData.getSkillLevel("staminaPool");
+			props.set(StaminaType.MAXIMUM, (lvl + 2)*50);
 		}
 	}
 	

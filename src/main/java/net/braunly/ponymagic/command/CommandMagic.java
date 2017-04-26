@@ -82,7 +82,8 @@ public class CommandMagic extends CommandBase
 				PonyMagic.log.info("TEST");
 				PlayerData playerData = PlayerDataController.instance.getDataFromUsername(player.getCommandSenderName());
 				playerData.race = EnumRace.PEGAS;
-				playerData.skillData.upLevel("slowfall");
+				playerData.skillData.upLevel("staminaRegen");
+				playerData.skillData.upLevel("staminaRegen");
 				playerData.saveNBTData(null);
 //				PonyMagic.proxy.setPlayerFlySpeed(player, 0);
 //				PonyMagic.channel.sendTo(new FlySpeedPacket(1), player);

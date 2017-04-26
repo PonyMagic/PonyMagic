@@ -37,20 +37,29 @@ public class MagicHandlersContainer
 
 		EntityPlayer player = (EntityPlayer) event.entity;
 		PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
-		EnumRace playerRace = playerData.race;
 		StaminaPlayer props = StaminaPlayer.get(player);
 
 		if (props != null && !player.capabilities.isCreativeMode) 
 		{
 			// Stamina regenaration
-			if (player.onGround) {
-				if (player.getFoodStats().getFoodLevel() > Config.highFoodLevel){
-					props.add(StaminaType.CURRENT, Config.defaultStaminaRegen);
-				} else if (player.getFoodStats().getFoodLevel() > Config.lowFoodLevel){
-					props.add(StaminaType.CURRENT, Config.lowFoodStaminaRegen);
+			if (player.getFoodStats().getFoodLevel() > Config.lowFoodLevel) {
+				float staminaRegen = 0;
+				
+				if (player.onGround && player.getFoodStats().getFoodLevel() > Config.highFoodLevel) {
+					staminaRegen = Config.defaultStaminaRegen;
+				} else if (player.isInWater()) {
+					staminaRegen = Config.waterStaminaRegen;
+				} else {
+					staminaRegen = Config.lowFoodStaminaRegen;
 				}
-			} else if (player.isInWater() && player.getFoodStats().getFoodLevel() > Config.lowFoodLevel) {
-				props.add(StaminaType.CURRENT, Config.waterStaminaRegen);
+				
+				if (playerData.skillData.isSkillLearned("staminaRegen")) {
+					int lvl = playerData.skillData.getSkillLevel("staminaRegen");
+					staminaRegen += (float) lvl/20.0F;
+				}
+				
+				props.add(StaminaType.CURRENT, staminaRegen);
+				
 			}
 			
 			// Take all stamina on low food level
@@ -59,7 +68,7 @@ public class MagicHandlersContainer
 			}
 			
 			// Fly handling
-			if (playerRace == EnumRace.PEGAS)
+			if (playerData.race == EnumRace.PEGAS)
 			{
 				if (props.getStaminaValue(StaminaType.CURRENT) > 5) {
 					player.capabilities.allowFlying = true;
@@ -67,7 +76,17 @@ public class MagicHandlersContainer
 				}
 
 				if (player.capabilities.isFlying) {
-					if (props.remove(StaminaType.CURRENT, Config.flySpendingValue)) {   // 0.8 stps
+					float flySpendingValue = 0.0F;
+					
+					// Fly duration
+					if (playerData.skillData.isSkillLearned("flydur")) {
+						int lvl = playerData.skillData.getSkillLevel("flydur");
+						flySpendingValue = Config.flySpendingValue - (float) lvl/50.0F;
+					} else {
+						flySpendingValue = Config.flySpendingValue;
+					}
+					
+					if (props.remove(StaminaType.CURRENT, flySpendingValue)) {   // 0.8 stps
 						player.addExhaustion(0.016F);  // FIXME в конфиг
 					} else {
 						player.fallDistance = 0;
@@ -104,6 +123,11 @@ public class MagicHandlersContainer
 		PonyMagic.proxy.setPlayerFlySpeed(event.player, 0);
 	}
 	
+	@SubscribeEvent(priority = EventPriority.NORMAL)
+	public void handleMaximunStaminaValue(PlayerLoggedInEvent event) {
+		PonyMagic.proxy.setPlayerMaxStamina(event.player);
+	}
+	
 	@SubscribeEvent
 	public void handleStaminaShield(LivingHurtEvent event) 
 	{
@@ -130,6 +154,6 @@ public class MagicHandlersContainer
 		EntityPlayer player = (EntityPlayer) event.entity;	
 		if (StaminaPlayer.get(player) == null){
 			StaminaPlayer.register(player);
-		}		
+		}
 	}
 }
