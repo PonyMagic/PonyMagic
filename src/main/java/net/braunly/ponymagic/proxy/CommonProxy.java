@@ -107,6 +107,7 @@ public class CommonProxy {
 		PonyMagic.spells.put("solidcore", new SpellPotion("solidCore"));
 		PonyMagic.spells.put("tpbed", new SpellPotion("teleportSpawn"));
 		PonyMagic.spells.put("heal", new SpellPotion("heal", 6));
+		PonyMagic.spells.put("slowfall", new SpellPotion("slowFall"));
 		
 		// Spells
 		PonyMagic.spells.put("grow", new SpellGrow("grow"));
