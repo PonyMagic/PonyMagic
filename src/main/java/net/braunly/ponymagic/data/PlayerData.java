@@ -39,7 +39,7 @@ public class PlayerData implements IExtendedEntityProperties{
 		skillData.loadNBTData(data);
 		
 		if(player != null){
-			playername = player.getCommandSenderName();
+			playername = player.getDisplayName();
 			uuid = player.getPersistentID().toString();
 		} else {
 			playername = data.getString("PlayerName");
