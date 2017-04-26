@@ -107,6 +107,7 @@ public class CommonProxy {
 		PonyMagic.spells.put("solidcore", new SpellPotion("solidCore"));
 		PonyMagic.spells.put("tpbed", new SpellPotion("teleportSpawn"));
 		PonyMagic.spells.put("heal", new SpellPotion("heal", 6));
+		PonyMagic.spells.put("slowfall", new SpellPotion("slowFall"));
 		
 		// Spells
 		PonyMagic.spells.put("grow", new SpellGrow("grow"));
@@ -122,7 +123,6 @@ public class CommonProxy {
 		PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
 		
 		if (playerData.race == EnumRace.PEGAS && playerData.skillData.isSkillLearned("flyspeed")) {
-			PonyMagic.log.info("TRUE");
 			int lvl = playerData.skillData.getSkillLevel("flyspeed");
 			float flySpeedMod = (float) lvl/100.0F + mod;
 			

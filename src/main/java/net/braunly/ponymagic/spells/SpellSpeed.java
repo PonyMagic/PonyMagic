@@ -33,7 +33,6 @@ public class SpellSpeed extends Spell {
 			int dur = conf[0] * 20;
 			int lvl = conf[2] - 1;
 			player.addPotionEffect(new PotionEffect(this.potionId, dur, lvl));
-			
 			float flySpeedMod = (float) level/80.0F;
 			
 			PonyMagic.proxy.setPlayerFlySpeed(player, flySpeedMod);

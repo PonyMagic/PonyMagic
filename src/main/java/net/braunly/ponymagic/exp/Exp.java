@@ -22,7 +22,7 @@ public class Exp {
 		try {
 			String line;
 			
-			URL lvlTable = new URL("https://docs.google.com/spreadsheets/d/1mPWVPBMf--fd515rvcL9_bBnahptUegN6UhqkJngw3U/gviz/tq?tqx=out:csv&sheet=mod_lvl");
+			URL lvlTable = new URL("https://docs.google.com/spreadsheets/d/1cnrFHQHQ2xgITkFdIohpT8v3tziTJb_JaUwhZTs5s4U/gviz/tq?tqx=out:csv&sheet=mod_lvl");
 			BufferedReader lvlBuf = new BufferedReader(new InputStreamReader(lvlTable.openStream()));
 			while ((line = lvlBuf.readLine()) != null) {
 				line = line.replaceAll("\"", "");
@@ -31,7 +31,7 @@ public class Exp {
 				Exp.lvlExp.add(Integer.parseInt(lvlLine[1]));
 			}
 
-			URL expTable = new URL("https://docs.google.com/spreadsheets/d/1mPWVPBMf--fd515rvcL9_bBnahptUegN6UhqkJngw3U/gviz/tq?tqx=out:csv&sheet=mod_exp");
+			URL expTable = new URL("https://docs.google.com/spreadsheets/d/1cnrFHQHQ2xgITkFdIohpT8v3tziTJb_JaUwhZTs5s4U/gviz/tq?tqx=out:csv&sheet=mod_exp");
 			BufferedReader expBuf = new BufferedReader(new InputStreamReader(expTable.openStream()));
 			while ((line = expBuf.readLine()) != null) {
 				line = line.replaceAll("\"", "");

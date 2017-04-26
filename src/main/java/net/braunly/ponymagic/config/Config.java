@@ -149,6 +149,11 @@ public class Config {
 				config.getInt("hpRegenStamina2", "Potions", 30, 0, 100, "Стамина за heal уровня 2."),
 				config.getInt("hpRegenLvl2", "Potions", 1, 1, 5, "Уровень эффекта heal уровня 2.")
 		});
+		potions.put("slowFall#1", new Integer[] {
+				config.getInt("slowFallDur1", "Potions", 10, 0, 600, "Длительность slowFall. (сек)"),
+				config.getInt("slowFallStamina1", "Potions", 30, 0, 100, "Стамина за slowFall."),
+				config.getInt("slowFallLvl1", "Potions", 1, 1, 5, "Уровень эффекта slowFall.")
+		});
 		
 		// Spells
 		spells.put("grow", new Integer[] {
