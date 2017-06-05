@@ -25,7 +25,7 @@ public class PotionShield extends PotionCorePotion {
 	public static PotionShield instance = null;
 	
 	public PotionShield(int id) {
-		super(id, NAME, false, 0xCC5500);
+		super(id, NAME, false, 0x43B6FF);
 		instance = this;
     }
     

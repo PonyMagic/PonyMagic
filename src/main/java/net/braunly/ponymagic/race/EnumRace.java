@@ -8,22 +8,26 @@ public enum EnumRace {
 	PEGAS("Пегас", new String[]{
 			"speed", "flyspeed",
 			"flydurability", "slowfall",
-			 "haste"}),
+			 "haste",
+			 "staminaPool", "staminaRegen", "staminaHealthRegen", "staminaFoodRegen"}),
 	UNICORN("Единорог", new String[]{
 			"fireresistance", "hpregen", "unenchant",
 			"solidcore", "tpbed",
 			"shield", "heal", "enchant",
-			"slowfall"}),
+			"slowfall",
+			 "staminaPool", "staminaRegen", "staminaHealthRegen", "staminaFoodRegen"}),
 	EARTHPONY("Земнопони", new String[]{
 			"jump", "grow",
 			"stepup",
 			"speed", "strength",
 			"haste",
-			"solidcore"}),
-	ZEBRA("Зебра", new String[]{  // Jump
+			"solidcore",
+			 "staminaPool", "staminaRegen", "staminaHealthRegen", "staminaFoodRegen"}),
+	ZEBRA("Зебра", new String[]{ "jump",
 			"dispel", "fireresistance", "drown",
 			"slow", "purity", "nightvision",
-			"vulnerable", "antidote", "climb"});
+			"vulnerable", "antidote", "climb",
+			 "staminaPool", "staminaRegen", "staminaHealthRegen", "staminaFoodRegen"});
 	
 
 	private final String[] spells;

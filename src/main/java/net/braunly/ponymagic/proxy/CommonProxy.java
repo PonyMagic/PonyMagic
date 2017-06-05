@@ -20,13 +20,16 @@ import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.entity.player.StaminaPlayer;
 import net.braunly.ponymagic.entity.player.StaminaPlayer.StaminaType;
 import net.braunly.ponymagic.exp.Exp;
+import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.CraftEventHandler;
 import net.braunly.ponymagic.handlers.DeathEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.handlers.MineEventHandler;
 import net.braunly.ponymagic.handlers.PlaceEventHandler;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
-import net.braunly.ponymagic.network.packets.PlayerRacePacket;
+import net.braunly.ponymagic.network.packets.OpenGuiPacket;
+import net.braunly.ponymagic.network.packets.PlayerDataPacket;
+import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
 import net.braunly.ponymagic.race.EnumRace;
 import net.braunly.ponymagic.spells.SpellEnchant;
@@ -47,8 +50,12 @@ public class CommonProxy {
     {
     	PonyMagic.channel = NetworkRegistry.INSTANCE.newSimpleChannel(PonyMagic.MODID);
     	PonyMagic.channel.registerMessage(TotalStaminaPacket.class, TotalStaminaPacket.class, 0, Side.CLIENT);
-    	PonyMagic.channel.registerMessage(PlayerRacePacket.class, PlayerRacePacket.class, 1, Side.CLIENT);
+    	PonyMagic.channel.registerMessage(PlayerDataPacket.class, PlayerDataPacket.class, 1, Side.CLIENT);
     	PonyMagic.channel.registerMessage(FlySpeedPacket.class, FlySpeedPacket.class, 2, Side.CLIENT);
+    	
+//    	PonyMagic.channel.registerMessage(OpenGuiPacket.class, OpenGuiPacket.class, 5, Side.SERVER);
+    	PonyMagic.channel.registerMessage(RequestPlayerDataPacket.class, RequestPlayerDataPacket.class, 3, Side.SERVER);
+    	
 		Config.load(event.getSuggestedConfigurationFile());
     	PonyMagic.log.info("Config loaded!");
     }
@@ -67,6 +74,8 @@ public class CommonProxy {
     	
     	FMLCommonHandler.instance().bus().register(new KeyInputHandler());
     	KeyBindings.init(); 
+    	
+    	NetworkRegistry.INSTANCE.registerGuiHandler(PonyMagic.instance, new GuiHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event) 

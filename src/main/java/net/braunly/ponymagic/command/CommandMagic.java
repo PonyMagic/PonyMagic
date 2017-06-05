@@ -8,7 +8,7 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
-import net.braunly.ponymagic.network.packets.PlayerRacePacket;
+import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.braunly.ponymagic.race.EnumRace;
 import net.braunly.ponymagic.spells.Spell;
 import net.minecraft.command.CommandBase;
@@ -81,14 +81,22 @@ public class CommandMagic extends CommandBase
 			} else if (args[0].equalsIgnoreCase("test")) {
 				PonyMagic.log.info("TEST");
 				PlayerData playerData = PlayerDataController.instance.getDataFromUsername(player.getCommandSenderName());
-				playerData.race = EnumRace.PEGAS;
-				playerData.skillData.upLevel("staminaRegen");
-				playerData.skillData.upLevel("staminaRegen");
+				playerData.race = EnumRace.ZEBRA;
+				playerData.levelData.upLevel();
+				playerData.levelData.upLevel();
+				playerData.levelData.upLevel();
+				playerData.levelData.upLevel();
+				playerData.levelData.upLevel();
+				playerData.levelData.upLevel();
+				playerData.levelData.upFreeSkillPoints();
+				playerData.levelData.increaseExp(140000.0D);
+				
+				playerData.skillData.upLevel("jump");
 				playerData.saveNBTData(null);
 //				PonyMagic.proxy.setPlayerFlySpeed(player, 0);
 //				PonyMagic.channel.sendTo(new FlySpeedPacket(1), player);
 //				PonyMagic.log.info(player.capabilities.getFlySpeed());
-//				PonyMagic.channel.sendTo(new PlayerRacePacket(playerData.race.ordinal()), player);
+//				PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), player);
 			}
 			
 		} else {
