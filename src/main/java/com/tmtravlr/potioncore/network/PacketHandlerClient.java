@@ -1,14 +1,6 @@
 package com.tmtravlr.potioncore.network;
 
-import io.netty.buffer.Unpooled;
-
 import java.io.IOException;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.world.World;
 
 import com.tmtravlr.potioncore.PotionCore;
 import com.tmtravlr.potioncore.effects.PotionDrown;
@@ -19,6 +11,12 @@ import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import io.netty.buffer.Unpooled;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.World;
 
 public class PacketHandlerClient implements IMessageHandler<SToCMessage, IMessage> {
 

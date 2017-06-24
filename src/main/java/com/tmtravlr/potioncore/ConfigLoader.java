@@ -1,7 +1,5 @@
 package com.tmtravlr.potioncore;
 
-import net.minecraftforge.common.config.Configuration;
-
 import com.tmtravlr.potioncore.PotionCoreEffects.PotionData;
 import com.tmtravlr.potioncore.effects.PotionArchery;
 import com.tmtravlr.potioncore.effects.PotionAttackDamageModified;
@@ -22,6 +20,8 @@ import com.tmtravlr.potioncore.effects.PotionTeleport;
 import com.tmtravlr.potioncore.effects.PotionTeleportSpawn;
 import com.tmtravlr.potioncore.effects.PotionVulnerable;
 import com.tmtravlr.potioncore.effects.PotionWeight;
+
+import net.minecraftforge.common.config.Configuration;
 
 public class ConfigLoader {
 

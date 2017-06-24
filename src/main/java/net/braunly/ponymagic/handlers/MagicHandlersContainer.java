@@ -1,30 +1,21 @@
 package net.braunly.ponymagic.handlers;
 
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.entity.player.StaminaPlayer;
 import net.braunly.ponymagic.entity.player.StaminaPlayer.StaminaType;
-import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
 import net.braunly.ponymagic.race.EnumRace;
 import net.braunly.ponymagic.spells.SpellShield;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerFlyableFallEvent;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 public class MagicHandlersContainer 
 {	

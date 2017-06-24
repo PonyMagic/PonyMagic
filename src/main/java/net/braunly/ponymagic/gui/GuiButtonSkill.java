@@ -1,51 +1,54 @@
 package net.braunly.ponymagic.gui;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiButtonSkill extends GuiButton {
 	public String skillName;
+	public String[] depends;
 	public Integer[] lines;
-	private int posX;
-	private int posY;
+	public int posX;
+	public int posY;
+	public int minLevel;
+	public int skillLevel;
 	
-	public GuiButtonSkill (String name, int id, int x, int y) {
-		this(name, id, x, y, null);
+//	public GuiButtonSkill (String name, int id, int x, int y) {
+//		this(name, null, id, x, y, null, 1, 5);
+//	}
+//	
+//	public GuiButtonSkill (String name, String[] depends, int id, int x, int y) {
+//		this(name, depends, id, x, y, null, 1);
+//	}
+	
+	public GuiButtonSkill (String name, int id, int x, int y, int skillLevel, int minLevel) {
+		this(name, null, id, x, y, null, skillLevel, minLevel);
 	}
 	
-	public GuiButtonSkill (String name, int id, int x, int y, Integer[] lines) {
+	public GuiButtonSkill (String name, String[] depends, int id, int x, int y, int skillLevel, int minLevel) {
+		this(name, depends, id, x, y, null, skillLevel, minLevel);
+	}
+	
+	public GuiButtonSkill (String name, String[] depends, int id, int x, int y, Integer[] lines, int skillLevel, int minLevel) {
 		super(id, x, y, 32, 32, "");
 		this.skillName = name;
 		this.lines = lines;
+		this.minLevel = minLevel;
+		this.skillLevel = skillLevel;
+		this.depends = depends;
 	}
 	
 	public void drawButton(Minecraft mc, int mouseX, int mouseY, int x, int y) {
 		if (this.visible) {
-//	         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-//	         this.field_146123_n = this.isUnderMouse(mouseX, mouseY);
-
 	         ResourceLocation resLoc = new ResourceLocation(PonyMagic.MODID, "textures/gui/skills/" + this.skillName + ".png");
 	         mc.getTextureManager().bindTexture(resLoc);
 
-//	         GL11.glPushMatrix();
-//	         GL11.glTranslatef((float)this.xPosition, (float)this.yPosition, 0.0F);
-	         
 	         this.posX = x + this.xPosition;
 	         this.posY = y + this.yPosition - 32;
 	         
 	         this.func_146110_a(this.posX, this.posY, 0, 0, 32, 32, 32, 32);
-	         
-//	         GL11.glPopMatrix();
-	         }    
+	    }    
 	}
 
 	   public boolean isUnderMouse(int mouseX, int mouseY) {

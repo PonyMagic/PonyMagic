@@ -1,11 +1,15 @@
 package com.tmtravlr.potioncore.potion;
 
-import io.netty.buffer.Unpooled;
-
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import com.tmtravlr.potioncore.PotionCore;
+import com.tmtravlr.potioncore.network.PacketHandlerClient;
+import com.tmtravlr.potioncore.network.SToCMessage;
+
+import cpw.mods.fml.common.FMLLog;
+import io.netty.buffer.Unpooled;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.init.Items;
@@ -15,19 +19,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-
-import com.tmtravlr.potioncore.PotionCore;
-import com.tmtravlr.potioncore.network.PacketHandlerClient;
-import com.tmtravlr.potioncore.network.SToCMessage;
-
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import cpw.mods.fml.relauncher.ReflectionHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityPotionCorePotion extends EntityPotion {
 	

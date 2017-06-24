@@ -29,3 +29,7 @@ commands.stamina.set.usage=/stamina set [player] <value>
 
 commands.stamina.setmax.success=Set maximum stamina to %1$.2f for %2$s
 commands.stamina.setmax.usage=/stamina setmax [player] <value>
+
+
+skill.climb.name=Climb
+skill.climb.descr=/cast climb

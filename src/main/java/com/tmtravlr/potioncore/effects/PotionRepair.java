@@ -1,9 +1,9 @@
 package com.tmtravlr.potioncore.effects;
 
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Slowly repairs your equipped armor and the item in your hand<br><br>

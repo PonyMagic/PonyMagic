@@ -2,11 +2,11 @@ package com.tmtravlr.potioncore.effects;
 
 import java.util.ArrayList;
 
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Extends the duration of another potion effect on you.<br><br>

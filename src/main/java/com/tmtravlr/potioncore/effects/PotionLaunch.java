@@ -1,14 +1,14 @@
 package com.tmtravlr.potioncore.effects;
 
-import io.netty.buffer.Unpooled;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.PacketBuffer;
-
 import com.tmtravlr.potioncore.PotionCore;
 import com.tmtravlr.potioncore.network.PacketHandlerClient;
 import com.tmtravlr.potioncore.network.SToCMessage;
 import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
+import io.netty.buffer.Unpooled;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.PacketBuffer;
 
 /**
  * Launches you into the air<br><br>

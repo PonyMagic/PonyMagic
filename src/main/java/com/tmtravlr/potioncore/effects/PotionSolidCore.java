@@ -1,8 +1,8 @@
 package com.tmtravlr.potioncore.effects;
 
-import net.minecraft.entity.SharedMonsterAttributes;
-
 import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
+import net.minecraft.entity.SharedMonsterAttributes;
 
 /**
  * Causes you to not take knockback<br><br>

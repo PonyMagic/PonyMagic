@@ -12,24 +12,26 @@ import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.data.LevelData;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataController;
+import net.braunly.ponymagic.event.LevelUpEvent;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.common.MinecraftForge;
 
 public class Exp {
 	
-	public static ArrayList<Integer> lvlExp = new ArrayList<Integer>();
+//	public static ArrayList<Integer> lvlExp = new ArrayList<Integer>();
 	
 	public void load() {
 		try {
 			String line;
 			
-			URL lvlTable = new URL("https://docs.google.com/spreadsheets/d/1cnrFHQHQ2xgITkFdIohpT8v3tziTJb_JaUwhZTs5s4U/gviz/tq?tqx=out:csv&sheet=mod_lvl");
-			BufferedReader lvlBuf = new BufferedReader(new InputStreamReader(lvlTable.openStream()));
-			while ((line = lvlBuf.readLine()) != null) {
-				line = line.replaceAll("\"", "");
-				String[] lvlLine = line.split(",", -1);
-				
-				Exp.lvlExp.add(Integer.parseInt(lvlLine[1]));
-			}
+//			URL lvlTable = new URL("https://docs.google.com/spreadsheets/d/1cnrFHQHQ2xgITkFdIohpT8v3tziTJb_JaUwhZTs5s4U/gviz/tq?tqx=out:csv&sheet=mod_lvl");
+//			BufferedReader lvlBuf = new BufferedReader(new InputStreamReader(lvlTable.openStream()));
+//			while ((line = lvlBuf.readLine()) != null) {
+//				line = line.replaceAll("\"", "");
+//				String[] lvlLine = line.split(",", -1);
+//				
+//				Exp.lvlExp.add(Integer.parseInt(lvlLine[1]));
+//			}
 
 			URL expTable = new URL("https://docs.google.com/spreadsheets/d/1cnrFHQHQ2xgITkFdIohpT8v3tziTJb_JaUwhZTs5s4U/gviz/tq?tqx=out:csv&sheet=mod_exp");
 			BufferedReader expBuf = new BufferedReader(new InputStreamReader(expTable.openStream()));
@@ -65,24 +67,27 @@ public class Exp {
 		}
 	}
 	
-	protected static void addExp(EntityPlayer player, Double expCount) {
+	public static void addExp(EntityPlayer player, Double expCount) {
 		if (expCount == null)
 			return;
 		PlayerData data = PlayerDataController.instance.getPlayerData(player);
 		LevelData levelData = data.levelData;
 		
+		PonyMagic.log.info(expCount);
 		
 		if (levelData.getLevel() < PonyMagic.MAX_LVL) {
 			if (Config.expModifier) {
 				expCount *= Config.expModifierAmount;
 			}
-			levelData.increaseExp(expCount);
+			levelData.addExp(expCount);
 			
-			if (levelData.getExp() >= Exp.lvlExp.get(levelData.getLevel())) {
-				levelData.upLevel();
+			if (levelData.getExp() >= (levelData.getLevel() + 1) * Config.expPerLevel) {
+				MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, levelData.getLevel()+1));
+				levelData.addLevel();
+				levelData.resetExp();
 			}
 			if (levelData.getLevel() % 3 == 0) {
-				levelData.upFreeSkillPoints();
+				levelData.addFreeSkillPoints();
 			}
 		}
 		

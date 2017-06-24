@@ -1,10 +1,10 @@
 package com.tmtravlr.potioncore.effects;
 
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Damages your equipped armor and the item in your hand<br><br>

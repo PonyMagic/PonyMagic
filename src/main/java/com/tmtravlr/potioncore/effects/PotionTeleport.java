@@ -1,11 +1,11 @@
 package com.tmtravlr.potioncore.effects;
 
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldServer;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Teleports you to a random spot nearby.<br><br>

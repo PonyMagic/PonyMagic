@@ -1,9 +1,9 @@
 package com.tmtravlr.potioncore.effects;
 
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Lets you fly like in creative mode.<br><br>

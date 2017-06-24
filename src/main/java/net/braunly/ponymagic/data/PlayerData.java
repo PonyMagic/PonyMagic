@@ -1,6 +1,5 @@
 package net.braunly.ponymagic.data;
 
-import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.race.EnumRace;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,38 +29,38 @@ public class PlayerData implements IExtendedEntityProperties{
 
 	@Override
 	public void loadNBTData(NBTTagCompound compound) {
-		NBTTagCompound data = PlayerDataController.instance.loadPlayerData(player.getPersistentID().toString());
+		NBTTagCompound data = PlayerDataController.instance.loadPlayerData(this.player.getPersistentID().toString());
 		setNBT(data);
 	}
 
 	public void setNBT(NBTTagCompound data){
-		levelData.loadNBTData(data);
-		skillData.loadNBTData(data);
+		this.levelData.loadNBTData(data);
+		this.skillData.loadNBTData(data);
 		
-		if(player != null){
-			playername = player.getDisplayName();
-			uuid = player.getPersistentID().toString();
+		if(this.player != null){
+			this.playername = this.player.getDisplayName();
+			this.uuid = this.player.getPersistentID().toString();
 		} else {
-			playername = data.getString("PlayerName");
-			uuid = data.getString("UUID");
+			this.playername = data.getString("PlayerName");
+			this.uuid = data.getString("UUID");
 		}
 		
-		race = EnumRace.getByName(data.getString("Race"));
+		this.race = EnumRace.getByName(data.getString("Race"));
 	}
 	
 	public NBTTagCompound getNBT() {
-		if(player != null){
-			playername = player.getCommandSenderName();
-			uuid = player.getPersistentID().toString();
+		if(this.player != null){
+			this.playername = this.player.getCommandSenderName();
+			this.uuid = this.player.getPersistentID().toString();
 		}
 		NBTTagCompound compound = new NBTTagCompound();
-		levelData.saveNBTData(compound);
-		skillData.saveNBTData(compound);
+		this.levelData.saveNBTData(compound);
+		this.skillData.saveNBTData(compound);
 		
-		compound.setString("PlayerName", playername);
-		compound.setString("UUID", uuid);
-		if (race != null) {
-			compound.setString("Race", race.name());
+		compound.setString("PlayerName", this.playername);
+		compound.setString("UUID", this.uuid);
+		if (this.race != null) {
+			compound.setString("Race", this.race.name());
 		} else {
 			compound.setString("Race", EnumRace.REGULAR.name());
 		}

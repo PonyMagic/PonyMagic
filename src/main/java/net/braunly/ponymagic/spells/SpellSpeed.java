@@ -1,17 +1,10 @@
 package net.braunly.ponymagic.spells;
 
-import com.tmtravlr.potioncore.PotionCoreHelper;
-
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.entity.player.StaminaPlayer;
 import net.braunly.ponymagic.entity.player.StaminaPlayer.StaminaType;
-import net.braunly.ponymagic.network.packets.FlySpeedPacket;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 public class SpellSpeed extends Spell {

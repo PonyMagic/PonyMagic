@@ -1,9 +1,9 @@
 package com.tmtravlr.potioncore.effects;
 
-import net.minecraft.entity.EntityLivingBase;
-
 import com.tmtravlr.potioncore.PotionCoreHelper;
 import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
+import net.minecraft.entity.EntityLivingBase;
 
 /**
  * Removes all good potion effects from you.<br><br>

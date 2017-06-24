@@ -1,12 +1,10 @@
 package com.tmtravlr.potioncore;
 
-import java.util.EnumSet;
 import java.util.Iterator;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.S07PacketRespawn;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;

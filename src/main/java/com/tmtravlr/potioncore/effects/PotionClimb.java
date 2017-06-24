@@ -1,14 +1,14 @@
 package com.tmtravlr.potioncore.effects;
 
-import io.netty.buffer.Unpooled;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.PacketBuffer;
-
 import com.tmtravlr.potioncore.PotionCore;
 import com.tmtravlr.potioncore.network.CToSMessage;
 import com.tmtravlr.potioncore.network.PacketHandlerServer;
 import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
+import io.netty.buffer.Unpooled;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.PacketBuffer;
 
 /**
  * Lets you climb like a spider.<br><br>

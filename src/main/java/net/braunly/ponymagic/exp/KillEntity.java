@@ -1,9 +1,7 @@
 package net.braunly.ponymagic.exp;
 
-import java.io.File;
 import java.util.HashMap;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;

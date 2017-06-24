@@ -7,20 +7,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.world.World;
-
-import com.google.common.base.Function;
 import com.tmtravlr.potioncore.effects.PotionAntidote;
 import com.tmtravlr.potioncore.effects.PotionArchery;
 import com.tmtravlr.potioncore.effects.PotionBless;
@@ -40,7 +26,14 @@ import com.tmtravlr.potioncore.potion.ItemPotionCorePotion;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import cpw.mods.fml.common.network.internal.FMLMessage.EntitySpawnMessage;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 
 public class PotionCoreHelper {
 

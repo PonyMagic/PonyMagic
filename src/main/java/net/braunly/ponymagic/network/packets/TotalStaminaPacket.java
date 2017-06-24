@@ -1,17 +1,14 @@
 package net.braunly.ponymagic.network.packets;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-
-import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.entity.player.StaminaPlayer;
-import net.braunly.ponymagic.entity.player.StaminaPlayer.StaminaType;
-
-import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
+import io.netty.buffer.ByteBuf;
+import net.braunly.ponymagic.PonyMagic;
+import net.braunly.ponymagic.entity.player.StaminaPlayer;
+import net.braunly.ponymagic.entity.player.StaminaPlayer.StaminaType;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class TotalStaminaPacket implements IMessage, IMessageHandler<TotalStaminaPacket, IMessage> 
 {

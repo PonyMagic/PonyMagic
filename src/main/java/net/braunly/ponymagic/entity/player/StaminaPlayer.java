@@ -2,11 +2,9 @@ package net.braunly.ponymagic.entity.player;
 
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.Config;
-import net.braunly.ponymagic.entity.player.StaminaPlayer.StaminaType;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
 import net.minecraft.entity.DataWatcher;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;

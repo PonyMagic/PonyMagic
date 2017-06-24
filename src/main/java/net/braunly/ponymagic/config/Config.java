@@ -10,6 +10,7 @@ public class Config {
 	
 	public static boolean expModifier;
 	public static float expModifierAmount;
+	public static int expPerLevel;
 	
 	public static float defaultStaminaPool;
 	public static float defaultStaminaRegen;
@@ -32,6 +33,7 @@ public class Config {
 		// Опыт
 		expModifier = config.getBoolean("expModifier", "Опыт", false, "Использовать модификатор опыта?");
 		expModifierAmount = config.getFloat("expModifierAmount", "Опыт", 1.0F, 0.0F, 100.0F, "Модификатор опыта");
+		expPerLevel = config.getInt("expPerLevel", "Опыт", 10000, 0, 100000, "Количество опыта на уровень");
 		
 		// Stamina
 		defaultStaminaPool = config.getFloat("defaultStaminaPool", "Стамина", 100.0F, 0.0F, 1000.0F, "Стандартное значение стамины");

@@ -1,8 +1,8 @@
 package com.tmtravlr.potioncore.effects;
 
-import net.minecraft.entity.EntityLivingBase;
-
 import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
+import net.minecraft.entity.EntityLivingBase;
 
 /**
  * Causes you to float down. At level 1 it removes some fall damage. At level 2 it negates all fall damage.<br><br>

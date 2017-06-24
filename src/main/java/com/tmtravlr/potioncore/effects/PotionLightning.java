@@ -1,9 +1,9 @@
 package com.tmtravlr.potioncore.effects;
 
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Strikes you with lightning<br><br>

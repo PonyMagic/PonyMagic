@@ -1,11 +1,11 @@
 package com.tmtravlr.potioncore.effects;
 
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldServer;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Teleports you to the top block in your current x and z coordinates. Doesn't work if you are in a cave-world like the nether.<br><br>

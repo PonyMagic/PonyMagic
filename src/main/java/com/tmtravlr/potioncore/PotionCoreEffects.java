@@ -3,9 +3,6 @@ package com.tmtravlr.potioncore;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.potion.Potion;
-
 import com.tmtravlr.potioncore.effects.PotionAntidote;
 import com.tmtravlr.potioncore.effects.PotionArchery;
 import com.tmtravlr.potioncore.effects.PotionAttackDamageModified;
@@ -47,6 +44,8 @@ import com.tmtravlr.potioncore.effects.PotionWeight;
 import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 import cpw.mods.fml.common.FMLLog;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.potion.Potion;
 
 public class PotionCoreEffects {
 	

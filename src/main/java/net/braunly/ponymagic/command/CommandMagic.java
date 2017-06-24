@@ -7,13 +7,10 @@ import java.util.List;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataController;
-import net.braunly.ponymagic.network.packets.FlySpeedPacket;
-import net.braunly.ponymagic.network.packets.PlayerDataPacket;
+import net.braunly.ponymagic.exp.Exp;
 import net.braunly.ponymagic.race.EnumRace;
-import net.braunly.ponymagic.spells.Spell;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
@@ -80,19 +77,14 @@ public class CommandMagic extends CommandBase
 				}
 			} else if (args[0].equalsIgnoreCase("test")) {
 				PonyMagic.log.info("TEST");
-				PlayerData playerData = PlayerDataController.instance.getDataFromUsername(player.getCommandSenderName());
-				playerData.race = EnumRace.ZEBRA;
-				playerData.levelData.upLevel();
-				playerData.levelData.upLevel();
-				playerData.levelData.upLevel();
-				playerData.levelData.upLevel();
-				playerData.levelData.upLevel();
-				playerData.levelData.upLevel();
-				playerData.levelData.upFreeSkillPoints();
-				playerData.levelData.increaseExp(140000.0D);
+//				PlayerData playerData = PlayerDataController.instance.getDataFromUsername(player.getCommandSenderName());
+//				playerData.race = EnumRace.ZEBRA;
+//				playerData.levelData.addLevel(30);
+//				playerData.levelData.addFreeSkillPoints(5);
+				Exp.addExp(player, 1000.0D);
 				
-				playerData.skillData.upLevel("jump");
-				playerData.saveNBTData(null);
+//				playerData.skillData.upLevel("dispel");
+//				playerData.saveNBTData(null);
 //				PonyMagic.proxy.setPlayerFlySpeed(player, 0);
 //				PonyMagic.channel.sendTo(new FlySpeedPacket(1), player);
 //				PonyMagic.log.info(player.capabilities.getFlySpeed());

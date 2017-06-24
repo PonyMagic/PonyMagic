@@ -1,9 +1,9 @@
 package com.tmtravlr.potioncore.effects;
 
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Causes you to spin uncontrollably in random direcitons<br><br>

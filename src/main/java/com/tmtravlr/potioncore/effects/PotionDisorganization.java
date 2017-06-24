@@ -1,10 +1,10 @@
 package com.tmtravlr.potioncore.effects;
 
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Shuffles your inventory.<br><br>

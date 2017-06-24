@@ -2,13 +2,12 @@ package com.tmtravlr.potioncore.effects;
 
 import java.util.List;
 
-import net.minecraft.entity.EntityLivingBase;
-
 import com.tmtravlr.potioncore.PotionCoreHelper;
 import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.EntityLivingBase;
 
 /**
  * Causes you to uncontrollably float upwards<br><br>

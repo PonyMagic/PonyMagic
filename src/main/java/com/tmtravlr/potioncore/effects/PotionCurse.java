@@ -1,9 +1,9 @@
 package com.tmtravlr.potioncore.effects;
 
-import net.minecraft.entity.EntityLivingBase;
-
 import com.tmtravlr.potioncore.PotionCoreHelper;
 import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
+import net.minecraft.entity.EntityLivingBase;
 
 /**
  * Gives you one random negative effect per level.<br><br>

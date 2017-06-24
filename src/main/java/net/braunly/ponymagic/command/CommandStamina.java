@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.braunly.ponymagic.entity.player.StaminaPlayer;
 import net.braunly.ponymagic.entity.player.StaminaPlayer.StaminaType;
-
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;

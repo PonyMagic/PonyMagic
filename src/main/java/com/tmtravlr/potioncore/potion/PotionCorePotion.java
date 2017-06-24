@@ -2,17 +2,15 @@ package com.tmtravlr.potioncore.potion;
 
 import java.util.List;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ResourceLocation;
-
 import com.tmtravlr.potioncore.PotionCore;
 import com.tmtravlr.potioncore.PotionCoreHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ResourceLocation;
 
 public class PotionCorePotion extends Potion {
 	

@@ -1,8 +1,5 @@
 package net.braunly.ponymagic.race;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public enum EnumRace {
 	REGULAR("Регуляр", new String[]{}),
 	PEGAS("Пегас", new String[]{

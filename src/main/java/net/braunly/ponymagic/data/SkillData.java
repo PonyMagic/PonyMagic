@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 public class SkillData {
-	public HashMap<String,Integer> skillData = new HashMap<String,Integer>();
+	private HashMap<String,Integer> skillData = new HashMap<String,Integer>();
 	
 	public void loadNBTData(NBTTagCompound compound) {
 		HashMap<String,Integer> skillData = new HashMap<String,Integer>();
@@ -29,7 +29,7 @@ public class SkillData {
 	
 	public void saveNBTData(NBTTagCompound compound) {
 		NBTTagList list = new NBTTagList();
-		for(String skillName : skillData.keySet()){
+		for(String skillName : this.skillData.keySet()){
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			nbttagcompound.setString("Name", skillName);
 			nbttagcompound.setInteger("Level", getSkillLevel(skillName));
@@ -40,11 +40,11 @@ public class SkillData {
 	}
 	
 	public int getSkillLevel(String name) {
-		if(!skillData.containsKey(name)){
-			skillData.put(name, 0);
+		if(!this.skillData.containsKey(name)){
+			this.skillData.put(name, 0);
 			return 0;
 		}
-		return skillData.get(name);
+		return this.skillData.get(name);
 	}
 	
 	public boolean isSkillLearned(String skillName) {
@@ -55,6 +55,6 @@ public class SkillData {
 	}
 
 	public void upLevel(String name) {
-		skillData.put(name, getSkillLevel(name) + 1);
+		this.skillData.put(name, getSkillLevel(name) + 1);
 	}
 }

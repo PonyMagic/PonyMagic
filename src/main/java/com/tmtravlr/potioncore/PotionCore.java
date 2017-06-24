@@ -1,10 +1,5 @@
 package com.tmtravlr.potioncore;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.potion.Potion;
-import net.minecraftforge.common.config.Configuration;
-
 import com.tmtravlr.potioncore.network.CToSMessage;
 import com.tmtravlr.potioncore.network.PacketHandlerClient;
 import com.tmtravlr.potioncore.network.PacketHandlerServer;
@@ -21,10 +16,13 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.EntityRegistry.EntityRegistration;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.potion.Potion;
+import net.minecraftforge.common.config.Configuration;
 
 /**
  * Potion mod!

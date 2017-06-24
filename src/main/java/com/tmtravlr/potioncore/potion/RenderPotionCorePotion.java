@@ -5,19 +5,14 @@ import org.lwjgl.opengl.GL12;
 
 import com.tmtravlr.potioncore.PotionCoreHelper;
 
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderSnowball;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.projectile.EntityPotion;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemPotion;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionHelper;
-import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
 @SideOnly(Side.CLIENT)
 public class RenderPotionCorePotion extends RenderSnowball

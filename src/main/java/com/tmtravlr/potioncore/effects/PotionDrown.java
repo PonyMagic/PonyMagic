@@ -1,11 +1,11 @@
 package com.tmtravlr.potioncore.effects;
 
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Makes it so you can only breathe water and will drown on land.<br><br>

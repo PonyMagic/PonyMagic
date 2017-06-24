@@ -1,17 +1,16 @@
 package net.braunly.ponymagic.network.packets;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.data.PlayerData;
-import net.braunly.ponymagic.data.PlayerDataController;
-import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
+import io.netty.buffer.ByteBuf;
+import net.braunly.ponymagic.PonyMagic;
+import net.braunly.ponymagic.data.PlayerData;
+import net.braunly.ponymagic.data.PlayerDataController;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class PlayerDataPacket implements IMessage, IMessageHandler<PlayerDataPacket, IMessage> 
 {
@@ -25,12 +24,12 @@ public class PlayerDataPacket implements IMessage, IMessageHandler<PlayerDataPac
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		compound = ByteBufUtils.readTag(buf);
+		this.compound = ByteBufUtils.readTag(buf);
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		ByteBufUtils.writeTag(buf, compound);
+		ByteBufUtils.writeTag(buf, this.compound);
 	}
 
 	@Override
@@ -40,6 +39,8 @@ public class PlayerDataPacket implements IMessage, IMessageHandler<PlayerDataPac
 			PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
 			playerData.setNBT(message.compound);
 			playerData.saveNBTData(null);
+			PonyMagic.log.info("RECIEVED");
+			PonyMagic.log.info(PlayerDataController.instance.getPlayerData(player).levelData.getLevel());
 		}
 		return null;
 	}

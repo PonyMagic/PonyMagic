@@ -1,6 +1,5 @@
 package net.braunly.ponymagic.exp;
 
-import java.io.File;
 import java.util.HashMap;
 
 import net.minecraft.block.Block;

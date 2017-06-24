@@ -1,10 +1,9 @@
 package com.tmtravlr.potioncore.effects;
 
-import net.minecraft.entity.Entity;
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Explodes at your position but does no damage to you.<br><br>

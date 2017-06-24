@@ -1,72 +1,63 @@
 package net.braunly.ponymagic.data;
 
-import java.util.HashMap;
-
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 
 public class LevelData {
-	public HashMap<String,Number> levelData = new HashMap<String,Number>();
+	private int level = 0;
+	private int freeSkillPoint = 0;
+	private double exp = 0.0D;
 	
 	public void loadNBTData(NBTTagCompound compound) {
-		HashMap<String,Number> levelData = new HashMap<String,Number>();
 		if(compound == null)
 			return;
-		NBTTagCompound nbttagcompound = compound;
-        levelData.put("Level", nbttagcompound.getInteger("Level"));
-        levelData.put("FreeSkillPoint", nbttagcompound.getInteger("FreeSkillPoint"));
-        levelData.put("Exp", nbttagcompound.getDouble("Exp"));
-        this.levelData = levelData;
+		NBTTagCompound levelTags = compound.getCompoundTag("LevelData");
+        this.level = levelTags.getInteger("Level");
+        this.freeSkillPoint = levelTags.getInteger("FreeSkillPoint");
+        this.exp = levelTags.getDouble("Exp");
 	}
 
 	public void saveNBTData(NBTTagCompound compound) {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
-		nbttagcompound.setInteger("Level", (Integer) levelData.get("Level"));
-		nbttagcompound.setInteger("FreeSkillPoint", (Integer) levelData.get("FreeSkillPoint"));
-		nbttagcompound.setDouble("Exp", (Double) levelData.get("Exp"));
+		nbttagcompound.setInteger("Level", this.getLevel());
+		nbttagcompound.setInteger("FreeSkillPoint", this.getFreeSkillPoints());
+		nbttagcompound.setDouble("Exp", this.getExp());
 		compound.setTag("LevelData", nbttagcompound);
 	}
 
 	public int getLevel() {
-		if(levelData.containsKey("Level")){
-			return (Integer) levelData.get("Level");
-		}
-		return 0;
+		return this.level;
 	}
 
-	public void upLevel() {
-		if(!levelData.containsKey("Level")){
-			levelData.put("Level", 1);
-		}
-		levelData.put("Level", (Integer) levelData.get("Level") + 1);
+	public void addLevel() {
+		this.level += 1;
+	}
+	
+	public void addLevel(int lvl) {
+		this.level = getLevel() + lvl;
 	}
 	
 	public int getFreeSkillPoints() {
-		if(levelData.containsKey("FreeSkillPoint")){
-			return (Integer) levelData.get("FreeSkillPoint");
-		}
-		return 0;
+		return this.freeSkillPoint;
 	}
 	
-	public void upFreeSkillPoints() {
-		if(!levelData.containsKey("FreeSkillPoint")){
-			levelData.put("FreeSkillPoint", 1);
-		}
-		levelData.put("FreeSkillPoint", (Integer) levelData.get("FreeSkillPoint") + 1);
+	public void addFreeSkillPoints() {
+		this.freeSkillPoint += 1;
+	}
+	
+	public void addFreeSkillPoints(int points) {
+		this.freeSkillPoint = getFreeSkillPoints() + points;
 	}
 	
 	public double getExp() {
-		if(levelData.containsKey("Exp")){
-			return (Double) levelData.get("Exp");
-		}
-		return 0;
+		return this.exp;
 	}
 	
-	public void increaseExp(double exp) {
-		if(!levelData.containsKey("Exp")){
-			levelData.put("Exp", 0);
-		}
-		levelData.put("Exp", (Double) levelData.get("Exp") + exp);
+	public void addExp(double exp) {
+		this.exp = getExp() + exp;
+	}
+	
+	public void resetExp() {
+		this.exp = 0;
 	}
 
 }

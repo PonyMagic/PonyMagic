@@ -1,10 +1,7 @@
 package net.braunly.ponymagic.handlers;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.braunly.ponymagic.exp.MineBlock;
-import net.minecraft.block.Block;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 public class MineEventHandler {

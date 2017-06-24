@@ -23,13 +23,14 @@ import net.braunly.ponymagic.exp.Exp;
 import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.CraftEventHandler;
 import net.braunly.ponymagic.handlers.DeathEventHandler;
+import net.braunly.ponymagic.handlers.LevelUpEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.handlers.MineEventHandler;
 import net.braunly.ponymagic.handlers.PlaceEventHandler;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
-import net.braunly.ponymagic.network.packets.OpenGuiPacket;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
+import net.braunly.ponymagic.network.packets.SkillUpPacket;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
 import net.braunly.ponymagic.race.EnumRace;
 import net.braunly.ponymagic.spells.SpellEnchant;
@@ -39,7 +40,6 @@ import net.braunly.ponymagic.spells.SpellPotionSplash;
 import net.braunly.ponymagic.spells.SpellShield;
 import net.braunly.ponymagic.spells.SpellSpeed;
 import net.braunly.ponymagic.spells.SpellUnEnchant;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.MinecraftForge;
@@ -55,6 +55,7 @@ public class CommonProxy {
     	
 //    	PonyMagic.channel.registerMessage(OpenGuiPacket.class, OpenGuiPacket.class, 5, Side.SERVER);
     	PonyMagic.channel.registerMessage(RequestPlayerDataPacket.class, RequestPlayerDataPacket.class, 3, Side.SERVER);
+    	PonyMagic.channel.registerMessage(SkillUpPacket.class, SkillUpPacket.class, 4, Side.SERVER);
     	
 		Config.load(event.getSuggestedConfigurationFile());
     	PonyMagic.log.info("Config loaded!");
@@ -71,6 +72,8 @@ public class CommonProxy {
     	
     	MinecraftForge.EVENT_BUS.register(new MagicHandlersContainer());
     	FMLCommonHandler.instance().bus().register(new MagicHandlersContainer());
+    	
+    	MinecraftForge.EVENT_BUS.register(new LevelUpEventHandler());
     	
     	FMLCommonHandler.instance().bus().register(new KeyInputHandler());
     	KeyBindings.init(); 

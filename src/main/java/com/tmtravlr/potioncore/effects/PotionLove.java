@@ -1,12 +1,11 @@
 package com.tmtravlr.potioncore.effects;
 
-import net.minecraft.entity.Entity;
+import com.tmtravlr.potioncore.potion.PotionCorePotion;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.WorldServer;
-
-import com.tmtravlr.potioncore.potion.PotionCorePotion;
 
 /**
  * Makes animals start breeding<br><br>

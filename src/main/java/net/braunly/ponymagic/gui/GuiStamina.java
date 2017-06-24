@@ -2,15 +2,12 @@ package net.braunly.ponymagic.gui;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.entity.player.StaminaPlayer;
 import net.braunly.ponymagic.entity.player.StaminaPlayer.StaminaType;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
