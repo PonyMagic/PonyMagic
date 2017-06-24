@@ -1,15 +1,15 @@
 [
 {
-  "modid": "ponymagic",
-  "name": "Pony Magic",
-  "description": "Some magic.",
-  "version": "1.0",
-  "mcversion": "1.7.10",
-  "url": "https://minecraft.everypony.ru",
+  "modid": "${modid}",
+  "name": "${name}",
+  "description": "${description}",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "${url}",
   "updateUrl": "",
   "authorList": ["Braunly", "Akell"],
-  "credits": "Purple unicorn.",
-  "logoFile": "",
+  "credits": "Thanks to mischievous purple unicorn, DeutscheLand and one little biting zebra!",
+  "logoFile": "/assets/lavendermod/logo.png",
   "screenshots": [],
   "dependencies": []
 }

@@ -30,10 +30,14 @@ buildscript {
     }
 }
 
+def modName = "Pony Magic"
+def modUrl = "https://gitlab.com/mc4ep/pony-magic"
+def modDescription = """Some pony magic"""
+
 apply plugin: 'forge'
 
-group= "net.braunly.ponymagic" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Pony Magic v"
+group = "net.braunly" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "ponymagic"
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
@@ -62,12 +66,15 @@ processResources
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
+    // Fill mcmod.info template
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand  'version': project.version,
+                'mcversion': project.minecraft.version,
+                'modid': project.archivesBaseName,
+                'name': modName,
+                'description': modDescription,
+                'url': modUrl
     }
         
     // copy everything else, thats not the mcmod.info
