@@ -25,7 +25,7 @@ snapshot:
 release:
   stage: build
   only:
-    - /^v\d+\.\d+\.\d+(\-[a-z]+(\d*)?)?$/
+    - /^\d+\.\d+\.\d+(\-[a-z]+(\d*)?)?$/
   script:
     - ./gradlew setupCIWorkspace uploadArchives -PrepoLogin=$repoLogin -PrepoPassword=$repoPassword
   artifacts:
