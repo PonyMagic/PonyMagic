@@ -13,8 +13,8 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            name 'mc4ep'
+            url 'http://maven.mc4ep.ru/repository/minecraft/'
         }
         maven {
             name = "sonatype"
