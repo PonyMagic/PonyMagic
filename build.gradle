@@ -1,3 +1,14 @@
+apply plugin: 'build-version'
+
+buildVersion {
+    releaseTagPattern = "^v(\\d+\\.\\d+\\.\\d)"
+    matchGroup = "\$1"
+    versionSplitter = "."
+    snapShotQuantifier = "-SNAPSHOT"
+}
+
+version = buildVersion.version
+
 buildscript {
     repositories {
         mavenCentral()
@@ -9,15 +20,18 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        maven {
+            url 'https://geonet.artifactoryonline.com/geonet/public-releases'
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath group: 'nz.org.geonet', name: 'gradle-build-version-plugin', version: '1.0.4'
     }
 }
 
 apply plugin: 'forge'
 
-version = "0.1"
 group= "net.braunly.ponymagic" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Pony Magic v"
 
