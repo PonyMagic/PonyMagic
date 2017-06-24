@@ -25,7 +25,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle',version: '1.2-SNAPSHOT'
         classpath group: 'nz.org.geonet', name: 'gradle-build-version-plugin', version: '1.0.4'
     }
 }
