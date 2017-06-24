@@ -1,0 +1,33 @@
+image: java:8-jdk
+
+stages:
+  - build
+
+cache:
+  untracked: true
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+before_script:
+  - chmod +x ./gradlew
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+snapshot:
+  stage: build
+  when: manual
+  script:
+    - ./gradlew setupCIWorkspace uploadArchives -PrepoLogin=$repoLogin -PrepoPassword=$repoPassword
+  artifacts:
+    paths:
+      - ./build/libs
+
+release:
+  stage: build
+  only:
+    - /^v\d+\.\d+\.\d+(\-[a-z]+(\d*)?)?$/
+  script:
+    - ./gradlew setupCIWorkspace uploadArchives -PrepoLogin=$repoLogin -PrepoPassword=$repoPassword
+  artifacts:
+    paths:
+      - ./build/libs
