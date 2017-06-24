@@ -6,8 +6,8 @@ buildscript {
             url 'http://maven.mc4ep.ru/repository/minecraft/'
         }
         maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+            name "sonatype"
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
         }
     }
     dependencies {
@@ -20,6 +20,7 @@ plugins {
     id "com.palantir.git-version" version "0.7.3"
 }
 apply plugin: 'forge'
+apply plugin: 'maven'
 
 def gitVersionName() {
     def details = versionDetails()
@@ -29,7 +30,6 @@ def gitVersionName() {
         return "$details.lastTag-$details.gitHash-SNAPSHOT"
     }
 }
-version = gitVersionName()
 
 def modName = "Pony Magic"
 def modUrl = "https://gitlab.com/mc4ep/pony-magic"
@@ -37,6 +37,10 @@ def modDescription = """Some pony magic"""
 
 group = "net.braunly" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ponymagic"
+version = gitVersionName()
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
@@ -44,19 +48,6 @@ minecraft {
 }
 
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
 }
 
 processResources
@@ -79,5 +70,26 @@ processResources
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+jar {
+    include { sourceSets.main.output.classesDir }
+    zip64 true
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: "http://maven.mc4ep.ru/repository/internal/") {
+            authentication(
+                    userName: project.hasProperty('repoLogin') ? repoLogin : null,
+                    password: project.hasProperty('repoPassword') ? repoPassword: null
+            )
+        }
+        pom.project {
+            name modName
+            description modDescription
+            url modUrl
+        }
     }
 }
