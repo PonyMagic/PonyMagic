@@ -5,6 +5,5 @@
 build/
 eclipse/*
 bin/
-gradle/
 libs/
 
