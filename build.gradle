@@ -1,14 +1,3 @@
-apply plugin: 'build-version'
-
-buildVersion {
-    releaseTagPattern = "^v(\\d+\\.\\d+\\.\\d)"
-    matchGroup = "\$1"
-    versionSplitter = "."
-    snapShotQuantifier = "-SNAPSHOT"
-}
-
-version = buildVersion.version
-
 buildscript {
     repositories {
         mavenCentral()
@@ -20,21 +9,31 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
-        maven {
-            url 'https://geonet.artifactoryonline.com/geonet/public-releases'
-        }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle',version: '1.2.0.777'
-        classpath group: 'nz.org.geonet', name: 'gradle-build-version-plugin', version: '1.0.4'
     }
 }
+
+
+plugins {
+    id "com.palantir.git-version" version "0.7.3"
+}
+apply plugin: 'forge'
+
+def gitVersionName() {
+    def details = versionDetails()
+    if (details.isCleanTag) {
+        return "$details.lastTag"
+    } else {
+        return "$details.lastTag-$details.gitHash-SNAPSHOT"
+    }
+}
+version = gitVersionName()
 
 def modName = "Pony Magic"
 def modUrl = "https://gitlab.com/mc4ep/pony-magic"
 def modDescription = """Some pony magic"""
-
-apply plugin: 'forge'
 
 group = "net.braunly" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ponymagic"
