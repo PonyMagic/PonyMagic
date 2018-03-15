@@ -1,0 +1,123 @@
+version: 1
+
+potions:
+  jump:
+    -
+      duration: 60
+      cost: 30
+      level: 2
+  antidote:
+    -
+      duration: 60
+      cost: 30
+      level: 1
+  climb:
+    -
+      duration: 60
+      cost: 30
+      level: 1
+  dispel:
+    -
+      duration: 1
+      cost: 60
+      level: 1
+  fire_resistance:
+    -
+      duration: 90
+      cost: 60
+      level: 1
+  drown:
+    -
+      duration: 60
+      cost: 30
+      level: 1
+  slowness:
+    -
+      duration: 30
+      cost: 30
+      level: 1
+  purity:
+    -
+      duration: 60
+      cost: 30
+      level: 1
+  night_vision:
+    -
+      duration: 60
+      cost: 30
+      level: 1
+  vulnerable:
+    -
+      duration: 30
+      cost: 30
+      level: 1
+  step_up:
+    -
+      duration: 60
+      cost: 30
+      level: 2
+  strength:
+    -
+      duration: 60
+      cost: 30
+      level: 2
+  haste:
+    -
+      duration: 60
+      cost: 30
+      level: 3
+  regeneration:
+    -
+      duration: 30
+      cost: 30
+      level: 1
+    -
+      duration: 45
+      cost: 30
+      level: 2
+  teleport_spawn:
+    -
+      duration: 30
+      cost: 60
+      level: 1
+  solid_core:
+    -
+      duration: 30
+      cost: 60
+      level: 1
+  instant_health:
+    -
+      duration: 10
+      cost: 30
+      level: 1
+    -
+      duration: 20
+      cost: 30
+      level: 1
+  slow_fall:
+    -
+      duration: 10
+      cost: 30
+      level: 1
+  speed:
+    -
+      duration: 30
+      cost: 30
+      level: 2
+    -
+      duration: 60
+      cost: 30
+      level: 3
+  # Non-standard potions
+  shield:
+    duration: 60
+    cost: 10
+    level: 1  # Actually, it's stamina per damage exchange rate
+
+spells:
+  grow:
+    cost: 10
+  unenchant:
+    cost: 90
+  enchant:
+    cost: 90

@@ -1,0 +1,3 @@
+{
+	"levelUp": { "category": "player", "sounds": ["ponymagic:levelUp"], "stream": true }
+}

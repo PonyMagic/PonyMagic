@@ -1,0 +1,17 @@
+[
+{
+  "modid": "${modid}",
+  "name": "${name}",
+  "description": "${description}",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "${url}",
+  "updateUrl": "",
+  "authorList": ["Braunly", "Akell"],
+  "credits": "Thanks for helping to: Orhideous, KostaRMax, Tol_Eres, Kwaarr, XenoOxotnik",
+  "logoFile": "/assets/ponymagic/logo.png",
+  "screenshots": [],
+  "requiredMods": ["Forge", "potioncore"],
+  "dependencies": ["potioncore"]
+}
+]
