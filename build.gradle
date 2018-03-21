@@ -2,23 +2,45 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
+		maven {
+            name 'mc4ep'
+            url 'http://maven.mc4ep.ru/repository/minecraft/'
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
+plugins {
+    id "com.palantir.git-version" version "0.7.3"
+}
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-
-version = "1.0"
-group = "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
-
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
+def gitVersionName() {
+    def details = versionDetails()
+    if (details.isCleanTag) {
+        return "$details.lastTag"
+    } else {
+        return "$details.lastTag-$details.gitHash-SNAPSHOT"
+    }
 }
+
+def modName = "Pony Magic"
+def modUrl = "https://gitlab.com/mc4ep/pony-magic"
+def modDescription = """Some pony magic"""
+
+group = "net.braunly" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "ponymagic"
+version = gitVersionName()
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava {
+    sourceCompatibility = targetCompatibility = "1.8"
+}
+
 
 minecraft {
     version = "1.12.2-14.23.2.2625"
@@ -34,45 +56,52 @@ minecraft {
 }
 
 dependencies {
-	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    //compile group: 'com.google.guava', name: 'guava', version: '22.0'
+    //compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
+    //compile group: 'org.apache.commons', name: 'commons-csv', version: '1.5'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
 }
 
-//processResources {
+processResources
+{
     // this will ensure that this task is redone when the versions change.
-//    inputs.property "version", project.version
-//    inputs.property "mcversion", project.minecraft.version
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
-//    from(sourceSets.main.resources.srcDirs) {
-//        include 'mcmod.info'
-                
-        // replace version and mcversion
-//        expand 'version':project.version, 'mcversion':project.minecraft.version
-//    }
+    // Fill mcmod.info template
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand  'version': project.version,
+                'mcversion': project.minecraft.version,
+                'modid': project.archivesBaseName,
+                'name': modName,
+                'description': modDescription,
+                'url': modUrl
+    }
         
-    // copy everything else except the mcmod.info
-//    from(sourceSets.main.resources.srcDirs) {
-//        exclude 'mcmod.info'
-//    }
-//}
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+jar {
+    include { sourceSets.main.output.classesDir }
+    zip64 true
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: "http://maven.mc4ep.ru/repository/internal/") {
+            authentication(
+                    userName: project.hasProperty('repoLogin') ? repoLogin : null,
+                    password: project.hasProperty('repoPassword') ? repoPassword: null
+            )
+        }
+        pom.project {
+            name modName
+            description modDescription
+            url modUrl
+        }
+    }
+}
