@@ -61,7 +61,7 @@ public class CommonProxy {
 		PonyMagic.log.info("Config loaded!");
 		
 		// Inject custom potions
-		PonyMagic.log.info("Injecting custom potions...");
+//		PonyMagic.log.info("Injecting custom potions...");
 //		injectPotions();
 		
 
