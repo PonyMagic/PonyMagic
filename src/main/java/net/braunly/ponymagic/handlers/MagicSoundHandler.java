@@ -9,11 +9,11 @@ public class MagicSoundHandler {
 	public static SoundEvent LEVEL_UP;
 
 	public static void init() {
-		LEVEL_UP = createSoundEvent("levelUp");
+		LEVEL_UP = createSoundEvent("levelup");
 	}
 
 	private static SoundEvent createSoundEvent(String soundName) {
 		final ResourceLocation soundID = new ResourceLocation(PonyMagic.MODID, soundName);
-		return new SoundEvent(soundID).setRegistryName(soundID);
+		return new SoundEvent(soundID);
 	}
 }

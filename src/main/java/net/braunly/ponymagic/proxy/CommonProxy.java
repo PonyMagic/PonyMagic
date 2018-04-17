@@ -25,6 +25,7 @@ import net.braunly.ponymagic.handlers.LevelUpEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.handlers.MagicSoundHandler;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
+import net.braunly.ponymagic.network.packets.LevelUpSoundPacket;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
 import net.braunly.ponymagic.network.packets.ResetPacket;
@@ -56,13 +57,15 @@ public class CommonProxy {
 		PonyMagic.channel.registerMessage(RequestPlayerDataPacket.class, RequestPlayerDataPacket.class, 3, Side.SERVER);
 		PonyMagic.channel.registerMessage(SkillUpPacket.class, SkillUpPacket.class, 4, Side.SERVER);
 		PonyMagic.channel.registerMessage(ResetPacket.class, ResetPacket.class, 5, Side.SERVER);
+		
+		PonyMagic.channel.registerMessage(LevelUpSoundPacket.class, LevelUpSoundPacket.class, 6, Side.CLIENT);
 
 		Config.load(event.getSuggestedConfigurationFile());
 		PonyMagic.log.info("Config loaded!");
 		
 		// Inject custom potions
-//		PonyMagic.log.info("Injecting custom potions...");
-//		injectPotions();
+		PonyMagic.log.info("Injecting custom potions...");
+		injectPotions();
 		
 
 		// Register capability data
@@ -101,6 +104,7 @@ public class CommonProxy {
 	}
 
 	private void injectPotions() {
+		new PotionShield();
 		POTIONS.put(PotionShield.NAME, PotionShield.instance);
 	}
 

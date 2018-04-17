@@ -26,8 +26,6 @@ abstract class ExperienceHandler {
 		PlayerData data = PlayerDataController.instance.getPlayerData(player);
 		LevelData levelData = data.levelData;
 
-		PonyMagic.log.info("EXP: " + experienceKey + " " + expCount);
-
 		if (levelData.getLevel() < PonyMagic.MAX_LVL) {
 			if (Config.expModifier) {
 				expCount *= Config.expModifierAmount;
@@ -35,8 +33,8 @@ abstract class ExperienceHandler {
 			levelData.addExp(expCount);
 
 			if (levelData.getExp() >= (levelData.getLevel() + 1) * Config.expPerLevel) {
-				MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, levelData.getLevel() + 1));
 				levelData.addLevel();
+				MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, levelData.getLevel()));
 				levelData.resetExp();
 				if (levelData.getLevel() % 3 == 0) {
 					levelData.addFreeSkillPoints();

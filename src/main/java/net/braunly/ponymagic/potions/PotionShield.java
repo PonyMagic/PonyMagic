@@ -15,7 +15,7 @@ import com.tmtravlr.potioncore.potion.PotionCorePotion;
 public class PotionShield extends PotionCorePotion {
 
 	public static final String NAME = "shield";
-	public static PotionShield instance = null;
+	public static PotionShield instance;
 
 	public PotionShield() {
 		super(NAME, false, 0x43B6FF);
@@ -25,5 +25,10 @@ public class PotionShield extends PotionCorePotion {
 	@Override
 	public boolean isInstant() {
 		return false;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 }
