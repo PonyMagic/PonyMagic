@@ -139,14 +139,14 @@ public class Config {
 						config.getInt("solidCoreStamina1", "Potions", 30, 0, 100, "Стамина за solidCore."),
 						config.getInt("solidCoreLvl1", "Potions", 1, 1, 5, "Уровень эффекта solidCore.") });
 		potions.put("instant_health#1",
-				new Integer[] { config.getInt("hpRegenDur1", "Potions", 10, 0, 600, "Длительность heal. (сек)"),
-						config.getInt("hpRegenStamina1", "Potions", 30, 0, 100, "Стамина за heal."),
-						config.getInt("hpRegenLvl1", "Potions", 1, 1, 5, "Уровень эффекта heal.") });
+				new Integer[] { config.getInt("healDur1", "Potions", 3, 0, 600, "Длительность heal. (сек)"),
+						config.getInt("healStamina1", "Potions", 30, 0, 100, "Стамина за heal."),
+						config.getInt("healLvl1", "Potions", 1, 1, 5, "Уровень эффекта heal.") });
 		potions.put("instant_health#2",
 				new Integer[] {
-						config.getInt("hpRegenDur2", "Potions", 20, 0, 600, "Длительность heal уровня 2. (сек)"),
-						config.getInt("hpRegenStamina2", "Potions", 30, 0, 100, "Стамина за heal уровня 2."),
-						config.getInt("hpRegenLvl2", "Potions", 1, 1, 5, "Уровень эффекта heal уровня 2.") });
+						config.getInt("healDur2", "Potions", 6, 0, 600, "Длительность heal уровня 2. (сек)"),
+						config.getInt("healStamina2", "Potions", 30, 0, 100, "Стамина за heal уровня 2."),
+						config.getInt("healLvl2", "Potions", 1, 1, 5, "Уровень эффекта heal уровня 2.") });
 		potions.put("slow_fall#1",
 				new Integer[] { config.getInt("slowFallDur1", "Potions", 10, 0, 600, "Длительность slowFall. (сек)"),
 						config.getInt("slowFallStamina1", "Potions", 30, 0, 100, "Стамина за slowFall."),
