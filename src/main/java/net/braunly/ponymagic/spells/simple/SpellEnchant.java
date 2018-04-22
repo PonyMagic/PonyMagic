@@ -24,7 +24,7 @@ public class SpellEnchant extends NamedSpell {
 	@Override
 	public boolean cast(EntityPlayer player, Integer level) {
 		ItemStack itemStack = player.getHeldItemMainhand();
-		if (itemStack.isEmpty()) {
+		if (itemStack.isEmpty() || !itemStack.isItemEnchantable()) {
 			return false;
 		}
 		Random rand = player.world.rand;
