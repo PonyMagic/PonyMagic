@@ -84,6 +84,15 @@ shadowJar {
     dependencies {
         exclude(dependency("org.projectlombok:lombok"))
     }
+    exclude "META-INF/*"
+}
+
+reobf {
+    shadowJar {}
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
 
 uploadArchives {
