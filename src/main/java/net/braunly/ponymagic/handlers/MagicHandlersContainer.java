@@ -1,7 +1,5 @@
 package net.braunly.ponymagic.handlers;
 
-import static net.braunly.ponymagic.spells.potion.SpellPotion.getVanillaPotion;
-
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.stamina.EnumStaminaType;
 import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
@@ -23,13 +21,22 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
+import com.codahale.metrics.Timer;
+import static com.codahale.metrics.MetricRegistry.name;
+import static net.braunly.ponymagic.spells.potion.SpellPotion.getVanillaPotion;
+
 public class MagicHandlersContainer {
+	private final Timer handlePlayerUpdateTimer = PonyMagic.METRICS.timer(
+			name(MagicHandlersContainer.class, "handlePlayerUpdate")
+	);
 
 	public MagicHandlersContainer() {
 	}
 
 	@SubscribeEvent
 	public void handlePlayerUpdate(PlayerTickEvent event) {
+		final Timer.Context context = handlePlayerUpdateTimer.time();
+		try {
 		// if (!(event.getEntityLiving() instanceof EntityPlayer)) return;
 
 		if (event.side == Side.CLIENT)
@@ -123,6 +130,9 @@ public class MagicHandlersContainer {
 				updatePlayerFlySpeed(player, 0);
 			}
 		}
+		} finally {
+			context.stop();
+		}
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
@@ -162,7 +172,7 @@ public class MagicHandlersContainer {
 			}
 		}
 	}
-	
+
 	public static void updatePlayerFlySpeed(EntityPlayer player, float mod) {
 		if (player.world.isRemote)
 			return;
@@ -179,7 +189,7 @@ public class MagicHandlersContainer {
 			PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod), (EntityPlayerMP) player);
 		}
 	}
-	
+
 	public static void updatePlayerMaxStamina(EntityPlayer player) {
 		if (player.world.isRemote)
 			return;
@@ -194,5 +204,5 @@ public class MagicHandlersContainer {
 		}
 		stamina.sync((EntityPlayerMP) player);
 	}
-	
+
 }

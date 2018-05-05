@@ -45,7 +45,7 @@ compileJava {
 minecraft {
     version = "1.12.2-14.23.2.2625"
     runDir = "run"
-    
+
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
     // stable_#            stables are built at the discretion of the MCP team.
@@ -59,6 +59,8 @@ dependencies {
     //compile group: 'com.google.guava', name: 'guava', version: '22.0'
     //compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
     //compile group: 'org.apache.commons', name: 'commons-csv', version: '1.5'
+    compile group: 'io.dropwizard.metrics', name: 'metrics-core', version: '4.0.0'
+    compile group: 'io.dropwizard.metrics', name: 'metrics-graphite', version: '4.1.0-rc2'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
 }
 
@@ -78,7 +80,7 @@ processResources
                 'description': modDescription,
                 'url': modUrl
     }
-        
+
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'

@@ -2,7 +2,12 @@ package net.braunly.ponymagic.proxy;
 
 import static com.tmtravlr.potioncore.PotionCoreEffects.POTIONS;
 
-import com.tmtravlr.potioncore.PotionCoreEffects;
+import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
+
+import com.codahale.metrics.MetricFilter;
+import com.codahale.metrics.graphite.Graphite;
+import com.codahale.metrics.graphite.GraphiteReporter;
 
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
@@ -37,7 +42,6 @@ import net.minecraft.util.IThreadListener;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -57,16 +61,16 @@ public class CommonProxy {
 		PonyMagic.channel.registerMessage(RequestPlayerDataPacket.class, RequestPlayerDataPacket.class, 3, Side.SERVER);
 		PonyMagic.channel.registerMessage(SkillUpPacket.class, SkillUpPacket.class, 4, Side.SERVER);
 		PonyMagic.channel.registerMessage(ResetPacket.class, ResetPacket.class, 5, Side.SERVER);
-		
+
 		PonyMagic.channel.registerMessage(LevelUpSoundPacket.class, LevelUpSoundPacket.class, 6, Side.CLIENT);
 
 		Config.load(event.getSuggestedConfigurationFile());
 		PonyMagic.log.info("Config loaded!");
-		
+
 		// Inject custom potions
 		PonyMagic.log.info("Injecting custom potions...");
 		injectPotions();
-		
+
 
 		// Register capability data
 		CapabilityManager.INSTANCE.register(IStaminaStorage.class, new StaminaSerializer(), StaminaStorage.class);
@@ -94,7 +98,23 @@ public class CommonProxy {
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
-		
+		if (Config.metricsEnabled) {
+			initMetrics();
+			PonyMagic.log.info("Initialized metrics");
+		} else {
+			PonyMagic.log.info("Metrics disabled");
+		}
+	}
+
+	private void initMetrics() {
+		final Graphite graphite = new Graphite(new InetSocketAddress(Config.graphiteHost, Config.graphitePort));
+		final GraphiteReporter reporter = GraphiteReporter.forRegistry(PonyMagic.METRICS)
+				.prefixedWith(Config.graphitePrefix)
+				.convertRatesTo(TimeUnit.SECONDS)
+				.convertDurationsTo(TimeUnit.MILLISECONDS)
+				.filter(MetricFilter.ALL)
+				.build(graphite);
+		reporter.start(Config.reportInterval, TimeUnit.SECONDS);
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
