@@ -6,6 +6,7 @@ import java.util.Map;
 
 import net.minecraftforge.common.config.Configuration;
 
+@SuppressWarnings("WeakerAccess")
 public class Config {
 
 	public static boolean expModifier;
@@ -22,6 +23,11 @@ public class Config {
 
 	public static Double flySpendingValue;
 	public static float flyExhausting;
+	public static String graphiteHost;
+	public static int graphitePort;
+	public static String graphitePrefix;
+	public static int reportInterval;
+	public static boolean metricsEnabled;
 
 	public static Map<String, Integer[]> potions = new HashMap<>();
 	public static Map<String, Integer[]> spells = new HashMap<>();
@@ -53,6 +59,12 @@ public class Config {
 		flySpendingValue = config
 				.get("flySpendingValue", "Стамина", 0.08D, "Уменьшение при обычном полёте", 0.0D, 100.0D).getDouble();
 		flyExhausting = config.getFloat("flyExhausting", "Стамина", 0.016F, 0.0F, 1.0F, "Потеря голода при полёте");
+
+		graphiteHost = config.getString("graphiteHost", "metrics", "localhost", "Сервер Graphite");
+		graphitePort = config.getInt("graphitePort", "metrics", 2003, 0, 65535, "Порт Graphite");
+		graphitePrefix = config.getString("graphitePrefix", "metrics", "", "Префикс метрик");
+		reportInterval = config.getInt("reportInterval", "metrics", 10, 1, 600, "Частота обновлений метрик");
+		metricsEnabled = config.getBoolean("metricsEnabled", "metrics", false, "Включить отправку метрик?");
 
 		// POTIONS
 		potions.put("jump_boost#1",
