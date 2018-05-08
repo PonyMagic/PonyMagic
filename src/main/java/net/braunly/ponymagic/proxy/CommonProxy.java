@@ -111,7 +111,7 @@ public class CommonProxy {
 		final GraphiteReporter reporter = GraphiteReporter.forRegistry(PonyMagic.METRICS)
 				.prefixedWith(Config.graphitePrefix)
 				.convertRatesTo(TimeUnit.SECONDS)
-				.convertDurationsTo(TimeUnit.MILLISECONDS)
+				.convertDurationsTo(TimeUnit.MICROSECONDS)
 				.filter(MetricFilter.ALL)
 				.build(graphite);
 		reporter.start(Config.reportInterval, TimeUnit.SECONDS);
