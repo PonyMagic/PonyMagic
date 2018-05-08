@@ -1,36 +1,25 @@
 package net.braunly.ponymagic.data;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import com.codahale.metrics.Timer;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.util.NBTJsonUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.command.CommandException;
-import net.minecraft.command.EntitySelector;
-import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 
+import static com.codahale.metrics.MetricRegistry.name;
+
 public class PlayerDataController {
 	public static PlayerDataController instance;
+	private final Timer getPlayerDataTimer = PonyMagic.METRICS.timer(name(PlayerDataController.class, "getPlayerData"));
 
 	public PlayerDataController() {
 		instance = this;
-	}
-
-	public String hasPlayer(String username) {
-		for (String name : getUsernameData().keySet()) {
-			if (name.equalsIgnoreCase(username))
-				return name;
-		}
-
-		return "";
 	}
 
 	public PlayerData getPlayerData(EntityPlayer player) {
@@ -38,20 +27,24 @@ public class PlayerDataController {
 	}
 
 	public PlayerData getDataFromUsername(MinecraftServer server, String username) {
-		EntityPlayer player = server.getPlayerList().getPlayerByUsername(username);
+		final Timer.Context context = getPlayerDataTimer.time();
 		PlayerData data = null;
-		if (player == null) {
-			Map<String, NBTTagCompound> map = getUsernameData();
-			for (String name : map.keySet()) {
-				if (name.equalsIgnoreCase(username)) {
-					data = new PlayerData();
-					data.setNBT(map.get(name));
-					break;
+		try {
+			EntityPlayer player = server.getPlayerList().getPlayerByUsername(username);
+			if (player == null) {
+				Map<String, NBTTagCompound> map = getUsernameData();
+				for (String name : map.keySet()) {
+					if (name.equalsIgnoreCase(username)) {
+						data = new PlayerData();
+						data.setNBT(map.get(name));
+						break;
+					}
 				}
-			}
-		} else
-			data = PlayerData.get(player);
-
+			} else
+				data = PlayerData.get(player);
+		} finally {
+			context.stop();
+		}
 		return data;
 	}
 
@@ -70,29 +63,6 @@ public class PlayerDataController {
 			}
 		}
 		return map;
-	}
-
-	public List<PlayerData> getPlayersData(ICommandSender sender, String username) {
-		ArrayList<PlayerData> list = new ArrayList<PlayerData>();
-		List<EntityPlayerMP> players;
-		try {
-			players = EntitySelector.matchEntities(sender, username, EntityPlayerMP.class);
-			
-			if (players.isEmpty()) {
-				PlayerData data = getDataFromUsername(sender.getServer(), username);
-				if (data != null)
-					list.add(data);
-			} else {
-				for (EntityPlayer player : players) {
-					list.add(PlayerData.get(player));
-				}
-			}
-		} catch (CommandException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return list;
 	}
 
 	public static File getWorldSaveDirectory() {
