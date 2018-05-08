@@ -11,43 +11,107 @@ import lombok.Getter;
 import net.minecraft.util.text.TextFormatting;
 
 public enum EnumRace {
-	REGULAR("Регуляр", TextFormatting.WHITE, ImmutableSet.of()), PEGASUS("Пегас", TextFormatting.AQUA,
-			ImmutableSet.of("speed", "flyspeed", "flyduration", "slowfall", "haste", "slowfallauto", "trueshot",
+	REGULAR("Регуляр", TextFormatting.WHITE, "cake", ImmutableSet.of()), 
+	PEGASUS("Пегас", TextFormatting.AQUA, "fly",
+			ImmutableSet.of(
+					"speed",
+					"flyspeed",
+					"flyduration",
+					"slowfall",
+					"haste",
+					"slowfallauto",
+					"trueshot",
+					
+					"staminaPool",
+					"staminaRegen",
+					"staminaHealthRegen",
+					"staminaFoodRegen"
+			)
+	), 
+	UNICORN("Единорог", TextFormatting.RED, "teleport",
+			ImmutableSet.of(
+					"teleport",
+					"fireresistance",
+					"hpregen", "unenchant",
+					"solidcore",
+					"tpbed",
+					
+					"shield",
+					"heal",
+					"enchant",
+					"slowfall",
 
-					"staminaPool", "staminaRegen", "staminaHealthRegen", "staminaFoodRegen")), UNICORN("Единорог",
-							TextFormatting.RED,
-							ImmutableSet.of("teleport", "fireresistance", "hpregen", "unenchant", "solidcore", "tpbed",
-									"shield", "heal", "enchant", "slowfall",
+					"tpsurface",
+					"recoil",
+					"slowfall",
+					"revival",
+					"fly",
+					
+					"staminaPool",
+					"staminaRegen",
+					"staminaHealthRegen",
+					"staminaFoodRegen"
+			)
+	), 
+	EARTHPONY("Земнопони", TextFormatting.GREEN, "craft",
+			ImmutableSet.of(
+					"craft",
+					"jump",
+					"grow",
+					"stepup",
+					"speed",
+					"strength",
+					"haste",
+					"solidcore",
 
-									"tpsurface", "recoil", "slowfall", "revival", "fly",
+					"resist",
+					"burst",
+					"recoil",
+					"repair",
 
-									"staminaPool", "staminaRegen", "staminaHealthRegen",
-									"staminaFoodRegen")), EARTHPONY(
-											"Земнопони", TextFormatting.GREEN,
-											ImmutableSet.of("craft", "jump", "grow", "stepup", "speed", "strength",
-													"haste", "solidcore",
+					"staminaPool",
+					"staminaRegen",
+					"staminaHealthRegen",
+					"staminaFoodRegen"
+			)
+	), 
+	ZEBRA("Зебра", TextFormatting.BLUE, "jump",
+			ImmutableSet.of(
+					"jump",
+					"dispel",
+					"fireresistance",
+					"drown",
+					"slow",
+					"purity",
+					"nightvision",
+					"vulnerable",
+					"antidote",
+					"climb",
+					"poison",
+					"invisibility",
+					"cure",
+					"invert",
+					"extension",
+					"revival",
 
-													"resist", "burst", "recoil", "repair",
-
-													"staminaPool", "staminaRegen", "staminaHealthRegen",
-													"staminaFoodRegen")), ZEBRA(
-															"Зебра", TextFormatting.BLUE,
-															ImmutableSet.of("jump", "dispel", "fireresistance", "drown",
-																	"slow", "purity", "nightvision", "vulnerable",
-																	"antidote", "climb", "poison", "invisibility",
-																	"cure", "invert", "extension", "revival",
-
-																	"staminaPool", "staminaRegen", "staminaHealthRegen",
-																	"staminaFoodRegen"));
+					"staminaPool",
+					"staminaRegen",
+					"staminaHealthRegen",
+					"staminaFoodRegen"
+			)
+	);
 
 	private final Set<String> spells;
 	@Getter
 	private final TextFormatting color;
 	@Getter
 	private final String localizedName;
+	@Getter
+	private final String defaultSpell;
 
-	EnumRace(String localizedName, TextFormatting color, Set<String> spells) {
+	EnumRace(String localizedName, TextFormatting color, String defaultSpell, Set<String> spells) {
 		this.localizedName = localizedName; // TODO lang file
+		this.defaultSpell = defaultSpell;
 		this.spells = spells;
 		this.color = color;
 	}

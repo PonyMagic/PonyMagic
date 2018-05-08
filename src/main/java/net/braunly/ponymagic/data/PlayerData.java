@@ -35,11 +35,18 @@ public class PlayerData implements ICapabilityProvider {
 		this.skillData.reset();
 		this.levelData.addExp(-1 * (this.levelData.getExp() / 10)); // -10%
 		this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);
+		addDefaultSpell();
 	}
 	
 	public void clean() {
 		this.levelData = new LevelData();
 		this.skillData = new SkillData();
+		addDefaultSpell();
+	}
+	
+	private void addDefaultSpell() {
+		// Add ONLY ONE default spell
+		this.skillData.upLevel(race.getDefaultSpell());
 	}
 
 	public void setNBT(NBTTagCompound data) {
