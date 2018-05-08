@@ -26,9 +26,9 @@ import static com.codahale.metrics.MetricRegistry.name;
 import static net.braunly.ponymagic.spells.potion.SpellPotion.getVanillaPotion;
 
 public class MagicHandlersContainer {
-	private final Timer handlePlayerUpdateTimer = PonyMagic.METRICS.timer(
-			name(MagicHandlersContainer.class, "handlePlayerUpdate")
-	);
+	private final Timer handlePlayerUpdateTimer = PonyMagic.METRICS.timer(name(MagicHandlersContainer.class, "handlePlayerUpdate"));
+	private final Timer processStamina = PonyMagic.METRICS.timer(name(MagicHandlersContainer.class, "handlePlayerUpdate", "processStamina"));
+	private final Timer processFly = PonyMagic.METRICS.timer(name(MagicHandlersContainer.class, "handlePlayerUpdate", "processFly"));
 
 	public MagicHandlersContainer() {
 	}
@@ -51,85 +51,91 @@ public class MagicHandlersContainer {
 			return;
 		}
 
-		// PonyMagic.log.info(event.side + ": " +
-		// stamina.getStamina(EnumStaminaType.CURRENT) + "/" +
-		// stamina.getStamina(EnumStaminaType.MAXIMUM));
-
 		// Stamina regeneration
-		if (stamina.getStamina(EnumStaminaType.CURRENT) < stamina.getStamina(EnumStaminaType.MAXIMUM)
-				&& player.getFoodStats().getFoodLevel() > Config.lowFoodLevel
-				&& (player.onGround || player.isInWater())) {
-			Double staminaRegen = 0.0D;
+		final Timer.Context staminaContext = processStamina.time();
+		try {
+			if (stamina.getStamina(EnumStaminaType.CURRENT) < stamina.getStamina(EnumStaminaType.MAXIMUM)
+					&& player.getFoodStats().getFoodLevel() > Config.lowFoodLevel
+					&& (player.onGround || player.isInWater())) {
+				Double staminaRegen = 0.0D;
 
-			if (player.getFoodStats().getFoodLevel() > Config.highFoodLevel) {
-				staminaRegen = Config.defaultStaminaRegen;
-			} else {
-				staminaRegen = Config.lowFoodStaminaRegen;
+				if (player.getFoodStats().getFoodLevel() > Config.highFoodLevel) {
+					staminaRegen = Config.defaultStaminaRegen;
+				} else {
+					staminaRegen = Config.lowFoodStaminaRegen;
+				}
+
+				if (player.isInWater()) {
+					staminaRegen = Config.waterStaminaRegen;
+				}
+
+				if (playerData.skillData.isSkillLearned("staminaRegen")) {
+					int lvl = playerData.skillData.getSkillLevel("staminaRegen");
+					staminaRegen += lvl / 20.0D; // TODO: config
+				}
+
+				stamina.add(staminaRegen);
+				stamina.sync((EntityPlayerMP) player);
 			}
 
-			if (player.isInWater()) {
-				staminaRegen = Config.waterStaminaRegen;
+			// Take all stamina on low food level
+			if (player.getFoodStats().getFoodLevel() <= Config.lowFoodLevel && Config.burnStaminaWhenHungry) {
+				stamina.zero();
+				stamina.sync((EntityPlayerMP) player);
 			}
-
-			if (playerData.skillData.isSkillLearned("staminaRegen")) {
-				int lvl = playerData.skillData.getSkillLevel("staminaRegen");
-				staminaRegen += lvl / 20.0D; // TODO: config
-			}
-
-			stamina.add(staminaRegen);
-			stamina.sync((EntityPlayerMP) player);
-		}
-
-		// Take all stamina on low food level
-		if (player.getFoodStats().getFoodLevel() <= Config.lowFoodLevel && Config.burnStaminaWhenHungry) {
-			stamina.zero();
-			stamina.sync((EntityPlayerMP) player);
+		} finally {
+			staminaContext.stop();
 		}
 
 		// Fly handling
-		if (playerData.race == EnumRace.PEGASUS) {
-			if (stamina.getStamina(EnumStaminaType.CURRENT) > 5) {
-				player.capabilities.allowFlying = true;
-				player.sendPlayerAbilities();
-			}
+		final Timer.Context flyContext = processFly.time();
+			try {
+				if (playerData.race == EnumRace.PEGASUS) {
+					if (stamina.getStamina(EnumStaminaType.CURRENT) > 5) {
+						player.capabilities.allowFlying = true;
+						player.sendPlayerAbilities();
+					}
 
-			if (player.capabilities.isFlying) {
-				Double flySpendingValue;
+					if (player.capabilities.isFlying) {
+						Double flySpendingValue;
 
-				// Fly duration
-				if (playerData.skillData.isSkillLearned("flyduration")) {
-					int lvl = playerData.skillData.getSkillLevel("flyduration");
-					flySpendingValue = Config.flySpendingValue - lvl / 50.0D; // TODO: config
-				} else {
-					flySpendingValue = Config.flySpendingValue;
-				}
+						// Fly duration
+						if (playerData.skillData.isSkillLearned("flyduration")) {
+							int lvl = playerData.skillData.getSkillLevel("flyduration");
+							flySpendingValue = Config.flySpendingValue - lvl / 50.0D; // TODO: config
+						} else {
+							flySpendingValue = Config.flySpendingValue;
+						}
 
-				if (stamina.consume(flySpendingValue)) { // 0.8 stps
-					stamina.sync((EntityPlayerMP) player);
-					player.addExhaustion(Config.flyExhausting); // 0.016
-				} else {
-					player.fallDistance = 0;
-					player.capabilities.isFlying = false;
-					player.capabilities.allowFlying = false;
-					player.sendPlayerAbilities();
+						if (stamina.consume(flySpendingValue)) { // 0.8 stps
+							stamina.sync((EntityPlayerMP) player);
+							player.addExhaustion(Config.flyExhausting); // 0.016
+						} else {
+							player.fallDistance = 0;
+							player.capabilities.isFlying = false;
+							player.capabilities.allowFlying = false;
+							player.sendPlayerAbilities();
 
-					// Handle auto slowfall
-					if (playerData.skillData.isSkillLearned("slowfallauto")) {
-						Potion slowFall = SpellPotion.getCustomPotion("slowfall");
-						Integer[] config = Config.potions.get(String.format("%s#%d", "slow_fall_auto", 1));
-						player.addPotionEffect(new PotionEffect(slowFall, config[0] * SpellPotion.TPS, config[2]));
+							// Handle auto slowfall
+							if (playerData.skillData.isSkillLearned("slowfallauto")) {
+								Potion slowFall = SpellPotion.getCustomPotion("slowfall");
+								Integer[] config = Config.potions.get(String.format("%s#%d", "slow_fall_auto", 1));
+								player.addPotionEffect(new PotionEffect(slowFall, config[0] * SpellPotion.TPS, config[2]));
+							}
+						}
+					}
+
+					// Handle fly speed modification
+					Potion speedPotion = getVanillaPotion("speed");
+
+					// no inspection ConstantConditions
+					if (player.isPotionActive(speedPotion) && player.getActivePotionEffect(speedPotion).getDuration() < 2) {
+						updatePlayerFlySpeed(player, 0);
 					}
 				}
+			} finally {
+				flyContext.stop();
 			}
-
-			// Handle fly speed modification
-			Potion speedPotion = getVanillaPotion("speed");
-
-			// no inspection ConstantConditions
-			if (player.isPotionActive(speedPotion) && player.getActivePotionEffect(speedPotion).getDuration() < 2) {
-				updatePlayerFlySpeed(player, 0);
-			}
-		}
 		} finally {
 			context.stop();
 		}
