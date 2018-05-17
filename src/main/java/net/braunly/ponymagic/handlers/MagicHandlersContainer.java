@@ -27,8 +27,11 @@ import static net.braunly.ponymagic.spells.potion.SpellPotion.getVanillaPotion;
 
 public class MagicHandlersContainer {
 	private final Timer handlePlayerUpdateTimer = PonyMagic.METRICS.timer(name(MagicHandlersContainer.class, "handlePlayerUpdate"));
+	private final static Timer handlePlayerFlySpeedTimer = PonyMagic.METRICS.timer(name(MagicHandlersContainer.class, "handlePlayerFlySpeed"));
 	private final Timer processStamina = PonyMagic.METRICS.timer(name(MagicHandlersContainer.class, "handlePlayerUpdate", "processStamina"));
 	private final Timer processFly = PonyMagic.METRICS.timer(name(MagicHandlersContainer.class, "handlePlayerUpdate", "processFly"));
+	private final Timer processAllowFly = PonyMagic.METRICS.timer(name(MagicHandlersContainer.class, "handlePlayerUpdate", "processAllowFly"));
+	private final Timer processOnFly = PonyMagic.METRICS.timer(name(MagicHandlersContainer.class, "handlePlayerUpdate", "processOnFly"));
 
 	public MagicHandlersContainer() {
 	}
@@ -37,7 +40,6 @@ public class MagicHandlersContainer {
 	public void handlePlayerUpdate(PlayerTickEvent event) {
 		final Timer.Context context = handlePlayerUpdateTimer.time();
 		try {
-		// if (!(event.getEntityLiving() instanceof EntityPlayer)) return;
 
 		if (event.side == Side.CLIENT)
 			return;
@@ -46,8 +48,8 @@ public class MagicHandlersContainer {
 		PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
 		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
 
-		if (player.capabilities.isCreativeMode) {
-			// Creative mode - god mode
+		if (player.capabilities.isCreativeMode || player.isSpectator() || playerData.race != EnumRace.REGULAR) {
+			// Creatives, spectators and regulars not processing.
 			return;
 		}
 
@@ -91,9 +93,14 @@ public class MagicHandlersContainer {
 		final Timer.Context flyContext = processFly.time();
 			try {
 				if (playerData.race == EnumRace.PEGASUS) {
-					if (stamina.getStamina(EnumStaminaType.CURRENT) > 5) {
-						player.capabilities.allowFlying = true;
-						player.sendPlayerAbilities();
+					final Timer.Context allowFlyContext = processAllowFly.time();
+					try {
+						if (stamina.getStamina(EnumStaminaType.CURRENT) > 5) {
+							player.capabilities.allowFlying = true;
+							player.sendPlayerAbilities();
+						}
+					} finally {
+						allowFlyContext.stop();
 					}
 
 					if (player.capabilities.isFlying) {
@@ -108,8 +115,22 @@ public class MagicHandlersContainer {
 						}
 
 						if (stamina.consume(flySpendingValue)) { // 0.8 stps
-							stamina.sync((EntityPlayerMP) player);
-							player.addExhaustion(Config.flyExhausting); // 0.016
+							final Timer.Context onFlyContext = processOnFly.time();
+							try {
+								stamina.sync((EntityPlayerMP) player);
+								player.addExhaustion(Config.flyExhausting); // 0.016
+
+								// Handle fly speed modification
+								Potion speedPotion = getVanillaPotion("speed");
+
+								// no inspection ConstantConditions
+								if (player.isPotionActive(speedPotion) && player.getActivePotionEffect(speedPotion).getDuration() < 2) {
+									updatePlayerFlySpeed(player, 0);
+									player.removePotionEffect(speedPotion);
+								}
+							} finally {
+								onFlyContext.stop();
+							}
 						} else {
 							player.fallDistance = 0;
 							player.capabilities.isFlying = false;
@@ -119,18 +140,12 @@ public class MagicHandlersContainer {
 							// Handle auto slowfall
 							if (playerData.skillData.isSkillLearned("slowfallauto")) {
 								Potion slowFall = SpellPotion.getCustomPotion("slowfall");
-								Integer[] config = Config.potions.get(String.format("%s#%d", "slow_fall_auto", 1));
-								player.addPotionEffect(new PotionEffect(slowFall, config[0] * SpellPotion.TPS, config[2]));
+								if (!player.isPotionActive(slowFall)) {
+									Integer[] config = Config.potions.get(String.format("%s#%d", "slow_fall_auto", 1));
+									player.addPotionEffect(new PotionEffect(slowFall, config[0] * SpellPotion.TPS, config[2]));
+								}
 							}
 						}
-					}
-
-					// Handle fly speed modification
-					Potion speedPotion = getVanillaPotion("speed");
-
-					// no inspection ConstantConditions
-					if (player.isPotionActive(speedPotion) && player.getActivePotionEffect(speedPotion).getDuration() < 2) {
-						updatePlayerFlySpeed(player, 0);
 					}
 				}
 			} finally {
@@ -183,16 +198,22 @@ public class MagicHandlersContainer {
 		if (player.world.isRemote)
 			return;
 
-		PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
+		final Timer.Context context = handlePlayerFlySpeedTimer.time();
+		try {
+			
+			PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
 
-		if (playerData.race == EnumRace.PEGASUS) {
-			float flySpeedMod = 0.0F;
-			if (playerData.skillData.isSkillLearned("flySpeed")) {
-				int lvl = playerData.skillData.getSkillLevel("flySpeed");
-				flySpeedMod = lvl / 100.0F + mod;
+			if (playerData.race == EnumRace.PEGASUS) {
+				float flySpeedMod = 0.0F;
+				if (playerData.skillData.isSkillLearned("flySpeed")) {
+					int lvl = playerData.skillData.getSkillLevel("flySpeed");
+					flySpeedMod = lvl / 100.0F + mod;
+				}
+
+				PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod), (EntityPlayerMP) player);
 			}
-
-			PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod), (EntityPlayerMP) player);
+		} finally {
+			context.stop();
 		}
 	}
 
