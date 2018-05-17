@@ -58,7 +58,7 @@ public class LevelData {
 
 	public void addExp(double exp) {
 		this.exp = getExp() + exp;
-		if (this.exp < 0) {
+		if (this.exp < 0 && this.level == 0) {
 			resetExp();
 		}
 	}
