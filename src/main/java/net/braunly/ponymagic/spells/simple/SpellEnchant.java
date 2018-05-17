@@ -12,7 +12,9 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 
 public class SpellEnchant extends NamedSpell {
 	private final int enchLevel = 30;
@@ -24,7 +26,7 @@ public class SpellEnchant extends NamedSpell {
 	@Override
 	public boolean cast(EntityPlayer player, Integer level) {
 		ItemStack itemStack = player.getHeldItemMainhand();
-		if (itemStack.isEmpty() || !itemStack.isItemEnchantable()) {
+		if (itemStack.isEmpty() || !itemStack.isItemEnchantable() || player.experienceLevel < this.enchLevel) {
 			return false;
 		}
 		Random rand = player.world.rand;
@@ -46,12 +48,14 @@ public class SpellEnchant extends NamedSpell {
 			{
 				EnchantmentData enchantmentdata = list.get(k);
 				if (!isHeldBook || k != j) {
-//					if (isHeldBook) {
-//						itemStack.addEnchantment(itemStack, enchantmentdata);
-//					} else {
-//						itemStack.addEnchantment(enchantmentdata.enchantment, enchantmentdata.enchantmentLevel);
-//					}
-					itemStack.addEnchantment(enchantmentdata.enchantment, enchantmentdata.enchantmentLevel);
+					if (isHeldBook) {
+						ItemEnchantedBook.addEnchantment(itemStack, enchantmentdata);
+						player.setHeldItem(EnumHand.MAIN_HAND, itemStack);
+					} else {
+						itemStack.addEnchantment(enchantmentdata.enchantment, enchantmentdata.enchantmentLevel);
+					}
+//					itemStack.addEnchantment(enchantmentdata.enchantment, enchantmentdata.enchantmentLevel);
+//					EnchantmentHelper.setEnchantments();
 				}
 			}
 			stamina.sync((EntityPlayerMP) player);
