@@ -48,7 +48,7 @@ public class MagicHandlersContainer {
 		PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
 		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
 
-		if (player.capabilities.isCreativeMode || player.isSpectator() || playerData.race != EnumRace.REGULAR) {
+		if (player.capabilities.isCreativeMode || player.isSpectator() || playerData.race == EnumRace.REGULAR) {
 			// Creatives, spectators and regulars not processing.
 			return;
 		}

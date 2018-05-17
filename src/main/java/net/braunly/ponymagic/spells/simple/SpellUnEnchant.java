@@ -28,6 +28,7 @@ public class SpellUnEnchant extends NamedSpell {
 				if (isHeldBook) {
 					itemStack = new ItemStack(Items.BOOK);
 					player.setHeldItem(EnumHand.MAIN_HAND, itemStack);
+					return true;
 				} else {
 					NBTTagCompound tagCompound = itemStack.getTagCompound();
 					if (tagCompound != null && tagCompound.hasKey("ench")) {
