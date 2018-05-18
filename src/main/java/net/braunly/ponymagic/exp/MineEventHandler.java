@@ -13,13 +13,9 @@ public class MineEventHandler extends ExperienceHandler {
 
 	@SubscribeEvent(priority=EventPriority.LOWEST)
 	public void mineBlock(BreakEvent event) {
-		// process(event.getPlayer(),
-		// event.getState().getBlock().getUnlocalizedName().substring(5));
 		process(event.getPlayer(), event.getState().getBlock().getRegistryName().getResourcePath());
 
 		// PonyMagic.log.info(event.getState().getBlock().getUnlocalizedName());
-		// process(event.getPlayer(),
-		// Integer.toString(Block.getIdFromBlock(event.getState().getBlock())));
 	}
 
 	@Override

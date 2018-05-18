@@ -118,7 +118,7 @@ public class MagicHandlersContainer {
 							final Timer.Context onFlyContext = processOnFly.time();
 							try {
 								stamina.sync((EntityPlayerMP) player);
-								player.addExhaustion(Config.flyExhausting); // 0.016
+//								player.addExhaustion(Config.flyExhausting); // 0.016
 
 								// Handle fly speed modification
 								Potion speedPotion = getVanillaPotion("speed");
