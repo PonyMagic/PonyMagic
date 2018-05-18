@@ -172,14 +172,20 @@ public class Config {
 		potions.put("shield#1",
 				new Integer[] { config.getInt("shieldDur", "Spells", 60, 0, 600, "Длительность shield. (сек)"),
 						config.getInt("shieldStamina", "Spells", 10, 0, 100, "Стамина за shield."),
-						config.getInt("shieldStaminaPerDmg", "Spells", 1, 0, 100, "Стамина за единицу урона."), });
+						config.getInt("shieldStaminaPerDmg", "Spells", 3, 0, 100, "Стамина за единицу урона."), });
 
 		// Spells
-		spells.put("grow", new Integer[] { config.getInt("growStamina", "Spells", 10, 0, 100, "Стамина за grow."), });
+		spells.put("grow", new Integer[] { 
+						config.getInt("growStamina", "Spells", 10, 0, 100, "Стамина за grow."), 
+						config.getInt("growRadius", "Spells", 3, 0, 5, "Радиус grow."), });
 		spells.put("unenchant",
-				new Integer[] { config.getInt("unenchantStamina", "Spells", 90, 0, 100, "Стамина за unenchant."), });
+				new Integer[] { 
+						config.getInt("unenchantStamina", "Spells", 90, 0, 100, "Стамина за unenchant."), });
 		spells.put("enchant",
-				new Integer[] { config.getInt("enchantStamina", "Spells", 90, 0, 100, "Стамина за enchant."), });
+				new Integer[] { 
+						config.getInt("enchantStamina", "Spells", 90, 0, 100, "Стамина за enchant."),
+						config.getInt("enchantLevel", "Spells", 30, 1, 60, "Уровень зачарования."),
+						config.getInt("enchantExp", "Spells", 30, 0, 60, "Уровней опыта за зачарование."), });
 
 		config.save();
 	}
