@@ -69,7 +69,7 @@ public class MagicHandlersContainer {
 						staminaRegen += lvl / 20.0D; // TODO: config
 					}
 					
-					if (player.isInWater()) {
+					if (player.isInWater() && !player.capabilities.isFlying) {
 						staminaRegen = Config.waterStaminaRegen;
 					}
 
