@@ -64,13 +64,13 @@ public class MagicHandlersContainer {
 						staminaRegen = Config.lowFoodStaminaRegen;
 					}
 
-					if (player.isInWater()) {
-						staminaRegen = Config.waterStaminaRegen;
-					}
-
 					if (playerData.skillData.isSkillLearned("staminaRegen")) {
 						int lvl = playerData.skillData.getSkillLevel("staminaRegen");
 						staminaRegen += lvl / 20.0D; // TODO: config
+					}
+					
+					if (player.isInWater()) {
+						staminaRegen = Config.waterStaminaRegen;
 					}
 
 					stamina.add(staminaRegen);
