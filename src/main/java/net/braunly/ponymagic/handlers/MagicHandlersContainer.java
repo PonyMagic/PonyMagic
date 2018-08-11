@@ -53,9 +53,12 @@ public class MagicHandlersContainer {
 			// Stamina regeneration
 			final Timer.Context staminaContext = processStamina.time();
 			try {
+				
+				Potion shieldPotion = SpellPotion.getCustomPotion("shield");						
 				if (stamina.getStamina(EnumStaminaType.CURRENT) < stamina.getStamina(EnumStaminaType.MAXIMUM)
 						&& player.getFoodStats().getFoodLevel() > Config.lowFoodLevel
-						&& (player.onGround || player.isInWater())) {
+						&& (player.onGround || player.isInWater())
+						&& player.isPotionActive(shieldPotion)) {
 					Double staminaRegen = 0.0D;
 
 					if (player.getFoodStats().getFoodLevel() > Config.highFoodLevel) {
