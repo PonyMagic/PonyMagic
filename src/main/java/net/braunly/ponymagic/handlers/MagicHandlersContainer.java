@@ -58,7 +58,7 @@ public class MagicHandlersContainer {
 				if (stamina.getStamina(EnumStaminaType.CURRENT) < stamina.getStamina(EnumStaminaType.MAXIMUM)
 						&& player.getFoodStats().getFoodLevel() > Config.lowFoodLevel
 						&& (player.onGround || player.isInWater())
-						&& player.isPotionActive(shieldPotion)) {
+						&& !player.isPotionActive(shieldPotion)) {
 					Double staminaRegen = 0.0D;
 
 					if (player.getFoodStats().getFoodLevel() > Config.highFoodLevel) {
@@ -168,12 +168,14 @@ public class MagicHandlersContainer {
 			if (event.getAmount() > 0) {
 				Integer[] config = Config.potions.get(String.format("shield#%d", 1));
 				Double damageModifier = config[2] * 1.0D;
-				if (!stamina.consume(event.getAmount() * damageModifier)) {
+				if (stamina.consume(event.getAmount() * damageModifier)) {
+					event.setAmount(0);
+				} else {
+					event.setAmount((float) (event.getAmount() - stamina.getStamina(EnumStaminaType.CURRENT)));
 					stamina.zero();
-					stamina.sync((EntityPlayerMP) player);
 					player.removePotionEffect(shieldPotion);
 				}
-				event.setAmount(0);
+				stamina.sync((EntityPlayerMP) player);
 			}
 		}
 	}
