@@ -44,8 +44,9 @@ public class ExperienceStorage {
 	private static HashMap<String, Double> loadExperienceTable(@Nonnull String name) {
 		HashMap<String, Double> result = new HashMap<>();
 		try {
+			// "https://docs.google.com/spreadsheets/d/1cnrFHQHQ2xgITkFdIohpT8v3tziTJb_JaUwhZTs5s4U/gviz/tq?tqx=out:csv&sheet="
 			URL expTableUrl = new URL(
-					"https://docs.google.com/spreadsheets/d/1cnrFHQHQ2xgITkFdIohpT8v3tziTJb_JaUwhZTs5s4U/gviz/tq?tqx=out:csv&sheet="
+					"https://docs.google.com/spreadsheets/d/1Q9AOXNqzMnlobUEnAQ4J-dbRal2WhIQ1tR0PrBXLIlw/gviz/tq?tqx=out:csv&sheet="
 							+ name);
 			BufferedReader br = new BufferedReader(new InputStreamReader(expTableUrl.openStream()));
 			String line;
