@@ -36,7 +36,7 @@ public class GuiStamina extends GuiIngameForge {
 		// PonyMagic.log.info("GUI: " + stamina.getStamina(EnumStaminaType.CURRENT) +
 		// "/" + stamina.getStamina(EnumStaminaType.MAXIMUM));
 
-		if (stamina == null || mc.player.capabilities.isCreativeMode)
+		if (stamina == null || mc.player.capabilities.isCreativeMode || mc.player.isSpectator())
 			return;
 
 		// int xPos = 2;
