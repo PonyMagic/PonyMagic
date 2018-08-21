@@ -26,7 +26,7 @@ public class PonyMagic {
 	public static final String COMMONPROXY = "net.braunly.ponymagic.proxy.CommonProxy";
 	@NonNull public static final MetricRegistry METRICS = new MetricRegistry();
 
-	public static final int MAX_LVL = 15;
+	public static final int MAX_LVL = 30;
 
 	@Instance(MODID)
 	public static PonyMagic instance;
