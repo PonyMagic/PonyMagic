@@ -87,7 +87,7 @@ public class MagicHandlersContainer {
 
 				// Take all stamina on low food level
 				if (player.getFoodStats().getFoodLevel() == 0 && stamina.getStamina(EnumStaminaType.CURRENT) > 0) {
-					stamina.add(-1D);
+					stamina.add(-0.5D);
 					stamina.sync((EntityPlayerMP) player);
 				}
 			} finally {
@@ -181,6 +181,56 @@ public class MagicHandlersContainer {
 					player.removePotionEffect(shieldPotion);
 				}
 				stamina.sync((EntityPlayerMP) player);
+			}
+		}
+	}
+	
+	// Passives
+	
+	@SubscribeEvent
+	public void handleDamagePassive(LivingHurtEvent event) {
+		if (event.getEntity().world.isRemote) return;
+		
+		if (event.getSource().getTrueSource() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
+			PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
+			
+			if (playerData.skillData.isSkillLearned("highground")) {
+				if (player.getPosition().getY() - event.getEntity().getPosition().getY() > 1) {
+					event.setAmount(event.getAmount() + ((event.getAmount() / 100) * Config.highgroundDamage));
+				}
+			}
+			
+			if (playerData.skillData.isSkillLearned("onedge")) {
+				IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+				if (stamina.getStamina(EnumStaminaType.CURRENT) < 10) {
+					event.setAmount(event.getAmount() + ((event.getAmount() / 100) * Config.onedgeDamage));
+				}
+			}
+		}		
+	}
+	
+	@SubscribeEvent
+	public void handleDodgingPassive(LivingHurtEvent event) {
+		if (!(event.getEntityLiving() instanceof EntityPlayer) || event.getEntity().world.isRemote)
+			return;
+
+		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if (player.capabilities.isCreativeMode) {
+			// Creative mode - god mode
+			return;
+		}
+		
+		PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
+		
+		if (playerData.skillData.isSkillLearned("dodging")) {
+			float randNum = player.world.rand.nextFloat() * 100;
+			if (randNum < Config.dodgingChance) {
+				if (playerData.skillData.isSkillLearned("dodgingbuff")) {
+					player.addPotionEffect(new PotionEffect(SpellPotion.getVanillaPotion("absorption"), 3 * 20));
+				}
+				event.setAmount(0);
+				event.setCanceled(true);
 			}
 		}
 	}

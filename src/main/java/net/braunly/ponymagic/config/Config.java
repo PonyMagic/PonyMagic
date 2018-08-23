@@ -9,10 +9,12 @@ import net.minecraftforge.common.config.Configuration;
 @SuppressWarnings("WeakerAccess")
 public class Config {
 
+	// Exp
 	public static boolean expModifier;
 	public static float expModifierAmount;
 	public static int expPerLevel;
 
+	// Stamina
 	public static Double defaultStaminaPool;
 	public static Double defaultStaminaRegen;
 	public static Double lowFoodStaminaRegen;
@@ -21,14 +23,23 @@ public class Config {
 	public static int highFoodLevel;
 	public static int lowFoodLevel;
 
+	// Fly
 	public static Double flySpendingValue;
 	public static float flyExhausting;
+	
+	// Metrics
 	public static String graphiteHost;
 	public static int graphitePort;
 	public static String graphitePrefix;
 	public static int reportInterval;
 	public static boolean metricsEnabled;
 
+	// Passives
+	public static int highgroundDamage;
+	public static int onedgeDamage;
+	public static int dodgingChance;
+	
+	// Spells
 	public static Map<String, Integer[]> potions = new HashMap<>();
 	public static Map<String, Integer[]> spells = new HashMap<>();
 
@@ -66,6 +77,11 @@ public class Config {
 		reportInterval = config.getInt("reportInterval", "metrics", 10, 1, 600, "Частота обновлений метрик");
 		metricsEnabled = config.getBoolean("metricsEnabled", "metrics", false, "Включить отправку метрик?");
 
+		// Passives
+		highgroundDamage = config.getInt("highgroundDamage", "Passives", 10, 0, 100, "+% к урону от пассивки highground.");
+		onedgeDamage = config.getInt("onedgeDamage", "Passives", 10, 0, 100, "+% к урону от пассивки onedge.");
+		dodgingChance = config.getInt("dodgingChance", "Passives", 15, 0, 100, "Шанс в % уклонения с dodging.");
+		
 		// POTIONS
 		potions.put("jump_boost#1",
 				new Integer[] { config.getInt("jumpDur", "Potions", 60, 0, 600, "Длительность jump (сек)."),
