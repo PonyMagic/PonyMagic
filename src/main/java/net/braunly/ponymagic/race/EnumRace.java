@@ -17,10 +17,15 @@ public enum EnumRace {
 					"speed",
 					"flyspeed",
 					"flyduration",
-					"slowfall",
 					"haste",
 					"slowfallauto",
 					"trueshot",
+					
+					"swish",
+					"highground",
+					"onedge",
+					"dodging",
+					"dodgingbuff",
 					
 					"staminaPool",
 					"staminaRegen",

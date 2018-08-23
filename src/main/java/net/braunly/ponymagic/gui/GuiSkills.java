@@ -62,6 +62,7 @@ public class GuiSkills extends GuiScreen {
 			this.skillsNet = GuiSkillsNet.getInstance().getSkillNet(this.playerData.race);
 			// Needs for actionPerformed function
 			this.buttonList.addAll(this.skillsNet);
+//			PonyMagic.log.info("[GUI] Skillnet inited!");
 		} else {
 			this.mc.displayGuiScreen(null);
 		}
@@ -71,12 +72,13 @@ public class GuiSkills extends GuiScreen {
 	private void initPlayerData() {
 		PonyMagic.channel.sendToServer(new RequestPlayerDataPacket());
 		this.playerData = this.mc.player.getCapability(PlayerData.PLAYERDATA_CAPABILITY, null);
+//		PonyMagic.log.info("[GUI] Player data inited!");
 	}
 
 	@Override
 	protected void actionPerformed(GuiButton button) {
 		GuiButtonSkill skill = (GuiButtonSkill) button;
-
+//		PonyMagic.log.info("[GUI] Action - " + skill.skillName);
 		if (this.skillClicked == skill) {
 			processButton(skill);
 		} else {
@@ -87,7 +89,7 @@ public class GuiSkills extends GuiScreen {
 	@Nonnull
 	private void processButton(GuiButtonSkill skill) {
 		if (skill.skillName == "reset") {
-			// PonyMagic.log.info("RESET");
+//			PonyMagic.log.info("[GUI] Reset");
 			PonyMagic.channel.sendToServer(new ResetPacket());
 			initPlayerData();
 			return;
@@ -95,7 +97,7 @@ public class GuiSkills extends GuiScreen {
 
 		// :FIXME: Move to SERVER side
 		if (!isSkillLearned(skill) && isSkillAvailable(skill)) {
-			// PonyMagic.log.info("SEND SKILL UP");
+//			PonyMagic.log.info("[GUI] Send skillUp");
 			PonyMagic.channel.sendToServer(new SkillUpPacket(skill.skillName, skill.skillLevel));
 			initPlayerData();
 		}
@@ -111,6 +113,7 @@ public class GuiSkills extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+//		PonyMagic.log.info("[GUI] Start draw...");
 		this.drawDefaultBackground();
 		
 		// Background
@@ -120,10 +123,12 @@ public class GuiSkills extends GuiScreen {
 		int x = (this.width - w) / 2;
 		int y = (this.height - h) / 2;
 
+//		PonyMagic.log.info("[GUI] Draw BG");
 		this.mc.getTextureManager().bindTexture(this.bg);
 		drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, 512, 512); // 496.334
 
 		// Draw exp bar
+//		PonyMagic.log.info("[GUI] Draw expbar");
 		int currentExp = (int) ((float) (this.playerData.levelData.getExp()
 				/ ((this.playerData.levelData.getLevel() + 1) * Config.expPerLevel)) * 364);
 		this.mc.getTextureManager().bindTexture(this.expBar);
@@ -132,6 +137,7 @@ public class GuiSkills extends GuiScreen {
 
 		
 		// Draw hovering text on exp bar
+//		PonyMagic.log.info("[GUI] Draw hover expbar");
 		if (mouseX > x + 67 && mouseX < x + 67 + 364 && mouseY > y + 310 && mouseY < y + 320) {
 			List<String> temp = Arrays
 					.asList(new TextComponentTranslation("gui.exp", String.format("%s", Math.round(this.playerData.levelData.getExp())),
@@ -142,7 +148,8 @@ public class GuiSkills extends GuiScreen {
 			RenderHelper.disableStandardItemLighting();
 		}
 		
-		try {
+//		try {
+//			PonyMagic.log.info("[GUI] Draw skills");
 			// Draw skills
 			if (this.playerData.race != null && this.playerData.race != EnumRace.REGULAR && this.skillsNet != null) {
 				// TODO: rewrite cycles with this.zIndex
@@ -242,9 +249,10 @@ public class GuiSkills extends GuiScreen {
 					}
 				}
 			}
-		} catch (NullPointerException e) {
-			this.mc.displayGuiScreen(null);
-		}
+//		} catch (NullPointerException e) {
+//			PonyMagic.log.info("[GUI] ERROR - NullPointerException");
+//			this.mc.displayGuiScreen(null);
+//		}
 		
 		// Draw player level and free points
 		// FIXME: ?

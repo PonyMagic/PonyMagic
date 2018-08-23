@@ -69,23 +69,29 @@ public class GuiSkillsNet {
 				.add(new GuiButtonSkill("flyduration", ImmutableSet.of(), 2, 105, 161, ImmutableSet.of("flyduration#2"),
 						1, 5))
 				// T2
-				.add(new GuiButtonSkill("flyspeed", ImmutableSet.of("speed#1"), 4, 169, 97,
+				.add(new GuiButtonSkill("flyspeed", ImmutableSet.of("speed#1"), 3, 169, 97,
 						ImmutableSet.of("flyspeed#2"), 1, 10))
-				.add(new GuiButtonSkill("flyduration", ImmutableSet.of("flyduration#1"), 5, 169, 161,
-						ImmutableSet.of("slowfall"), 2, 10))
+				.add(new GuiButtonSkill("flyduration", ImmutableSet.of("flyduration#1"), 4, 169, 161,
+						ImmutableSet.of("swish"), 2, 10))
 				// T3
-				.add(new GuiButtonSkill("flyspeed", ImmutableSet.of("flyspeed#1"), 7, 233, 97,
-						ImmutableSet.of("haste", "speed#2"), 2, 15))
-				.add(new GuiButtonSkill("slowfall", ImmutableSet.of("flyduration#2"), 8, 233, 161,
-						ImmutableSet.of("haste", "slowfallauto"), 1, 15))
+				.add(new GuiButtonSkill("flyspeed", ImmutableSet.of("flyspeed#1"), 5, 233, 97,
+						ImmutableSet.of("haste", "highground"), 2, 15))
+				.add(new GuiButtonSkill("swish", ImmutableSet.of("flyduration#2"), 6, 233, 161,
+						ImmutableSet.of("slowfallauto", "highground"), 1, 15))
 				// T4
-				.add(new GuiButtonSkill("speed", ImmutableSet.of("flyspeed#2"), 10, 297, 65, ImmutableSet.of(), 2, 20))
-				.add(new GuiButtonSkill("haste", ImmutableSet.of("flyspeed#2", "slowfall"), 11, 297, 129,
-						ImmutableSet.of("trueshot"), 1, 20))
-				.add(new GuiButtonSkill("slowfallauto", ImmutableSet.of("slowfall"), 11, 297, 193, ImmutableSet.of(), 1,
-						20))
+				.add(new GuiButtonSkill("haste", ImmutableSet.of("flyspeed#2"), 7, 297, 65, ImmutableSet.of(), 1, 20))
+				.add(new GuiButtonSkill("highground", ImmutableSet.of("flyspeed#2", "swish"), 8, 297, 129,
+						ImmutableSet.of("onedge"), 1, 20))
+				.add(new GuiButtonSkill("slowfallauto", ImmutableSet.of("swish"), 9, 297, 193, 
+						ImmutableSet.of("dodging"), 1, 20))
 				// T5
-				.add(new GuiButtonSkill("trueshot", ImmutableSet.of("haste"), 12, 361, 129, ImmutableSet.of(), 1, 25))
+				.add(new GuiButtonSkill("onedge", ImmutableSet.of("highground"), 10, 361, 129, ImmutableSet.of("trueshot"), 1, 25))
+				.add(new GuiButtonSkill("dodging", ImmutableSet.of("slowfallauto"), 11, 361, 193,
+						ImmutableSet.of("dodgingbuff"), 1, 25))
+				// T6
+				.add(new GuiButtonSkill("trueshot", ImmutableSet.of("highground"), 12, 425, 129, ImmutableSet.of(), 1, 30))
+				.add(new GuiButtonSkill("dodgingbuff", ImmutableSet.of("dodging"), 13, 425, 193, ImmutableSet.of(), 1, 30))
+				
 				// Add shared skills
 				.addAll(sharedSkills).build();
 
