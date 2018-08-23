@@ -29,8 +29,7 @@ public enum EnumRace {
 					
 					"staminaPool",
 					"staminaRegen",
-					"staminaHealthRegen",
-					"staminaFoodRegen"
+					"shregen"
 			)
 	), 
 	UNICORN("Единорог", TextFormatting.RED, "teleport",
@@ -54,8 +53,7 @@ public enum EnumRace {
 					
 					"staminaPool",
 					"staminaRegen",
-					"staminaHealthRegen",
-					"staminaFoodRegen"
+					"shregen"
 			)
 	), 
 	EARTHPONY("Земнопони", TextFormatting.GREEN, "craft",
@@ -76,8 +74,7 @@ public enum EnumRace {
 
 					"staminaPool",
 					"staminaRegen",
-					"staminaHealthRegen",
-					"staminaFoodRegen"
+					"shregen"
 			)
 	), 
 	ZEBRA("Зебра", TextFormatting.BLUE, "jump",
@@ -101,8 +98,7 @@ public enum EnumRace {
 
 					"staminaPool",
 					"staminaRegen",
-					"staminaHealthRegen",
-					"staminaFoodRegen"
+					"shregen"
 			)
 	);
 

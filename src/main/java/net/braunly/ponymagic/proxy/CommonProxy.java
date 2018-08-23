@@ -37,6 +37,7 @@ import net.braunly.ponymagic.network.packets.ResetPacket;
 import net.braunly.ponymagic.network.packets.SkillUpPacket;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
 import net.braunly.ponymagic.potions.PotionShield;
+import net.braunly.ponymagic.potions.PotionStaminaHealthRegen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.WorldServer;
@@ -125,7 +126,9 @@ public class CommonProxy {
 
 	private void injectPotions() {
 		new PotionShield();
+		new PotionStaminaHealthRegen();
 		POTIONS.put(PotionShield.NAME, PotionShield.instance);
+		POTIONS.put(PotionStaminaHealthRegen.NAME, PotionStaminaHealthRegen.instance);
 	}
 
 	public IThreadListener getListener(MessageContext ctx) {

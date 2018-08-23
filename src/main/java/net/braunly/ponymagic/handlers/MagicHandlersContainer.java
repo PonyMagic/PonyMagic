@@ -56,7 +56,7 @@ public class MagicHandlersContainer {
 				
 				Potion shieldPotion = SpellPotion.getCustomPotion("shield");						
 				if (stamina.getStamina(EnumStaminaType.CURRENT) < stamina.getStamina(EnumStaminaType.MAXIMUM)
-						&& player.getFoodStats().getFoodLevel() > Config.lowFoodLevel
+						&& player.getFoodStats().getFoodLevel() > 0
 						&& (player.onGround || player.isInWater())
 						&& !player.isPotionActive(shieldPotion)) {
 					Double staminaRegen = 0.0D;
@@ -72,8 +72,13 @@ public class MagicHandlersContainer {
 						staminaRegen += lvl / 20.0D; // TODO: config
 					}
 					
+					
 					if (player.isInWater() && !player.capabilities.isFlying) {
 						staminaRegen = Config.waterStaminaRegen;
+					}
+					
+					if (player.isPotionActive(SpellPotion.getCustomPotion("staminahealthregen"))) {
+						staminaRegen *= 2;
 					}
 
 					stamina.add(staminaRegen);
@@ -81,8 +86,8 @@ public class MagicHandlersContainer {
 				}
 
 				// Take all stamina on low food level
-				if (player.getFoodStats().getFoodLevel() <= Config.lowFoodLevel && Config.burnStaminaWhenHungry) {
-					stamina.zero();
+				if (player.getFoodStats().getFoodLevel() == 0 && stamina.getStamina(EnumStaminaType.CURRENT) > 0) {
+					stamina.add(-1D);
 					stamina.sync((EntityPlayerMP) player);
 				}
 			} finally {

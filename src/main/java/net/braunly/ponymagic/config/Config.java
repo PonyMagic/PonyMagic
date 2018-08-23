@@ -173,6 +173,10 @@ public class Config {
 				new Integer[] { config.getInt("shieldDur", "Spells", 60, 0, 600, "Длительность shield. (сек)"),
 						config.getInt("shieldStamina", "Spells", 10, 0, 100, "Стамина за shield."),
 						config.getInt("shieldStaminaPerDmg", "Spells", 3, 0, 100, "Стамина за единицу урона."), });
+		potions.put("staminahealthregen#1",
+				new Integer[] { config.getInt("staminahealthregenDur", "Spells", 20, 0, 20, "Длительность staminahealthregen. (сек)"),
+						config.getInt("staminahealthregenStamina", "Spells", 0, 0, 100, "Стамина за staminahealthregen."),
+						config.getInt("staminahealthregenLvl1", "Potions", 1, 1, 5, "Урон в секунду."), });
 
 		// Spells
 		spells.put("grow", new Integer[] { 

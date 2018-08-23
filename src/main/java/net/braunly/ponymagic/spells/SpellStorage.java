@@ -8,6 +8,7 @@ import net.braunly.ponymagic.spells.potion.SpellPotion;
 import net.braunly.ponymagic.spells.potion.SpellPotionSplash;
 import net.braunly.ponymagic.spells.potion.SpellShield;
 import net.braunly.ponymagic.spells.potion.SpellSpeed;
+import net.braunly.ponymagic.spells.potion.SpellStaminaHealthRegen;
 import net.braunly.ponymagic.spells.simple.SpellEnchant;
 import net.braunly.ponymagic.spells.simple.SpellGrow;
 import net.braunly.ponymagic.spells.simple.SpellUnEnchant;
@@ -37,6 +38,7 @@ public class SpellStorage {
 
 				// Custom marker potions
 				.put("shield", new SpellShield("shield"))
+				.put("shregen", new SpellStaminaHealthRegen("staminahealthregen"))
 
 				// Vanilla potions
 				.put("jump", new SpellPotion("jump_boost", true))

@@ -20,8 +20,7 @@ public class GuiSkillsNet {
 				.add(new GuiButtonSkill("staminaPool", 18, 233, 267, 2, 15))
 				.add(new GuiButtonSkill("staminaRegen", 19, 169, 267, 1, 10))
 				.add(new GuiButtonSkill("staminaRegen", 20, 297, 267, 2, 20))
-				.add(new GuiButtonSkill("staminaHealthRegen", 21, 361, 267, 1, 25))
-				.add(new GuiButtonSkill("staminaFoodRegen", 22, 425, 267, 1, 30))
+				.add(new GuiButtonSkill("shregen", 22, 425, 267, 1, 30))
 				.add(new GuiButtonSkill("reset", 100, 20, 318, 0, 1)).build();
 
 		Set<GuiButtonSkill> zebraSkills = new ImmutableSet.Builder<GuiButtonSkill>()
