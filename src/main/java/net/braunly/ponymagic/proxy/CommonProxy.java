@@ -33,6 +33,7 @@ import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.LevelUpEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.handlers.MagicSoundHandler;
+import net.braunly.ponymagic.items.ModItems;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
 import net.braunly.ponymagic.network.packets.LevelUpSoundPacket;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
@@ -83,6 +84,8 @@ public class CommonProxy {
 		CapabilityManager.INSTANCE.register(IStaminaStorage.class, new StaminaSerializer(), StaminaStorage.class);
 		CapabilityManager.INSTANCE.register(ISwishCapability.class, new SwishSerializer(), SwishStorage.class);
 		CapabilityManager.INSTANCE.register(PlayerData.class, new PlayerDataSerializer(), PlayerData.class);
+		
+		ModItems.init();
 	}
 
 	public void init(FMLInitializationEvent event) {

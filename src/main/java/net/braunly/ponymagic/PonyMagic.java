@@ -27,7 +27,8 @@ public class PonyMagic {
 	@NonNull public static final MetricRegistry METRICS = new MetricRegistry();
 
 	public static final int MAX_LVL = 30;
-
+	public static final PonyMagicCreativeTab creativeTab = new PonyMagicCreativeTab();
+	
 	@Instance(MODID)
 	public static PonyMagic instance;
 	@SidedProxy(clientSide = CLIENTPROXY, serverSide = COMMONPROXY)
