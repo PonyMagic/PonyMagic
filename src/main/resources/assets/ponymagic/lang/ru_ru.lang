@@ -46,6 +46,7 @@ gui.freeskillpoints=Очки умений: %s
 skill.reset0.name=Обнуление
 skill.reset0.command=МГНОВЕННО
 skill.reset0.descr=Возвращает очки способносней за счёт 10%% опыта
+skill.reset.fail=Не возможно обнулить способности
 
 skill.fly0.name=Полёт
 skill.fly0.command=ПАССИВНОЕ
