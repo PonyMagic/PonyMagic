@@ -66,7 +66,7 @@ public class MagicHandlersContainer {
 						&& !player.isPotionActive(shieldPotion)) {
 					Double staminaRegen = 0.0D;
 
-					if (player.getFoodStats().getFoodLevel() > Config.highFoodLevel) {
+					if (player.getFoodStats().getFoodLevel() > Config.lowFoodLevel) {
 						staminaRegen = Config.defaultStaminaRegen;
 					} else {
 						staminaRegen = Config.lowFoodStaminaRegen;
@@ -86,6 +86,7 @@ public class MagicHandlersContainer {
 						staminaRegen *= 2;
 					}
 
+					player.addExhaustion(0.005f);
 					stamina.add(staminaRegen);
 					stamina.sync((EntityPlayerMP) player);
 				}

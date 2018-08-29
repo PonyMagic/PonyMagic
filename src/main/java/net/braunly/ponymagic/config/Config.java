@@ -6,7 +6,6 @@ import java.util.Map;
 
 import net.minecraftforge.common.config.Configuration;
 
-@SuppressWarnings("WeakerAccess")
 public class Config {
 
 	// Exp
@@ -20,7 +19,6 @@ public class Config {
 	public static Double lowFoodStaminaRegen;
 	public static Double waterStaminaRegen;
 	public static boolean burnStaminaWhenHungry;
-	public static int highFoodLevel;
 	public static int lowFoodLevel;
 
 	// Fly
@@ -65,8 +63,7 @@ public class Config {
 		lowFoodStaminaRegen = config
 				.get("lowFoodStaminaRegen", "Стамина", 0.05D, "Реген в тик при низком голоде", 0.0D, 100.0D)
 				.getDouble();
-		highFoodLevel = config.getInt("highFoodLevel", "Стамина", 12, 0, 20, "Уменьшить реген, если голода меньше");
-		lowFoodLevel = config.getInt("lowFoodLevel", "Стамина", 6, 0, 20, "Отключить реген, если голода меньше");
+		lowFoodLevel = config.getInt("lowFoodLevel", "Стамина", 8, 0, 20, "Уменьшить реген, если голода меньше");
 		flySpendingValue = config
 				.get("flySpendingValue", "Стамина", 0.08D, "Уменьшение при обычном полёте", 0.0D, 100.0D).getDouble();
 		flyExhausting = config.getFloat("flyExhausting", "Стамина", 0.016F, 0.0F, 1.0F, "Потеря голода при полёте");
