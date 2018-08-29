@@ -14,6 +14,10 @@ import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaHandler;
 import net.braunly.ponymagic.capabilities.stamina.StaminaSerializer;
 import net.braunly.ponymagic.capabilities.stamina.StaminaStorage;
+import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
+import net.braunly.ponymagic.capabilities.swish.SwishHandler;
+import net.braunly.ponymagic.capabilities.swish.SwishSerializer;
+import net.braunly.ponymagic.capabilities.swish.SwishStorage;
 import net.braunly.ponymagic.command.CommandCast;
 import net.braunly.ponymagic.command.CommandMagic;
 import net.braunly.ponymagic.command.CommandStamina;
@@ -35,6 +39,7 @@ import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
 import net.braunly.ponymagic.network.packets.ResetPacket;
 import net.braunly.ponymagic.network.packets.SkillUpPacket;
+import net.braunly.ponymagic.network.packets.SwishPacket;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
 import net.braunly.ponymagic.potions.PotionShield;
 import net.braunly.ponymagic.potions.PotionStaminaHealthRegen;
@@ -64,6 +69,7 @@ public class CommonProxy {
 		PonyMagic.channel.registerMessage(ResetPacket.class, ResetPacket.class, 5, Side.SERVER);
 
 		PonyMagic.channel.registerMessage(LevelUpSoundPacket.class, LevelUpSoundPacket.class, 6, Side.CLIENT);
+		PonyMagic.channel.registerMessage(SwishPacket.class, SwishPacket.class, 7, Side.CLIENT);
 
 		Config.load(event.getSuggestedConfigurationFile());
 		PonyMagic.log.info("Config loaded!");
@@ -75,6 +81,7 @@ public class CommonProxy {
 
 		// Register capability data
 		CapabilityManager.INSTANCE.register(IStaminaStorage.class, new StaminaSerializer(), StaminaStorage.class);
+		CapabilityManager.INSTANCE.register(ISwishCapability.class, new SwishSerializer(), SwishStorage.class);
 		CapabilityManager.INSTANCE.register(PlayerData.class, new PlayerDataSerializer(), PlayerData.class);
 	}
 
@@ -93,6 +100,7 @@ public class CommonProxy {
 
 		// Attach capabilities to player
 		MinecraftForge.EVENT_BUS.register(new StaminaHandler());
+		MinecraftForge.EVENT_BUS.register(new SwishHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerDataHandler());
 
 		MagicSoundHandler.init();

@@ -11,6 +11,7 @@ import net.braunly.ponymagic.spells.potion.SpellSpeed;
 import net.braunly.ponymagic.spells.potion.SpellStaminaHealthRegen;
 import net.braunly.ponymagic.spells.simple.SpellEnchant;
 import net.braunly.ponymagic.spells.simple.SpellGrow;
+import net.braunly.ponymagic.spells.simple.SpellSwish;
 import net.braunly.ponymagic.spells.simple.SpellUnEnchant;
 
 public class SpellStorage {
@@ -58,6 +59,7 @@ public class SpellStorage {
 				.put("grow", new SpellGrow("grow"))
 				.put("unenchant", new SpellUnEnchant("unenchant"))
 				.put("enchant", new SpellEnchant("enchant"))
+				.put("swish", new SpellSwish("swish"))
 				.build();
 	}
 

@@ -28,6 +28,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -99,7 +101,7 @@ public class CommandMagic extends CommandBase {
 		playerData.levelData.addLevel(30);
 		playerData.levelData.addFreeSkillPoints(10);
 		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, playerData.levelData.getLevel()));
-		playerData.save();
+		playerData.save();		
 	}
 
 	@Override

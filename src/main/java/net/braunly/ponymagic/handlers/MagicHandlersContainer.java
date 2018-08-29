@@ -4,6 +4,8 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.stamina.EnumStaminaType;
 import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
+import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
+import net.braunly.ponymagic.capabilities.swish.SwishProvider;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataController;
@@ -43,19 +45,22 @@ public class MagicHandlersContainer {
 
 			EntityPlayer player = event.player;// getEntityLiving();
 			PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
-			IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
-
+			
 			if (player.capabilities.isCreativeMode || player.isSpectator() || playerData.race == EnumRace.REGULAR) {
 				// Creatives, spectators and regulars not processing.
 				return;
 			}
+			
+			IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+			Double staminaCurrent = stamina.getStamina(EnumStaminaType.CURRENT);
+			Double staminaMaximum = stamina.getStamina(EnumStaminaType.MAXIMUM);
 
 			// Stamina regeneration
 			final Timer.Context staminaContext = processStamina.time();
 			try {
 				
 				Potion shieldPotion = SpellPotion.getCustomPotion("shield");						
-				if (stamina.getStamina(EnumStaminaType.CURRENT) < stamina.getStamina(EnumStaminaType.MAXIMUM)
+				if (staminaCurrent < staminaMaximum
 						&& player.getFoodStats().getFoodLevel() > 0
 						&& (player.onGround || player.isInWater())
 						&& !player.isPotionActive(shieldPotion)) {
@@ -86,7 +91,7 @@ public class MagicHandlersContainer {
 				}
 
 				// Take all stamina on low food level
-				if (player.getFoodStats().getFoodLevel() == 0 && stamina.getStamina(EnumStaminaType.CURRENT) > 0) {
+				if (player.getFoodStats().getFoodLevel() == 0 && staminaCurrent > 0) {
 					stamina.add(-0.5D);
 					stamina.sync((EntityPlayerMP) player);
 				}
@@ -95,7 +100,7 @@ public class MagicHandlersContainer {
 			}
 
 			if (playerData.race == EnumRace.PEGASUS) {
-				if (stamina.getStamina(EnumStaminaType.CURRENT) > 5) {
+				if (staminaCurrent > 5) {
 					player.capabilities.allowFlying = true;
 					player.sendPlayerAbilities();
 				}
@@ -131,7 +136,7 @@ public class MagicHandlersContainer {
 
 						// Handle auto slowfall
 						if (playerData.skillData.isSkillLearned("slowfallauto")) {
-							Potion slowFall = SpellPotion.getCustomPotion("slowfall");
+							Potion slowFall = SpellPotion.getCustomPotion("slow_fall");
 							if (!player.isPotionActive(slowFall)) {
 								Integer[] config = Config.potions.get(String.format("%s#%d", "slow_fall_auto", 1));
 								player.addPotionEffect(new PotionEffect(slowFall, config[0] * SpellPotion.TPS, config[2]));
@@ -139,6 +144,14 @@ public class MagicHandlersContainer {
 						}
 					}
 				}
+				
+				if (playerData.skillData.isSkillLearned("swish")) {
+					ISwishCapability swish = player.getCapability(SwishProvider.SWISH, null);
+					if (!swish.canSwish() && staminaCurrent > (staminaMaximum/3)) {
+						swish.setCanSwish(true);
+					}
+				}
+				
 			}
 		} finally {
 			context.stop();
