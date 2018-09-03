@@ -171,7 +171,7 @@ public class MagicHandlersContainer {
 
 	@SubscribeEvent(priority = EventPriority.HIGH)
 	public void handleStaminaShield(LivingHurtEvent event) {
-		if (!(event.getEntityLiving() instanceof EntityPlayer) && event.getEntity().world.isRemote)
+		if (!(event.getEntityLiving() instanceof EntityPlayer) || event.getEntity().world.isRemote)
 			return;
 
 		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
