@@ -148,7 +148,7 @@ public class GuiSkills extends GuiScreen {
 			RenderHelper.disableStandardItemLighting();
 		}
 		
-//		try {
+		try {
 //			PonyMagic.log.info("[GUI] Draw skills");
 			// Draw skills
 			if (this.playerData.race != null && this.playerData.race != EnumRace.REGULAR && this.skillsNet != null) {
@@ -249,10 +249,10 @@ public class GuiSkills extends GuiScreen {
 					}
 				}
 			}
-//		} catch (NullPointerException e) {
-//			PonyMagic.log.info("[GUI] ERROR - NullPointerException");
-//			this.mc.displayGuiScreen(null);
-//		}
+		} catch (NullPointerException e) {
+			PonyMagic.log.info("[GUI] ERROR - NullPointerException");
+			this.mc.displayGuiScreen(null);
+		}
 		
 		// Draw player level and free points
 		// FIXME: ?

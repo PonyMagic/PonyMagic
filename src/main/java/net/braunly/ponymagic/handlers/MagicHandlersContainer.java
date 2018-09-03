@@ -169,9 +169,9 @@ public class MagicHandlersContainer {
 		updatePlayerMaxStamina(event.player);
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGH)
 	public void handleStaminaShield(LivingHurtEvent event) {
-		if (!(event.getEntityLiving() instanceof EntityPlayer) || event.getEntity().world.isRemote)
+		if (!(event.getEntityLiving() instanceof EntityPlayer) && event.getEntity().world.isRemote)
 			return;
 
 		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
@@ -201,7 +201,7 @@ public class MagicHandlersContainer {
 	
 	// Passives
 	
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void handleDamagePassive(LivingHurtEvent event) {
 		if (event.getEntity().world.isRemote) return;
 		
@@ -211,20 +211,20 @@ public class MagicHandlersContainer {
 			
 			if (playerData.skillData.isSkillLearned("highground")) {
 				if (player.getPosition().getY() - event.getEntity().getPosition().getY() > 1) {
-					event.setAmount(event.getAmount() + ((event.getAmount() / 100) * Config.highgroundDamage));
+					event.setAmount(event.getAmount() + ((event.getAmount() / 100.0F) * Config.highgroundDamage));
 				}
 			}
 			
 			if (playerData.skillData.isSkillLearned("onedge")) {
 				IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
 				if (stamina.getStamina(EnumStaminaType.CURRENT) < 10) {
-					event.setAmount(event.getAmount() + ((event.getAmount() / 100) * Config.onedgeDamage));
+					event.setAmount(event.getAmount() + ((event.getAmount() / 100.0F) * Config.onedgeDamage));
 				}
 			}
 		}		
 	}
 	
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.LOW)
 	public void handleDodgingPassive(LivingHurtEvent event) {
 		if (!(event.getEntityLiving() instanceof EntityPlayer) || event.getEntity().world.isRemote)
 			return;
