@@ -19,7 +19,7 @@ public enum EnumRace {
 					"flyduration",
 					"haste",
 					"slowfallauto",
-					"trueshot",
+					"archery",
 					
 					"swish",
 					"highground",

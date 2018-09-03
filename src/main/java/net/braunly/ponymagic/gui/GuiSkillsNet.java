@@ -84,11 +84,11 @@ public class GuiSkillsNet {
 				.add(new GuiButtonSkill("slowfallauto", ImmutableSet.of("swish"), 9, 297, 193, 
 						ImmutableSet.of("dodging"), 1, 20))
 				// T5
-				.add(new GuiButtonSkill("onedge", ImmutableSet.of("highground"), 10, 361, 129, ImmutableSet.of("trueshot"), 1, 25))
+				.add(new GuiButtonSkill("onedge", ImmutableSet.of("highground"), 10, 361, 129, ImmutableSet.of("archery"), 1, 25))
 				.add(new GuiButtonSkill("dodging", ImmutableSet.of("slowfallauto"), 11, 361, 193,
 						ImmutableSet.of("dodgingbuff"), 1, 25))
 				// T6
-				.add(new GuiButtonSkill("trueshot", ImmutableSet.of("highground"), 12, 425, 129, ImmutableSet.of(), 1, 30))
+				.add(new GuiButtonSkill("archery", ImmutableSet.of("highground"), 12, 425, 129, ImmutableSet.of(), 1, 30))
 				.add(new GuiButtonSkill("dodgingbuff", ImmutableSet.of("dodging"), 13, 425, 193, ImmutableSet.of(), 1, 30))
 				
 				// Add shared skills

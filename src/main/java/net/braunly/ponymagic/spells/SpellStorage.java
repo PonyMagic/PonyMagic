@@ -35,7 +35,7 @@ public class SpellStorage {
 				.put("invert", new SpellPotion("invert"))
 				.put("extension", new SpellPotion("extension"))
 				.put("revival", new SpellPotion("revival"))
-				.put("trueshot", new SpellPotion("trueshot"))
+				.put("archery", new SpellPotion("archery"))
 
 				// Custom marker potions
 				.put("shield", new SpellShield("shield"))

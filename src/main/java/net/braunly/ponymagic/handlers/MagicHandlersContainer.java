@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -201,8 +202,8 @@ public class MagicHandlersContainer {
 	
 	// Passives
 	
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void handleDamagePassive(LivingHurtEvent event) {
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void handleDamagePassive(LivingDamageEvent event) {
 		if (event.getEntity().world.isRemote) return;
 		
 		if (event.getSource().getTrueSource() instanceof EntityPlayer) {
