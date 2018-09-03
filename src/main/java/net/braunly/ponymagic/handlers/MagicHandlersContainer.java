@@ -211,7 +211,7 @@ public class MagicHandlersContainer {
 			PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
 			
 			if (playerData.skillData.isSkillLearned("highground")) {
-				if (player.getPosition().getY() - event.getEntity().getPosition().getY() > 1) {
+				if (player.getPosition().getY() - event.getEntity().getPosition().getY() > 1 && player.onGround) {
 					event.setAmount(event.getAmount() + ((event.getAmount() / 100.0F) * Config.highgroundDamage));
 				}
 			}
