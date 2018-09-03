@@ -241,7 +241,7 @@ public class MagicHandlersContainer {
 			float randNum = player.world.rand.nextFloat() * 100;
 			if (randNum < Config.dodgingChance) {
 				if (playerData.skillData.isSkillLearned("dodgingbuff")) {
-					player.addPotionEffect(new PotionEffect(SpellPotion.getVanillaPotion("absorption"), 3 * 20));
+					player.addPotionEffect(new PotionEffect(SpellPotion.getVanillaPotion("absorption"), 5 * 20));
 				}
 				event.setAmount(0);
 				event.setCanceled(true);

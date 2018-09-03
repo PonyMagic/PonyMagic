@@ -181,6 +181,10 @@ public class Config {
 						config.getInt("slowFallAutoDur1", "Potions", 15, 0, 600, "Длительность slowFallAuto. (сек)"),
 						config.getInt("slowFallAutoStamina1", "Potions", 0, 0, 100, "Стамина за slowFallAuto."),
 						config.getInt("slowFallAutoLvl1", "Potions", 1, 1, 5, "Уровень эффекта slowFall.") });
+		potions.put("trueshot#1",
+				new Integer[] { config.getInt("trueshotDur1", "Potions", 10, 0, 600, "Длительность slowFall. (сек)"),
+						config.getInt("trueshotStamina1", "Potions", 30, 0, 100, "Стамина за slowFall."),
+						config.getInt("trueshotLvl1", "Potions", 1, 1, 5, "Уровень эффекта slowFall.") });
 
 		potions.put("shield#1",
 				new Integer[] { config.getInt("shieldDur", "Spells", 60, 0, 600, "Длительность shield. (сек)"),
