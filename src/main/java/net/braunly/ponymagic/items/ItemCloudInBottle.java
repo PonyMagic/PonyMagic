@@ -1,8 +1,12 @@
 package net.braunly.ponymagic.items;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFalling;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -24,8 +28,13 @@ public class ItemCloudInBottle extends ItemBase {
 		}
 		BlockPos blockPos = player.getPosition();
 		blockPos = blockPos.down(1);
-		if (world.getBlockState(blockPos).getBlock() == Blocks.AIR) {
-			world.setBlockState(blockPos, Block.getBlockFromItem(player.getHeldItemOffhand().getItem()).getDefaultState());
+		Item itemInHand = player.getHeldItemOffhand().getItem();
+		Block blockInHand = Block.getBlockFromItem(itemInHand);
+		if (world.getBlockState(blockPos).getBlock() == Blocks.AIR 
+				&& itemInHand instanceof ItemBlock
+				&& !(blockInHand instanceof BlockFalling)
+				&& !(blockInHand instanceof BlockSapling)) {
+			world.setBlockState(blockPos, blockInHand.getDefaultState());
 
 			player.getHeldItemMainhand().setCount(player.getHeldItemMainhand().getCount() - 1);
 			player.getHeldItemOffhand().setCount(player.getHeldItemOffhand().getCount() - 1);
