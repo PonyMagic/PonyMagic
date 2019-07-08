@@ -1,7 +1,6 @@
 package net.braunly.ponymagic;
 
 import lombok.NonNull;
-import com.codahale.metrics.MetricRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +23,6 @@ public class PonyMagic {
 	public static final String MODID = "ponymagic";
 	public static final String CLIENTPROXY = "net.braunly.ponymagic.proxy.ClientProxy";
 	public static final String COMMONPROXY = "net.braunly.ponymagic.proxy.CommonProxy";
-	@NonNull public static final MetricRegistry METRICS = new MetricRegistry();
 
 	public static final int MAX_LVL = 30;
 	public static final PonyMagicCreativeTab creativeTab = new PonyMagicCreativeTab();

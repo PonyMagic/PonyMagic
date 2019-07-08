@@ -2,10 +2,6 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
-		maven {
-            name 'mc4ep'
-            url 'http://maven.mc4ep.ru/repository/minecraft/'
-        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -13,7 +9,7 @@ buildscript {
 }
 plugins {
     id "com.palantir.git-version" version "0.11.0"
-    id "com.github.johnrengelman.shadow" version "2.0.1"
+    id "com.github.johnrengelman.shadow" version "4.0.0"
     id "maven"
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -48,8 +44,6 @@ minecraft {
 }
 
 dependencies {
-    compile group: 'io.dropwizard.metrics', name: 'metrics-core', version: '4.0.0'
-    compile group: 'io.dropwizard.metrics', name: 'metrics-graphite', version: '4.1.0-rc2'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
 }
 
@@ -94,20 +88,4 @@ reobf {
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
-}
-
-uploadArchives {
-    repositories.mavenDeployer {
-        repository(url: "http://maven.mc4ep.ru/repository/internal/") {
-            authentication(
-                    userName: project.hasProperty('repoLogin') ? repoLogin : null,
-                    password: project.hasProperty('repoPassword') ? repoPassword: null
-            )
-        }
-        pom.project {
-            name modName
-            description modDescription
-            url modUrl
-        }
-    }
 }

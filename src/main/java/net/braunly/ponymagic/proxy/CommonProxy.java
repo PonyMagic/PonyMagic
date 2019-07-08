@@ -5,10 +5,6 @@ import static com.tmtravlr.potioncore.PotionCoreEffects.POTIONS;
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
-import com.codahale.metrics.MetricFilter;
-import com.codahale.metrics.graphite.Graphite;
-import com.codahale.metrics.graphite.GraphiteReporter;
-
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaHandler;
@@ -110,23 +106,6 @@ public class CommonProxy {
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
-		if (Config.metricsEnabled) {
-			initMetrics();
-			PonyMagic.log.info("Initialized metrics");
-		} else {
-			PonyMagic.log.info("Metrics disabled");
-		}
-	}
-
-	private void initMetrics() {
-		final Graphite graphite = new Graphite(new InetSocketAddress(Config.graphiteHost, Config.graphitePort));
-		final GraphiteReporter reporter = GraphiteReporter.forRegistry(PonyMagic.METRICS)
-				.prefixedWith(Config.graphitePrefix)
-				.convertRatesTo(TimeUnit.SECONDS)
-				.convertDurationsTo(TimeUnit.MICROSECONDS)
-				.filter(MetricFilter.ALL)
-				.build(graphite);
-		reporter.start(Config.reportInterval, TimeUnit.SECONDS);
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
