@@ -54,6 +54,7 @@ public class MagicHandlersContainer {
 		if (staminaCurrent < staminaMaximum
 				&& player.getFoodStats().getFoodLevel() > 0
 				&& (player.onGround || player.isInWater())
+				&& !player.capabilities.isFlying
 				&& !player.isPotionActive(shieldPotion)) {
 			Double staminaRegen = 0.0D;
 
@@ -69,7 +70,7 @@ public class MagicHandlersContainer {
 			}
 
 
-			if (player.isInWater() && !player.capabilities.isFlying) {
+			if (player.isInWater()) {
 				staminaRegen = Config.waterStaminaRegen;
 			}
 
@@ -187,7 +188,7 @@ public class MagicHandlersContainer {
 	// Passives
 	
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void handleDamagePassive(LivingDamageEvent event) {
+	public void handleDamagePassive(LivingHurtEvent event) {
 		if (event.getEntity().world.isRemote) return;
 		
 		if (event.getSource().getTrueSource() instanceof EntityPlayer) {
