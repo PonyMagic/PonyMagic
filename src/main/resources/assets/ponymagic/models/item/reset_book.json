@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "minecraft:items/book"
+        "layer0": "ponymagic:items/reset_book"
      },
 	 "display": {
         "thirdperson": {
