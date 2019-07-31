@@ -37,6 +37,10 @@ public class SpellStorage {
 				.put("revival", new SpellPotion("revival"))
 				.put("archery", new SpellPotion("archery"))
 
+				.put("recoil", new SpellPotion("recoil"))
+				.put("burst", new SpellPotion("burst"))
+				.put("repair", new SpellPotion("repair"))
+
 				// Custom marker potions
 				.put("shield", new SpellShield("shield"))
 				.put("shregen", new SpellStaminaHealthRegen("staminahealthregen"))
@@ -52,6 +56,7 @@ public class SpellStorage {
 				.put("heal", new SpellPotion("instant_health", true))
 				.put("poison", new SpellPotion("poison", true))
 				.put("invisibility", new SpellPotion("invisibility", true))
+				.put("resist", new SpellPotion("resistance", true))
 
 				.put("speed", new SpellSpeed("speed"))
 

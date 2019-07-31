@@ -88,6 +88,11 @@ public class Config {
 						config.getInt("fireResistanceDur", "Potions", 90, 0, 600, "Длительность fireResistance. (сек)"),
 						config.getInt("fireResistanceStamina", "Potions", 60, 0, 100, "Стамина за fireResistance."),
 						config.getInt("fireResistanceLvl", "Potions", 1, 1, 5, "Уровень эффекта fireResistance.") });
+		potions.put("resistance#1",
+				new Integer[] {
+						config.getInt("resistanceDur", "Potions", 90, 0, 600, "Длительность resistance. (сек)"),
+						config.getInt("resistanceStamina", "Potions", 60, 0, 100, "Стамина за resistance."),
+						config.getInt("resistanceLvl", "Potions", 1, 1, 5, "Уровень эффекта resistance.") });
 		potions.put("drown#1",
 				new Integer[] { config.getInt("drownDur", "Potions", 60, 0, 600, "Длительность drown. (сек)"),
 						config.getInt("drownStamina", "Potions", 30, 0, 100, "Стамина за drown."),
@@ -172,6 +177,18 @@ public class Config {
 				new Integer[] { config.getInt("archeryDur1", "Potions", 10, 0, 600, "Длительность archery. (сек)"),
 						config.getInt("archeryStamina1", "Potions", 30, 0, 100, "Стамина за archery."),
 						config.getInt("archeryLvl1", "Potions", 1, 1, 5, "Уровень эффекта archery.") });
+		potions.put("recoil#1",
+				new Integer[] { config.getInt("recoilDur1", "Potions", 10, 0, 600, "Длительность recoil. (сек)"),
+						config.getInt("recoilStamina1", "Potions", 30, 0, 100, "Стамина за recoil."),
+						config.getInt("recoilLvl1", "Potions", 1, 1, 5, "Уровень эффекта recoil.") });
+		potions.put("burst#1",
+				new Integer[] { config.getInt("burstDur1", "Potions", 1, 0, 600, "Длительность burst. (сек)"),
+						config.getInt("burstStamina1", "Potions", 30, 0, 100, "Стамина за burst."),
+						config.getInt("burstLvl1", "Potions", 0, 0, 5, "Уровень эффекта burst.") });
+		potions.put("repair#1",
+				new Integer[] { config.getInt("repairDur1", "Potions", 5, 0, 600, "Длительность repair. (сек)"),
+						config.getInt("repairStamina1", "Potions", 30, 0, 100, "Стамина за repair."),
+						config.getInt("repairLvl1", "Potions", 1, 1, 5, "Уровень эффекта repair.") });
 
 		potions.put("shield#1",
 				new Integer[] { config.getInt("shieldDur", "Spells", 60, 0, 600, "Длительность shield. (сек)"),
