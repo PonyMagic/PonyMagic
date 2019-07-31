@@ -127,7 +127,7 @@ public class GuiSkillsNet {
 						ImmutableSet.of("fly"), 1, 25))
 				// T6
 				.add(new GuiButtonSkill("revival", ImmutableSet.of("recoil"), 13, 425, 43, 1, 30))
-				.add(new GuiButtonSkill("fly", ImmutableSet.of("cure"), 14, 425, 139, 1, 30))
+				.add(new GuiButtonSkill("fly", ImmutableSet.of("slowfall"), 14, 425, 139, 1, 30))
 				// Add shared skills
 				.addAll(sharedSkills).build();
 
