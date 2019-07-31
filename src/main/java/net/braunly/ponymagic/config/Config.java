@@ -189,6 +189,18 @@ public class Config {
 				new Integer[] { config.getInt("repairDur1", "Potions", 5, 0, 600, "Длительность repair. (сек)"),
 						config.getInt("repairStamina1", "Potions", 30, 0, 100, "Стамина за repair."),
 						config.getInt("repairLvl1", "Potions", 1, 1, 5, "Уровень эффекта repair.") });
+		potions.put("revival#1",
+				new Integer[] { config.getInt("revivalDur1", "Potions", 5, 0, 600, "Длительность revival. (сек)"),
+						config.getInt("revivalStamina1", "Potions", 30, 0, 100, "Стамина за revival."),
+						config.getInt("revivalLvl1", "Potions", 1, 1, 5, "Уровень эффекта revival.") });
+		potions.put("teleport_surface#1",
+				new Integer[] { config.getInt("teleport_surfaceDur1", "Potions", 1, 0, 600, "Длительность tpsurface. (сек)"),
+						config.getInt("teleport_surfaceStamina1", "Potions", 30, 0, 100, "Стамина за tpsurface."),
+						config.getInt("teleport_surfaceLvl1", "Potions", 0, 0, 5, "Уровень эффекта tpsurface.") });
+		potions.put("flight#1",
+				new Integer[] { config.getInt("flightDur1", "Potions", 5, 0, 600, "Длительность fly. (сек)"),
+						config.getInt("flightStamina1", "Potions", 30, 0, 100, "Стамина за fly."),
+						config.getInt("flightLvl1", "Potions", 1, 1, 5, "Уровень эффекта fly.") });
 
 		potions.put("shield#1",
 				new Integer[] { config.getInt("shieldDur", "Spells", 60, 0, 600, "Длительность shield. (сек)"),

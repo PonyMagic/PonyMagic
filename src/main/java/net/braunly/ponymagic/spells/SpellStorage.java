@@ -40,6 +40,8 @@ public class SpellStorage {
 				.put("recoil", new SpellPotion("recoil"))
 				.put("burst", new SpellPotion("burst"))
 				.put("repair", new SpellPotion("repair"))
+				.put("tpsurface", new SpellPotion("teleport_surface"))
+				.put("fly", new SpellPotion("flight"))
 
 				// Custom marker potions
 				.put("shield", new SpellShield("shield"))

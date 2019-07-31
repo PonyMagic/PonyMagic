@@ -96,7 +96,7 @@ public class CommandMagic extends CommandBase {
 	private void executeTest(EntityPlayerMP player) throws CommandException {
 		PlayerData playerData = PlayerDataController.instance.getDataFromUsername(PonyMagic.Server, player.getName());
 
-		playerData.race = EnumRace.EARTHPONY;
+		playerData.race = EnumRace.UNICORN;
 		playerData.levelData.addExp(10000D);
 		playerData.levelData.addLevel(30);
 		playerData.levelData.addFreeSkillPoints(10);
