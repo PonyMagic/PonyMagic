@@ -2,9 +2,6 @@ package net.braunly.ponymagic.proxy;
 
 import static com.tmtravlr.potioncore.PotionCoreEffects.POTIONS;
 
-import java.net.InetSocketAddress;
-import java.util.concurrent.TimeUnit;
-
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaHandler;
@@ -21,10 +18,7 @@ import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
-import net.braunly.ponymagic.exp.CraftEventHandler;
 import net.braunly.ponymagic.exp.DeathEventHandler;
-import net.braunly.ponymagic.exp.MineEventHandler;
-import net.braunly.ponymagic.exp.PlaceEventHandler;
 import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.LevelUpEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
@@ -87,9 +81,6 @@ public class CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		PonyMagic.log.info("Handlers registration...");
 		// Experience handlers
-		MinecraftForge.EVENT_BUS.register(new MineEventHandler());
-		MinecraftForge.EVENT_BUS.register(new PlaceEventHandler());
-		MinecraftForge.EVENT_BUS.register(new CraftEventHandler());
 		MinecraftForge.EVENT_BUS.register(new DeathEventHandler());
 
 		MinecraftForge.EVENT_BUS.register(new MagicHandlersContainer());
