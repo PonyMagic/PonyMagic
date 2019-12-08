@@ -63,7 +63,7 @@ public class Config {
 
 		// Passives
 		highgroundDamage = config.getInt("highgroundDamage", "Passives", 10, 0, 100, "+% к урону от пассивки highground.");
-		onedgeDamage = config.getInt("onedgeDamage", "Passives", 10, 0, 100, "+% к урону от пассивки onedge.");
+		onedgeDamage = config.getInt("onedgeDamage", "Passives", 20, 0, 100, "+% к урону от пассивки onedge.");
 		dodgingChance = config.getInt("dodgingChance", "Passives", 15, 0, 100, "Шанс в % уклонения с dodging.");
 		
 		// POTIONS
@@ -73,7 +73,7 @@ public class Config {
 						config.getInt("jumpLvl", "Potions", 2, 1, 5, "Уровень эффекта jump.") });
 		potions.put("antidote#1",
 				new Integer[] { config.getInt("antidoteDur", "Potions", 60, 0, 600, "Длительность antidote. (сек)"),
-						config.getInt("antidoteStamina", "Potions", 30, 0, 100, "Стамина за antidote."),
+						config.getInt("antidoteStamina", "Potions", 45, 0, 100, "Стамина за antidote."),
 						config.getInt("antidoteLvl", "Potions", 1, 1, 5, "Уровень эффекта antidote.") });
 		potions.put("climb#1",
 				new Integer[] { config.getInt("climbDur", "Potions", 60, 0, 600, "Длительность climb. (сек)"),
@@ -90,7 +90,7 @@ public class Config {
 						config.getInt("fireResistanceLvl", "Potions", 1, 1, 5, "Уровень эффекта fireResistance.") });
 		potions.put("resistance#1",
 				new Integer[] {
-						config.getInt("resistanceDur", "Potions", 90, 0, 600, "Длительность resistance. (сек)"),
+						config.getInt("resistanceDur", "Potions", 60, 0, 600, "Длительность resistance. (сек)"),
 						config.getInt("resistanceStamina", "Potions", 60, 0, 100, "Стамина за resistance."),
 						config.getInt("resistanceLvl", "Potions", 1, 1, 5, "Уровень эффекта resistance.") });
 		potions.put("drown#1",
@@ -103,7 +103,7 @@ public class Config {
 						config.getInt("slownessLvl", "Potions", 1, 1, 5, "Уровень эффекта slowness.") });
 		potions.put("purity#1",
 				new Integer[] { config.getInt("purityDur", "Potions", 60, 0, 600, "Длительность purity. (сек)"),
-						config.getInt("purityStamina", "Potions", 30, 0, 100, "Стамина за purity."),
+						config.getInt("purityStamina", "Potions", 45, 0, 100, "Стамина за purity."),
 						config.getInt("purityLvl", "Potions", 1, 1, 5, "Уровень эффекта purity.") });
 		potions.put("night_vision#1",
 				new Integer[] {
@@ -134,8 +134,8 @@ public class Config {
 						config.getInt("strengthStamina1", "Potions", 30, 0, 100, "Стамина за strength."),
 						config.getInt("strengthLvl1", "Potions", 2, 1, 5, "Уровень эффекта strength.") });
 		potions.put("haste#1",
-				new Integer[] { config.getInt("hasteDur1", "Potions", 60, 0, 600, "Длительность haste. (сек)"),
-						config.getInt("hasteStamina1", "Potions", 30, 0, 100, "Стамина за haste."),
+				new Integer[] { config.getInt("hasteDur1", "Potions", 30, 0, 600, "Длительность haste. (сек)"),
+						config.getInt("hasteStamina1", "Potions", 50, 0, 100, "Стамина за haste."),
 						config.getInt("hasteLvl1", "Potions", 3, 1, 5, "Уровень эффекта haste.") });
 		potions.put("regeneration#1",
 				new Integer[] { config.getInt("hpRegenDur1", "Potions", 30, 0, 600, "Длительность hpRegen. (сек)"),
@@ -144,7 +144,7 @@ public class Config {
 		potions.put("regeneration#2",
 				new Integer[] {
 						config.getInt("hpRegenDur2", "Potions", 45, 0, 600, "Длительность hpRegen уровня 2. (сек)"),
-						config.getInt("hpRegenStamina2", "Potions", 30, 0, 100, "Стамина за hpRegen уровня 2."),
+						config.getInt("hpRegenStamina2", "Potions", 50, 0, 100, "Стамина за hpRegen уровня 2."),
 						config.getInt("hpRegenLvl2", "Potions", 2, 1, 5, "Уровень эффекта hpRege уровня 2n.") });
 		potions.put("teleport_spawn#1",
 				new Integer[] {
@@ -156,12 +156,12 @@ public class Config {
 						config.getInt("solidCoreStamina1", "Potions", 30, 0, 100, "Стамина за solidCore."),
 						config.getInt("solidCoreLvl1", "Potions", 1, 1, 5, "Уровень эффекта solidCore.") });
 		potions.put("instant_health#1",
-				new Integer[] { config.getInt("healDur1", "Potions", 3, 0, 600, "Длительность heal. (сек)"),
+				new Integer[] { config.getInt("healDur1", "Potions", 1, 0, 600, "Длительность heal. (сек)"),
 						config.getInt("healStamina1", "Potions", 30, 0, 100, "Стамина за heal."),
 						config.getInt("healLvl1", "Potions", 1, 1, 5, "Уровень эффекта heal.") });
 		potions.put("instant_health#2",
 				new Integer[] {
-						config.getInt("healDur2", "Potions", 6, 0, 600, "Длительность heal уровня 2. (сек)"),
+						config.getInt("healDur2", "Potions", 3, 0, 600, "Длительность heal уровня 2. (сек)"),
 						config.getInt("healStamina2", "Potions", 30, 0, 100, "Стамина за heal уровня 2."),
 						config.getInt("healLvl2", "Potions", 1, 1, 5, "Уровень эффекта heal уровня 2.") });
 		potions.put("slow_fall#1",
@@ -175,46 +175,46 @@ public class Config {
 						config.getInt("slowFallAutoLvl1", "Potions", 1, 1, 5, "Уровень эффекта slowFall.") });
 		potions.put("archery#1",
 				new Integer[] { config.getInt("archeryDur1", "Potions", 10, 0, 600, "Длительность archery. (сек)"),
-						config.getInt("archeryStamina1", "Potions", 30, 0, 100, "Стамина за archery."),
+						config.getInt("archeryStamina1", "Potions", 45, 0, 100, "Стамина за archery."),
 						config.getInt("archeryLvl1", "Potions", 1, 1, 5, "Уровень эффекта archery.") });
 		potions.put("recoil#1",
-				new Integer[] { config.getInt("recoilDur1", "Potions", 10, 0, 600, "Длительность recoil. (сек)"),
-						config.getInt("recoilStamina1", "Potions", 30, 0, 100, "Стамина за recoil."),
+				new Integer[] { config.getInt("recoilDur1", "Potions", 15, 0, 600, "Длительность recoil. (сек)"),
+						config.getInt("recoilStamina1", "Potions", 40, 0, 100, "Стамина за recoil."),
 						config.getInt("recoilLvl1", "Potions", 1, 1, 5, "Уровень эффекта recoil.") });
 		potions.put("burst#1",
 				new Integer[] { config.getInt("burstDur1", "Potions", 1, 0, 600, "Длительность burst. (сек)"),
 						config.getInt("burstStamina1", "Potions", 30, 0, 100, "Стамина за burst."),
 						config.getInt("burstLvl1", "Potions", 0, 0, 5, "Уровень эффекта burst.") });
 		potions.put("repair#1",
-				new Integer[] { config.getInt("repairDur1", "Potions", 5, 0, 600, "Длительность repair. (сек)"),
-						config.getInt("repairStamina1", "Potions", 30, 0, 100, "Стамина за repair."),
-						config.getInt("repairLvl1", "Potions", 1, 1, 5, "Уровень эффекта repair.") });
+				new Integer[] { config.getInt("repairDur1", "Potions", 70, 0, 600, "Длительность repair. (сек)"),
+						config.getInt("repairStamina1", "Potions", 70, 0, 100, "Стамина за repair."),
+						config.getInt("repairLvl1", "Potions", 9, 1, 5, "Уровень эффекта repair.") });
 		potions.put("revival#1",
 				new Integer[] { config.getInt("revivalDur1", "Potions", 5, 0, 600, "Длительность revival. (сек)"),
-						config.getInt("revivalStamina1", "Potions", 30, 0, 100, "Стамина за revival."),
-						config.getInt("revivalLvl1", "Potions", 1, 1, 5, "Уровень эффекта revival.") });
+						config.getInt("revivalStamina1", "Potions", 90, 0, 100, "Стамина за revival."),
+						config.getInt("revivalLvl1", "Potions", 0, 0, 5, "Уровень эффекта revival.") });
 		potions.put("teleport_surface#1",
 				new Integer[] { config.getInt("teleport_surfaceDur1", "Potions", 1, 0, 600, "Длительность tpsurface. (сек)"),
 						config.getInt("teleport_surfaceStamina1", "Potions", 30, 0, 100, "Стамина за tpsurface."),
 						config.getInt("teleport_surfaceLvl1", "Potions", 0, 0, 5, "Уровень эффекта tpsurface.") });
 		potions.put("flight#1",
 				new Integer[] { config.getInt("flightDur1", "Potions", 5, 0, 600, "Длительность fly. (сек)"),
-						config.getInt("flightStamina1", "Potions", 30, 0, 100, "Стамина за fly."),
+						config.getInt("flightStamina1", "Potions", 60, 0, 100, "Стамина за fly."),
 						config.getInt("flightLvl1", "Potions", 1, 1, 5, "Уровень эффекта fly.") });
 		potions.put("invisibility#1",
-				new Integer[] { config.getInt("invisibilityDur1", "Potions", 5, 0, 600, "Длительность invisibility. (сек)"),
+				new Integer[] { config.getInt("invisibilityDur1", "Potions", 30, 0, 600, "Длительность invisibility. (сек)"),
 						config.getInt("invisibilityStamina1", "Potions", 30, 0, 100, "Стамина за invisibility."),
 						config.getInt("invisibilityLvl1", "Potions", 1, 1, 5, "Уровень эффекта invisibility.") });
 		potions.put("cure#1",
-				new Integer[] { config.getInt("cureDur1", "Potions", 5, 0, 600, "Длительность cure. (сек)"),
-						config.getInt("cureStamina1", "Potions", 30, 0, 100, "Стамина за cure."),
+				new Integer[] { config.getInt("cureDur1", "Potions", 1, 0, 600, "Длительность cure. (сек)"),
+						config.getInt("cureStamina1", "Potions", 60, 0, 100, "Стамина за cure."),
 						config.getInt("cureLvl1", "Potions", 1, 1, 5, "Уровень эффекта cure.") });
 		potions.put("extension#1",
-				new Integer[] { config.getInt("extensionDur1", "Potions", 5, 0, 600, "Длительность extension. (сек)"),
-						config.getInt("extensionStamina1", "Potions", 30, 0, 100, "Стамина за extension."),
+				new Integer[] { config.getInt("extensionDur1", "Potions", 30, 0, 600, "Длительность extension. (сек)"),
+						config.getInt("extensionStamina1", "Potions", 45, 0, 100, "Стамина за extension."),
 						config.getInt("extensionLvl1", "Potions", 1, 1, 5, "Уровень эффекта extension.") });
 		potions.put("invert#1",
-				new Integer[] { config.getInt("invertDur1", "Potions", 5, 0, 600, "Длительность invert. (сек)"),
+				new Integer[] { config.getInt("invertDur1", "Potions", 1, 0, 600, "Длительность invert. (сек)"),
 						config.getInt("invertStamina1", "Potions", 30, 0, 100, "Стамина за invert."),
 						config.getInt("invertLvl1", "Potions", 1, 1, 5, "Уровень эффекта invert`.") });
 
@@ -233,7 +233,7 @@ public class Config {
 						config.getInt("growRadius", "Spells", 3, 0, 5, "Радиус grow."), });
 		spells.put("unenchant",
 				new Integer[] { 
-						config.getInt("unenchantStamina", "Spells", 90, 0, 100, "Стамина за unenchant."), });
+						config.getInt("unenchantStamina", "Spells", 45, 0, 100, "Стамина за unenchant."), });
 		spells.put("enchant",
 				new Integer[] { 
 						config.getInt("enchantStamina", "Spells", 90, 0, 100, "Стамина за enchant."),
