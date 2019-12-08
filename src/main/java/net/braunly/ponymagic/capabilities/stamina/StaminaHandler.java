@@ -1,5 +1,8 @@
 package net.braunly.ponymagic.capabilities.stamina;
 
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.enums.EnumStaminaType;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,8 +33,8 @@ public class StaminaHandler {
 		if (player.world.isRemote)
 			return;
 		
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
-		IStaminaStorage oldStamina = event.getOriginal().getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
+		IStaminaStorage oldStamina = PonyMagicAPI.getStaminaStorage(event.getOriginal());
 		
 		stamina.set(EnumStaminaType.MAXIMUM, oldStamina.getStamina(EnumStaminaType.MAXIMUM));
 		stamina.sync((EntityPlayerMP) player);

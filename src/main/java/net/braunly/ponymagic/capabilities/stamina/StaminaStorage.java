@@ -2,6 +2,8 @@ package net.braunly.ponymagic.capabilities.stamina;
 
 import javax.annotation.Nonnull;
 
+import me.braunly.ponymagic.api.enums.EnumStaminaType;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
 import net.minecraft.entity.player.EntityPlayerMP;

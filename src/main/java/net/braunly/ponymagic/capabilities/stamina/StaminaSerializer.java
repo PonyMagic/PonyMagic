@@ -1,5 +1,7 @@
 package net.braunly.ponymagic.capabilities.stamina;
 
+import me.braunly.ponymagic.api.enums.EnumStaminaType;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;

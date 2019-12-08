@@ -41,6 +41,14 @@ minecraft {
     version = mcversion + "-" + forgeversion
     runDir = "run"
     mappings = mcp_mappings
+    sourceSets {
+        api {
+            java {
+                srcDir 'api/src/'
+            }
+        }
+    }
+
 }
 
 dependencies {
@@ -71,6 +79,8 @@ processResources
 }
 
 jar {
+    from sourceSets.api.output
+    
     include { sourceSets.main.output.classesDir }
     zip64 true
 }

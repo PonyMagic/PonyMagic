@@ -1,8 +1,9 @@
 package net.braunly.ponymagic.spells.simple;
 
+import me.braunly.ponymagic.api.PonyMagicAPI;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.capabilities.stamina.EnumStaminaType;
-import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
+import me.braunly.ponymagic.api.enums.EnumStaminaType;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
 import net.braunly.ponymagic.capabilities.swish.SwishProvider;
@@ -21,7 +22,7 @@ public class SpellSwish extends NamedSpell {
 
 	@Override
 	public boolean cast(EntityPlayer player, Integer level) {
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		ISwishCapability swish = player.getCapability(SwishProvider.SWISH, null);
 		if (swish.canSwish() && stamina.getStamina(EnumStaminaType.CURRENT) < 10) {
 			

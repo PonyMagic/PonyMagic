@@ -1,10 +1,11 @@
 package net.braunly.ponymagic.gui;
 
+import me.braunly.ponymagic.api.PonyMagicAPI;
 import org.lwjgl.opengl.GL11;
 
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.capabilities.stamina.EnumStaminaType;
-import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
+import me.braunly.ponymagic.api.enums.EnumStaminaType;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -31,7 +32,7 @@ public class GuiStamina extends GuiIngameForge {
 			return;
 		}
 
-		IStaminaStorage stamina = mc.player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(mc.player);
 
 		// PonyMagic.log.info("GUI: " + stamina.getStamina(EnumStaminaType.CURRENT) +
 		// "/" + stamina.getStamina(EnumStaminaType.MAXIMUM));

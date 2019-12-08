@@ -3,7 +3,8 @@ package net.braunly.ponymagic.spells.simple;
 import java.util.List;
 import java.util.Random;
 
-import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.spells.NamedSpell;
@@ -30,7 +31,7 @@ public class SpellEnchant extends NamedSpell {
 			return false;
 		}
 		Random rand = player.world.rand;
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		if (stamina.consume((double) Config.spells.get(getSpellName())[0])) {
 			List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(rand, itemStack, enchLevel,
 					false);

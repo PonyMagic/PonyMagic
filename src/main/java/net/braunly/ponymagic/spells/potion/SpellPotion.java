@@ -4,7 +4,8 @@ import static com.tmtravlr.potioncore.PotionCoreEffects.POTIONS;
 
 import javax.annotation.Nonnull;
 
-import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.spells.NamedSpell;
@@ -43,7 +44,7 @@ public class SpellPotion extends NamedSpell {
 	}
 
 	boolean action(EntityPlayer player, Integer level) {
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		Integer[] config = Config.potions.get(String.format("%s#%d", getSpellName(), level));
 		if (stamina.consume((double) config[1])) {
 			player.addPotionEffect(new PotionEffect(getPotion(), config[0] * TPS, config[2]));

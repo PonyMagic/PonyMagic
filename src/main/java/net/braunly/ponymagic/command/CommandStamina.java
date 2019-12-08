@@ -12,8 +12,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import com.google.common.collect.Lists;
 
 import lombok.Getter;
-import net.braunly.ponymagic.capabilities.stamina.EnumStaminaType;
-import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.enums.EnumStaminaType;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -55,7 +56,7 @@ public class CommandStamina extends CommandBase {
 			throw new WrongUsageException("commands.stamina.check.usage");
 		}
 
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 
 		// NOTE: ?
 		notifyCommandListener(commandSender, this, "commands.stamina.check.success", player.getName(),
@@ -78,7 +79,7 @@ public class CommandStamina extends CommandBase {
 			throw new WrongUsageException("commands.stamina.zero.usage");
 		}
 
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		stamina.zero();
 		stamina.sync(player);
 
@@ -100,7 +101,7 @@ public class CommandStamina extends CommandBase {
 			throw new WrongUsageException("commands.stamina.fill.usage");
 		}
 
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		stamina.fill();
 		stamina.sync(player);
 
@@ -126,7 +127,7 @@ public class CommandStamina extends CommandBase {
 			throw new WrongUsageException("commands.stamina.set.usage");
 		}
 
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		stamina.set(EnumStaminaType.CURRENT, value);
 		stamina.sync(player);
 
@@ -152,7 +153,7 @@ public class CommandStamina extends CommandBase {
 			throw new WrongUsageException("commands.stamina.setmax.usage");
 		}
 
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		stamina.set(EnumStaminaType.MAXIMUM, value);
 		stamina.sync(player);
 
@@ -178,7 +179,7 @@ public class CommandStamina extends CommandBase {
 			throw new WrongUsageException("commands.stamina.add.usage");
 		}
 
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		stamina.add(value);
 		stamina.sync(player);
 

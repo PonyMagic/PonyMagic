@@ -1,8 +1,9 @@
 package net.braunly.ponymagic.handlers;
 
+import me.braunly.ponymagic.api.PonyMagicAPI;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.capabilities.stamina.EnumStaminaType;
-import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
+import me.braunly.ponymagic.api.enums.EnumStaminaType;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
 import net.braunly.ponymagic.capabilities.swish.SwishProvider;
@@ -16,7 +17,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -44,7 +44,7 @@ public class MagicHandlersContainer {
 			return;
 		}
 
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		Double staminaCurrent = stamina.getStamina(EnumStaminaType.CURRENT);
 		Double staminaMaximum = stamina.getStamina(EnumStaminaType.MAXIMUM);
 
@@ -168,7 +168,7 @@ public class MagicHandlersContainer {
 
 		Potion shieldPotion = SpellPotion.getCustomPotion("shield");
 		if (player.isPotionActive(shieldPotion)) {
-			IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+			IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 
 			if (event.getAmount() > 0) {
 				Integer[] config = Config.potions.get(String.format("shield#%d", 1));
@@ -202,7 +202,7 @@ public class MagicHandlersContainer {
 			}
 			
 			if (playerData.skillData.isSkillLearned("onedge")) {
-				IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+				IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 				if (stamina.getStamina(EnumStaminaType.CURRENT) < 10) {
 					event.setAmount(event.getAmount() + ((event.getAmount() / 100.0F) * Config.onedgeDamage));
 				}
@@ -257,7 +257,7 @@ public class MagicHandlersContainer {
 			return;
 
 		PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		if (playerData.skillData.isSkillLearned("staminaPool")) {
 			int lvl = playerData.skillData.getSkillLevel("staminaPool");
 			stamina.set(EnumStaminaType.MAXIMUM, (double) ((lvl + 2) * 50));

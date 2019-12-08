@@ -1,6 +1,7 @@
 package net.braunly.ponymagic.spells.potion;
 
-import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.braunly.ponymagic.config.Config;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,7 +24,7 @@ public class SpellPotionSplash extends SpellPotion {
 
 	@Override
 	boolean action(EntityPlayer player, Integer level) {
-		IStaminaStorage stamina = player.getCapability(StaminaProvider.STAMINA, null);
+		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		Integer[] config = Config.potions.get(String.format("%s#%d", getSpellName(), level));
 		if (stamina.consume((double) config[1])) {
 			Iterable<EntityLivingBase> entities = player.world.getEntitiesWithinAABB(EntityLivingBase.class,

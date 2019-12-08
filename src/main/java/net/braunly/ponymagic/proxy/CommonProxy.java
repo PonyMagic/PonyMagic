@@ -3,7 +3,7 @@ package net.braunly.ponymagic.proxy;
 import static com.tmtravlr.potioncore.PotionCoreEffects.POTIONS;
 
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.capabilities.stamina.IStaminaStorage;
+import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.capabilities.stamina.StaminaHandler;
 import net.braunly.ponymagic.capabilities.stamina.StaminaSerializer;
 import net.braunly.ponymagic.capabilities.stamina.StaminaStorage;
