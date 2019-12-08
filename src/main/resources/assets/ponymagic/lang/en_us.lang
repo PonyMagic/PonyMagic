@@ -195,6 +195,49 @@ skill.shregen1.name=Регенерация энергии за счёт здор
 skill.shregen1.command=/cast shregen
 skill.shregen1.descr=Регенерация энергии за счёт здоровья
 
+skill.repair1.name=Ремонт
+skill.repair1.command=/cast repair
+skill.repair1.descr=Чинит экипированные предметы с течением времени
+skill.resist1.name=Сопротивление
+skill.resist1.command=/cast resist
+skill.resist1.descr=Поглощение получаемого урона
+skill.burst1.name=Волна деформации
+skill.burst1.command=/cast burst
+skill.burst1.descr=Высвобождает мощную волну, наносящую урон врагам вокруг
+skill.tpsurface1.name=Шахтёрское спасение
+skill.tpsurface1.command=/cast tpsurface
+skill.tpsurface1.descr=Телепортирует на поверхность с любой глубины
+skill.recoil1.name=Шипастый щит
+skill.recoil1.command=/cast recoil
+skill.recoil1.descr=Наносит урон атакующему врагу
+skill.slowfall1.name=Лёгкость пёрышка
+skill.slowfall1.command=/cast slowfall
+skill.slowfall1.descr=Замедляет скорость падения
+skill.fly1.name=Самолевитация
+skill.fly1.command=/cast fly
+skill.fly1.descr=Позволяет парить некоторое время
+skill.revival1.name=Песнь возрождения
+skill.revival1.command=/cast revival
+skill.revival1.descr=На пороге смерти мгновенно возвращает 2 сердца
+
+skill.invisibility1.name=Невидимость
+skill.invisibility1.command=/cast invisibility
+skill.invisibility1.descr=Делает невидимым для врагов
+skill.cure1.name=Свет эфира
+skill.cure1.command=/cast cure
+skill.cure1.descr=Снимает все негативные эффекты
+skill.invert1.name=Преобразователь
+skill.invert1.command=/cast invert
+skill.invert1.descr=Инвертирует все действующие эффекты
+skill.extension1.name=Продление
+skill.extension1.command=/cast extension
+skill.extension1.descr=Удваивает длительность уже действующих эффектов
+
+
+skill.skill.name=
+skill.skill.command=
+skill.skill.descr=
+
 effect.potion_shield=Абсолютный щит
 potion.effect.potion_shield=Зелье абсолютного щита
 splash_potion.effect.potion_shield=Зелье абсолютного щита (метательное)
