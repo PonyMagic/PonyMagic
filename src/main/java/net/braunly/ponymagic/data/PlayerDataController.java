@@ -1,9 +1,8 @@
 package net.braunly.ponymagic.data;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataController;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.util.NBTJsonUtil;
 import net.minecraft.client.Minecraft;
@@ -11,61 +10,79 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 
+import java.io.File;
 
-public class PlayerDataController {
-	public static PlayerDataController instance;
 
-	public PlayerDataController() {
-		instance = this;
+public class PlayerDataController implements IPlayerDataController {
+	private MinecraftServer server;
+
+	public PlayerDataController(MinecraftServer server) {
+		this.server = server;
 	}
 
-	public PlayerData getPlayerData(EntityPlayer player) {
-		return getDataFromUsername(PonyMagic.Server, player.getName());
+	public IPlayerDataStorage getPlayerData(String playerName) {
+		EntityPlayer player = this.server.getPlayerList().getPlayerByUsername(playerName);
+		return this.getPlayerData(player);
 	}
 
-	public PlayerData getDataFromUsername(MinecraftServer server, String username) {
-		PlayerData data = null;
-		EntityPlayer player = server.getPlayerList().getPlayerByUsername(username);
-		if (player == null) {
-			Map<String, NBTTagCompound> map = getUsernameData();
-			for (String name : map.keySet()) {
-				if (name.equalsIgnoreCase(username)) {
-					data = new PlayerData();
-					data.setNBT(map.get(name));
-					break;
-				}
-			}
-		} else
-			data = PlayerData.get(player);
-		return data;
+	@Override
+	public IPlayerDataStorage getPlayerData(EntityPlayer player) {
+        IPlayerDataStorage data = PonyMagicAPI.getPlayerDataStorage(player);
+        if (data.getPlayer() == null) {
+            data.setPlayer(player);
+
+            NBTTagCompound compound = loadPlayerData(data.getUUID());
+            data.setNBT(compound);
+        }
+        return data;
 	}
 
-	public Map<String, NBTTagCompound> getUsernameData() {
-		Map<String, NBTTagCompound> map = new HashMap<String, NBTTagCompound>();
-		for (File file : getWorldSaveDirectory().listFiles()) {
-			if (file.isDirectory() || !file.getName().endsWith(".json"))
-				continue;
-			try {
-				NBTTagCompound compound = NBTJsonUtil.LoadFile(file);
-				if (compound.hasKey("PlayerName")) {
-					map.put(compound.getString("PlayerName"), compound);
-				}
-			} catch (Exception e) {
-				PonyMagic.log.error("Error loading: " + file.getAbsolutePath(), e);
-			}
-		}
-		return map;
-	}
+    @Override
+	public void savePlayerData(IPlayerDataStorage data) {
+		final NBTTagCompound compound = data.getNBT();
+		final String filename = data.getUUID() + ".json";
 
-	public static File getWorldSaveDirectory() {
 		try {
-			if (PonyMagic.Server == null)
+			File saveDir = this.getWorldSaveDirectory();
+			File file = new File(saveDir, filename + "_new");
+			File file1 = new File(saveDir, filename);
+			NBTJsonUtil.SaveFile(file, compound);
+			if (file1.exists()) {
+				file1.delete();
+			}
+			file.renameTo(file1);
+		} catch (Exception e) {
+			PonyMagic.log.catching(e);
+		}
+	}
+
+    private NBTTagCompound loadPlayerData(String uuid) {
+        File saveDir = this.getWorldSaveDirectory();
+        if (!(uuid.isEmpty())) {
+            uuid += ".json";
+            try {
+                File file = new File(saveDir, uuid);
+                if (file.exists()) {
+                    return NBTJsonUtil.LoadFile(file);
+                }
+            } catch (Exception e) {
+                PonyMagic.log.error("Error loading player data from : " + uuid);
+                PonyMagic.log.catching(e);
+            }
+        }
+
+        return new NBTTagCompound();
+    }
+
+    private File getWorldSaveDirectory() {
+		try {
+			if (this.server == null)
 				return null;
 			File saves = new File(".");
-			if (!PonyMagic.Server.isDedicatedServer()) {
+			if (!this.server.isDedicatedServer()) {
 				saves = new File(Minecraft.getMinecraft().mcDataDir, "saves");
 			}
-			File savedir = new File(new File(saves, PonyMagic.Server.getFolderName()), PonyMagic.MODID);
+			File savedir = new File(new File(saves, this.server.getFolderName()), PonyMagic.MODID);
 			if (!savedir.exists()) {
 				savedir.mkdir();
 			}

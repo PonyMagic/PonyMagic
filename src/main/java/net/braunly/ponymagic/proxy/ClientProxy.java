@@ -2,7 +2,6 @@ package net.braunly.ponymagic.proxy;
 
 import net.braunly.ponymagic.client.KeyBindings;
 import net.braunly.ponymagic.client.KeyInputHandler;
-import net.braunly.ponymagic.client.RenderHandler;
 import net.braunly.ponymagic.gui.GuiStamina;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

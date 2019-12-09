@@ -1,8 +1,8 @@
 package net.braunly.ponymagic.network.packets;
 
 import io.netty.buffer.ByteBuf;
+import me.braunly.ponymagic.api.PonyMagicAPI;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.data.PlayerDataController;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -32,7 +32,7 @@ public class RequestPlayerDataPacket implements IMessage, IMessageHandler<Reques
 			@Override
 			public void run() {
 				if (player != null) {
-					NBTTagCompound playerDataCompound = PlayerDataController.instance.getPlayerData(player).getNBT();
+					NBTTagCompound playerDataCompound = PonyMagicAPI.playerDataController.getPlayerData(player).getNBT();
 					// PonyMagic.log.info(playerDataCompound);
 					PonyMagic.channel.sendTo(new PlayerDataPacket(playerDataCompound), (EntityPlayerMP) player);
 				}

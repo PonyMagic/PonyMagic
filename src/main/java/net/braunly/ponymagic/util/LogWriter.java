@@ -1,21 +1,11 @@
 package net.braunly.ponymagic.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import net.braunly.ponymagic.PonyMagic;
+
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Formatter;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import java.util.logging.StreamHandler;
-
-import net.braunly.ponymagic.PonyMagic;
+import java.util.logging.*;
 
 public class LogWriter {
 	private final static String name = PonyMagic.MODID;

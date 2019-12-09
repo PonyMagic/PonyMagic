@@ -1,27 +1,25 @@
 package net.braunly.ponymagic.gui;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.swing.text.JTextComponent.KeyBinding;
-
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.client.KeyBindings;
 import net.braunly.ponymagic.config.Config;
-import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
 import net.braunly.ponymagic.network.packets.ResetPacket;
 import net.braunly.ponymagic.network.packets.SkillUpPacket;
 import net.braunly.ponymagic.race.EnumRace;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
+
+import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 public class GuiSkills extends GuiScreen {
 
@@ -47,7 +45,7 @@ public class GuiSkills extends GuiScreen {
 	private final ResourceLocation line_ddb = new ResourceLocation(PonyMagic.MODID, "textures/gui/line_ddb.png");
 	private final ResourceLocation line_ddg = new ResourceLocation(PonyMagic.MODID, "textures/gui/line_ddg.png");
 
-	private PlayerData playerData = null;
+	private IPlayerDataStorage playerData = null;
 	private Set<GuiButtonSkill> skillsNet = null;
 	private GuiButtonSkill skillClicked = null;
 
@@ -57,9 +55,9 @@ public class GuiSkills extends GuiScreen {
 		initPlayerData();
 
 		// FIXME: on first open not showing skills
-		if (this.playerData != null && this.playerData.race != EnumRace.REGULAR) {
+		if (this.playerData != null && this.playerData.getRace() != EnumRace.REGULAR) {
 			// Init skills net
-			this.skillsNet = GuiSkillsNet.getInstance().getSkillNet(this.playerData.race);
+			this.skillsNet = GuiSkillsNet.getInstance().getSkillNet(this.playerData.getRace());
 			// Needs for actionPerformed function
 			this.buttonList.addAll(this.skillsNet);
 //			PonyMagic.log.info("[GUI] Skillnet inited!");
@@ -71,7 +69,7 @@ public class GuiSkills extends GuiScreen {
 
 	private void initPlayerData() {
 		PonyMagic.channel.sendToServer(new RequestPlayerDataPacket());
-		this.playerData = this.mc.player.getCapability(PlayerData.PLAYERDATA_CAPABILITY, null);
+		this.playerData = PonyMagicAPI.getPlayerDataStorage(this.mc.player);
 //		PonyMagic.log.info("[GUI] Player data inited!");
 	}
 
@@ -129,8 +127,8 @@ public class GuiSkills extends GuiScreen {
 
 		// Draw exp bar
 //		PonyMagic.log.info("[GUI] Draw expbar");
-		int currentExp = (int) ((float) (this.playerData.levelData.getExp()
-				/ ((this.playerData.levelData.getLevel() + 1) * Config.expPerLevel)) * 364);
+		int currentExp = (int) ((float) (this.playerData.getLevelData().getExp()
+				/ ((this.playerData.getLevelData().getLevel() + 1) * Config.expPerLevel)) * 364);
 		this.mc.getTextureManager().bindTexture(this.expBar);
 		drawModalRectWithCustomSizedTexture(x + 67, y + 310, 0, 0, 364, 10, 364, 20);
 		drawModalRectWithCustomSizedTexture(x + 67, y + 310, 0, 10, currentExp, 10, 364, 20);
@@ -140,8 +138,8 @@ public class GuiSkills extends GuiScreen {
 //		PonyMagic.log.info("[GUI] Draw hover expbar");
 		if (mouseX > x + 67 && mouseX < x + 67 + 364 && mouseY > y + 310 && mouseY < y + 320) {
 			List<String> temp = Arrays
-					.asList(new TextComponentTranslation("gui.exp", String.format("%s", Math.round(this.playerData.levelData.getExp())),
-							(this.playerData.levelData.getLevel() + 1) * Config.expPerLevel).getFormattedText());
+					.asList(new TextComponentTranslation("gui.exp", String.format("%s", Math.round(this.playerData.getLevelData().getExp())),
+							(this.playerData.getLevelData().getLevel() + 1) * Config.expPerLevel).getFormattedText());
 			// Lightning shadow fix
 			RenderHelper.enableStandardItemLighting();
 			drawHoveringText(temp, mouseX, mouseY);
@@ -151,7 +149,7 @@ public class GuiSkills extends GuiScreen {
 		try {
 //			PonyMagic.log.info("[GUI] Draw skills");
 			// Draw skills
-			if (this.playerData.race != null && this.playerData.race != EnumRace.REGULAR && this.skillsNet != null) {
+			if (this.playerData.getRace() != null && this.playerData.getRace() != EnumRace.REGULAR && this.skillsNet != null) {
 				// TODO: rewrite cycles with this.zIndex
 
 				// Draw skills lines
@@ -168,7 +166,7 @@ public class GuiSkills extends GuiScreen {
 					if (!skill.lines.isEmpty()) {
 						for (String itLines : skill.lines) {
 							boolean lineActive = false;
-							GuiButtonSkill lineSkill = GuiSkillsNet.getInstance().getRaceSkill(this.playerData.race,
+							GuiButtonSkill lineSkill = GuiSkillsNet.getInstance().getRaceSkill(this.playerData.getRace(),
 									itLines);
 							if (this.isSkillLearned(skill) && this.isSkillLearned(lineSkill)) {
 								lineActive = true;
@@ -228,7 +226,7 @@ public class GuiSkills extends GuiScreen {
 					if (skill.isUnderMouse(mouseX, mouseY) && skill.knownSkill) {
 						String[] text = {
 								new TextComponentTranslation("gui.skill.name").getFormattedText()
-										+ this.playerData.race.getColor()
+										+ this.playerData.getRace().getColor()
 										+ new TextComponentTranslation(
 												"skill." + skill.skillName + skill.skillLevel + ".name").getFormattedText(),
 								new TextComponentTranslation("gui.skill.usage").getFormattedText()
@@ -257,15 +255,15 @@ public class GuiSkills extends GuiScreen {
 		// Draw player level and free points
 		// FIXME: ?
 		drawCenteredString(this.fontRenderer,
-				new TextComponentTranslation("gui.level", this.playerData.levelData.getLevel()).getFormattedText()
+				new TextComponentTranslation("gui.level", this.playerData.getLevelData().getLevel()).getFormattedText()
 						+ "                    "
 						+ new TextComponentTranslation("gui.freeskillpoints",
-								this.playerData.levelData.getFreeSkillPoints()).getFormattedText(),
+								this.playerData.getLevelData().getFreeSkillPoints()).getFormattedText(),
 				x + 250, y + 300, 16773290);
 	}
 
 	private boolean isSkillLearned(GuiButtonSkill skill) {
-		return this.playerData.skillData.getSkillLevel(skill.skillName) >= skill.skillLevel;
+		return this.playerData.getSkillData().getSkillLevel(skill.skillName) >= skill.skillLevel;
 	}
 
 	private boolean isSkillAvailable(GuiButtonSkill skill) {
@@ -276,12 +274,12 @@ public class GuiSkills extends GuiScreen {
 			for (String skillName : skill.depends) {
 				if (skillName.contains("#")) {
 					String[] parts = skillName.split("#");
-					if (this.playerData.skillData.isSkillLearned(parts[0])
-							&& this.playerData.skillData.getSkillLevel(parts[0]) >= Integer.parseInt(parts[1])) {
+					if (this.playerData.getSkillData().isSkillLearned(parts[0])
+							&& this.playerData.getSkillData().getSkillLevel(parts[0]) >= Integer.parseInt(parts[1])) {
 						dependencies = true;
 						break;
 					}
-				} else if (this.playerData.skillData.isSkillLearned(skillName)) {
+				} else if (this.playerData.getSkillData().isSkillLearned(skillName)) {
 					dependencies = true;
 					break;
 				}
@@ -291,9 +289,9 @@ public class GuiSkills extends GuiScreen {
 
 		// Check for free skill points and player level and current skill level (need
 		// for stamina branch)
-		if (dependencies && this.playerData.levelData.getLevel() >= skill.minLevel
-				&& this.playerData.levelData.getFreeSkillPoints() > 0
-				&& this.playerData.skillData.getSkillLevel(skill.skillName) - skill.skillLevel == -1) {
+		if (dependencies && this.playerData.getLevelData().getLevel() >= skill.minLevel
+				&& this.playerData.getLevelData().getFreeSkillPoints() > 0
+				&& this.playerData.getSkillData().getSkillLevel(skill.skillName) - skill.skillLevel == -1) {
 			return true;
 		}
 		return false;

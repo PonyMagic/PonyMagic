@@ -1,9 +1,8 @@
 package net.braunly.ponymagic.client;
 
-import org.lwjgl.input.Keyboard;
-
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import org.lwjgl.input.Keyboard;
 
 public class KeyBindings {
 	public static KeyBinding skills_gui;

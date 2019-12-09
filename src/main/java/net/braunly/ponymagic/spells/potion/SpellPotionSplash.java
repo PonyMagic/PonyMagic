@@ -2,7 +2,6 @@ package net.braunly.ponymagic.spells.potion;
 
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.braunly.ponymagic.config.Config;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

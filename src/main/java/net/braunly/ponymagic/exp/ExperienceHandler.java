@@ -1,17 +1,16 @@
 package net.braunly.ponymagic.exp;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import com.google.common.collect.ImmutableMap;
-
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.Config;
-import net.braunly.ponymagic.data.LevelData;
-import net.braunly.ponymagic.data.PlayerData;
-import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.event.LevelUpEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 abstract class ExperienceHandler {
 	abstract ImmutableMap<String, Double> getExperienceTable();
@@ -23,8 +22,8 @@ abstract class ExperienceHandler {
 		
 		double expCount = getExperienceTable().getOrDefault(experienceKey, 0D);
 
-		PlayerData data = PlayerDataController.instance.getPlayerData(player);
-		LevelData levelData = data.levelData;
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
+		ILevelDataStorage levelData = playerData.getLevelData();
 
 		if (levelData.getLevel() < PonyMagic.MAX_LVL) {
 			if (Config.expModifier) {
@@ -41,8 +40,6 @@ abstract class ExperienceHandler {
 				}
 			}
 		}
-
-		data.save();
+		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
-
 }

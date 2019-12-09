@@ -16,6 +16,6 @@ public class PlayerDataHandler {
 		Entity entity = event.getObject();
 
 		if (entity instanceof EntityPlayer)
-			event.addCapability(PLAYERDATA, new PlayerData());
+			event.addCapability(PLAYERDATA, new PlayerDataProvider());
 	}
 }

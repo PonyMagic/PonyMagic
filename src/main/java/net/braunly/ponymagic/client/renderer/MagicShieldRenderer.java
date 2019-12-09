@@ -2,7 +2,6 @@ package net.braunly.ponymagic.client.renderer;
 
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.client.Color;
-//import net.braunly.ponymagic.client.RenderUtils;
 import net.braunly.ponymagic.potions.PotionShield;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,7 +14,7 @@ import net.minecraftforge.client.model.obj.OBJLoader;
 
 import static org.lwjgl.opengl.GL11.GL_ONE;
 
-import java.io.IOException;
+//import net.braunly.ponymagic.client.RenderUtils;
 
 /**
  * Created by Simeon on 6/7/2015.

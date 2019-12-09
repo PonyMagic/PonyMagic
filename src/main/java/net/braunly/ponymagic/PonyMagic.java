@@ -1,22 +1,16 @@
 package net.braunly.ponymagic;
 
-import lombok.NonNull;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import me.braunly.ponymagic.api.PonyMagicAPI;
 import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.proxy.CommonProxy;
-import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = PonyMagic.MODID, useMetadata = true)
 public class PonyMagic {
@@ -33,8 +27,6 @@ public class PonyMagic {
 	public static CommonProxy proxy;
 	public static Logger log = LogManager.getLogger(MODID);
 	public static SimpleNetworkWrapper channel;
-
-	public static MinecraftServer Server = null;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -55,8 +47,7 @@ public class PonyMagic {
 
 	@EventHandler
 	public void setAboutToStart(FMLServerAboutToStartEvent event) {
-		Server = event.getServer();
-		new PlayerDataController();
+		PonyMagicAPI.playerDataController = new PlayerDataController(event.getServer());
 	}
 
 	@EventHandler

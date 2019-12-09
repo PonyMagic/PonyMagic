@@ -1,9 +1,9 @@
 package net.braunly.ponymagic.items;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 public class ModItems {
 

@@ -1,21 +1,20 @@
 package net.braunly.ponymagic.data;
 
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 
-public class PlayerDataSerializer implements IStorage<PlayerData> {
+public class PlayerDataSerializer implements IStorage<IPlayerDataStorage> {
 
 	@Override
-	public NBTBase writeNBT(Capability<PlayerData> capability, PlayerData instance, EnumFacing side) {
-		// TODO Auto-generated method stub
+	public NBTBase writeNBT(Capability<IPlayerDataStorage> capability, IPlayerDataStorage instance, EnumFacing side) {
 		return null;
 	}
 
 	@Override
-	public void readNBT(Capability<PlayerData> capability, PlayerData instance, EnumFacing side, NBTBase nbt) {
-		// TODO Auto-generated method stub
+	public void readNBT(Capability<IPlayerDataStorage> capability, IPlayerDataStorage instance, EnumFacing side, NBTBase nbt) {
 
 	}
 

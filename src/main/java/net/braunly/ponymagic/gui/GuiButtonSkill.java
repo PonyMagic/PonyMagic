@@ -1,13 +1,12 @@
 package net.braunly.ponymagic.gui;
 
-import java.util.Set;
-
 import com.google.common.collect.ImmutableSet;
-
 import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Set;
 
 public class GuiButtonSkill extends GuiButton {
 	private Minecraft mc;

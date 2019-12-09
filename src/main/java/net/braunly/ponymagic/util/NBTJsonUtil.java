@@ -1,29 +1,16 @@
 package net.braunly.ponymagic.util;
 
+import com.google.common.io.Files;
+import net.minecraft.nbt.*;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import org.apache.commons.io.Charsets;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.io.Charsets;
-
-import com.google.common.io.Files;
-
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagByte;
-import net.minecraft.nbt.NBTTagByteArray;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagDouble;
-import net.minecraft.nbt.NBTTagFloat;
-import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagLong;
-import net.minecraft.nbt.NBTTagShort;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class NBTJsonUtil {
 	public static String Convert(NBTTagCompound compound) {

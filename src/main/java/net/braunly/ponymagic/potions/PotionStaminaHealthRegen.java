@@ -1,7 +1,6 @@
 package net.braunly.ponymagic.potions;
 
 import com.tmtravlr.potioncore.potion.PotionCorePotion;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 

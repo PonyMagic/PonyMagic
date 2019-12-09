@@ -1,13 +1,15 @@
 package net.braunly.ponymagic.data;
 
+import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class LevelData {
+public class LevelData implements ILevelDataStorage {
 	private int level = 0;
 	private int freeSkillPoint = 0;
 	private double exp = 0.0D;
 
-	public void loadNBTData(NBTTagCompound compound) {
+	@Override
+	public void readFromNBT(NBTTagCompound compound) {
 		if (compound == null)
 			return;
 		NBTTagCompound levelTags = compound.getCompoundTag("LevelData");
@@ -16,7 +18,8 @@ public class LevelData {
 		this.exp = levelTags.getDouble("Exp");
 	}
 
-	public void saveNBTData(NBTTagCompound compound) {
+	@Override
+	public void saveToNBT(NBTTagCompound compound) {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setInteger("Level", this.getLevel());
 		nbttagcompound.setInteger("FreeSkillPoint", this.getFreeSkillPoints());
@@ -24,38 +27,47 @@ public class LevelData {
 		compound.setTag("LevelData", nbttagcompound);
 	}
 
+	@Override
 	public int getLevel() {
 		return this.level;
 	}
 
+	@Override
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	@Override
 	public void addLevel() {
 		this.level += 1;
 	}
 
-	public void addLevel(int lvl) {
-		this.level = getLevel() + lvl;
-	}
-
+	@Override
 	public int getFreeSkillPoints() {
 		return this.freeSkillPoint;
 	}
 
+	@Override
 	public void addFreeSkillPoints() {
 		this.freeSkillPoint += 1;
 	}
 
+	@Override
 	public void addFreeSkillPoints(int points) {
-		this.freeSkillPoint = getFreeSkillPoints() + points;
+		this.freeSkillPoint += points;
 	}
 
+	@Override
 	public void setFreeSkillPoints(int points) {
 		this.freeSkillPoint = points;
 	}
 
+	@Override
 	public double getExp() {
 		return this.exp;
 	}
 
+	@Override
 	public void addExp(double exp) {
 		this.exp = getExp() + exp;
 		if (this.exp < 0 && this.level == 0) {
@@ -63,6 +75,7 @@ public class LevelData {
 		}
 	}
 
+	@Override
 	public void resetExp() {
 		this.exp = 0.0D;
 	}

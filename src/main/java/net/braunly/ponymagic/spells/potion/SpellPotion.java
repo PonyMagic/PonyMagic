@@ -1,18 +1,17 @@
 package net.braunly.ponymagic.spells.potion;
 
-import static com.tmtravlr.potioncore.PotionCoreEffects.POTIONS;
-
-import javax.annotation.Nonnull;
-
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.spells.NamedSpell;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+
+import javax.annotation.Nonnull;
+
+import static com.tmtravlr.potioncore.PotionCoreEffects.POTIONS;
 
 public class SpellPotion extends NamedSpell {
 	private boolean vanillaBased;

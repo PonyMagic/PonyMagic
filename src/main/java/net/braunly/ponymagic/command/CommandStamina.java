@@ -1,21 +1,10 @@
 package net.braunly.ponymagic.command;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import com.google.common.collect.Lists;
-
 import lombok.Getter;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumStaminaType;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -24,6 +13,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CommandStamina extends CommandBase {
 	@Getter

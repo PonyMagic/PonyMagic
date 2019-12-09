@@ -1,9 +1,9 @@
 package net.braunly.ponymagic.network.packets;
 
 import io.netty.buffer.ByteBuf;
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.data.PlayerData;
-import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.items.ItemResetBook;
 import net.braunly.ponymagic.items.ModItems;
@@ -49,9 +49,9 @@ public class ResetPacket implements IMessage, IMessageHandler<ResetPacket, IMess
 						} else {
 							player.addExperienceLevel(-30);
 						}
-						PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
+						IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 						playerData.reset();
-						playerData.save();
+						PonyMagicAPI.playerDataController.savePlayerData(playerData);
 						MagicHandlersContainer.updatePlayerFlySpeed(player, 0);
 						MagicHandlersContainer.updatePlayerMaxStamina(player);
 					} else {

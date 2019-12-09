@@ -1,10 +1,9 @@
 package net.braunly.ponymagic.spells.simple;
 
 import me.braunly.ponymagic.api.PonyMagicAPI;
-import net.braunly.ponymagic.PonyMagic;
 import me.braunly.ponymagic.api.enums.EnumStaminaType;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
 import net.braunly.ponymagic.capabilities.swish.SwishProvider;
 import net.braunly.ponymagic.network.packets.SwishPacket;

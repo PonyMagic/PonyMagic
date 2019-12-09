@@ -1,16 +1,14 @@
 package net.braunly.ponymagic.exp;
 
+import com.google.common.collect.ImmutableMap;
+import lombok.Getter;
+
+import javax.annotation.Nonnull;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
-
-import javax.annotation.Nonnull;
-
-import com.google.common.collect.ImmutableMap;
-
-import lombok.Getter;
 
 public class ExperienceStorage {
 	@Getter

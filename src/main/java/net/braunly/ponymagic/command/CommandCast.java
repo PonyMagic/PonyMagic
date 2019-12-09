@@ -1,18 +1,9 @@
 package net.braunly.ponymagic.command;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import com.google.common.collect.Lists;
-
 import lombok.Getter;
-import net.braunly.ponymagic.data.PlayerData;
-import net.braunly.ponymagic.data.PlayerDataController;
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.race.EnumRace;
 import net.braunly.ponymagic.spells.Spell;
 import net.braunly.ponymagic.spells.SpellStorage;
@@ -25,6 +16,13 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 public class CommandCast extends CommandBase {
 	@Getter
@@ -53,9 +51,8 @@ public class CommandCast extends CommandBase {
 		String spellName = args[0].toLowerCase();
 
 		// Fail-fast; all players should have at least REGULAR race
-		// FIXME: (orhideous) make getPlayerData contract more strict
-		PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
-		EnumRace playerRace = Optional.ofNullable(playerData.race)
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
+		EnumRace playerRace = Optional.ofNullable(playerData.getRace())
 				.orElseThrow(() -> new IllegalStateException("Got null race for player " + player.getName()));
 
 		if (playerRace == EnumRace.REGULAR) {
@@ -68,12 +65,12 @@ public class CommandCast extends CommandBase {
 			return;
 		}
 
-		if (!playerData.skillData.isSkillLearned(spellName)) {
+		if (!playerData.getSkillData().isSkillLearned(spellName)) {
 			player.sendMessage(new TextComponentTranslation("commands.cast.notLearned", ""));
 			return;
 		}
 
-		int spellLevel = playerData.skillData.getSkillLevel(spellName);
+		int spellLevel = playerData.getSkillData().getSkillLevel(spellName);
 		Spell spell = SpellStorage.getInstance().getSpell(spellName);
 
 		if (spell.cast(player, spellLevel)) {

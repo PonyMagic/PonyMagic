@@ -1,22 +1,10 @@
 package net.braunly.ponymagic.command;
 
-import java.lang.invoke.WrongMethodTypeException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import com.google.common.collect.Lists;
-
 import lombok.Getter;
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.data.PlayerData;
-import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.event.LevelUpEvent;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.braunly.ponymagic.race.EnumRace;
@@ -28,10 +16,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.lang.invoke.WrongMethodTypeException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CommandMagic extends CommandBase {
 	@Getter
@@ -40,9 +36,7 @@ public class CommandMagic extends CommandBase {
 	public final String name = "magic";
 	@Getter
 	public final int requiredPermissionLevel = 1;
-	private final String[] availableCommands = { "race", "spell",
-
-			"test" };
+	private final String[] availableCommands = { "race", "spell", "test" };
 
 	@Override
 	@Nonnull
@@ -60,13 +54,11 @@ public class CommandMagic extends CommandBase {
 
 		EnumRace race = EnumRace.getByName(raceName)
 				.orElseThrow(() -> new WrongMethodTypeException("commands.magic.race.usage"));
-		PlayerData playerData = PlayerDataController.instance.getDataFromUsername(PonyMagic.Server, playerName);
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
 		// Set new race
-		playerData.race = race;
-		
-		// Clean all stored data
+		playerData.setRace(race);
 		playerData.clean();
-		playerData.save();
+		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 		
 		// Send changes to client
 		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), player);
@@ -82,26 +74,30 @@ public class CommandMagic extends CommandBase {
 		String playerName = args[1];
 		String spellName = args[2];
 
-		PlayerData playerData = PlayerDataController.instance.getDataFromUsername(PonyMagic.Server, playerName);
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
 
-		if (playerData.race.hasSpell(spellName)) {
-			playerData.skillData.upLevel(spellName);
-			playerData.save();
+		if (playerData.getRace().hasSpell(spellName)) {
+			playerData.getSkillData().upSkillLevel(spellName);
+			PonyMagicAPI.playerDataController.savePlayerData(playerData);
 		} else {
 			player.sendMessage(new TextComponentTranslation("commands.magic.spell.notAvailable", playerName));
 		}
 	}
 
 	@ParametersAreNonnullByDefault
-	private void executeTest(EntityPlayerMP player) throws CommandException {
-		PlayerData playerData = PlayerDataController.instance.getDataFromUsername(PonyMagic.Server, player.getName());
+	private void executeTest(EntityPlayerMP player, String[] args) throws CommandException {
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player.getName());
 
-		playerData.race = EnumRace.ZEBRA;
-		playerData.levelData.addExp(10000D);
-		playerData.levelData.addLevel(30);
-		playerData.levelData.addFreeSkillPoints(10);
-		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, playerData.levelData.getLevel()));
-		playerData.save();		
+		String raceName = args[1];
+		EnumRace race = EnumRace.getByName(raceName)
+				.orElseThrow(() -> new WrongMethodTypeException("commands.magic.race.usage"));
+
+		playerData.setRace(race);
+		playerData.getLevelData().addExp(10000D);
+		playerData.getLevelData().setLevel(30);
+		playerData.getLevelData().setFreeSkillPoints(10);
+		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, playerData.getLevelData().getLevel()));
+		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
 
 	@Override
@@ -127,7 +123,7 @@ public class CommandMagic extends CommandBase {
 			executeSpell(player, args);
 			break;
 		case "test":
-			executeTest(player);
+			executeTest(player, args);
 			break;
 		default:
 			throw new WrongUsageException("commands.magic.usage");
@@ -139,11 +135,14 @@ public class CommandMagic extends CommandBase {
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender commandSender, String[] args,
 			@Nullable BlockPos pos) {
 		switch (args.length) {
-		case 1:
-			return Stream.of(availableCommands).filter(command -> command.startsWith(args[0]))
+			case 1:
+				return Stream.of(availableCommands).filter(command -> command.startsWith(args[0]))
 					.collect(Collectors.toList());
-		default:
-			return Collections.emptyList();
+			case 2:
+				return Stream.of(server.getOnlinePlayerNames()).filter(playerName -> playerName.startsWith(args[1]))
+						.collect(Collectors.toList());
+			default:
+				return Collections.emptyList();
 		}
 	}
 }

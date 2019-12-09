@@ -1,8 +1,9 @@
 package net.braunly.ponymagic.network.packets;
 
 import io.netty.buffer.ByteBuf;
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.data.PlayerData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IThreadListener;
@@ -41,7 +42,7 @@ public class PlayerDataPacket implements IMessage, IMessageHandler<PlayerDataPac
 			@Override
 			public void run() {
 				if (player != null) {
-					PlayerData playerData = player.getCapability(PlayerData.PLAYERDATA_CAPABILITY, null);
+					IPlayerDataStorage playerData = PonyMagicAPI.getPlayerDataStorage(player);
 					playerData.setNBT(message.compound);
 					// PonyMagic.log.info("RECIEVED");
 					// PonyMagic.log.info(playerData.levelData.getLevel());

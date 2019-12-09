@@ -1,18 +1,16 @@
 package net.braunly.ponymagic.gui;
 
 import me.braunly.ponymagic.api.PonyMagicAPI;
-import org.lwjgl.opengl.GL11;
-
-import net.braunly.ponymagic.PonyMagic;
 import me.braunly.ponymagic.api.enums.EnumStaminaType;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
+import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.opengl.GL11;
 
 public class GuiStamina extends GuiIngameForge {
 

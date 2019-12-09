@@ -1,13 +1,13 @@
 package net.braunly.ponymagic.capabilities.stamina;
 
-import javax.annotation.Nullable;
-
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+
+import javax.annotation.Nullable;
 
 public class StaminaProvider implements ICapabilitySerializable<NBTBase> {
 

@@ -1,9 +1,8 @@
 package net.braunly.ponymagic.proxy;
 
-import static com.tmtravlr.potioncore.PotionCoreEffects.POTIONS;
-
-import net.braunly.ponymagic.PonyMagic;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.stamina.StaminaHandler;
 import net.braunly.ponymagic.capabilities.stamina.StaminaSerializer;
 import net.braunly.ponymagic.capabilities.stamina.StaminaStorage;
@@ -24,14 +23,7 @@ import net.braunly.ponymagic.handlers.LevelUpEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.handlers.MagicSoundHandler;
 import net.braunly.ponymagic.items.ModItems;
-import net.braunly.ponymagic.network.packets.FlySpeedPacket;
-import net.braunly.ponymagic.network.packets.LevelUpSoundPacket;
-import net.braunly.ponymagic.network.packets.PlayerDataPacket;
-import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
-import net.braunly.ponymagic.network.packets.ResetPacket;
-import net.braunly.ponymagic.network.packets.SkillUpPacket;
-import net.braunly.ponymagic.network.packets.SwishPacket;
-import net.braunly.ponymagic.network.packets.TotalStaminaPacket;
+import net.braunly.ponymagic.network.packets.*;
 import net.braunly.ponymagic.potions.PotionShield;
 import net.braunly.ponymagic.potions.PotionStaminaHealthRegen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,6 +38,8 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
+
+import static com.tmtravlr.potioncore.PotionCoreEffects.POTIONS;
 
 public class CommonProxy {
 
@@ -73,7 +67,7 @@ public class CommonProxy {
 		// Register capability data
 		CapabilityManager.INSTANCE.register(IStaminaStorage.class, new StaminaSerializer(), StaminaStorage.class);
 		CapabilityManager.INSTANCE.register(ISwishCapability.class, new SwishSerializer(), SwishStorage.class);
-		CapabilityManager.INSTANCE.register(PlayerData.class, new PlayerDataSerializer(), PlayerData.class);
+		CapabilityManager.INSTANCE.register(IPlayerDataStorage.class, new PlayerDataSerializer(), PlayerData.class);
 		
 		ModItems.init();
 	}

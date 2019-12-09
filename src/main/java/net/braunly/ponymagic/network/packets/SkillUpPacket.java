@@ -1,9 +1,9 @@
 package net.braunly.ponymagic.network.packets;
 
 import io.netty.buffer.ByteBuf;
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.data.PlayerData;
-import net.braunly.ponymagic.data.PlayerDataController;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
@@ -46,15 +46,15 @@ public class SkillUpPacket implements IMessage, IMessageHandler<SkillUpPacket, I
 			@Override
 			public void run() {
 				if (player != null && message.skillName != null) {
-					PlayerData playerData = PlayerDataController.instance.getPlayerData(player);
+					IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 					// PonyMagic.log.info("SKILLUP");
 					// :FIXME: Check for dependencies and minimum player level
-					if (!(playerData.skillData.getSkillLevel(message.skillName) >= message.skillLevel)
-							&& playerData.levelData.getFreeSkillPoints() > 0) {
-						playerData.skillData.upLevel(message.skillName);
+					if (!(playerData.getSkillData().getSkillLevel(message.skillName) >= message.skillLevel)
+							&& playerData.getLevelData().getFreeSkillPoints() > 0) {
+						playerData.getSkillData().upSkillLevel(message.skillName);
 						// PonyMagic.log.info(message.skillName + " " + message.skillLevel);
-						playerData.levelData.addFreeSkillPoints(-1);
-						playerData.save();
+						playerData.getLevelData().addFreeSkillPoints(-1);
+						PonyMagicAPI.playerDataController.savePlayerData(playerData);
 						MagicHandlersContainer.updatePlayerFlySpeed(player, 0);
 						MagicHandlersContainer.updatePlayerMaxStamina(player);
 					}

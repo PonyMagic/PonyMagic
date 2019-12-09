@@ -1,14 +1,12 @@
 package net.braunly.ponymagic.race;
 
-import java.util.Optional;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableSet;
-
 import lombok.Getter;
 import net.minecraft.util.text.TextFormatting;
+
+import javax.annotation.Nonnull;
+import java.util.Optional;
+import java.util.Set;
 
 public enum EnumRace {
 	REGULAR("Регуляр", TextFormatting.WHITE, "cake", ImmutableSet.of()), 

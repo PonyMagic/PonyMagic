@@ -1,13 +1,11 @@
 package net.braunly.ponymagic.gui;
 
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-
 import net.braunly.ponymagic.race.EnumRace;
+
+import javax.annotation.Nonnull;
+import java.util.Set;
 
 public class GuiSkillsNet {
 	@Nonnull

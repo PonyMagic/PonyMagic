@@ -1,21 +1,23 @@
 package net.braunly.ponymagic.data;
 
-import java.util.HashMap;
-
+import me.braunly.ponymagic.api.interfaces.ISkillDataStorage;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-public class SkillData {
+import java.util.HashMap;
+
+public class SkillData implements ISkillDataStorage {
 	private HashMap<String, Integer> skillData = new HashMap<String, Integer>();
 
-	public void loadNBTData(NBTTagCompound compound) {
+	@Override
+	public void readFromNBT(NBTTagCompound compound) {
 		HashMap<String, Integer> skillData = new HashMap<String, Integer>();
 
 		if (compound == null)
 			return;
 
 		NBTTagList list = compound.getTagList("Skills", 10);
-		if (list == null) {
+		if (list.hasNoTags()) {
 			return;
 		}
 
@@ -26,37 +28,39 @@ public class SkillData {
 		this.skillData = skillData;
 	}
 
-	public void saveNBTData(NBTTagCompound compound) {
+	@Override
+	public void saveToNBT(NBTTagCompound compound) {
 		NBTTagList list = new NBTTagList();
 		for (String skillName : this.skillData.keySet()) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			nbttagcompound.setString("Name", skillName);
-			nbttagcompound.setInteger("Level", getSkillLevel(skillName));
+			nbttagcompound.setInteger("Level", this.getSkillLevel(skillName));
 			list.appendTag(nbttagcompound);
 		}
 
 		compound.setTag("Skills", list);
 	}
 
-	public int getSkillLevel(String name) {
-		if (!this.skillData.containsKey(name)) {
-			this.skillData.put(name, 0);
+	@Override
+	public int getSkillLevel(String skillName) {
+		if (!this.skillData.containsKey(skillName)) {
+			this.skillData.put(skillName, 0);
 			return 0;
 		}
-		return this.skillData.get(name);
+		return this.skillData.get(skillName);
 	}
 
+	@Override
 	public boolean isSkillLearned(String skillName) {
-		if (getSkillLevel(skillName) > 0) {
-			return true;
-		}
-		return false;
+		return this.getSkillLevel(skillName) > 0;
 	}
 
-	public void upLevel(String name) {
-		this.skillData.put(name, getSkillLevel(name) + 1);
+	@Override
+	public void upSkillLevel(String skillName) {
+		this.skillData.put(skillName, this.getSkillLevel(skillName) + 1);
 	}
 
+	@Override
 	public void reset() {
 		this.skillData.clear();
 	}

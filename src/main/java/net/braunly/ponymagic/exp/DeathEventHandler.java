@@ -1,7 +1,6 @@
 package net.braunly.ponymagic.exp;
 
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;

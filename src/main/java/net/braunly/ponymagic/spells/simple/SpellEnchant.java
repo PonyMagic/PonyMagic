@@ -1,11 +1,7 @@
 package net.braunly.ponymagic.spells.simple;
 
-import java.util.List;
-import java.util.Random;
-
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.spells.NamedSpell;
 import net.minecraft.enchantment.EnchantmentData;
@@ -16,6 +12,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
+
+import java.util.List;
+import java.util.Random;
 
 public class SpellEnchant extends NamedSpell {
 

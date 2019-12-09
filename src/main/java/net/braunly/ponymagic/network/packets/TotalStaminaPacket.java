@@ -2,10 +2,9 @@ package net.braunly.ponymagic.network.packets;
 
 import io.netty.buffer.ByteBuf;
 import me.braunly.ponymagic.api.PonyMagicAPI;
-import net.braunly.ponymagic.PonyMagic;
 import me.braunly.ponymagic.api.enums.EnumStaminaType;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.capabilities.stamina.StaminaProvider;
+import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

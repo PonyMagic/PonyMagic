@@ -1,18 +1,13 @@
 package net.braunly.ponymagic.spells;
 
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableMap;
-
-import net.braunly.ponymagic.spells.potion.SpellPotion;
-import net.braunly.ponymagic.spells.potion.SpellPotionSplash;
-import net.braunly.ponymagic.spells.potion.SpellShield;
-import net.braunly.ponymagic.spells.potion.SpellSpeed;
-import net.braunly.ponymagic.spells.potion.SpellStaminaHealthRegen;
+import net.braunly.ponymagic.spells.potion.*;
 import net.braunly.ponymagic.spells.simple.SpellEnchant;
 import net.braunly.ponymagic.spells.simple.SpellGrow;
 import net.braunly.ponymagic.spells.simple.SpellSwish;
 import net.braunly.ponymagic.spells.simple.SpellUnEnchant;
+
+import javax.annotation.Nonnull;
 
 public class SpellStorage {
 	@Nonnull
