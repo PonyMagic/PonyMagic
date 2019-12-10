@@ -42,6 +42,10 @@ public class PlayerDataController implements IPlayerDataController {
 		final NBTTagCompound compound = data.getNBT();
 		final String filename = data.getUUID() + ".json";
 
+		if (data.getLevelData().isLevelUp()) {
+			data.getLevelData().levelUp(data.getPlayer());
+		}
+
 		try {
 			File saveDir = this.getWorldSaveDirectory();
 			File file = new File(saveDir, filename + "_new");

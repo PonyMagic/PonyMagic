@@ -1,7 +1,11 @@
 package net.braunly.ponymagic.data;
 
 import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
+import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.event.LevelUpEvent;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
 
 public class LevelData implements ILevelDataStorage {
 	private int level = 0;
@@ -34,22 +38,29 @@ public class LevelData implements ILevelDataStorage {
 
 	@Override
 	public void setLevel(int level) {
+		if (level < 0) {
+			return;
+		}
 		this.level = level;
 	}
 
 	@Override
-	public void addLevel() {
-		this.level += 1;
+	public boolean isLevelUp() {
+		return this.getExp() >= (this.getLevel() + 1) * Config.expPerLevel;
+	}
+	@Override
+	public void levelUp(EntityPlayer player) {
+		this.setLevel(this.getLevel() + 1);
+		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, this.getLevel()));
+		this.addExp(Config.expPerLevel * this.getLevel() * -1);
+		if (this.getLevel() % 3 == 0) {
+			this.addFreeSkillPoints(1);
+		}
 	}
 
 	@Override
 	public int getFreeSkillPoints() {
 		return this.freeSkillPoint;
-	}
-
-	@Override
-	public void addFreeSkillPoints() {
-		this.freeSkillPoint += 1;
 	}
 
 	@Override
@@ -69,15 +80,12 @@ public class LevelData implements ILevelDataStorage {
 
 	@Override
 	public void addExp(double exp) {
+		if (Config.expModifier) {
+			exp *= Config.expModifierAmount;
+		}
 		this.exp = getExp() + exp;
 		if (this.exp < 0 && this.level == 0) {
-			resetExp();
+			this.exp = 0.0D;
 		}
 	}
-
-	@Override
-	public void resetExp() {
-		this.exp = 0.0D;
-	}
-
 }
