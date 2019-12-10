@@ -11,6 +11,7 @@ import net.braunly.ponymagic.network.packets.SkillUpPacket;
 import me.braunly.ponymagic.api.enums.EnumRace;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -133,7 +134,6 @@ public class GuiSkills extends GuiScreen {
 		drawModalRectWithCustomSizedTexture(x + 67, y + 310, 0, 0, 364, 10, 364, 20);
 		drawModalRectWithCustomSizedTexture(x + 67, y + 310, 0, 10, currentExp, 10, 364, 20);
 
-		
 		// Draw hovering text on exp bar
 //		PonyMagic.log.info("[GUI] Draw hover expbar");
 		if (mouseX > x + 67 && mouseX < x + 67 + 364 && mouseY > y + 310 && mouseY < y + 320) {
@@ -225,16 +225,9 @@ public class GuiSkills extends GuiScreen {
 
 					if (skill.isUnderMouse(mouseX, mouseY) && skill.knownSkill) {
 						String[] text = {
-								new TextComponentTranslation("gui.skill.name").getFormattedText()
-										+ this.playerData.getRace().getColor()
-										+ new TextComponentTranslation(
-												"skill." + skill.skillName + skill.skillLevel + ".name").getFormattedText(),
-								new TextComponentTranslation("gui.skill.usage").getFormattedText()
-										+ new TextComponentTranslation(
-												"skill." + skill.skillName + skill.skillLevel + ".command")
-														.getFormattedText(),
-								new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".descr")
-										.getFormattedText(),
+								this.playerData.getRace().getColor() + new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".name").getFormattedText(),
+								new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".command").getFormattedText(),
+								new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".descr").getFormattedText(),
 								// new TextComponentTranslation("skill.stamina", Config.).getFormattedText(),
 
 						};
@@ -251,15 +244,9 @@ public class GuiSkills extends GuiScreen {
 			PonyMagic.log.info("[GUI] ERROR - NullPointerException");
 			this.mc.displayGuiScreen(null);
 		}
-		
 		// Draw player level and free points
 		// FIXME: ?
-		drawCenteredString(this.fontRenderer,
-				new TextComponentTranslation("gui.level", this.playerData.getLevelData().getLevel()).getFormattedText()
-						+ "                    "
-						+ new TextComponentTranslation("gui.freeskillpoints",
-								this.playerData.getLevelData().getFreeSkillPoints()).getFormattedText(),
-				x + 250, y + 300, 16773290);
+		drawCenteredString(this.fontRenderer, new TextComponentTranslation("gui.level", this.playerData.getLevelData().getLevel()).getFormattedText() + "                    " + new TextComponentTranslation("gui.freeskillpoints", this.playerData.getLevelData().getFreeSkillPoints()).getFormattedText(), x + 250, y + 300, 16773290);
 	}
 
 	private boolean isSkillLearned(GuiButtonSkill skill) {
