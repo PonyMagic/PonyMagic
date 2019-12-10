@@ -57,7 +57,6 @@ public class CommandMagic extends CommandBase {
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
 		// Set new race
 		playerData.setRace(race);
-		playerData.clean();
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 		
 		// Send changes to client

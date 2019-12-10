@@ -37,6 +37,9 @@ public class PlayerData implements IPlayerDataStorage {
 	@Override
 	public void setRace(EnumRace race) {
 		this.race = race;
+		this.levelData = new LevelData();
+		this.skillData = new SkillData();
+		addDefaultSpell();
 	}
 
     @Override
@@ -61,13 +64,6 @@ public class PlayerData implements IPlayerDataStorage {
 		this.skillData.reset();
 		this.levelData.addExp(-1 * (this.levelData.getExp() / 10)); // -10%
 		this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);
-		addDefaultSpell();
-	}
-
-	@Override
-	public void clean() {
-		this.levelData = new LevelData();
-		this.skillData = new SkillData();
 		addDefaultSpell();
 	}
 
