@@ -7,7 +7,7 @@ import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.event.LevelUpEvent;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
-import net.braunly.ponymagic.race.EnumRace;
+import me.braunly.ponymagic.api.enums.EnumRace;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;

@@ -9,7 +9,7 @@ import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
 import net.braunly.ponymagic.capabilities.swish.SwishProvider;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
-import net.braunly.ponymagic.race.EnumRace;
+import me.braunly.ponymagic.api.enums.EnumRace;
 import net.braunly.ponymagic.spells.potion.SpellPotion;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

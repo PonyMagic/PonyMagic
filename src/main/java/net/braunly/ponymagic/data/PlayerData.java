@@ -3,7 +3,7 @@ package net.braunly.ponymagic.data;
 import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.ISkillDataStorage;
-import net.braunly.ponymagic.race.EnumRace;
+import me.braunly.ponymagic.api.enums.EnumRace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 

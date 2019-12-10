@@ -8,7 +8,7 @@ import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
 import net.braunly.ponymagic.network.packets.ResetPacket;
 import net.braunly.ponymagic.network.packets.SkillUpPacket;
-import net.braunly.ponymagic.race.EnumRace;
+import me.braunly.ponymagic.api.enums.EnumRace;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;

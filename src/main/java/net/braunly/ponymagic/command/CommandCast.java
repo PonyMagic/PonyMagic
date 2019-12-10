@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import lombok.Getter;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
-import net.braunly.ponymagic.race.EnumRace;
+import me.braunly.ponymagic.api.enums.EnumRace;
 import net.braunly.ponymagic.spells.Spell;
 import net.braunly.ponymagic.spells.SpellStorage;
 import net.minecraft.command.CommandBase;

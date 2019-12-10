@@ -2,7 +2,7 @@ package net.braunly.ponymagic.gui;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import net.braunly.ponymagic.race.EnumRace;
+import me.braunly.ponymagic.api.enums.EnumRace;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
