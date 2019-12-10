@@ -48,7 +48,7 @@ gui.level=Уровень: %s
 gui.freeskillpoints=Очки умений: %s
 
 skill.reset0.name=Обнуление
-skill.reset0.command=МНГНОВЕННО
+skill.reset0.command=МГНОВЕННО
 skill.reset0.descr=Возвращает очки способносней за счёт 10%% опыта.
 skill.reset.fail=Недостаточно опыта или нет книги обнуления.
 
