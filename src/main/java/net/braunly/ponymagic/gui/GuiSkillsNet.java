@@ -149,9 +149,9 @@ public class GuiSkillsNet {
 				.add(new GuiButtonSkill("haste", ImmutableSet.of("speed"), 11, 297, 193, ImmutableSet.of(), 1, 20))
 				// T5
 				.add(new GuiButtonSkill("resist", ImmutableSet.of("solidcore"), 12, 361, 97,
-						ImmutableSet.of("burst", "recoil"), 1, 25))
+						ImmutableSet.of("ironskin", "recoil"), 1, 25))
 				// T6
-				.add(new GuiButtonSkill("burst", ImmutableSet.of("resist"), 13, 425, 65, 1, 30))
+				.add(new GuiButtonSkill("ironskin", ImmutableSet.of("resist"), 13, 425, 65, 1, 30))
 				.add(new GuiButtonSkill("recoil", ImmutableSet.of("resist"), 14, 425, 129, 1, 30))
 				.add(new GuiButtonSkill("repair", ImmutableSet.of(), 15, 425, 193, 1, 30))
 				// Add shared skills

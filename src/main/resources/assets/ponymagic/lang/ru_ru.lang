@@ -232,6 +232,13 @@ skill.invert1.descr=Инвертирует все действующие эфф�
 skill.extension1.name=Продление
 skill.extension1.command=/cast extension
 skill.extension1.descr=Удваивает длительность уже действующих эффектов
+skill.ironskin1.name=Железная кожа
+skill.ironskin1.command=/cast ironskin
+skill.ironskin1.descr=Усиливает броню
+
+skill.skill.name=
+skill.skill.command=
+skill.skill.descr=
 
 effect.potion_shield=Абсолютный щит
 potion.effect.potion_shield=Зелье абсолютного щита

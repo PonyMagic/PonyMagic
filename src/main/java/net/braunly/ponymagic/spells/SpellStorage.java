@@ -31,12 +31,12 @@ public class SpellStorage {
 				.put("extension", new SpellPotion("extension"))
 				.put("revival", new SpellPotion("revival"))
 				.put("archery", new SpellPotion("archery"))
-
 				.put("recoil", new SpellPotion("recoil"))
 				.put("burst", new SpellPotion("burst"))
 				.put("repair", new SpellPotion("repair"))
 				.put("tpsurface", new SpellPotion("teleport_surface"))
 				.put("fly", new SpellPotion("flight"))
+				.put("ironskin", new SpellPotion("iron_skin"))
 
 				// Custom marker potions
 				.put("shield", new SpellShield("shield"))

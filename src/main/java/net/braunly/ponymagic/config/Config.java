@@ -221,6 +221,10 @@ public class Config {
 				new Integer[] { config.getInt("invertDur1", "Potions", 1, 0, 12000, "Длительность invert. (в тиках)"),
 						config.getInt("invertStamina1", "Potions", 30, 0, 100, "Стамина за invert."),
 						config.getInt("invertLvl1", "Potions", 1, 1, 5, "Уровень эффекта invert`.") });
+		potions.put("iron_skin#1",
+				new Integer[] { config.getInt("ironSkinDur1", "Potions", 600, 0, 12000, "Длительность iron_skin. (в тиках)"),
+						config.getInt("ironSkinStamina1", "Potions", 50, 0, 100, "Стамина за iron_skin."),
+						config.getInt("ironSkinLvl1", "Potions", 1, 1, 5, "Уровень эффекта iron_skin`.") });
 
 		potions.put("shield#1",
 				new Integer[] { config.getInt("shieldDur", "Spells", 1200, 0, 12000, "Длительность shield. (в тиках)"),
