@@ -205,6 +205,10 @@ public class Config {
 				new Integer[] { config.getInt("invisibilityDur1", "Potions", 600, 0, 12000, "Длительность invisibility. (в тиках)"),
 						config.getInt("invisibilityStamina1", "Potions", 30, 0, 100, "Стамина за invisibility."),
 						config.getInt("invisibilityLvl1", "Potions", 1, 1, 5, "Уровень эффекта invisibility.") });
+		potions.put("poison#1",
+				new Integer[] { config.getInt("poisonDur1", "Potions", 600, 0, 12000, "Длительность poison. (в тиках)"),
+						config.getInt("poisonStamina1", "Potions", 30, 0, 100, "Стамина за poison."),
+						config.getInt("poisonLvl1", "Potions", 0, 0, 5, "Уровень эффекта poison.") });
 		potions.put("cure#1",
 				new Integer[] { config.getInt("cureDur1", "Potions", 1, 0, 12000, "Длительность cure. (в тиках)"),
 						config.getInt("cureStamina1", "Potions", 60, 0, 100, "Стамина за cure."),
