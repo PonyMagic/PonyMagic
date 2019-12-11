@@ -127,7 +127,7 @@ public class MagicHandlersContainer {
 						Potion slowFall = SpellPotion.getCustomPotion("slow_fall");
 						if (!player.isPotionActive(slowFall)) {
 							Integer[] config = Config.potions.get(String.format("%s#%d", "slow_fall_auto", 1));
-							player.addPotionEffect(new PotionEffect(slowFall, config[0] * SpellPotion.TPS, config[2]));
+							player.addPotionEffect(new PotionEffect(slowFall, config[0], config[2]));
 						}
 					}
 				}

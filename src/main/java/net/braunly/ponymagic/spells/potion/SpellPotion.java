@@ -15,7 +15,6 @@ import static com.tmtravlr.potioncore.PotionCoreEffects.POTIONS;
 
 public class SpellPotion extends NamedSpell {
 	private boolean vanillaBased;
-	public static final int TPS = 20;
 
 	public SpellPotion(String spellName) {
 		super(spellName);
@@ -46,7 +45,7 @@ public class SpellPotion extends NamedSpell {
 		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		Integer[] config = Config.potions.get(String.format("%s#%d", getSpellName(), level));
 		if (stamina.consume((double) config[1])) {
-			player.addPotionEffect(new PotionEffect(getPotion(), config[0] * TPS, config[2]));
+			player.addPotionEffect(new PotionEffect(getPotion(), config[0], config[2]));
 			stamina.sync((EntityPlayerMP) player);
 			return true;
 		}

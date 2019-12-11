@@ -28,7 +28,7 @@ public class SpellPotionSplash extends SpellPotion {
 		if (stamina.consume((double) config[1])) {
 			Iterable<EntityLivingBase> entities = player.world.getEntitiesWithinAABB(EntityLivingBase.class,
 					player.getEntityBoundingBox().expand(range, range, range));
-			entities.forEach(e -> e.addPotionEffect(new PotionEffect(getPotion(), config[0] * TPS, config[2])));
+			entities.forEach(e -> e.addPotionEffect(new PotionEffect(getPotion(), config[0], config[2])));
 			stamina.sync((EntityPlayerMP) player);
 			return true;
 		}
