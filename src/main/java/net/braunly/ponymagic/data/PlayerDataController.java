@@ -39,12 +39,13 @@ public class PlayerDataController implements IPlayerDataController {
 
     @Override
 	public void savePlayerData(IPlayerDataStorage data) {
-		final NBTTagCompound compound = data.getNBT();
 		final String filename = data.getUUID() + ".json";
 
-		if (data.getLevelData().isLevelUp()) {
+		while (data.getLevelData().isLevelUp()) {
 			data.getLevelData().levelUp(data.getPlayer());
 		}
+
+		final NBTTagCompound compound = data.getNBT();
 
 		try {
 			File saveDir = this.getWorldSaveDirectory();
