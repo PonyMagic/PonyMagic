@@ -1,7 +1,7 @@
 package net.braunly.ponymagic.handlers;
 
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.event.LevelUpEvent;
+import me.braunly.ponymagic.api.events.LevelUpEvent;
 import net.braunly.ponymagic.network.packets.LevelUpSoundPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

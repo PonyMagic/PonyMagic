@@ -2,7 +2,7 @@ package net.braunly.ponymagic.data;
 
 import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
 import net.braunly.ponymagic.config.Config;
-import net.braunly.ponymagic.event.LevelUpEvent;
+import me.braunly.ponymagic.api.events.LevelUpEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;

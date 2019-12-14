@@ -5,7 +5,7 @@ import lombok.Getter;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.event.LevelUpEvent;
+import me.braunly.ponymagic.api.events.LevelUpEvent;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import me.braunly.ponymagic.api.enums.EnumRace;
 import net.minecraft.command.CommandBase;
