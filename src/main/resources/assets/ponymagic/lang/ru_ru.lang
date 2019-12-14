@@ -240,8 +240,16 @@ skill.skill.name=
 skill.skill.command=
 skill.skill.descr=
 
+effect.shield=Абсолютный щит
 effect.potion_shield=Абсолютный щит
 potion.effect.potion_shield=Зелье абсолютного щита
 splash_potion.effect.potion_shield=Зелье абсолютного щита (метательное)
 lingering_potion.effect.potion_shield=Осадочное зелье абсолютного щита
 tipped_arrow.effect.potion_shield=Стрела абсолютного щита
+
+effect.staminahealthregen=Регенерация энергии
+effect.potion_staminahealthregen=Регенерация энергии
+potion.effect.potion_staminahealthregen=Зелье регенерации энергии за здоровье
+splash_potion.effect.potion_staminahealthregen=Зелье регенерации энергии за здоровье (метательное)
+lingering_potion.effect.potion_staminahealthregen=Осадочное зелье регенерации энергии за здоровье
+tipped_arrow.effect.potion_staminahealthregen=Стрела регенерации энергии за здоровье
