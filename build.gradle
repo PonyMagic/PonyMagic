@@ -86,6 +86,7 @@ jar {
 }
 
 shadowJar {
+    from sourceSets.api.output
     dependencies {
         exclude(dependency("org.projectlombok:lombok"))
     }
