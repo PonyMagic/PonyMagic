@@ -94,7 +94,6 @@ skill.dodging1.descr=Даёт возможность с некоторым ша�
 skill.dodgingbuff1.name=Защитный манёвр
 skill.dodgingbuff1.command=ПАССИВНОЕ
 skill.dodgingbuff1.descr=Поглощает урон в течении нескольких секунд после успешного уклонения
-
 skill.teleport0.name=Телепортация к игроку
 skill.teleport0.command=/tpa ник
 skill.teleport0.descr=Посылает запрос телепортации к игроку
@@ -128,7 +127,6 @@ skill.heal2.descr=Мнгновенно восстанавливает здоро
 skill.enchant1.name=Зачарование
 skill.enchant1.command=/cast enchant
 skill.enchant1.descr=Спообность зачароывать предмет, наодящийся в копыте
-
 skill.craft0.name=Портативный верстак
 skill.craft0.command=/workbench
 skill.craft0.descr=Возможность открыть интерфейс верстака в любом месте
@@ -144,7 +142,6 @@ skill.stepup1.descr=Увеличивает высоту шага до 2 блок
 skill.strength1.name=Сила
 skill.strength1.command=/cast strength
 skill.strength1.descr=Увеличивает урон в ближнем бою
-
 skill.jump0.name=Прыжок
 skill.jump0.command=/cast jump
 skill.jump0.descr=Позволяет выше прыгать
@@ -175,7 +172,6 @@ skill.climb1.descr=Эффект лазания по стенам как у па�
 skill.poison1.name=Отравление
 skill.poison1.command=/cast poison
 skill.poison1.descr=Эффект отравления
-
 skill.staminaPool0.name=Объём энергии
 skill.staminaPool0.command=ПАССИВНОЕ
 skill.staminaPool0.descr=Начальный объёма энергии
@@ -194,7 +190,6 @@ skill.staminaRegen2.descr=Увеличение скорости регенера
 skill.shregen1.name=Регенерация энергии за счёт здоровья
 skill.shregen1.command=/cast shregen
 skill.shregen1.descr=Регенерация энергии за счёт здоровья
-
 skill.repair1.name=Ремонт
 skill.repair1.command=/cast repair
 skill.repair1.descr=Чинит экипированные предметы с течением времени
@@ -219,7 +214,6 @@ skill.fly1.descr=Позволяет парить некоторое время
 skill.revival1.name=Песнь возрождения
 skill.revival1.command=/cast revival
 skill.revival1.descr=На пороге смерти мгновенно возвращает 2 сердца
-
 skill.invisibility1.name=Невидимость
 skill.invisibility1.command=/cast invisibility
 skill.invisibility1.descr=Делает невидимым для врагов
@@ -235,6 +229,26 @@ skill.extension1.descr=Удваивает длительность уже дей
 skill.ironskin1.name=Железная кожа
 skill.ironskin1.command=/cast ironskin
 skill.ironskin1.descr=Усиливает броню
+
+skill.blink1.name=Блинк
+skill.blink1.command=/cast blink
+skill.blink1.descr=Мгновенно телепортирует на небольшое расстояние
+skill.portal1.name=Портал в столицу
+skill.portal1.command=/cast portal <имя города>
+skill.portal1.descr=Создаёт временный портал в город
+skill.moonbeam1.name=Лунный луч
+skill.moonbeam1.command=/cast moonbeam
+skill.moonbeam1.descr=Концентрирует энергию луны в указаном месте
+
+skill.medallionofsalazar1.name=Медальон Салазара
+skill.medallionofsalazar1.command=ПАССИВНОЕ
+skill.medallionofsalazar1.descr=Предотвращает урон от ядов.
+skill.readyforduel1.name=Готовность к дуэли
+skill.readyforduel1.command=ПАССИВНОЕ
+skill.readyforduel1.descr=Предотвращает урон от магии.
+skill.extinguisher1.name=Спасительное охлаждение
+skill.extinguisher1.command=ПАССИВНОЕ
+skill.extinguisher1.descr=Предотвращает урон от огня
 
 skill.skill.name=
 skill.skill.command=
