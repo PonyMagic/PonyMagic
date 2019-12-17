@@ -33,6 +33,7 @@ public class Config {
 	// Spells
 	public static Map<String, Integer[]> potions = new HashMap<>();
 	public static Map<String, Integer[]> spells = new HashMap<>();
+	public static Map<String, Integer[]> passives = new HashMap<>();
 
 	public static void load(File file) {
 		Configuration config = new Configuration(file);
@@ -246,7 +247,27 @@ public class Config {
 				new Integer[] { 
 						config.getInt("enchantStamina", "Spells", 90, 0, 100, "Стамина за enchant."),
 						config.getInt("enchantLevel", "Spells", 30, 1, 60, "Уровень зачарования."),
-						config.getInt("enchantExp", "Spells", 30, 0, 60, "Уровней опыта за зачарование."), });
+						config.getInt("enchantExp", "Spells", 30, 0, 60, "Уровней опыта за зачарование."),
+				});
+		spells.put("healwave",
+				new Integer[] {
+						config.getInt("healwaveStaminaPercent", "Spells", 50, 0, 100, "Процент Стамина за healwave (в %)."),
+						config.getInt("healwaveHealPercent", "Spells", 10, 0, 100, "Процент хила healwave от стамины (в №)."),
+						config.getInt("healwaveRadius", "Spells", 3, 1, 10, "Радиус хила от healwave."),
+						config.getInt("healwaveCooldown", "Spells", 200, 0, 100000, "Время перезарядки healwave."),
+				});
+
+		// Passives
+		passives.put("extinguisher",
+				new Integer[] {
+						config.getInt("extinguisherEffectDur", "Passives", 1200, 0, 100000, "Время длительности эффекта от extinguisher (в тиках)."),
+						config.getInt("extinguisherCooldown", "Passives", 2400, 0, 100000, "Время перезарядки extinguisher (в тиках)."),
+				});
+		passives.put("readyforduel",
+				new Integer[] {
+						config.getInt("readyforduelEffectDur", "Passives", 300, 0, 100000, "Время длительности эффекта от readyforduel (в тиках)."),
+						config.getInt("readyforduelCooldown", "Passives", 1200, 0, 100000, "Время перезарядки readyforduel (в тиках)."),
+				});
 
 		config.save();
 	}

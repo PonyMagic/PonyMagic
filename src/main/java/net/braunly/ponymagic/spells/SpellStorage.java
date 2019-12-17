@@ -2,10 +2,7 @@ package net.braunly.ponymagic.spells;
 
 import com.google.common.collect.ImmutableMap;
 import net.braunly.ponymagic.spells.potion.*;
-import net.braunly.ponymagic.spells.simple.SpellEnchant;
-import net.braunly.ponymagic.spells.simple.SpellGrow;
-import net.braunly.ponymagic.spells.simple.SpellSwish;
-import net.braunly.ponymagic.spells.simple.SpellUnEnchant;
+import net.braunly.ponymagic.spells.simple.*;
 
 import javax.annotation.Nonnull;
 
@@ -62,6 +59,7 @@ public class SpellStorage {
 				.put("unenchant", new SpellUnEnchant("unenchant"))
 				.put("enchant", new SpellEnchant("enchant"))
 				.put("swish", new SpellSwish("swish"))
+				.put("healwave", new SpellHealwave("healwave"))
 				.build();
 	}
 

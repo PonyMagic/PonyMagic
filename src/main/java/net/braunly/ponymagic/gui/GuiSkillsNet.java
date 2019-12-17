@@ -99,37 +99,37 @@ public class GuiSkillsNet {
 				.add(new GuiButtonSkill("teleport", 0, 41, 203, 0, 1))
 
 				// T1
-				.add(new GuiButtonSkill("extinguisher", ImmutableSet.of(), 1, 105, 43, ImmutableSet.of("medallionofsalazar"),
+				.add(new GuiButtonSkill("extinguisher", ImmutableSet.of(), 1, 105, 43, ImmutableSet.of("shield"),
 						1, 5))
 				.add(new GuiButtonSkill("hpregen", ImmutableSet.of(), 2, 105, 139, ImmutableSet.of("hpregen#2", "tpbed"),
 						1, 5))
 				.add(new GuiButtonSkill("unenchant", ImmutableSet.of(), 3, 105, 203, ImmutableSet.of("tpbed"), 1, 5))
 				// T2
-				.add(new GuiButtonSkill("medallionofsalazar", ImmutableSet.of("extinguisher"), 5, 169, 43, ImmutableSet.of("readyforduel"), 1,
+				.add(new GuiButtonSkill("shield", ImmutableSet.of("extinguisher"), 5, 169, 43, ImmutableSet.of("solidcore"), 1,
 						10))
 				.add(new GuiButtonSkill("hpregen", ImmutableSet.of("hpregen#1"), 5, 169, 107, ImmutableSet.of("heal#1"), 2,
 						10))
-				.add(new GuiButtonSkill("tpbed", ImmutableSet.of("heal", "unenchant"), 6, 169, 171,
+				.add(new GuiButtonSkill("tpbed", ImmutableSet.of("hpregen", "unenchant"), 6, 169, 171,
 						ImmutableSet.of("enchant"), 1, 10))
 				// T3
-				.add(new GuiButtonSkill("readyforduel", ImmutableSet.of("medallionofsalazar"), 7, 233, 43, ImmutableSet.of("solidcore"), 1, 15))
+				.add(new GuiButtonSkill("solidcore", ImmutableSet.of("shield"), 7, 233, 43, ImmutableSet.of("healwave"), 1, 15))
 				.add(new GuiButtonSkill("heal", ImmutableSet.of("hpregen#2"), 8, 233, 107,
-						ImmutableSet.of("solidcore"), 1, 15))
+						ImmutableSet.of("healwave"), 1, 15))
 				.add(new GuiButtonSkill("enchant", ImmutableSet.of("tpbed"), 9, 233, 171, ImmutableSet.of("tpsurface"),
 						1, 15))
 				// T4
-				.add(new GuiButtonSkill("solidcore", ImmutableSet.of("readyforduel", "heal"), 4, 297, 75,
-						ImmutableSet.of("shield"), 1, 10))
+				.add(new GuiButtonSkill("healwave", ImmutableSet.of("solidcore", "heal"), 4, 297, 75,
+						ImmutableSet.of("readyforduel"), 1, 10))
 				.add(new GuiButtonSkill("tpsurface", ImmutableSet.of("enchant"), 11, 297, 171,
 						ImmutableSet.of("slowfall", "blink"), 1, 20))
 				// T5
-				.add(new GuiButtonSkill("shield", ImmutableSet.of(), 12, 361, 43, ImmutableSet.of("revival"), 1, 25))
+				.add(new GuiButtonSkill("readyforduel", ImmutableSet.of("healwave"), 12, 361, 43, ImmutableSet.of("revival"), 1, 25))
 				.add(new GuiButtonSkill("slowfall", ImmutableSet.of("tpsurface"), 13, 361, 139,
 						ImmutableSet.of("fly"), 1, 25))
 				.add(new GuiButtonSkill("blink", ImmutableSet.of("tpsurface"), 14, 361, 203,
 						ImmutableSet.of(), 1, 25))
 				// T6
-				.add(new GuiButtonSkill("revival", ImmutableSet.of("shield"), 15, 425, 43, 1, 30))
+				.add(new GuiButtonSkill("revival", ImmutableSet.of("readyforduel"), 15, 425, 43, 1, 30))
 				.add(new GuiButtonSkill("fly", ImmutableSet.of("slowfall"), 16, 425, 139, 1, 30))
 				// Add shared skills
 				.addAll(sharedSkills).build();

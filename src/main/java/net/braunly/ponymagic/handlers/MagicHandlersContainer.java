@@ -8,6 +8,7 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
 import net.braunly.ponymagic.capabilities.swish.SwishProvider;
 import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
 import me.braunly.ponymagic.api.enums.EnumRace;
 import net.braunly.ponymagic.spells.potion.SpellPotion;
@@ -15,12 +16,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
+
+import java.util.Arrays;
 
 import static net.braunly.ponymagic.spells.potion.SpellPotion.getVanillaPotion;
 
@@ -133,13 +137,19 @@ public class MagicHandlersContainer {
 				}
 			}
 
+			// Handle pegasus swish cooldown
 			if (playerData.getSkillData().isSkillLearned("swish")) {
 				ISwishCapability swish = player.getCapability(SwishProvider.SWISH, null);
 				if (!swish.canSwish() && staminaCurrent > (staminaMaximum/3)) {
 					swish.setCanSwish(true);
 				}
 			}
-
+		}
+		// Handle timers
+		if (playerData.getTickData().isTicking()) {
+			// this works twice per tick ._.
+			playerData.getTickData().tick();
+			PonyMagicAPI.playerDataController.savePlayerData(playerData);
 		}
 	}
 
@@ -184,7 +194,8 @@ public class MagicHandlersContainer {
 	}
 	
 	// Passives
-	
+
+	// Player deal damage
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void handleDamagePassive(LivingHurtEvent event) {
 		if (event.getEntity().world.isRemote) return;
@@ -207,8 +218,9 @@ public class MagicHandlersContainer {
 			}
 		}		
 	}
-	
-	@SubscribeEvent(priority = EventPriority.LOW)
+
+	// Player take damage
+	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void handleDodgingPassive(LivingHurtEvent event) {
 		if (!(event.getEntityLiving() instanceof EntityPlayer) || event.getEntity().world.isRemote)
 			return;
@@ -220,13 +232,36 @@ public class MagicHandlersContainer {
 		}
 
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
-		
-		if (playerData.getSkillData().isSkillLearned("dodging")) {
-			float randNum = player.world.rand.nextFloat() * 100;
-			if (randNum < Config.dodgingChance) {
-				if (playerData.getSkillData().isSkillLearned("dodgingbuff")) {
-					player.addPotionEffect(new PotionEffect(SpellPotion.getVanillaPotion("absorption"), 5 * 20));
+
+		if (playerData.getRace() == EnumRace.PEGASUS) {
+			if (playerData.getSkillData().isSkillLearned("dodging")) {
+				float randNum = player.world.rand.nextFloat() * 100;
+				if (randNum < Config.dodgingChance) {
+					if (playerData.getSkillData().isSkillLearned("dodgingbuff")) {
+						player.addPotionEffect(new PotionEffect(SpellPotion.getVanillaPotion("absorption"), 5 * 20));
+					}
+					event.setAmount(0);
+					event.setCanceled(true);
 				}
+			}
+		} else if (playerData.getRace() == EnumRace.UNICORN) {
+			// extinguisher passive
+			if (event.getSource().isFireDamage() &&
+					playerData.getSkillData().isSkillLearned("extinguisher") &&
+					!playerData.getTickData().isTicking("extinguisher")) {
+				Integer[] config = Config.passives.get("extinguisher");
+				player.addPotionEffect(new PotionEffect(SpellPotion.getVanillaPotion("fire_resistance"), config[0]));
+				playerData.getTickData().startTicking("extinguisher", config[1]);
+				event.setAmount(0);
+				event.setCanceled(true);
+			}
+			// readyforduel passive
+			if (event.getSource().isMagicDamage() &&
+					playerData.getSkillData().isSkillLearned("readyforduel") &&
+					!playerData.getTickData().isTicking("readyforduel")) {
+				Integer[] config = Config.passives.get("readyforduel");
+				player.addPotionEffect(new PotionEffect(SpellPotion.getCustomPotion("magic_shield"), config[0], 2));
+				playerData.getTickData().startTicking("readyforduel", config[1]);
 				event.setAmount(0);
 				event.setCanceled(true);
 			}

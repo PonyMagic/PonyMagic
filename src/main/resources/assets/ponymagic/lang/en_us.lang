@@ -239,10 +239,10 @@ skill.portal1.descr=Создаёт временный портал в город
 skill.moonbeam1.name=Лунный луч
 skill.moonbeam1.command=/cast moonbeam
 skill.moonbeam1.descr=Концентрирует энергию луны в указаном месте
+skill.healwave1.name=Волна исцеления
+skill.healwave1.command=/cast healwave
+skill.healwave1.descr=Исцеляет ближайших союзников
 
-skill.medallionofsalazar1.name=Медальон Салазара
-skill.medallionofsalazar1.command=ПАССИВНОЕ
-skill.medallionofsalazar1.descr=Предотвращает урон от ядов.
 skill.readyforduel1.name=Готовность к дуэли
 skill.readyforduel1.command=ПАССИВНОЕ
 skill.readyforduel1.descr=Предотвращает урон от магии.

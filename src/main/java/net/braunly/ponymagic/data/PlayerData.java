@@ -4,6 +4,7 @@ import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.ISkillDataStorage;
 import me.braunly.ponymagic.api.enums.EnumRace;
+import me.braunly.ponymagic.api.interfaces.ITickDataStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -12,6 +13,7 @@ import java.util.NoSuchElementException;
 public class PlayerData implements IPlayerDataStorage {
 	private ILevelDataStorage levelData = new LevelData();
 	private ISkillDataStorage skillData = new SkillData();
+	private ITickDataStorage tickData = new TickData();
 
 	public EntityPlayer player = null;
 
@@ -30,6 +32,11 @@ public class PlayerData implements IPlayerDataStorage {
 	}
 
 	@Override
+	public ITickDataStorage getTickData() {
+		return this.tickData;
+	}
+
+	@Override
 	public EnumRace getRace() {
 		return this.race;
 	}
@@ -39,6 +46,7 @@ public class PlayerData implements IPlayerDataStorage {
 		this.race = race;
 		this.levelData = new LevelData();
 		this.skillData = new SkillData();
+		this.tickData = new TickData();
 		addDefaultSpell();
 	}
 
@@ -64,6 +72,7 @@ public class PlayerData implements IPlayerDataStorage {
 		this.skillData.reset();
 		this.levelData.addExp(-1 * (this.levelData.getExp() / 10)); // -10%
 		this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);
+		this.tickData.reset();
 		addDefaultSpell();
 	}
 
@@ -72,6 +81,7 @@ public class PlayerData implements IPlayerDataStorage {
 		NBTTagCompound compound = new NBTTagCompound();
 		this.levelData.saveToNBT(compound);
 		this.skillData.saveToNBT(compound);
+		this.tickData.saveToNBT(compound);
 
 		compound.setString("PlayerName", this.playername);
 		compound.setString("UUID", this.uuid);
@@ -88,6 +98,7 @@ public class PlayerData implements IPlayerDataStorage {
 	public void setNBT(NBTTagCompound nbt) {
 		this.levelData.readFromNBT(nbt);
 		this.skillData.readFromNBT(nbt);
+		this.tickData.readFromNBT(nbt);
 
 		try {
 			this.race = EnumRace.getByName(nbt.getString("Race")).get();
