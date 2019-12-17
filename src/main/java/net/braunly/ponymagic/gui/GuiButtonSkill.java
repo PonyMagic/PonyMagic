@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Set;
@@ -17,6 +18,7 @@ public class GuiButtonSkill extends GuiButton {
 	public Set<String> lines;
 	public int posX;
 	public int posY;
+	public float scale;
 	public int minLevel;
 	public int skillLevel;
 
@@ -46,25 +48,31 @@ public class GuiButtonSkill extends GuiButton {
 		this.depends = depends;
 	}
 
-	public void initButton(Minecraft mc, int mouseX, int mouseY, int x, int y, boolean knownSkill) {
+	public void initButton(Minecraft mc, int mouseX, int mouseY, int x, int y, float scale, boolean knownSkill) {
 		this.mc = mc;
 		this.knownSkill = knownSkill;
 		this.resLoc = new ResourceLocation(PonyMagic.MODID,
 				"textures/gui/skills/" + (this.knownSkill ? this.skillName : "unknown") + ".png");
 		this.posX = x + this.x;
 		this.posY = y + this.y - 32;
+		this.scale = scale;
 	}
 
 	public void drawButton() {
 		if (this.visible) {
 			this.mc.getTextureManager().bindTexture(this.resLoc);
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(this.scale, this.scale, this.scale);
 			drawModalRectWithCustomSizedTexture(this.posX, this.posY, 0, 0, 32, 32, 32, 32);
+			GlStateManager.popMatrix();
 		}
 	}
 
 	public boolean isUnderMouse(int mouseX, int mouseY) {
-		return mouseX >= this.posX && mouseY >= this.posY && mouseX < (float) this.posX + (float) this.width
-				&& mouseY < (float) this.posY + (float) this.height;
+		float minX, maxX, minY, maxY;
+		minX = this.posX * this.scale; maxX = (this.posX + this.width) * this.scale;
+		minY = this.posY * this.scale; maxY = (this.posY + this.height) * this.scale;
+		return mouseX >= minX && mouseX < maxX && mouseY >= minY && mouseY < maxY;
 	}
 
 	@Override

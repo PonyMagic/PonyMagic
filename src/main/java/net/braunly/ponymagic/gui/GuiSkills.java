@@ -119,8 +119,12 @@ public class GuiSkills extends GuiScreen {
 		int w = 496;
 		int h = 334;
 
-		int x = (this.width - w) / 2;
-		int y = (this.height - h) / 2;
+		float scale = Math.min(Math.min((float)(width) / w, (float)(height) / h), 1.0F);
+		int x = (this.width - (int)(w * scale)) / 2;
+		int y = (this.height - (int)(h * scale)) / 2;
+
+		GlStateManager.pushMatrix();
+		GlStateManager.scale(scale, scale, scale);
 
 //		PonyMagic.log.info("[GUI] Draw BG");
 		this.mc.getTextureManager().bindTexture(this.bg);
@@ -134,17 +138,22 @@ public class GuiSkills extends GuiScreen {
 		drawModalRectWithCustomSizedTexture(x + 67, y + 310, 0, 0, 364, 10, 364, 20);
 		drawModalRectWithCustomSizedTexture(x + 67, y + 310, 0, 10, currentExp, 10, 364, 20);
 
+		GlStateManager.popMatrix();
+
 		// Draw player level and free points
+		GlStateManager.pushMatrix();
+		GlStateManager.scale(1.1F, 1.1F, 1.1F);  // looks nicer
 		drawCenteredString(this.fontRenderer,
 				new TextComponentTranslation("gui.level", this.playerData.getLevelData().getLevel()).getFormattedText()
 					+ "                    "
 					+ new TextComponentTranslation("gui.freeskillpoints", this.playerData.getLevelData().getFreeSkillPoints()).getFormattedText(),
-				x + 250, y + 300, 16773290);
+				(int)((x + 250) * scale / 1.1F), (int)((y + 295) * scale / 1.1F), 16773290);  // y + 300 caused it to overlap with exp bar on smaller scales
 		GlStateManager.color(1, 1, 1, 1);  // icons shadow fix
+		GlStateManager.popMatrix();
 
 		// Draw hovering text on exp bar
 //		PonyMagic.log.info("[GUI] Draw hover expbar");
-		if (mouseX > x + 67 && mouseX < x + 67 + 364 && mouseY > y + 310 && mouseY < y + 320) {
+		if (mouseX / scale > x + 67 && mouseX / scale < x + 67 + 364 && mouseY / scale > y + 310 && mouseY / scale < y + 320) {
 			List<String> temp = Arrays
 					.asList(new TextComponentTranslation("gui.exp", String.format("%s", Math.round(this.playerData.getLevelData().getExp())),
 							(this.playerData.getLevelData().getLevel() + 1) * Config.expPerLevel).getFormattedText());
@@ -163,11 +172,8 @@ public class GuiSkills extends GuiScreen {
 				for (GuiButtonSkill skill : this.skillsNet) {
 
 					// Skill button init
-					if (PonyMagic.MAX_LVL >= skill.minLevel) {
-						skill.initButton(this.mc, mouseX, mouseY, x, y, true);
-					} else {
-						skill.initButton(this.mc, mouseX, mouseY, x, y, false);
-					}
+					boolean knownSkill = PonyMagic.MAX_LVL >= skill.minLevel;
+					skill.initButton(this.mc, mouseX, mouseY, x, y, scale, knownSkill);
 
 					// // Lines
 					if (!skill.lines.isEmpty()) {
@@ -181,6 +187,8 @@ public class GuiSkills extends GuiScreen {
 
 							int lineDirection = lineSkill.posY - skill.posY;
 
+							GlStateManager.pushMatrix();
+							GlStateManager.scale(scale, scale, scale);
 							switch (lineDirection) {
 							case -64:
 								this.mc.getTextureManager().bindTexture(lineActive ? this.line_uug : this.line_uub);
@@ -205,6 +213,7 @@ public class GuiSkills extends GuiScreen {
 							default:
 								break;
 							}
+							GlStateManager.popMatrix();
 						}
 					}
 				}
@@ -221,7 +230,10 @@ public class GuiSkills extends GuiScreen {
 					} else {
 						this.mc.getTextureManager().bindTexture(this.skillUnAvailable);
 					}
+					GlStateManager.pushMatrix();
+					GlStateManager.scale(scale, scale, scale);
 					drawModalRectWithCustomSizedTexture(skill.posX - 2, skill.posY - 2, 0, 0, 36, 36, 36, 36);
+					GlStateManager.popMatrix();
 
 					// Draw icon
 					skill.drawButton();
