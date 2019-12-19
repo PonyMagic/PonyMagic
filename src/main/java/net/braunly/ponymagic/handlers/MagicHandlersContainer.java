@@ -179,6 +179,7 @@ public class MagicHandlersContainer {
 				Double damageModifier = config[2] * 1.0D;
 				if (stamina.consume(event.getAmount() * damageModifier)) {
 					event.setAmount(0);
+					event.setCanceled(true);
 				} else {
 					event.setAmount((float) (event.getAmount() - stamina.getStamina(EnumStaminaType.CURRENT)));
 					stamina.zero();

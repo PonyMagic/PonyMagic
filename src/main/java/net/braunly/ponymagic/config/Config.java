@@ -230,7 +230,7 @@ public class Config {
 		potions.put("shield#1",
 				new Integer[] { config.getInt("shieldDur", "Spells", 1200, 0, 12000, "Длительность shield. (в тиках)"),
 						config.getInt("shieldStamina", "Spells", 10, 0, 100, "Стамина за shield."),
-						config.getInt("shieldStaminaPerDmg", "Spells", 3, 0, 100, "Стамина за единицу урона."), });
+						config.getInt("shieldStaminaPerDmg", "Spells", 5, 0, 100, "Стамина за единицу урона."), });
 		potions.put("staminahealthregen#1",
 				new Integer[] { config.getInt("staminahealthregenDur", "Spells", 400, 0, 12000, "Длительность staminahealthregen. (в тиках)"),
 						config.getInt("staminahealthregenStamina", "Spells", 0, 0, 100, "Стамина за staminahealthregen."),
