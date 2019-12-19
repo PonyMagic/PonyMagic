@@ -16,15 +16,13 @@ import java.util.Map;
 
 public class GuiTimers extends GuiIngameForge {
 
-    private static Minecraft mc;
-    private static IPlayerDataStorage playerData;
+    private IPlayerDataStorage playerData;
     private final ResourceLocation skillAvailable = new ResourceLocation(PonyMagic.MODID,
             "textures/gui/skill_available.png");
     private final ResourceLocation skillActive = new ResourceLocation(PonyMagic.MODID, "textures/gui/skill_active.png");
 
     public GuiTimers(Minecraft mc) {
         super(mc);
-        GuiTimers.mc = mc;
     }
 
     @SubscribeEvent
@@ -36,7 +34,7 @@ public class GuiTimers extends GuiIngameForge {
             return;
 
         getPlayerData();
-        if (playerData == null || !playerData.getTickData().isTicking())
+        if (this.playerData == null || !this.playerData.getTickData().isTicking())
             return;
 
         ScaledResolution resolution = event.getResolution();
@@ -52,7 +50,7 @@ public class GuiTimers extends GuiIngameForge {
 
         int c = 1;
 
-        for (Map.Entry<String, Integer> entry : playerData.getTickData().getTimers().entrySet()) {
+        for (Map.Entry<String, Integer> entry : this.playerData.getTickData().getTimers().entrySet()) {
             ResourceLocation skillResLoc = new ResourceLocation(PonyMagic.MODID, "textures/gui/skills/" + entry.getKey() + ".png");
             int ticks = entry.getValue();
             String text = "" + ticks / 40;
@@ -90,6 +88,6 @@ public class GuiTimers extends GuiIngameForge {
 
     private void getPlayerData() {
         PonyMagic.channel.sendToServer(new RequestPlayerDataPacket());
-        GuiTimers.playerData = PonyMagicAPI.getPlayerDataStorage(mc.player);
+        this.playerData = PonyMagicAPI.getPlayerDataStorage(mc.player);
     }
 }

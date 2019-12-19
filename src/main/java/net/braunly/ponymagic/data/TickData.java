@@ -70,9 +70,6 @@ public class TickData implements ITickDataStorage {
             return;
 
         NBTTagList list = compound.getTagList("Timers", 10);
-        if (list.hasNoTags()) {
-            return;
-        }
 
         for (int i = 0; i < list.tagCount(); i++) {
             NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
