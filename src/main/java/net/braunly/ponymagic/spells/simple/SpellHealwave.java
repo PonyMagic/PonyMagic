@@ -6,14 +6,8 @@ import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.spells.NamedSpell;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemDye;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.math.BlockPos;
 
 public class SpellHealwave extends NamedSpell {
 

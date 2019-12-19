@@ -1,6 +1,7 @@
 package net.braunly.ponymagic.gui;
 
 import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.client.KeyBindings;
@@ -8,7 +9,6 @@ import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
 import net.braunly.ponymagic.network.packets.ResetPacket;
 import net.braunly.ponymagic.network.packets.SkillUpPacket;
-import me.braunly.ponymagic.api.enums.EnumRace;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;

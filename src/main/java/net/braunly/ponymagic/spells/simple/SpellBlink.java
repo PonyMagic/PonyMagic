@@ -1,12 +1,10 @@
 package net.braunly.ponymagic.spells.simple;
 
 import me.braunly.ponymagic.api.PonyMagicAPI;
-import me.braunly.ponymagic.api.enums.EnumStaminaType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.spells.NamedSpell;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;

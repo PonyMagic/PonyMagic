@@ -1,6 +1,7 @@
 package net.braunly.ponymagic.handlers;
 
 import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.enums.EnumStaminaType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
@@ -8,23 +9,18 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
 import net.braunly.ponymagic.capabilities.swish.SwishProvider;
 import net.braunly.ponymagic.config.Config;
-import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
-import me.braunly.ponymagic.api.enums.EnumRace;
 import net.braunly.ponymagic.spells.potion.SpellPotion;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.Arrays;
 
 import static net.braunly.ponymagic.spells.potion.SpellPotion.getVanillaPotion;
 

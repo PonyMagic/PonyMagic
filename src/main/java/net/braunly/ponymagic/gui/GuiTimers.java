@@ -86,7 +86,6 @@ public class GuiTimers extends GuiIngameForge {
 
             c += 1;
         }
-        playerData = null;
     }
 
     private void getPlayerData() {
