@@ -60,6 +60,7 @@ public class SpellStorage {
 				.put("enchant", new SpellEnchant("enchant"))
 				.put("swish", new SpellSwish("swish"))
 				.put("healwave", new SpellHealwave("healwave"))
+				.put("blink", new SpellBlink("blink"))
 				.build();
 	}
 

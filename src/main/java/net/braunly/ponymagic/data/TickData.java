@@ -20,6 +20,11 @@ public class TickData implements ITickDataStorage {
     }
 
     @Override
+    public HashMap<String, Integer> getTimers() {
+        return this.timers;
+    }
+
+    @Override
     public boolean isTicking(String skillName) {
         return this.timers.containsKey(skillName);
     }

@@ -3,6 +3,7 @@ package net.braunly.ponymagic.proxy;
 import net.braunly.ponymagic.client.KeyBindings;
 import net.braunly.ponymagic.client.KeyInputHandler;
 import net.braunly.ponymagic.gui.GuiStamina;
+import net.braunly.ponymagic.gui.GuiTimers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
@@ -35,6 +36,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void registerRenderers() {
 		MinecraftForge.EVENT_BUS.register(new GuiStamina(Minecraft.getMinecraft()));
+		MinecraftForge.EVENT_BUS.register(new GuiTimers(Minecraft.getMinecraft()));
 //		MinecraftForge.EVENT_BUS.register(new RenderHandler());
 	}
 
