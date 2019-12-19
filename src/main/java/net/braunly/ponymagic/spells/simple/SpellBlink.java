@@ -33,7 +33,7 @@ public class SpellBlink extends NamedSpell {
             Vec3d vec3d = player.getPositionEyes(1);
             Vec3d vec3d1 = player.getLook(1);
             Vec3d vec3d2 = vec3d.addVector(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
-            RayTraceResult result = player.world.rayTraceBlocks(vec3d, vec3d2, true, true, true);
+            RayTraceResult result = player.world.rayTraceBlocks(vec3d, vec3d2, true, false, true);
             if (result == null || !this.teleportTo(player, result.getBlockPos().getX() + 0.5D, result.getBlockPos().getY() + 1.0D, result.getBlockPos().getZ() + 0.5D)) {
                 stamina.add((double) config[0]);
                 return false;
@@ -71,7 +71,7 @@ public class SpellBlink extends NamedSpell {
 
         if (!flag)
         {
-            player.setPosition(d0, d1, d2);
+            player.setPositionAndUpdate(d0, d1, d2);
             return false;
         }
         else
