@@ -258,9 +258,9 @@ public class Config {
 				});
 		spells.put("blink",
 				new Integer[] {
-						config.getInt("blinkStamina", "Spells", 20, 0, 100, "Стамина за blink."),
+						config.getInt("blinkStamina", "Spells", 30, 0, 100, "Стамина за blink."),
 						config.getInt("blinkDistance", "Spells", 10, 0, 32, "Дальность blink."),
-						config.getInt("blinkCooldown", "Spells", 60, 0, 100000, "Время перезарядки blink."),
+						config.getInt("blinkCooldown", "Spells", 200, 0, 100000, "Время перезарядки blink."),
 				});
 
 		// Passives
