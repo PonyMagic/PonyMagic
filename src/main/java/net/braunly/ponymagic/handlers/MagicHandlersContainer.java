@@ -245,8 +245,8 @@ public class MagicHandlersContainer {
 				flySpeedMod = lvl / 100.0F;
 			}
 
-			player.capabilities.setFlySpeed(0.05F + flySpeedMod + mod);
-//			PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod + mod), (EntityPlayerMP) player);
+//			player.capabilities.setFlySpeed(0.05F + flySpeedMod + mod);
+			PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod + mod), (EntityPlayerMP) player);
 		}
 	}
 
