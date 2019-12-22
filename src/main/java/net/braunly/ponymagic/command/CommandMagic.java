@@ -6,6 +6,7 @@ import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import me.braunly.ponymagic.api.events.LevelUpEvent;
+import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import me.braunly.ponymagic.api.enums.EnumRace;
 import net.minecraft.command.CommandBase;
@@ -58,6 +59,8 @@ public class CommandMagic extends CommandBase {
 		// Set new race
 		playerData.setRace(race);
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
+		MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
+		MagicHandlersContainer.updatePlayerMaxStamina(player);
 		
 		// Send changes to client
 		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), player);
