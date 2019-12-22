@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -102,6 +103,45 @@ public class CommandMagic extends CommandBase {
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
 
+	@ParametersAreNonnullByDefault
+	private void executeSetExp(EntityPlayerMP player, String[] args) throws CommandException {
+		if (args.length < 2) {
+			throw new WrongUsageException("commands.magic.spell.usage");
+		}
+		String playerName = args[1];
+		String exp = args[2];
+
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
+		playerData.getLevelData().setExp(MathHelper.getDouble(exp, 0D));
+		PonyMagicAPI.playerDataController.savePlayerData(playerData);
+	}
+
+	@ParametersAreNonnullByDefault
+	private void executeSetLevel(EntityPlayerMP player, String[] args) throws CommandException {
+		if (args.length < 2) {
+			throw new WrongUsageException("commands.magic.spell.usage");
+		}
+		String playerName = args[1];
+		String level = args[2];
+
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
+		playerData.getLevelData().setLevel(MathHelper.getInt(level, 0));
+		PonyMagicAPI.playerDataController.savePlayerData(playerData);
+	}
+
+	@ParametersAreNonnullByDefault
+	private void executeSetPoints(EntityPlayerMP player, String[] args) throws CommandException {
+		if (args.length < 2) {
+			throw new WrongUsageException("commands.magic.spell.usage");
+		}
+		String playerName = args[1];
+		String points = args[2];
+
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
+		playerData.getLevelData().setFreeSkillPoints(MathHelper.getInt(points, 0));
+		PonyMagicAPI.playerDataController.savePlayerData(playerData);
+	}
+
 	@Override
 	@ParametersAreNonnullByDefault
 	public void execute(MinecraftServer server, ICommandSender commandSender, String[] args) throws CommandException {
@@ -118,17 +158,26 @@ public class CommandMagic extends CommandBase {
 				.orElseThrow(() -> new WrongUsageException("Не найден игрок!"));
 
 		switch (command) {
-		case "race":
-			executeRace(player, args);
-			break;
-		case "spell":
-			executeSpell(player, args);
-			break;
-		case "test":
-			executeTest(player, args);
-			break;
-		default:
-			throw new WrongUsageException("commands.magic.usage");
+			case "race":
+				executeRace(player, args);
+				break;
+			case "spell":
+				executeSpell(player, args);
+				break;
+			case "test":
+				executeTest(player, args);
+				break;
+			case "setexp":
+				executeSetExp(player, args);
+				break;
+			case "setpoints":
+				executeSetPoints(player, args);
+				break;
+			case "setlevel":
+				executeSetLevel(player, args);
+				break;
+			default:
+				throw new WrongUsageException("commands.magic.usage");
 		}
 	}
 
