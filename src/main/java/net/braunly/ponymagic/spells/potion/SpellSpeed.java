@@ -16,7 +16,7 @@ public class SpellSpeed extends SpellPotion {
 			return false;
 
 		if (action(player, level)) {
-			float flySpeedMod = (float) level / 80.0F;
+			float flySpeedMod = level / 80.0F;
 			MagicHandlersContainer.updatePlayerFlySpeed(player, flySpeedMod);
 			return true;
 		}

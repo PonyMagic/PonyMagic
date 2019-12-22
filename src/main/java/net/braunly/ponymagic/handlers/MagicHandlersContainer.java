@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -106,16 +107,6 @@ public class MagicHandlersContainer {
 
 				if (stamina.consume(flySpendingValue)) { // 0.8 stps
 					stamina.sync((EntityPlayerMP) player);
-					//								player.addExhaustion(Config.flyExhausting); // 0.016
-
-					// Handle fly speed modification
-					Potion speedPotion = getVanillaPotion("speed");
-
-					// no inspection ConstantConditions
-					if (player.isPotionActive(speedPotion) && player.getActivePotionEffect(speedPotion).getDuration() < 2) {
-						updatePlayerFlySpeed(player, 0);
-						player.removePotionEffect(speedPotion);
-					}
 				} else {
 					player.fallDistance = 0;
 					player.capabilities.isFlying = false;
@@ -131,6 +122,13 @@ public class MagicHandlersContainer {
 						}
 					}
 				}
+			}
+
+			// Remove fly speed modification from speed skill
+			Potion speedPotion = getVanillaPotion("speed");
+			if (player.isPotionActive(speedPotion) && player.getActivePotionEffect(speedPotion).getDuration() < 10) {
+				updatePlayerFlySpeed(player, 0.0F);
+				player.removePotionEffect(speedPotion);
 			}
 
 			// Handle pegasus swish cooldown
@@ -151,7 +149,7 @@ public class MagicHandlersContainer {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void handlePegasusFlySpeed(PlayerLoggedInEvent event) {
-		updatePlayerFlySpeed(event.player, 0);
+		updatePlayerFlySpeed(event.player, 0.0F);
 	}
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
@@ -272,13 +270,15 @@ public class MagicHandlersContainer {
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 
 		if (playerData.getRace() == EnumRace.PEGASUS) {
+			// Handle passive skill
 			float flySpeedMod = 0.0F;
-			if (playerData.getSkillData().isSkillLearned("flySpeed")) {
-				int lvl = playerData.getSkillData().getSkillLevel("flySpeed");
-				flySpeedMod = lvl / 100.0F + mod;
+			if (playerData.getSkillData().isSkillLearned("flyspeed")) {
+				int lvl = playerData.getSkillData().getSkillLevel("flyspeed");
+				flySpeedMod = lvl / 100.0F;
 			}
 
-			PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod), (EntityPlayerMP) player);
+			player.capabilities.setFlySpeed(0.05F + flySpeedMod + mod);
+//			PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod + mod), (EntityPlayerMP) player);
 		}
 	}
 

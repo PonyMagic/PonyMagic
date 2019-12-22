@@ -142,16 +142,16 @@ public class GuiSkillsNet {
 				.add(new GuiButtonSkill("jump", ImmutableSet.of(), 2, 105, 161, ImmutableSet.of("stepup"), 1, 5))
 				// T2
 				.add(new GuiButtonSkill("stepup", ImmutableSet.of("jump"), 4, 169, 161,
-						ImmutableSet.of("strength", "speed"), 1, 10))
+						ImmutableSet.of("strength", "speed#2"), 1, 10))
 				// T3
 				.add(new GuiButtonSkill("strength", ImmutableSet.of("stepup"), 7, 233, 129,
 						ImmutableSet.of("solidcore"), 1, 15))
-				.add(new GuiButtonSkill("speed", ImmutableSet.of("stepup"), 8, 233, 193, ImmutableSet.of("haste"), 1,
+				.add(new GuiButtonSkill("speed", ImmutableSet.of("stepup"), 8, 233, 193, ImmutableSet.of("haste"), 2,
 						15))
 				// T4
 				.add(new GuiButtonSkill("solidcore", ImmutableSet.of("strength"), 10, 297, 97,
 						ImmutableSet.of("resist"), 1, 20))
-				.add(new GuiButtonSkill("haste", ImmutableSet.of("speed"), 11, 297, 193, ImmutableSet.of(), 1, 20))
+				.add(new GuiButtonSkill("haste", ImmutableSet.of("speed#2"), 11, 297, 193, ImmutableSet.of(), 1, 20))
 				// T5
 				.add(new GuiButtonSkill("resist", ImmutableSet.of("solidcore"), 12, 361, 97,
 						ImmutableSet.of("ironskin", "recoil"), 1, 25))

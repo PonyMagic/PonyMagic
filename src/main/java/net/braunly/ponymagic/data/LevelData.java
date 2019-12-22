@@ -2,6 +2,7 @@ package net.braunly.ponymagic.data;
 
 import me.braunly.ponymagic.api.events.LevelUpEvent;
 import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.Config;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,7 +39,7 @@ public class LevelData implements ILevelDataStorage {
 
 	@Override
 	public void setLevel(int level) {
-		if (level < 0) {
+		if (level < 0 || level > PonyMagic.MAX_LVL) {
 			return;
 		}
 		this.level = level;
@@ -46,16 +47,18 @@ public class LevelData implements ILevelDataStorage {
 
 	@Override
 	public boolean isLevelUp() {
-		return this.getExp() >= (this.getLevel() + 1) * Config.expPerLevel;
+		return this.getLevel() < PonyMagic.MAX_LVL && this.getExp() >= (this.getLevel() + 1) * Config.expPerLevel;
 	}
 	@Override
 	public void levelUp(EntityPlayer player) {
+		if (this.getLevel() == PonyMagic.MAX_LVL)
+			return;
 		this.setLevel(this.getLevel() + 1);
-		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, this.getLevel()));
 		this.addExp(Config.expPerLevel * this.getLevel() * -1);
 		if (this.getLevel() % 3 == 0) {
 			this.addFreeSkillPoints(1);
 		}
+		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, this.getLevel()));
 	}
 
 	@Override
@@ -76,6 +79,11 @@ public class LevelData implements ILevelDataStorage {
 	@Override
 	public double getExp() {
 		return this.exp;
+	}
+
+	@Override
+	public void setExp(double exp) {
+		this.exp = exp;
 	}
 
 	@Override
