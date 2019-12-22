@@ -172,7 +172,7 @@ public class GuiSkills extends GuiScreen {
 				for (GuiButtonSkill skill : this.skillsNet) {
 
 					// Skill button init
-					boolean knownSkill = PonyMagic.MAX_LVL >= skill.minLevel;
+					boolean knownSkill = this.isSkillLearned(skill) || PonyMagic.MAX_LVL >= skill.minLevel;
 					skill.initButton(this.mc, mouseX, mouseY, x, y, scale, knownSkill);
 
 					// // Lines
