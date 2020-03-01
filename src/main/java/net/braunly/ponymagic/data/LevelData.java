@@ -13,6 +13,9 @@ public class LevelData implements ILevelDataStorage {
 	private int freeSkillPoint = 0;
 	private double exp = 0.0D;
 
+	private boolean isLevelUp = false;
+	private boolean isLevelDown = false;
+
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		if (compound == null)
@@ -46,19 +49,56 @@ public class LevelData implements ILevelDataStorage {
 	}
 
 	@Override
+	@Deprecated
 	public boolean isLevelUp() {
-		return this.getLevel() < PonyMagic.MAX_LVL && this.getExp() >= (this.getLevel() + 1) * Config.expPerLevel;
+		return this.level < PonyMagic.MAX_LVL && this.isLevelUp;
 	}
+	
 	@Override
+	@Deprecated
 	public void levelUp(EntityPlayer player) {
 		if (this.getLevel() == PonyMagic.MAX_LVL)
 			return;
 		this.setLevel(this.getLevel() + 1);
-		this.addExp(Config.expPerLevel * this.getLevel() * -1);
 		if (this.getLevel() % 3 == 0) {
 			this.addFreeSkillPoints(1);
 		}
 		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, this.getLevel()));
+	}
+
+	@Override
+	public boolean isLevelChange() {
+		if (this.exp >= PonyMagic.EXP_FOR_LVL.get(this.level + 1)) {
+			this.isLevelUp = true;
+		} else if (this.exp < PonyMagic.EXP_FOR_LVL.get(this.level)) {
+			this.isLevelDown = true;
+		}
+
+		return this.isLevelUp || this.isLevelDown;
+	}
+
+	@Override
+	public void changeLevel() {
+		if (!this.isLevelChange()) return;
+
+		if (this.isLevelUp && this.level < PonyMagic.MAX_LVL) {
+			// Make level up
+			this.level += 1;
+			if (this.level % 3 == 0) {
+				// Add free skill point for every 3 level
+				this.freeSkillPoint += 1;
+			}
+			this.isLevelUp = false;
+
+		} else if (this.isLevelDown && this.level > 0) {
+			// Make level down
+			if (this.level % 3 == 0) {
+				// Remove free skill point if level was ф multiple of three
+				this.freeSkillPoint -= 1;
+			}
+			this.level -= 1;
+			this.isLevelDown = false;
+		}
 	}
 
 	@Override
@@ -83,17 +123,23 @@ public class LevelData implements ILevelDataStorage {
 
 	@Override
 	public void setExp(double exp) {
+		if (this.level >= PonyMagic.MAX_LVL) {
+			this.exp = PonyMagic.EXP_FOR_LVL.get(PonyMagic.MAX_LVL);
+			return;
+		}
+		if (Config.expModifier) {
+			exp *= Config.expModifierAmount;
+		}
+
+		if (exp < 0 && this.level == 0) {
+			exp = 0.0D;
+		}
+
 		this.exp = exp;
 	}
 
 	@Override
 	public void addExp(double exp) {
-		if (Config.expModifier) {
-			exp *= Config.expModifierAmount;
-		}
-		this.exp = getExp() + exp;
-		if (this.exp < 0 && this.level == 0) {
-			this.exp = 0.0D;
-		}
+		this.setExp(this.exp + exp);
 	}
 }

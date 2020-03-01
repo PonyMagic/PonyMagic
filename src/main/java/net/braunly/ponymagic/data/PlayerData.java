@@ -43,11 +43,15 @@ public class PlayerData implements IPlayerDataStorage {
 
 	@Override
 	public void setRace(EnumRace race) {
+		if (this.race == EnumRace.REGULAR || race == EnumRace.REGULAR) {
+			this.levelData = new LevelData();
+		} else {
+			this.levelData.addExp(-1 * (this.levelData.getExp() / 10)); // Remove 10% of exp
+		}
 		this.race = race;
-		this.levelData = new LevelData();
 		this.skillData = new SkillData();
 		this.tickData = new TickData();
-		addDefaultSpell();
+		this.addDefaultSpell();
 	}
 
     @Override
@@ -67,13 +71,16 @@ public class PlayerData implements IPlayerDataStorage {
 		return this.uuid;
 	}
 
+	/**
+	 * Reset skills tree
+	 */
 	@Override
 	public void reset() {
 		this.skillData.reset();
 		this.levelData.addExp(-1 * (this.levelData.getExp() / 10)); // -10%
 		this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);
 		this.tickData.reset();
-		addDefaultSpell();
+		this.addDefaultSpell();
 	}
 
 	@Override

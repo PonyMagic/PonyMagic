@@ -70,6 +70,12 @@ public class CommonProxy {
 		CapabilityManager.INSTANCE.register(IPlayerDataStorage.class, new PlayerDataSerializer(), PlayerData.class);
 		
 		ModItems.init();
+
+		// Build table with experience for next level
+		for (int i = 0; i <= PonyMagic.MAX_LVL; i++) {
+			double prevExp = i == 0 ? 0.0D : PonyMagic.EXP_FOR_LVL.get(i-1);
+			PonyMagic.EXP_FOR_LVL.put(i, prevExp + i * Config.expPerLevel);
+		}
 	}
 
 	public void init(FMLInitializationEvent event) {

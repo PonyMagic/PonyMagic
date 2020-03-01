@@ -114,6 +114,14 @@ public class GuiSkills extends GuiScreen {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 //		PonyMagic.log.info("[GUI] Start draw...");
 		this.drawDefaultBackground();
+
+		// Get data for rendering
+		int playerLevel = this.playerData.getLevelData().getLevel();
+		int playerFreeSkillPoints = this.playerData.getLevelData().getFreeSkillPoints();
+		EnumRace playerRace = this.playerData.getRace();
+		double playerExp = this.playerData.getLevelData().getExp();
+		double playerNextLevelExp = playerLevel < PonyMagic.MAX_LVL ?
+				PonyMagic.EXP_FOR_LVL.get(playerLevel + 1) : PonyMagic.EXP_FOR_LVL.get(PonyMagic.MAX_LVL);
 		
 		// Background
 		int w = 496;
@@ -132,8 +140,7 @@ public class GuiSkills extends GuiScreen {
 
 		// Draw exp bar
 //		PonyMagic.log.info("[GUI] Draw expbar");
-		int currentExp = (int) ((float) (this.playerData.getLevelData().getExp()
-				/ ((this.playerData.getLevelData().getLevel() + 1) * Config.expPerLevel)) * 364);
+		int currentExp = (int) ((float) (playerExp / playerNextLevelExp) * 364);
 		this.mc.getTextureManager().bindTexture(this.expBar);
 		drawModalRectWithCustomSizedTexture(x + 67, y + 310, 0, 0, 364, 10, 364, 20);
 		drawModalRectWithCustomSizedTexture(x + 67, y + 310, 0, 10, currentExp, 10, 364, 20);
@@ -144,9 +151,9 @@ public class GuiSkills extends GuiScreen {
 		GlStateManager.pushMatrix();
 		GlStateManager.scale(1.1F, 1.1F, 1.1F);  // looks nicer
 		drawCenteredString(this.fontRenderer,
-				new TextComponentTranslation("gui.level", this.playerData.getLevelData().getLevel()).getFormattedText()
+				new TextComponentTranslation("gui.level", playerLevel).getFormattedText()
 					+ "                    "
-					+ new TextComponentTranslation("gui.freeskillpoints", this.playerData.getLevelData().getFreeSkillPoints()).getFormattedText(),
+					+ new TextComponentTranslation("gui.freeskillpoints", playerFreeSkillPoints).getFormattedText(),
 				(int)((x + 250) * scale / 1.1F), (int)((y + 295) * scale / 1.1F), 16773290);  // y + 300 caused it to overlap with exp bar on smaller scales
 		GlStateManager.color(1, 1, 1, 1);  // icons shadow fix
 		GlStateManager.popMatrix();
@@ -155,8 +162,8 @@ public class GuiSkills extends GuiScreen {
 //		PonyMagic.log.info("[GUI] Draw hover expbar");
 		if (mouseX / scale > x + 67 && mouseX / scale < x + 67 + 364 && mouseY / scale > y + 310 && mouseY / scale < y + 320) {
 			List<String> temp = Arrays
-					.asList(new TextComponentTranslation("gui.exp", String.format("%s", Math.round(this.playerData.getLevelData().getExp())),
-							(this.playerData.getLevelData().getLevel() + 1) * Config.expPerLevel).getFormattedText());
+					.asList(new TextComponentTranslation("gui.exp", String.format("%s", Math.round(playerExp)),
+							String.format("%s", Math.round(playerNextLevelExp))).getFormattedText());
 			GlStateManager.pushAttrib(); GlStateManager.pushMatrix();
 			drawHoveringText(temp, mouseX, mouseY);
 			GlStateManager.popMatrix(); GlStateManager.popAttrib();  // Lightning shadow fix
@@ -165,7 +172,7 @@ public class GuiSkills extends GuiScreen {
 		try {
 //			PonyMagic.log.info("[GUI] Draw skills");
 			// Draw skills
-			if (this.playerData.getRace() != null && this.playerData.getRace() != EnumRace.REGULAR && this.skillsNet != null) {
+			if (playerRace != null && playerRace != EnumRace.REGULAR && this.skillsNet != null) {
 				// TODO: rewrite loops with this.zIndex
 
 				// Draw skills lines
@@ -179,8 +186,7 @@ public class GuiSkills extends GuiScreen {
 					if (!skill.lines.isEmpty()) {
 						for (String itLines : skill.lines) {
 							boolean lineActive = false;
-							GuiButtonSkill lineSkill = GuiSkillsNet.getInstance().getRaceSkill(this.playerData.getRace(),
-									itLines);
+							GuiButtonSkill lineSkill = GuiSkillsNet.getInstance().getRaceSkill(playerRace, itLines);
 							if (this.isSkillLearned(skill) && this.isSkillLearned(lineSkill)) {
 								lineActive = true;
 							}
@@ -244,7 +250,7 @@ public class GuiSkills extends GuiScreen {
 
 					if (skill.isUnderMouse(mouseX, mouseY) && skill.knownSkill) {
 						String[] text = {
-								this.playerData.getRace().getColor() + new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".name").getFormattedText(),
+								playerRace.getColor() + new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".name").getFormattedText(),
 								new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".command").getFormattedText(),
 								new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".descr").getFormattedText(),
 								// new TextComponentTranslation("skill.stamina", Config.).getFormattedText(),

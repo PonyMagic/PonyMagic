@@ -12,12 +12,15 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.HashMap;
+
 @Mod(modid = PonyMagic.MODID, useMetadata = true)
 public class PonyMagic {
 	public static final String MODID = "ponymagic";
 	public static final String CLIENTPROXY = "net.braunly.ponymagic.proxy.ClientProxy";
 	public static final String COMMONPROXY = "net.braunly.ponymagic.proxy.CommonProxy";
 
+	public static HashMap<Integer, Double> EXP_FOR_LVL = new HashMap<>();
 	public static final int MAX_LVL = 30;
 	public static final PonyMagicCreativeTab creativeTab = new PonyMagicCreativeTab();
 	
