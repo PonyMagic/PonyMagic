@@ -123,16 +123,15 @@ public class LevelData implements ILevelDataStorage {
 
 	@Override
 	public void setExp(double exp) {
-		if (this.level >= PonyMagic.MAX_LVL) {
-			this.exp = PonyMagic.EXP_FOR_LVL.get(PonyMagic.MAX_LVL);
-			return;
-		}
 		if (Config.expModifier) {
 			exp *= Config.expModifierAmount;
 		}
 
 		if (exp < 0 && this.level == 0) {
 			exp = 0.0D;
+		}
+		if (exp > PonyMagic.EXP_FOR_LVL.get(PonyMagic.MAX_LVL)) {
+			exp = PonyMagic.EXP_FOR_LVL.get(PonyMagic.MAX_LVL);
 		}
 
 		this.exp = exp;
