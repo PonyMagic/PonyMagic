@@ -77,8 +77,8 @@ public class PlayerData implements IPlayerDataStorage {
 	@Override
 	public void reset() {
 		this.skillData.reset();
-		this.levelData.addExp(-1 * (this.levelData.getExp() / 10)); // -10%
-		this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);
+		this.levelData.addExp(-1 * (this.levelData.getExp() / 10));  // -10%
+		this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);  // FIXME duplicated with changeLevel()?
 		this.tickData.reset();
 		this.addDefaultSpell();
 	}

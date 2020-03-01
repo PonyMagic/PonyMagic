@@ -68,7 +68,7 @@ public class LevelData implements ILevelDataStorage {
 
 	@Override
 	public boolean isLevelChange() {
-		if (this.exp >= PonyMagic.EXP_FOR_LVL.get(this.level + 1)) {
+		if (this.level < PonyMagic.MAX_LVL && this.exp >= PonyMagic.EXP_FOR_LVL.get(this.level + 1)) {
 			this.isLevelUp = true;
 		} else if (this.exp < PonyMagic.EXP_FOR_LVL.get(this.level)) {
 			this.isLevelDown = true;

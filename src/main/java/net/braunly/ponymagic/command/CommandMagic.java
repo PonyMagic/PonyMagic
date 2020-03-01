@@ -96,10 +96,12 @@ public class CommandMagic extends CommandBase {
 		EnumRace race = EnumRace.getByName(raceName)
 				.orElseThrow(() -> new WrongMethodTypeException("commands.magic.race.usage"));
 
+		int level = PonyMagic.MAX_LVL;
+		playerData.setRace(EnumRace.REGULAR);
 		playerData.setRace(race);
-		playerData.getLevelData().addExp(10000D);
-		playerData.getLevelData().setLevel(30);
-		playerData.getLevelData().setFreeSkillPoints(10);
+		playerData.getLevelData().setLevel(level);
+		playerData.getLevelData().addExp(PonyMagic.EXP_FOR_LVL.get(level));
+		playerData.getLevelData().setFreeSkillPoints(level / 3);
 		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, playerData.getLevelData().getLevel()));
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}

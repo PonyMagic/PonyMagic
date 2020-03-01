@@ -22,9 +22,7 @@ abstract class ExperienceHandler {
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 		ILevelDataStorage levelData = playerData.getLevelData();
 
-		if (levelData.getLevel() < PonyMagic.MAX_LVL) {
-			levelData.addExp(expCount);
-			PonyMagicAPI.playerDataController.savePlayerData(playerData);
-		}
+		levelData.addExp(expCount);
+		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
 }
