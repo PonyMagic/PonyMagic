@@ -20,11 +20,11 @@ public class SpellHealwave extends NamedSpell {
 		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 		Integer[] config = Config.spells.get(getSpellName());
-		double staminaAmount = stamina.getStamina(EnumStaminaType.CURRENT) / config[0];
+		double staminaAmount = stamina.getStamina(EnumStaminaType.CURRENT) * config[0] / 100;
 		if (!playerData.getTickData().isTicking(getSpellName()) && stamina.consume(staminaAmount)) {
-			Iterable<EntityPlayer> entities = player.world.getEntitiesWithinAABB(EntityPlayer.class,
+			Iterable<EntityPlayer> entities = player.world.getEntitiesWithinAABB(EntityPlayerMP.class,
 					player.getEntityBoundingBox().expand(config[2], config[2], config[2]));
-			entities.forEach(e -> e.heal((float) staminaAmount / config[1]));
+			entities.forEach(e -> e.heal((float) (staminaAmount * config[1] / 100)));
 			stamina.sync((EntityPlayerMP) player);
 			playerData.getTickData().startTicking(getSpellName(), config[3]);
 			PonyMagicAPI.playerDataController.savePlayerData(playerData);
