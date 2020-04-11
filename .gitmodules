@@ -1,3 +1,3 @@
 [submodule "api"]
 	path = api
-	url = https://git.mc4ep.org/mods/PonyMagicAPI.git
+	url = git@gitlab.com:mc4ep/pony-magic-api.git
