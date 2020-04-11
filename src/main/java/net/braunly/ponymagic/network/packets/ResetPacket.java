@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
+import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.items.ItemResetBook;
 import net.braunly.ponymagic.items.ModItems;
@@ -36,7 +37,7 @@ public class ResetPacket implements IMessage, IMessageHandler<ResetPacket, IMess
 			@Override
 			public void run() {
 				if (player != null) {
-					if (player.experienceLevel >= 30 || player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
+					if (player.experienceLevel >= Config.vanillaExpLvlForReset || player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
 						if (player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
 							for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
 				                ItemStack itemstack = player.inventory.getStackInSlot(i);
@@ -47,7 +48,7 @@ public class ResetPacket implements IMessage, IMessageHandler<ResetPacket, IMess
 				                }
 				            }
 						} else {
-							player.addExperienceLevel(-30);
+							player.addExperienceLevel(-1 * Config.vanillaExpLvlForReset);
 						}
 						IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 						playerData.reset();

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Config {
+	// Main
+	public static int vanillaExpLvlForReset;
 
 	// Exp
 	public static boolean expModifier;
@@ -38,6 +40,9 @@ public class Config {
 	public static void load(File file) {
 		Configuration config = new Configuration(file);
 		config.load();
+
+		// Main
+		vanillaExpLvlForReset = config.getInt("vanillaExpLvlForReset", "Main", 30, 0, 250, "Количество уровней ванильного опыта для ресета скиллов (если нет книги).");
 
 		// Опыт
 		expModifier = config.getBoolean("expModifier", "Опыт", false, "Использовать модификатор опыта?");
