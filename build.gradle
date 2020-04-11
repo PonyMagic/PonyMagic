@@ -100,3 +100,7 @@ reobf {
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
+
+runClient {
+    args '--username=player'
+}

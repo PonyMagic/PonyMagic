@@ -5,6 +5,7 @@ import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.ISkillDataStorage;
 import me.braunly.ponymagic.api.interfaces.ITickDataStorage;
+import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -15,6 +16,7 @@ public class PlayerData implements IPlayerDataStorage {
 	private ISkillDataStorage skillData = new SkillData();
 	private ITickDataStorage tickData = new TickData();
 
+	public String version = "v2.5.4";
 	public EntityPlayer player = null;
 
 	private String playername = null;
@@ -98,6 +100,8 @@ public class PlayerData implements IPlayerDataStorage {
 			compound.setString("Race", EnumRace.REGULAR.name());
 		}
 
+		compound.setString("Version", this.version);
+
 		return compound;
 	}
 
@@ -111,6 +115,16 @@ public class PlayerData implements IPlayerDataStorage {
 			this.race = EnumRace.getByName(nbt.getString("Race")).get();
 		} catch (NoSuchElementException e) {
 			this.race = EnumRace.REGULAR;
+		}
+		if (!this.version.equals(nbt.getString("Version"))) {
+			this.migrateTo(this.version);
+		}
+
+	}
+
+	private void migrateTo(String version) {
+		if (version.equals("v2.5.4")) {
+			this.levelData.setExp(PonyMagic.EXP_FOR_LVL.get(this.levelData.getLevel()) + this.levelData.getExp());
 		}
 	}
 
