@@ -32,7 +32,6 @@ public class SpellStorage {
 				.put("burst", new SpellPotion("burst"))
 				.put("repair", new SpellPotion("repair"))
 				.put("tpsurface", new SpellPotion("teleport_surface"))
-				.put("fly", new SpellPotion("flight"))
 				.put("ironskin", new SpellPotion("iron_skin"))
 
 				// Custom marker potions
@@ -55,6 +54,7 @@ public class SpellStorage {
 				.put("speed", new SpellSpeed("speed"))
 
 				// Spells
+				.put("fly", new SpellFly("flight"))
 				.put("grow", new SpellGrow("grow"))
 				.put("unenchant", new SpellUnEnchant("unenchant"))
 				.put("enchant", new SpellEnchant("enchant"))

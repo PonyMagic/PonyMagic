@@ -203,10 +203,6 @@ public class Config {
 				new Integer[] { config.getInt("teleport_surfaceDur1", "Potions", 1, 0, 12000, "Длительность tpsurface. (в тиках)"),
 						config.getInt("teleport_surfaceStamina1", "Potions", 30, 0, 100, "Стамина за tpsurface."),
 						config.getInt("teleport_surfaceLvl1", "Potions", 0, 0, 5, "Уровень эффекта tpsurface.") });
-		potions.put("flight#1",
-				new Integer[] { config.getInt("flightDur1", "Potions", 100, 0, 12000, "Длительность fly. (в тиках)"),
-						config.getInt("flightStamina1", "Potions", 60, 0, 100, "Стамина за fly."),
-						config.getInt("flightLvl1", "Potions", 1, 1, 5, "Уровень эффекта fly.") });
 		potions.put("invisibility#1",
 				new Integer[] { config.getInt("invisibilityDur1", "Potions", 600, 0, 12000, "Длительность invisibility. (в тиках)"),
 						config.getInt("invisibilityStamina1", "Potions", 30, 0, 100, "Стамина за invisibility."),
@@ -266,6 +262,12 @@ public class Config {
 						config.getInt("blinkStamina", "Spells", 30, 0, 100, "Стамина за blink."),
 						config.getInt("blinkDistance", "Spells", 10, 0, 32, "Дальность blink."),
 						config.getInt("blinkCooldown", "Spells", 200, 0, 100000, "Время перезарядки blink."),
+				});
+		spells.put("flight",
+				new Integer[] { config.getInt("flightDur", "Spells", 100, 0, 12000, "Длительность fly. (в тиках)"),
+						config.getInt("flightStamina", "Spells", 60, 0, 100, "Стамина за fly."),
+						config.getInt("flightLvl", "Spells", 1, 1, 5, "Уровень эффекта fly."),
+						config.getInt("flightCooldown", "Spells", 600, 0, 100000, "Время перезарядки fly.")
 				});
 
 		// Passives
