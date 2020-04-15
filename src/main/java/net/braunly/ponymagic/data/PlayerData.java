@@ -130,6 +130,9 @@ public class PlayerData implements IPlayerDataStorage {
 	private void migrateTo(String version) {
 		if (version.equals("v2.5.4")) {
 			this.levelData.setExp(PonyMagic.EXP_FOR_LVL.get(this.levelData.getLevel()) + this.levelData.getExp());
+			if (this.race == EnumRace.UNICORN) {
+				this.skillData.reset();
+			}
 		}
 	}
 
