@@ -39,7 +39,7 @@ public class CommandMagic extends CommandBase {
 	public final String name = "magic";
 	@Getter
 	public final int requiredPermissionLevel = 1;
-	private final String[] availableCommands = { "race", "spell", "test" };
+	private final String[] availableCommands = { "race", "spell", "test", "setlevel", "setexp", "setpoints" };
 
 	@Override
 	@Nonnull
@@ -56,7 +56,7 @@ public class CommandMagic extends CommandBase {
 		String raceName = args[2];
 
 		EnumRace race = EnumRace.getByName(raceName)
-				.orElseThrow(() -> new WrongMethodTypeException("commands.magic.race.usage"));
+				.orElseThrow(() -> new WrongUsageException("commands.magic.race.not_found"));
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
 		// Set new race
 		playerData.setRace(race);
@@ -90,58 +90,69 @@ public class CommandMagic extends CommandBase {
 
 	@ParametersAreNonnullByDefault
 	private void executeTest(EntityPlayerMP player, String[] args) throws CommandException {
+		if (args.length < 2) {
+			throw new WrongUsageException("commands.magic.test.usage");
+		}
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player.getName());
 
 		String raceName = args[1];
 		EnumRace race = EnumRace.getByName(raceName)
-				.orElseThrow(() -> new WrongMethodTypeException("commands.magic.race.usage"));
+				.orElseThrow(() -> new WrongUsageException("commands.magic.race.not_found"));
 
 		int level = PonyMagic.MAX_LVL;
 		playerData.setRace(EnumRace.REGULAR);
 		playerData.setRace(race);
 		playerData.getLevelData().setLevel(level);
 		playerData.getLevelData().addExp(PonyMagic.EXP_FOR_LVL.get(level));
-		playerData.getLevelData().setFreeSkillPoints(level / 3);
 		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, playerData.getLevelData().getLevel()));
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
+		MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
+		MagicHandlersContainer.updatePlayerMaxStamina(player);
+
+		// Send changes to client
+		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), player);
 	}
 
 	@ParametersAreNonnullByDefault
 	private void executeSetExp(EntityPlayerMP player, String[] args) throws CommandException {
 		if (args.length < 2) {
-			throw new WrongUsageException("commands.magic.spell.usage");
+			throw new WrongUsageException("commands.magic.setexp.usage");
 		}
 		String playerName = args[1];
-		String exp = args[2];
+		double exp = MathHelper.getDouble(args[2], 0D);
 
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
-		playerData.getLevelData().setExp(MathHelper.getDouble(exp, 0D));
+		playerData.getLevelData().setExp(exp);
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
 
 	@ParametersAreNonnullByDefault
 	private void executeSetLevel(EntityPlayerMP player, String[] args) throws CommandException {
 		if (args.length < 2) {
-			throw new WrongUsageException("commands.magic.spell.usage");
+			throw new WrongUsageException("commands.magic.setlevel.usage");
 		}
 		String playerName = args[1];
-		String level = args[2];
+		int level = MathHelper.getInt(args[2], 0);
+
+		if (level > PonyMagic.MAX_LVL) {
+			throw new WrongUsageException("commands.magic.setlevel.max_level");
+		}
 
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
-		playerData.getLevelData().setLevel(MathHelper.getInt(level, 0));
+		playerData.getLevelData().setExp(PonyMagic.EXP_FOR_LVL.get(level));
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
 
 	@ParametersAreNonnullByDefault
 	private void executeSetPoints(EntityPlayerMP player, String[] args) throws CommandException {
 		if (args.length < 2) {
-			throw new WrongUsageException("commands.magic.spell.usage");
+			throw new WrongUsageException("commands.magic.setpoints.usage");
 		}
 		String playerName = args[1];
-		String points = args[2];
+		int points = MathHelper.getInt(args[2], 0);
 
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
-		playerData.getLevelData().setFreeSkillPoints(MathHelper.getInt(points, 0));
+		playerData.getLevelData().setFreeSkillPoints(points);
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
 
@@ -158,7 +169,7 @@ public class CommandMagic extends CommandBase {
 
 		EntityPlayerMP player = Optional.ofNullable((EntityPlayerMP) commandSender.getCommandSenderEntity())
 				// FIXME: ...or just return?
-				.orElseThrow(() -> new WrongUsageException("Не найден игрок!"));
+				.orElseThrow(() -> new WrongUsageException("commands.magic.player_not_found"));
 
 		switch (command) {
 			case "race":
