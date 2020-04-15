@@ -8,7 +8,9 @@ import java.util.Map;
 
 public class Config {
 	// Main
-	public static int vanillaExpLvlForReset;
+	public static int vanillaExpLvlForSkillReset;
+	public static int raceExpPercentForSkillReset;
+	public static int raceExpPercentForRaceChange;
 
 	// Exp
 	public static boolean expModifier;
@@ -42,7 +44,9 @@ public class Config {
 		config.load();
 
 		// Main
-		vanillaExpLvlForReset = config.getInt("vanillaExpLvlForReset", "Main", 30, 0, 250, "Количество уровней ванильного опыта для ресета скиллов (если нет книги).");
+		vanillaExpLvlForSkillReset = config.getInt("vanillaExpLvlForSkillReset", "Main", 30, 0, 250, "Количество уровней ванильного опыта для ресета скиллов (если нет книги).");
+		raceExpPercentForSkillReset = config.getInt("raceExpPercentForSkillReset", "Main", 10, 0, 100, "Потеря опыта для ресета скиллов (в % от накопленного).");
+		raceExpPercentForRaceChange = config.getInt("raceExpPercentForRaceChange", "Main", 10, 0, 100, "Потеря опыта при смене расы. (в % от накопленного)");
 
 		// Опыт
 		expModifier = config.getBoolean("expModifier", "Опыт", false, "Использовать модификатор опыта?");

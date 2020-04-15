@@ -75,6 +75,7 @@ public class CommonProxy {
 		for (int i = 0; i <= PonyMagic.MAX_LVL; i++) {
 			double prevExp = i == 0 ? 0.0D : PonyMagic.EXP_FOR_LVL.get(i-1);
 			PonyMagic.EXP_FOR_LVL.put(i, prevExp + i * Config.expPerLevel);
+			//PonyMagic.log.info("Level: " + i + " " + "Exp: " + PonyMagic.EXP_FOR_LVL.get(i));
 		}
 	}
 

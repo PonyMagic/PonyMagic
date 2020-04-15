@@ -6,6 +6,7 @@ import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.ISkillDataStorage;
 import me.braunly.ponymagic.api.interfaces.ITickDataStorage;
 import net.braunly.ponymagic.PonyMagic;
+import net.braunly.ponymagic.config.Config;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -48,7 +49,10 @@ public class PlayerData implements IPlayerDataStorage {
 		if (this.race == EnumRace.REGULAR || race == EnumRace.REGULAR) {
 			this.levelData = new LevelData();
 		} else {
-			this.levelData.addExp(-1 * (this.levelData.getExp() / 10)); // Remove 10% of exp
+			// Remove % of exp
+			this.levelData.addExp(-1 * (this.levelData.getExp() / Config.raceExpPercentForRaceChange));
+			// Restore skill points for current level. Not duplicated with LevelData.changeLevel()!
+			this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);
 		}
 		this.race = race;
 		this.skillData = new SkillData();
@@ -79,8 +83,9 @@ public class PlayerData implements IPlayerDataStorage {
 	@Override
 	public void reset() {
 		this.skillData.reset();
-		this.levelData.addExp(-1 * (this.levelData.getExp() / 10));  // -10%
-		this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);  // FIXME duplicated with changeLevel()?
+		this.levelData.addExp(-1 * (this.levelData.getExp() / Config.raceExpPercentForSkillReset));
+		// Restore skill points for current level. Not duplicated with LevelData.changeLevel()!
+		this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);
 		this.tickData.reset();
 		this.addDefaultSpell();
 	}
