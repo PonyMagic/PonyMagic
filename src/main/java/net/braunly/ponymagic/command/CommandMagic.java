@@ -104,6 +104,7 @@ public class CommandMagic extends CommandBase {
 		playerData.setRace(race);
 		playerData.getLevelData().setLevel(level);
 		playerData.getLevelData().addExp(PonyMagic.EXP_FOR_LVL.get(level));
+		playerData.getLevelData().setFreeSkillPoints(level / 3);
 		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, playerData.getLevelData().getLevel()));
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 		MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
