@@ -26,7 +26,10 @@ public class SpellEnchant extends NamedSpell {
 	public boolean cast(EntityPlayer player, Integer level) {
 		ItemStack itemStack = player.getHeldItemMainhand();
 		int enchLevel = Config.spells.get(getSpellName())[1];
-		if (itemStack.isEmpty() || !itemStack.isItemEnchantable() || player.experienceLevel < enchLevel) {
+		if (itemStack.isEmpty() ||
+				!itemStack.isItemEnchantable() ||
+				itemStack.getItem().getItemEnchantability() <= 0 ||
+				player.experienceLevel < enchLevel) {
 			return false;
 		}
 		Random rand = player.world.rand;
