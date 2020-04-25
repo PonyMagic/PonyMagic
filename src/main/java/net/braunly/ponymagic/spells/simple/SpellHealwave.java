@@ -23,7 +23,7 @@ public class SpellHealwave extends NamedSpell {
 		double staminaAmount = stamina.getStamina(EnumStaminaType.CURRENT) * config[0] / 100;
 		if (!playerData.getTickData().isTicking(getSpellName()) && stamina.consume(staminaAmount)) {
 			Iterable<EntityPlayer> entities = player.world.getEntitiesWithinAABB(EntityPlayerMP.class,
-					player.getEntityBoundingBox().expand(config[2], config[2], config[2]));
+					player.getEntityBoundingBox().grow(config[2], config[2], config[2]));
 			entities.forEach(e -> e.heal((float) (staminaAmount * config[1] / 100)));
 			stamina.sync((EntityPlayerMP) player);
 			playerData.getTickData().startTicking(getSpellName(), config[3]);
