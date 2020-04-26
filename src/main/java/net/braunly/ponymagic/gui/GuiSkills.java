@@ -117,11 +117,14 @@ public class GuiSkills extends GuiScreen {
 
 		// Get data for rendering
 		int playerLevel = this.playerData.getLevelData().getLevel();
-		int playerFreeSkillPoints = this.playerData.getLevelData().getFreeSkillPoints();
+		// Show free skill points only when skills to learn available
+		int playerFreeSkillPoints = playerLevel >= 5 ?
+				this.playerData.getLevelData().getFreeSkillPoints() : 0;
 		EnumRace playerRace = this.playerData.getRace();
-		double playerExp = this.playerData.getLevelData().getExp();
+		// Show exp only for current level
+		double playerExp = this.playerData.getLevelData().getExp() - PonyMagic.EXP_FOR_LVL.get(playerLevel);
 		double playerNextLevelExp = playerLevel < PonyMagic.MAX_LVL ?
-				PonyMagic.EXP_FOR_LVL.get(playerLevel + 1) : PonyMagic.EXP_FOR_LVL.get(PonyMagic.MAX_LVL);
+				PonyMagic.EXP_FOR_LVL.get(playerLevel + 1) - PonyMagic.EXP_FOR_LVL.get(playerLevel) : PonyMagic.EXP_FOR_LVL.get(PonyMagic.MAX_LVL);
 		
 		// Background
 		int w = 496;
