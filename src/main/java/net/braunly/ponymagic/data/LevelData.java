@@ -46,6 +46,7 @@ public class LevelData implements ILevelDataStorage {
 			return;
 		}
 		this.level = level;
+		this.setExp(PonyMagic.EXP_FOR_LVL.get(level));
 	}
 
 	@Override
