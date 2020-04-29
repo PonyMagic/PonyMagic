@@ -45,7 +45,6 @@ public class LevelData implements ILevelDataStorage {
 		if (level < 0 || level > PonyMagic.MAX_LVL) {
 			return;
 		}
-		this.level = level;
 		this.setExp(PonyMagic.EXP_FOR_LVL.get(level));
 	}
 
@@ -61,10 +60,6 @@ public class LevelData implements ILevelDataStorage {
 		if (this.getLevel() == PonyMagic.MAX_LVL)
 			return;
 		this.setLevel(this.getLevel() + 1);
-		if (this.getLevel() % 3 == 0) {
-			this.addFreeSkillPoints(1);
-		}
-		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, this.getLevel()));
 	}
 
 	@Override
