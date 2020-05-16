@@ -1,0 +1,30 @@
+[
+  {
+    "name": "reset",
+    "price": 0,
+    "skillLevel": 0
+  },
+  {
+    "name": "hpregen",
+    "price": 1,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 600,
+      "level": 1
+    }
+  },
+  {
+    "name": "hpregen",
+    "price": 1,
+    "skillLevel": 2,
+    "stamina": 50,
+    "effect": {
+      "duration": 900,
+      "level": 2
+    },
+    "depends": {
+      "hpregen": 1
+    }
+  }
+]
