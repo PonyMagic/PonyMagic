@@ -14,6 +14,7 @@ import net.braunly.ponymagic.command.CommandCast;
 import net.braunly.ponymagic.command.CommandMagic;
 import net.braunly.ponymagic.command.CommandStamina;
 import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.config.LevelConfig;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
@@ -57,7 +58,8 @@ public class CommonProxy {
 		PonyMagic.channel.registerMessage(SwishPacket.class, SwishPacket.class, 7, Side.CLIENT);
 
 		Config.load(event.getSuggestedConfigurationFile());
-		PonyMagic.log.info("Config loaded!");
+		LevelConfig.load(event.getModConfigurationDirectory());
+		PonyMagic.log.info("Configs loaded!");
 
 		// Inject custom potions
 		PonyMagic.log.info("Injecting custom potions...");
