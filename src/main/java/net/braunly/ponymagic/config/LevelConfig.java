@@ -18,8 +18,7 @@ public class LevelConfig {
     private static final Map<String, ImmutableMap<Integer, LevelGoal>> raceConfigs = new HashMap<>();
 
     public static void load(File configDir) {
-        String CONFIG_DIR = configDir.getAbsolutePath() + "/" + PonyMagic.MODID;
-        PonyMagic.log.info(CONFIG_DIR);
+        String CONFIG_DIR = configDir.getAbsolutePath() + "/" + PonyMagic.MODID + "/leveling";
         for (EnumRace race : EnumRace.values()) {
             // Load config only for playable races
             if (race.equals(EnumRace.REGULAR) || race.equals(EnumRace.ALICORN)) continue;
@@ -79,7 +78,7 @@ public class LevelConfig {
 
     private static void makeDefaultConfig(File configFile) {
         try {
-            String DEFAULT_CONFIG_PATH = "/assets/" + PonyMagic.MODID + "/level_configs/";
+            String DEFAULT_CONFIG_PATH = "/assets/" + PonyMagic.MODID + "/config/leveling/";
             InputStream inputStream = LevelConfig.class.getResourceAsStream(
                     DEFAULT_CONFIG_PATH + configFile.getName()
             );
