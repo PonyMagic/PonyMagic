@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import me.braunly.ponymagic.api.enums.EnumRace;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.quests.LevelGoal;
@@ -15,7 +16,7 @@ import java.util.Map;
 
 public class LevelConfig {
     // Race quests config
-    private static final Map<String, ImmutableMap<Integer, LevelGoal>> raceConfigs = new HashMap<>();
+    private static final Map<EnumRace, Map<Integer, LevelGoal>> raceConfigs = new HashMap<>();
 
     public static void load(File configDir) {
         String CONFIG_DIR = configDir.getAbsolutePath() + "/" + PonyMagic.MODID + "/leveling";
@@ -43,37 +44,37 @@ public class LevelConfig {
             if (jsonRaceConfig != null) {
                 for (int level = 1; level <= PonyMagic.MAX_LVL; level++) {
                     // Set of quests goals for level
-                    Map<String, ImmutableMap<String, Integer>> levelQuestsData = new HashMap<>();
+                    HashMap<String, HashMap<String, Integer>> levelQuestsData = new HashMap<>();
 
                     // Load level requirements config
                     JsonObject levelQuestsConfig = (JsonObject) jsonRaceConfig.get(Integer.toString(level));
                     for (Map.Entry<String, JsonElement> questEntry : levelQuestsConfig.entrySet()) {
                         String questName = questEntry.getKey();
                         // Get quest goals
-                        Map<String, Integer> questGoals = gson.fromJson(questEntry.getValue(), HashMap.class);
+                        HashMap<String, Integer> questGoals = gson.fromJson(questEntry.getValue(), new TypeToken<HashMap<String, Integer>>(){}.getType());
 
                         levelQuestsData.put(
                                 questName,
-                                ImmutableMap.copyOf(questGoals)
+                                questGoals
                         );
                     }
                     raceLevels.put(
                             level,
-                            new LevelGoal(level, ImmutableMap.copyOf(levelQuestsData))
+                            new LevelGoal(level, levelQuestsData)
                     );
                 }
             } else {
                 PonyMagic.log.entry("Level config not loaded!");
             }
             raceConfigs.put(
-                    race.name(),
+                    race,
                     ImmutableMap.copyOf(raceLevels)
             );
         }
     }
 
     public static LevelGoal getRaceLevelConfig(EnumRace race, int level) {
-        return raceConfigs.get(race.name()).get(level);
+        return raceConfigs.get(race).get(level);
     }
 
     private static void makeDefaultConfig(File configFile) {

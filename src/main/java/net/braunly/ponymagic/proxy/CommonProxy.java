@@ -19,7 +19,7 @@ import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
-import net.braunly.ponymagic.exp.DeathEventHandler;
+import net.braunly.ponymagic.exp.BlockBreakEventHandler;
 import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.LevelUpEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
@@ -86,7 +86,7 @@ public class CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		PonyMagic.log.info("Handlers registration...");
 		// Experience handlers
-		MinecraftForge.EVENT_BUS.register(new DeathEventHandler());
+		MinecraftForge.EVENT_BUS.register(new BlockBreakEventHandler());
 
 		MinecraftForge.EVENT_BUS.register(new MagicHandlersContainer());
 

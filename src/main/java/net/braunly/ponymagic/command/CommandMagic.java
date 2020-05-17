@@ -7,7 +7,6 @@ import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.events.LevelUpEvent;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
-import me.braunly.ponymagic.api.events.LevelUpEvent;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.minecraft.command.CommandBase;
@@ -25,7 +24,6 @@ import net.minecraftforge.common.MinecraftForge;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.lang.invoke.WrongMethodTypeException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +37,7 @@ public class CommandMagic extends CommandBase {
 	public final String name = "magic";
 	@Getter
 	public final int requiredPermissionLevel = 1;
-	private final String[] availableCommands = { "race", "spell", "test", "setlevel", "setexp", "setpoints" };
+	private final String[] availableCommands = { "race", "spell", "test", "setlevel", "setpoints" };
 
 	@Override
 	@Nonnull
@@ -103,7 +101,6 @@ public class CommandMagic extends CommandBase {
 		playerData.setRace(EnumRace.REGULAR);
 		playerData.setRace(race);
 		playerData.getLevelData().setLevel(level);
-		playerData.getLevelData().addExp(PonyMagic.EXP_FOR_LVL.get(level));
 		playerData.getLevelData().setFreeSkillPoints(level / 3);
 		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, playerData.getLevelData().getLevel()));
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
@@ -114,18 +111,6 @@ public class CommandMagic extends CommandBase {
 		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), player);
 	}
 
-	@ParametersAreNonnullByDefault
-	private void executeSetExp(EntityPlayerMP player, String[] args) throws CommandException {
-		if (args.length < 2) {
-			throw new WrongUsageException("commands.magic.setexp.usage");
-		}
-		String playerName = args[1];
-		double exp = MathHelper.getDouble(args[2], 0D);
-
-		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
-		playerData.getLevelData().setExp(exp);
-		PonyMagicAPI.playerDataController.savePlayerData(playerData);
-	}
 
 	@ParametersAreNonnullByDefault
 	private void executeSetLevel(EntityPlayerMP player, String[] args) throws CommandException {
@@ -140,7 +125,7 @@ public class CommandMagic extends CommandBase {
 		}
 
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
-		playerData.getLevelData().setExp(PonyMagic.EXP_FOR_LVL.get(level));
+		playerData.getLevelData().setLevel(level);
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
 
@@ -181,9 +166,6 @@ public class CommandMagic extends CommandBase {
 				break;
 			case "test":
 				executeTest(player, args);
-				break;
-			case "setexp":
-				executeSetExp(player, args);
 				break;
 			case "setpoints":
 				executeSetPoints(player, args);

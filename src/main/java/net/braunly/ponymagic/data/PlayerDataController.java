@@ -5,6 +5,7 @@ import me.braunly.ponymagic.api.events.LevelUpEvent;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataController;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
+import net.braunly.ponymagic.config.LevelConfig;
 import net.braunly.ponymagic.util.NBTJsonUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +14,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.io.File;
+import java.util.HashMap;
 
 
 public class PlayerDataController implements IPlayerDataController {
@@ -43,14 +45,19 @@ public class PlayerDataController implements IPlayerDataController {
 	public void savePlayerData(IPlayerDataStorage data) {
 		final String filename = data.getUUID() + ".json";
 
-		while (data.getLevelData().isLevelChange()) {
-			int currentLevel = data.getLevelData().getLevel();
-			data.getLevelData().changeLevel();
+		if (data.getLevelData().isLevelUp()) {
+			data.getLevelData().levelUp();
 			int newLevel = data.getLevelData().getLevel();
 
-			if (currentLevel < newLevel) {
-				MinecraftForge.EVENT_BUS.post(new LevelUpEvent(data.getPlayer(), newLevel));
-			}
+			HashMap<String, HashMap<String, Integer>> nextLevelQuests =
+					LevelConfig.getRaceLevelConfig(data.getRace(), newLevel + 1).getQuestsWithGoals();
+
+			data.getLevelData().setGoals(nextLevelQuests);
+
+			MinecraftForge.EVENT_BUS.post(new LevelUpEvent(
+					data.getPlayer(),
+					newLevel
+			));
 		}
 
 		final NBTTagCompound compound = data.getNBT();

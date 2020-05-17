@@ -5,8 +5,7 @@ import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.ISkillDataStorage;
 import me.braunly.ponymagic.api.interfaces.ITickDataStorage;
-import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.config.LevelConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -17,7 +16,7 @@ public class PlayerData implements IPlayerDataStorage {
 	private ISkillDataStorage skillData = new SkillData();
 	private ITickDataStorage tickData = new TickData();
 
-	public String version = "v2.5.4";
+	public String version = "v3.0";
 	public EntityPlayer player = null;
 
 	private String playername = null;
@@ -46,15 +45,9 @@ public class PlayerData implements IPlayerDataStorage {
 
 	@Override
 	public void setRace(EnumRace race) {
-		if (this.race == EnumRace.REGULAR || race == EnumRace.REGULAR) {
-			this.levelData = new LevelData();
-		} else {
-			// Remove % of exp
-			this.levelData.addExp(-1 * (this.levelData.getExp() / Config.raceExpPercentForRaceChange));
-			// Restore skill points for current level. Not duplicated with LevelData.changeLevel()!
-			this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);
-		}
 		this.race = race;
+		this.levelData = new LevelData();
+		this.levelData.setGoals(LevelConfig.getRaceLevelConfig(race, 1).getQuestsWithGoals());
 		this.skillData = new SkillData();
 		this.tickData = new TickData();
 		this.addDefaultSpell();
@@ -83,9 +76,7 @@ public class PlayerData implements IPlayerDataStorage {
 	@Override
 	public void reset() {
 		this.skillData.reset();
-		this.levelData.addExp(-1 * (this.levelData.getExp() / Config.raceExpPercentForSkillReset));
-		// Restore skill points for current level. Not duplicated with LevelData.changeLevel()!
-		this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);
+		this.levelData.setFreeSkillPoints(this.levelData.getLevel());
 		this.tickData.reset();
 		this.addDefaultSpell();
 	}
@@ -128,13 +119,6 @@ public class PlayerData implements IPlayerDataStorage {
 	}
 
 	private void migrateTo(String version) {
-		if (version.equals("v2.5.4")) {
-			this.levelData.setExp(PonyMagic.EXP_FOR_LVL.get(this.levelData.getLevel()) + this.levelData.getExp());
-			if (this.race == EnumRace.UNICORN) {
-				this.skillData.reset();
-				this.levelData.setFreeSkillPoints(this.levelData.getLevel() / 3);
-			}
-		}
 	}
 
 	private void addDefaultSpell() {
