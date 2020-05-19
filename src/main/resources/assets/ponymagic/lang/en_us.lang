@@ -7,7 +7,7 @@ item.cloud_in_bottle.name=Облако в бутылке
 
 event.levelup.string=§aТеперь у тебя §e%s§a уровень.
 
-commands.magic.usage=/magic <race|spell|test|setlevel|setexp|setpoibts>
+commands.magic.usage=/magic <race|spell|test|setlevel|setexp|setpoints|reload>
 commands.magic.player_not_found=Player not found!
 commands.magic.race.usage=/magic race <player> <race>
 commands.magic.race.not_found=Race not found. Available races: earthpony, pegasus, unicorn, zebra, regular
