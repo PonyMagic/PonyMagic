@@ -15,17 +15,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LevelConfig {
+    private static String levelingConfigDir = null;
     // Race quests config
-    private static final Map<EnumRace, Map<Integer, LevelGoal>> raceConfigs = new HashMap<>();
+    private static final Map<EnumRace, ImmutableMap<Integer, LevelGoal>> raceConfigs = new HashMap<>();
 
-    public static void load(File configDir) {
-        String CONFIG_DIR = configDir.getAbsolutePath() + "/" + PonyMagic.MODID + "/leveling";
+    public static void init(File modConfigDir) {
+        levelingConfigDir = modConfigDir.getAbsolutePath() + "/" + PonyMagic.MODID + "/leveling";
+        load();
+    }
+
+    public static void load() {
+        if (levelingConfigDir == null) {
+            PonyMagic.log.error("Leveling config not initialized!");
+            return;
+        }
         for (EnumRace race : EnumRace.values()) {
             // Load config only for playable races
             if (race.equals(EnumRace.REGULAR) || race.equals(EnumRace.ALICORN)) continue;
 
             PonyMagic.log.info("Loading level config for {}", race.name().toLowerCase());
-            File raceLevelConfigFile = new File(CONFIG_DIR, race.name().toLowerCase() + ".json");
+            File raceLevelConfigFile = new File(
+                    levelingConfigDir,
+                    race.name().toLowerCase() + ".json"
+            );
             if (!raceLevelConfigFile.exists()) {
                 // Copy default configs
                 makeDefaultConfig(raceLevelConfigFile);
@@ -44,7 +56,8 @@ public class LevelConfig {
             if (jsonRaceConfig != null) {
                 for (int level = 1; level <= PonyMagic.MAX_LVL; level++) {
                     // Set of quests goals for level
-                    HashMap<String, HashMap<String, Integer>> levelQuestsData = new HashMap<>();
+                    ImmutableMap.Builder<String, ImmutableMap<String, Integer>> levelQuestsDataBuilder = new ImmutableMap.
+                            Builder<>();
 
                     // Load level requirements config
                     JsonObject levelQuestsConfig = (JsonObject) jsonRaceConfig.get(Integer.toString(level));
@@ -53,14 +66,14 @@ public class LevelConfig {
                         // Get quest goals
                         HashMap<String, Integer> questGoals = gson.fromJson(questEntry.getValue(), new TypeToken<HashMap<String, Integer>>(){}.getType());
 
-                        levelQuestsData.put(
+                        levelQuestsDataBuilder.put(
                                 questName,
-                                questGoals
+                                ImmutableMap.copyOf(questGoals)
                         );
                     }
                     raceLevels.put(
                             level,
-                            new LevelGoal(level, levelQuestsData)
+                            new LevelGoal(level, levelQuestsDataBuilder.build())
                     );
                 }
             } else {

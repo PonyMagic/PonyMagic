@@ -1,5 +1,6 @@
 package net.braunly.ponymagic.data;
 
+import com.google.common.collect.ImmutableMap;
 import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.nbt.NBTTagCompound;
@@ -108,8 +109,13 @@ public class LevelData implements ILevelDataStorage {
 	}
 
 	@Override
-	public void setGoals(HashMap<String, HashMap<String, Integer>> goals) {
-		this.currentGoals = goals;
+	public void setGoals(ImmutableMap<String, ImmutableMap<String, Integer>> goals) {
+		for (String questName : goals.keySet()) {
+			this.currentGoals.put(
+					questName,
+					new HashMap<>(goals.get(questName))
+			);
+		}
 	}
 
 	@Override

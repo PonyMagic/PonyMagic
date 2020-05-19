@@ -14,7 +14,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.io.File;
-import java.util.HashMap;
 
 
 public class PlayerDataController implements IPlayerDataController {
@@ -49,10 +48,7 @@ public class PlayerDataController implements IPlayerDataController {
 			data.getLevelData().levelUp();
 			int newLevel = data.getLevelData().getLevel();
 
-			HashMap<String, HashMap<String, Integer>> nextLevelQuests =
-					LevelConfig.getRaceLevelConfig(data.getRace(), newLevel + 1).getQuestsWithGoals();
-
-			data.getLevelData().setGoals(nextLevelQuests);
+			data.getLevelData().setGoals(LevelConfig.getRaceLevelConfig(data.getRace(), newLevel + 1).getQuestsWithGoals());
 
 			MinecraftForge.EVENT_BUS.post(new LevelUpEvent(
 					data.getPlayer(),

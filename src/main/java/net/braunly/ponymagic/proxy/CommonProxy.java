@@ -58,9 +58,12 @@ public class CommonProxy {
 		PonyMagic.channel.registerMessage(LevelUpSoundPacket.class, LevelUpSoundPacket.class, 6, Side.CLIENT);
 		PonyMagic.channel.registerMessage(SwishPacket.class, SwishPacket.class, 7, Side.CLIENT);
 
+		// Main config
 		Config.load(event.getSuggestedConfigurationFile());
-		LevelConfig.load(event.getModConfigurationDirectory());
-		SkillConfig.load(event.getModConfigurationDirectory());
+		// Leveling configs
+		LevelConfig.init(event.getModConfigurationDirectory());
+		// Skills configs
+		SkillConfig.init(event.getModConfigurationDirectory());
 		PonyMagic.log.info("Configs loaded!");
 
 		// Inject custom potions

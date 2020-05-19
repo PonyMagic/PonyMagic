@@ -18,17 +18,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SkillConfig {
+    private static String skillsConfigDir = null;
     private static final Map<EnumRace, ImmutableMap<String, Skill>> raceSkillsConfig = new HashMap<>();
 
-    public static void load(File configDir) {
-        String CONFIG_DIR = configDir.getAbsolutePath() + "/" + PonyMagic.MODID + "/skills";
+    public static void init(File modConfigDir) {
+        skillsConfigDir = modConfigDir.getAbsolutePath() + "/" + PonyMagic.MODID + "/skills";
+        load();
+    }
+
+    public static void load() {
+        if (skillsConfigDir == null) {
+            PonyMagic.log.error("Skills config not initialized!");
+            return;
+        }
         for (EnumRace race : EnumRace.values()) {
             // Load config only for playable races
             if (race.equals(EnumRace.REGULAR) || race.equals(EnumRace.ALICORN)) continue;
 
             PonyMagic.log.info("Loading skills config for {}", race.name().toLowerCase());
             File raceSkillsConfigFile = new File(
-                    CONFIG_DIR,
+                    skillsConfigDir,
                     race.name().toLowerCase() + ".json"
             );
             if (!raceSkillsConfigFile.exists()) {

@@ -7,6 +7,8 @@ import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.events.LevelUpEvent;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
+import net.braunly.ponymagic.config.LevelConfig;
+import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.minecraft.command.CommandBase;
@@ -37,7 +39,7 @@ public class CommandMagic extends CommandBase {
 	public final String name = "magic";
 	@Getter
 	public final int requiredPermissionLevel = 1;
-	private final String[] availableCommands = { "race", "spell", "test", "setlevel", "setpoints" };
+	private final String[] availableCommands = { "race", "reload", "spell", "test", "setlevel", "setpoints" };
 
 	@Override
 	@Nonnull
@@ -142,6 +144,12 @@ public class CommandMagic extends CommandBase {
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
 
+	@ParametersAreNonnullByDefault
+	private void executeReload(EntityPlayerMP player, String[] args) throws CommandException {
+		LevelConfig.load();
+		SkillConfig.load();
+	}
+
 	@Override
 	@ParametersAreNonnullByDefault
 	public void execute(MinecraftServer server, ICommandSender commandSender, String[] args) throws CommandException {
@@ -172,6 +180,9 @@ public class CommandMagic extends CommandBase {
 				break;
 			case "setlevel":
 				executeSetLevel(player, args);
+				break;
+			case "reload":
+				executeReload(player, args);
 				break;
 			default:
 				throw new WrongUsageException("commands.magic.usage");
