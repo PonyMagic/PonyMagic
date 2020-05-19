@@ -1,5 +1,6 @@
 package net.braunly.ponymagic.skill;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Skill {
@@ -33,19 +34,19 @@ public class Skill {
         return skillLevel;
     }
 
-    public Map<String, Integer> getEffect() {
-        return effect;
-    }
-
-    public Map<String, Integer> getSpellData() {
-        return spellData;
-    }
-
     public int getStamina() {
         return stamina;
     }
 
+    public Map<String, Integer> getEffect() {
+        return effect != null ? effect : new HashMap<>();
+    }
+
+    public Map<String, Integer> getSpellData() {
+        return spellData != null ? spellData : new HashMap<>();
+    }
+
     public Map<String, Integer> getDepends() {
-        return depends;
+        return depends != null ? depends : new HashMap<>();
     }
 }
