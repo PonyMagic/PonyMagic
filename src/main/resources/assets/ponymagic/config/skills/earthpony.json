@@ -1,5 +1,46 @@
 [
   {
+    "name": "reset",
+    "price": 0,
+    "skillLevel": 0
+  },
+  {
+    "name": "staminaPool",
+    "price": 0,
+    "skillLevel": 0
+  },
+  {
+    "name": "staminaPool",
+    "price": 0,
+    "skillLevel": 1
+  },
+  {
+    "name": "staminaPool",
+    "price": 0,
+    "skillLevel": 2,
+    "depends": {
+      "staminaPool": 1
+    }
+  },
+  {
+    "name": "staminaRegen",
+    "price": 0,
+    "skillLevel": 1
+  },
+  {
+    "name": "staminaRegen",
+    "price": 0,
+    "skillLevel": 2,
+    "depends": {
+      "staminaRegen": 1
+    }
+  },
+  {
+    "name": "shregen",
+    "price": 0,
+    "skillLevel": 1
+  },
+  {
     "name": "craft",
     "price": 0,
     "skillLevel": 1,
