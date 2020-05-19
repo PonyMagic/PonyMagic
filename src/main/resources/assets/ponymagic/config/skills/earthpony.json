@@ -1,7 +1,154 @@
 [
   {
-    "name": "reset",
+    "name": "craft",
     "price": 0,
-    "skillLevel": 0
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "grow",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "jump",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "stepup",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "jump": 1
+    }
+  },
+  {
+    "name": "strength",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "stepup": 1
+    }
+  },
+  {
+    "name": "speed",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "stepup": 1
+    }
+  },
+  {
+    "name": "solidcore",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "strength": 1
+    }
+  },
+  {
+    "name": "haste",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "speed": 1
+    }
+  },
+  {
+    "name": "resist",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "solidcore": 1
+    }
+  },
+  {
+    "name": "ironskin",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "resist": 1
+    }
+  },
+  {
+    "name": "recoil",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "resist": 1
+    }
+  },
+  {
+    "name": "repair",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
   }
 ]

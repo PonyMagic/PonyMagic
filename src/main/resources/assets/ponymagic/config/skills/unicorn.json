@@ -1,8 +1,51 @@
 [
   {
-    "name": "reset",
+    "name": "moonbeam",
     "price": 0,
-    "skillLevel": 0
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "portal",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "teleport",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "extinguisher",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
   },
   {
     "name": "hpregen",
@@ -12,6 +55,31 @@
     "effect": {
       "duration": 600,
       "level": 1
+    }
+  },
+  {
+    "name": "unenchant",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "shield",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "extinguisher": 1
     }
   },
   {
@@ -25,6 +93,151 @@
     },
     "depends": {
       "hpregen": 1
+    }
+  },
+  {
+    "name": "tpbed",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "hpregen": 1,
+      "unenchant": 1
+    }
+  },
+  {
+    "name": "solidcore",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "shield": 1
+    }
+  },
+  {
+    "name": "heal",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "hpregen": 2
+    }
+  },
+  {
+    "name": "enchant",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "tpbed": 1
+    }
+  },
+  {
+    "name": "healwave",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "solidcore": 1,
+      "heal": 1
+    }
+  },
+  {
+    "name": "tpsurface",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "enchant": 1
+    }
+  },
+  {
+    "name": "readyforduel",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "healwave": 1
+    }
+  },
+  {
+    "name": "slowfall",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "tpsurface": 1
+    }
+  },
+  {
+    "name": "blink",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "tpsurface": 1
+    }
+  },
+  {
+    "name": "revival",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "readyforduel": 1
+    }
+  },
+  {
+    "name": "fly",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+      "slowfall": 1
     }
   }
 ]
