@@ -13,7 +13,7 @@ public class LevelData implements ILevelDataStorage {
 	private int level = 0;
 	private int freeSkillPoint = 0;
 
-	private HashMap<String, HashMap<String, Integer>> currentGoals = new HashMap<>();
+	private final HashMap<String, HashMap<String, Integer>> currentGoals = new HashMap<>();
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {

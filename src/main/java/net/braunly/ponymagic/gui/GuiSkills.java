@@ -5,10 +5,11 @@ import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.client.KeyBindings;
-import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
 import net.braunly.ponymagic.network.packets.ResetPacket;
 import net.braunly.ponymagic.network.packets.SkillUpPacket;
+import net.braunly.ponymagic.skill.Skill;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -16,7 +17,6 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -85,9 +85,8 @@ public class GuiSkills extends GuiScreen {
 		}
 	}
 
-	@Nonnull
 	private void processButton(GuiButtonSkill skill) {
-		if (skill.skillName == "reset") {
+		if (skill.skillName.equals("reset")) {
 //			PonyMagic.log.info("[GUI] Reset");
 			PonyMagic.channel.sendToServer(new ResetPacket());
 			initPlayerData();
@@ -117,22 +116,16 @@ public class GuiSkills extends GuiScreen {
 
 		// Get data for rendering
 		int playerLevel = this.playerData.getLevelData().getLevel();
-		// Show free skill points only when skills to learn available
-		int playerFreeSkillPoints = playerLevel >= 5 ?
-				this.playerData.getLevelData().getFreeSkillPoints() : 0;
+		int playerFreeSkillPoints = this.playerData.getLevelData().getFreeSkillPoints();
 		EnumRace playerRace = this.playerData.getRace();
-		// Show exp only for current level
-		double playerExp = this.playerData.getLevelData().getExp() - PonyMagic.EXP_FOR_LVL.get(playerLevel);
-		double playerNextLevelExp = playerLevel < PonyMagic.MAX_LVL ?
-				PonyMagic.EXP_FOR_LVL.get(playerLevel + 1) - PonyMagic.EXP_FOR_LVL.get(playerLevel) : PonyMagic.EXP_FOR_LVL.get(PonyMagic.MAX_LVL);
-		
+
 		// Background
 		int w = 496;
 		int h = 334;
 
 		float scale = Math.min(Math.min((float)(width) / w, (float)(height) / h), 1.0F);
-		int x = (this.width - (int)(w * scale)) / 2;
-		int y = (this.height - (int)(h * scale)) / 2;
+		int x = this.width - (int)(w * scale);
+		int y = 0;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.scale(scale, scale, scale);
@@ -140,13 +133,6 @@ public class GuiSkills extends GuiScreen {
 //		PonyMagic.log.info("[GUI] Draw BG");
 		this.mc.getTextureManager().bindTexture(this.bg);
 		drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, 512, 512); // 496.334
-
-		// Draw exp bar
-//		PonyMagic.log.info("[GUI] Draw expbar");
-		int currentExp = (int) ((float) (playerExp / playerNextLevelExp) * 364);
-		this.mc.getTextureManager().bindTexture(this.expBar);
-		drawModalRectWithCustomSizedTexture(x + 67, y + 310, 0, 0, 364, 10, 364, 20);
-		drawModalRectWithCustomSizedTexture(x + 67, y + 310, 0, 10, currentExp, 10, 364, 20);
 
 		GlStateManager.popMatrix();
 
@@ -160,17 +146,6 @@ public class GuiSkills extends GuiScreen {
 				(int)((x + 250) * scale / 1.1F), (int)((y + 295) * scale / 1.1F), 16773290);  // y + 300 caused it to overlap with exp bar on smaller scales
 		GlStateManager.color(1, 1, 1, 1);  // icons shadow fix
 		GlStateManager.popMatrix();
-
-		// Draw hovering text on exp bar
-//		PonyMagic.log.info("[GUI] Draw hover expbar");
-		if (mouseX / scale > x + 67 && mouseX / scale < x + 67 + 364 && mouseY / scale > y + 310 && mouseY / scale < y + 320) {
-			List<String> temp = Arrays
-					.asList(new TextComponentTranslation("gui.exp", String.format("%s", Math.round(playerExp)),
-							String.format("%s", Math.round(playerNextLevelExp))).getFormattedText());
-			GlStateManager.pushAttrib(); GlStateManager.pushMatrix();
-			drawHoveringText(temp, mouseX, mouseY);
-			GlStateManager.popMatrix(); GlStateManager.popAttrib();  // Lightning shadow fix
-		}
 		
 		try {
 //			PonyMagic.log.info("[GUI] Draw skills");
@@ -182,10 +157,9 @@ public class GuiSkills extends GuiScreen {
 				for (GuiButtonSkill skill : this.skillsNet) {
 
 					// Skill button init
-					boolean knownSkill = this.isSkillLearned(skill) || PonyMagic.MAX_LVL >= skill.minLevel;
-					skill.initButton(this.mc, mouseX, mouseY, x, y, scale, knownSkill);
+					skill.initButton(this.mc, x, y, scale);
 
-					// // Lines
+					// Lines
 					if (!skill.lines.isEmpty()) {
 						for (String itLines : skill.lines) {
 							boolean lineActive = false;
@@ -251,13 +225,12 @@ public class GuiSkills extends GuiScreen {
 				// Showing info for skill
 				for (GuiButtonSkill skill : this.skillsNet) {
 
-					if (skill.isUnderMouse(mouseX, mouseY) && skill.knownSkill) {
+					if (skill.isUnderMouse(mouseX, mouseY)) {
 						String[] text = {
 								playerRace.getColor() + new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".name").getFormattedText(),
 								new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".command").getFormattedText(),
 								new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".descr").getFormattedText(),
 								// new TextComponentTranslation("skill.stamina", Config.).getFormattedText(),
-
 						};
 
 						List<String> skillHoverText = Arrays.asList(text);
@@ -268,8 +241,9 @@ public class GuiSkills extends GuiScreen {
 					}
 				}
 			}
-		} catch (NullPointerException e) {
+		} catch (NullPointerException exc) {
 			PonyMagic.log.info("[GUI] ERROR - NullPointerException");
+			exc.printStackTrace();
 			this.mc.displayGuiScreen(null);
 		}
 	}
@@ -279,34 +253,15 @@ public class GuiSkills extends GuiScreen {
 	}
 
 	private boolean isSkillAvailable(GuiButtonSkill skill) {
-		boolean dependencies = true;
+		Skill skillConfig = SkillConfig.getRaceSkill(
+				this.playerData.getRace(),
+				skill.skillName,
+				skill.skillLevel
+		);
+		// Check for free skill points and learned dependencies
+		return this.playerData.getLevelData().getFreeSkillPoints() >= skillConfig.getPrice() &&
+				this.playerData.getSkillData().isAnySkillLearned(skillConfig.getDepends());
 
-		// Check for learned dependencies
-		if (skill.depends != null) {
-			for (String skillName : skill.depends) {
-				if (skillName.contains("#")) {
-					String[] parts = skillName.split("#");
-					if (this.playerData.getSkillData().isSkillLearned(parts[0])
-							&& this.playerData.getSkillData().getSkillLevel(parts[0]) >= Integer.parseInt(parts[1])) {
-						dependencies = true;
-						break;
-					}
-				} else if (this.playerData.getSkillData().isSkillLearned(skillName)) {
-					dependencies = true;
-					break;
-				}
-				dependencies = false;
-			}
-		}
-
-		// Check for free skill points and player level and current skill level (need
-		// for stamina branch)
-		if (dependencies && this.playerData.getLevelData().getLevel() >= skill.minLevel
-				&& this.playerData.getLevelData().getFreeSkillPoints() > 0
-				&& this.playerData.getSkillData().getSkillLevel(skill.skillName) - skill.skillLevel == -1) {
-			return true;
-		}
-		return false;
 	}
 
 	@Override
