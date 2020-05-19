@@ -3,7 +3,7 @@ package net.braunly.ponymagic.spells.simple;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.skill.Skill;
 import net.braunly.ponymagic.spells.NamedSpell;
 import net.braunly.ponymagic.spells.potion.SpellPotion;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,8 +12,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldServer;
 
 public class SpellFly extends NamedSpell {
@@ -22,16 +20,19 @@ public class SpellFly extends NamedSpell {
     }
 
     @Override
-    public boolean cast(EntityPlayer player, Integer level) {
+    public boolean cast(EntityPlayer player, Skill skillConfig) {
         IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
         IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
-        Integer[] config = Config.spells.get(getSpellName());
-        if (!playerData.getTickData().isTicking(getSpellName()) && stamina.consume((double) config[1])) {
+        if (!playerData.getTickData().isTicking(getSpellName()) && stamina.consume((double) skillConfig.getStamina())) {
 
-            player.addPotionEffect(new PotionEffect(SpellPotion.getCustomPotion(this.getSpellName()), config[0], config[2]));
+            player.addPotionEffect(new PotionEffect(
+                    SpellPotion.getCustomPotion(this.getSpellName()),
+                    skillConfig.getEffect().get("duration"),
+                    skillConfig.getEffect().get("level")
+            ));
 
             stamina.sync((EntityPlayerMP) player);
-            playerData.getTickData().startTicking(getSpellName(), config[3]);
+            playerData.getTickData().startTicking(getSpellName(), skillConfig.getSpellData().get("cooldown"));
             PonyMagicAPI.playerDataController.savePlayerData(playerData);
             return true;
         }

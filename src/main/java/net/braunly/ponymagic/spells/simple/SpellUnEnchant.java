@@ -2,7 +2,7 @@ package net.braunly.ponymagic.spells.simple;
 
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.skill.Skill;
 import net.braunly.ponymagic.spells.NamedSpell;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -18,11 +18,11 @@ public class SpellUnEnchant extends NamedSpell {
 	}
 
 	@Override
-	public boolean cast(EntityPlayer player, Integer level) {
+	public boolean cast(EntityPlayer player, Skill skillConfig) {
 		ItemStack itemStack = player.getHeldItemMainhand();
 		if (itemStack != null && (itemStack.isItemEnchanted() || itemStack.getItem() == Items.ENCHANTED_BOOK)) {
 			IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
-			if (stamina.consume((double) Config.spells.get(getSpellName())[0])) {
+			if (stamina.consume((double) skillConfig.getStamina())) {
 				boolean isHeldBook = itemStack.getItem() == Items.ENCHANTED_BOOK;
 				
 				if (isHeldBook) {

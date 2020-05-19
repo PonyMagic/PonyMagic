@@ -7,6 +7,7 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
 import net.braunly.ponymagic.capabilities.swish.SwishProvider;
 import net.braunly.ponymagic.network.packets.SwishPacket;
+import net.braunly.ponymagic.skill.Skill;
 import net.braunly.ponymagic.spells.NamedSpell;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -20,7 +21,7 @@ public class SpellSwish extends NamedSpell {
 	}
 
 	@Override
-	public boolean cast(EntityPlayer player, Integer level) {
+	public boolean cast(EntityPlayer player, Skill skillConfig) {
 		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 		ISwishCapability swish = player.getCapability(SwishProvider.SWISH, null);
 		if (swish.canSwish() && stamina.getStamina(EnumStaminaType.CURRENT) < 10) {

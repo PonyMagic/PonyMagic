@@ -2,7 +2,7 @@ package net.braunly.ponymagic.spells.potion;
 
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.skill.Skill;
 import net.braunly.ponymagic.spells.NamedSpell;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -41,11 +41,14 @@ public class SpellPotion extends NamedSpell {
 		return vanillaBased ? getVanillaPotion(getSpellName()) : getCustomPotion(getSpellName());
 	}
 
-	boolean action(EntityPlayer player, Integer level) {
+	boolean action(EntityPlayer player, Skill skillConfig) {
 		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
-		Integer[] config = Config.potions.get(String.format("%s#%d", getSpellName(), level));
-		if (stamina != null && stamina.consume((double) config[1])) {
-			player.addPotionEffect(new PotionEffect(getPotion(), config[0], config[2]));
+		if (stamina != null && stamina.consume((double) skillConfig.getStamina())) {
+			player.addPotionEffect(new PotionEffect(
+					getPotion(),
+					skillConfig.getEffect().get("duration"),
+					skillConfig.getEffect().get("level")
+			));
 			stamina.sync((EntityPlayerMP) player);
 			return true;
 		}
@@ -53,7 +56,7 @@ public class SpellPotion extends NamedSpell {
 	}
 
 	@Override
-	public boolean cast(EntityPlayer player, Integer level) {
-		return action(player, level);
+	public boolean cast(EntityPlayer player, Skill skillConfig) {
+		return action(player, skillConfig);
 	}
 }
