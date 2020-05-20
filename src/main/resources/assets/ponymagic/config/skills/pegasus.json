@@ -128,6 +128,9 @@
     "depends": {
       "flyspeed": 2,
       "swish": 1
+    },
+    "spellData": {
+      "damage_percent": 10
     }
   },
   {
@@ -148,6 +151,9 @@
     "skillLevel": 1,
     "depends": {
       "highground": 1
+    },
+    "spellData": {
+      "damage_percent": 20
     }
   },
   {
@@ -156,6 +162,9 @@
     "skillLevel": 1,
     "depends": {
       "slowfallauto": 1
+    },
+    "spellData": {
+      "chance": 15
     }
   },
   {
@@ -175,6 +184,10 @@
     "name": "dodgingbuff",
     "price": 0,
     "skillLevel": 1,
+    "effect": {
+      "duration": 100,
+      "level": 0
+    },
     "depends": {
       "dodging": 1
     }

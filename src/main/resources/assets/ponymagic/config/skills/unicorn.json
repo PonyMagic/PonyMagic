@@ -227,7 +227,7 @@
     "skillLevel": 1,
     "effect": {
       "duration": 300,
-      "level": 0
+      "level": 2
     },
     "depends": {
       "healwave": 1
