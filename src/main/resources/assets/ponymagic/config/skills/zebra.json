@@ -2,17 +2,23 @@
   {
     "name": "reset",
     "price": 0,
-    "skillLevel": 0
+    "skillLevel": 0,
+    "depends": {
+    }
   },
   {
     "name": "staminaPool",
     "price": 0,
-    "skillLevel": 0
+    "skillLevel": 0,
+    "depends": {
+    }
   },
   {
     "name": "staminaPool",
     "price": 0,
-    "skillLevel": 1
+    "skillLevel": 1,
+    "depends": {
+    }
   },
   {
     "name": "staminaPool",
@@ -25,7 +31,9 @@
   {
     "name": "staminaRegen",
     "price": 0,
-    "skillLevel": 1
+    "skillLevel": 1,
+    "depends": {
+    }
   },
   {
     "name": "staminaRegen",
@@ -38,16 +46,18 @@
   {
     "name": "shregen",
     "price": 0,
-    "skillLevel": 1
+    "skillLevel": 1,
+    "depends": {
+    }
   },
   {
     "name": "jump",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 30,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 1200,
+      "level": 2
     },
     "depends": {
     }
@@ -56,10 +66,10 @@
     "name": "dispel",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 60,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 1,
+      "level": 1
     },
     "depends": {
     }
@@ -68,10 +78,10 @@
     "name": "fireresistance",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 60,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 1800,
+      "level": 1
     },
     "depends": {
     }
@@ -80,10 +90,10 @@
     "name": "drown",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 30,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 1200,
+      "level": 1
     },
     "depends": {
     }
@@ -92,10 +102,10 @@
     "name": "slow",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 30,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 600,
+      "level": 1
     },
     "depends": {
       "dispel": 1
@@ -105,10 +115,10 @@
     "name": "purity",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 45,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 1200,
+      "level": 1
     },
     "depends": {
       "fireresistance": 1
@@ -118,10 +128,10 @@
     "name": "nightvision",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 30,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 1200,
+      "level": 1
     },
     "depends": {
       "drown": 1
@@ -131,10 +141,10 @@
     "name": "vulnarable",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 30,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 600,
+      "level": 1
     },
     "depends": {
       "slow": 1
@@ -144,10 +154,10 @@
     "name": "antidote",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 45,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 1200,
+      "level": 1
     },
     "depends": {
       "purity": 1
@@ -157,10 +167,10 @@
     "name": "climb",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 30,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 1200,
+      "level": 1
     },
     "depends": {
       "nightvision": 1
@@ -170,9 +180,9 @@
     "name": "poison",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 30,
     "effect": {
-      "duration": 0,
+      "duration": 600,
       "level": 0
     },
     "depends": {
@@ -184,10 +194,10 @@
     "name": "invisibility",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 30,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 600,
+      "level": 1
     },
     "depends": {
       "antidote": 1,
@@ -198,10 +208,10 @@
     "name": "cure",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 60,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 1,
+      "level": 1
     },
     "depends": {
       "poison": 1,
@@ -212,10 +222,10 @@
     "name": "invert",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 30,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 1,
+      "level": 1
     },
     "depends": {
       "cure": 1
@@ -225,10 +235,10 @@
     "name": "extension",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 45,
     "effect": {
-      "duration": 0,
-      "level": 0
+      "duration": 600,
+      "level": 1
     },
     "depends": {
       "cure": 1
@@ -238,9 +248,9 @@
     "name": "revival",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 90,
     "effect": {
-      "duration": 0,
+      "duration": 100,
       "level": 0
     },
     "depends": {
