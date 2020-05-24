@@ -19,7 +19,7 @@ import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
-import net.braunly.ponymagic.exp.BlockBreakEventHandler;
+import net.braunly.ponymagic.quests.handlers.BlockBreakEventHandler;
 import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.LevelUpEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
@@ -28,6 +28,7 @@ import net.braunly.ponymagic.items.ModItems;
 import net.braunly.ponymagic.network.packets.*;
 import net.braunly.ponymagic.potions.PotionShield;
 import net.braunly.ponymagic.potions.PotionStaminaHealthRegen;
+import net.braunly.ponymagic.quests.handlers.BlockPlaceEventHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.WorldServer;
@@ -90,6 +91,7 @@ public class CommonProxy {
 		PonyMagic.log.info("Handlers registration...");
 		// Experience handlers
 		MinecraftForge.EVENT_BUS.register(new BlockBreakEventHandler());
+		MinecraftForge.EVENT_BUS.register(new BlockPlaceEventHandler());
 
 		MinecraftForge.EVENT_BUS.register(new MagicHandlersContainer());
 

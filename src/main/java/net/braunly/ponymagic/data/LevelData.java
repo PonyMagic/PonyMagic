@@ -23,7 +23,7 @@ public class LevelData implements ILevelDataStorage {
 		this.level = levelTags.getInteger("Level");
 		this.freeSkillPoint = levelTags.getInteger("FreeSkillPoint");
 
-		NBTTagList questsList = compound.getTagList("CurrentQuests", 10);
+		NBTTagList questsList = levelTags.getTagList("CurrentQuests", 10);
 		if (questsList.hasNoTags()) {
 			return;
 		}
@@ -32,11 +32,14 @@ public class LevelData implements ILevelDataStorage {
 			NBTTagCompound questsCompound = questsList.getCompoundTagAt(i);
 			HashMap<String, Integer> goalsMap = new HashMap<>();
 
-			NBTTagList goalsList = compound.getTagList("Goals", 10);
+			NBTTagList goalsList = questsCompound.getTagList("Goals", 10);
 			if (!goalsList.hasNoTags()) {
 				for (int k = 0; k < goalsList.tagCount(); k++) {
 					NBTTagCompound goalCompound = goalsList.getCompoundTagAt(k);
-					goalsMap.put(goalCompound.getString("Goal"), goalCompound.getInteger("Count"));
+					goalsMap.put(
+							goalCompound.getString("Goal"),
+							goalCompound.getInteger("Count")
+					);
 				}
 			}
 
