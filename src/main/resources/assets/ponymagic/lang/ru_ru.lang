@@ -60,6 +60,7 @@ gui.freeskillpoints=Очки умений: %s
 
 quest.block_break.name=Добыть блоки
 quest.block_place.name=Поставить блоки
+quest.entity_kill.name=Убить
 
 skill.reset0.name=Обнуление
 skill.reset0.command=МГНОВЕННО

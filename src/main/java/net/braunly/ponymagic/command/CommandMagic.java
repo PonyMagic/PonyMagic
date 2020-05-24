@@ -11,6 +11,7 @@ import net.braunly.ponymagic.config.LevelConfig;
 import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
+import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -164,10 +165,9 @@ public class CommandMagic extends CommandBase {
 			String questName = new TextComponentTranslation("quest." + questEntry.getKey() + ".name").getUnformattedComponentText();
 			player.sendMessage(new TextComponentTranslation("commands.magic.getquest.quest", questName));
 			for (Map.Entry<String, Integer> goalEntry : questEntry.getValue().entrySet()) {
-				String goalName = Block.getBlockFromName(goalEntry.getKey()).getLocalizedName();
 				player.sendMessage(new TextComponentTranslation(
 						"commands.magic.getquest.goal",
-						goalName,
+						QuestGoalUtils.getLocalizedGoalName(goalEntry.getKey()),
 						goalEntry.getValue()
 				));
 			}

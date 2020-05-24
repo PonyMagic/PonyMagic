@@ -29,6 +29,7 @@ import net.braunly.ponymagic.network.packets.*;
 import net.braunly.ponymagic.potions.PotionShield;
 import net.braunly.ponymagic.potions.PotionStaminaHealthRegen;
 import net.braunly.ponymagic.quests.handlers.BlockPlaceEventHandler;
+import net.braunly.ponymagic.quests.handlers.EntityKillEventHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.WorldServer;
@@ -92,6 +93,7 @@ public class CommonProxy {
 		// Experience handlers
 		MinecraftForge.EVENT_BUS.register(new BlockBreakEventHandler());
 		MinecraftForge.EVENT_BUS.register(new BlockPlaceEventHandler());
+		MinecraftForge.EVENT_BUS.register(new EntityKillEventHandler());
 
 		MinecraftForge.EVENT_BUS.register(new MagicHandlersContainer());
 
