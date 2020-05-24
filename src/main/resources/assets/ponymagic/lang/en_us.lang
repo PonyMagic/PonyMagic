@@ -1,3 +1,4 @@
+#PARSE_ESCAPES
 itemGroup.ponymagic=Pony Magic!
 key.categories.ponymagic=Pony Magic!
 key.skills=Меню скиллов
@@ -19,6 +20,9 @@ commands.magic.setlevel.usage=/magic setlevel <player> <level>
 commands.magic.setlevel.max_level=Maximum player level - 30
 commands.magic.setexp.usage=/magic setexp <player> <amount>
 commands.magic.setpoints.usage=/magic setpoints <player> <amount>
+commands.magic.getquest.usage=/magic getquest <player>
+commands.magic.getquest.quest=Quest: %1$s\nGoals:
+commands.magic.getquest.goal=\u2023 %1$s - %2$s
 commands.cast.usage=/cast <spellname>
 commands.cast.withoutRace=Ты не имеешь расы!
 commands.cast.haveNoAccess=Твоя раса не может использовать это заклинание!
@@ -53,6 +57,9 @@ gui.skill.usage=Использование:
 gui.exp=Опыт: %1$s/%2$s
 gui.level=Уровень: %s
 gui.freeskillpoints=Очки умений: %s
+
+quest.block_break.name=Break blocks
+quest.block_place.name=Place blocks
 
 skill.reset0.name=Обнуление
 skill.reset0.command=МГНОВЕННО

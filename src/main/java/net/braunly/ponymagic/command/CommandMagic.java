@@ -11,24 +11,25 @@ import net.braunly.ponymagic.config.LevelConfig;
 import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
+import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,7 +40,11 @@ public class CommandMagic extends CommandBase {
 	public final String name = "magic";
 	@Getter
 	public final int requiredPermissionLevel = 1;
-	private final String[] availableCommands = { "race", "reload", "spell", "test", "setlevel", "setpoints" };
+	private final String[] availableCommands = {
+			"race", "reload", "spell",
+			"test", "setlevel", "setpoints",
+			"getquest"
+	};
 
 	@Override
 	@Nonnull
@@ -150,6 +155,25 @@ public class CommandMagic extends CommandBase {
 		SkillConfig.load();
 	}
 
+	@ParametersAreNonnullByDefault
+	private void executeGetQuest(EntityPlayerMP player, String[] args) throws CommandException {
+		String playerName = args[1];
+
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
+		for (Map.Entry<String, HashMap<String, Integer>> questEntry : playerData.getLevelData().getCurrentGoals().entrySet()) {
+			String questName = new TextComponentTranslation("quest." + questEntry.getKey() + ".name").getUnformattedComponentText();
+			player.sendMessage(new TextComponentTranslation("commands.magic.getquest.quest", questName));
+			for (Map.Entry<String, Integer> goalEntry : questEntry.getValue().entrySet()) {
+				String goalName = Block.getBlockFromName(goalEntry.getKey()).getLocalizedName();
+				player.sendMessage(new TextComponentTranslation(
+						"commands.magic.getquest.goal",
+						goalName,
+						goalEntry.getValue()
+				));
+			}
+		}
+	}
+
 	@Override
 	@ParametersAreNonnullByDefault
 	public void execute(MinecraftServer server, ICommandSender commandSender, String[] args) throws CommandException {
@@ -183,6 +207,9 @@ public class CommandMagic extends CommandBase {
 				break;
 			case "reload":
 				executeReload(player, args);
+				break;
+			case "getquest":
+				executeGetQuest(player, args);
 				break;
 			default:
 				throw new WrongUsageException("commands.magic.usage");
