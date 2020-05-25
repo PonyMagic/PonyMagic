@@ -30,6 +30,7 @@ import net.braunly.ponymagic.potions.PotionShield;
 import net.braunly.ponymagic.potions.PotionStaminaHealthRegen;
 import net.braunly.ponymagic.quests.handlers.BlockPlaceEventHandler;
 import net.braunly.ponymagic.quests.handlers.EntityKillEventHandler;
+import net.braunly.ponymagic.util.OreDictUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.WorldServer;
@@ -109,6 +110,8 @@ public class CommonProxy {
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
+		// Init utils
+		OreDictUtils.getInstance();
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
