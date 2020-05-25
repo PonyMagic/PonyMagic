@@ -4,31 +4,33 @@ import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumQuestGoalType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.util.QuestGoalUtils;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.brewing.PlayerBrewedPotionEvent;
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class BlockPlaceEventHandler {
-    public BlockPlaceEventHandler() {
+public class BreedAnimalEventHandler {
+    public BreedAnimalEventHandler() {
 
     }
 
     @SubscribeEvent(priority=EventPriority.NORMAL)
-    public void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
-        if (!(event.getEntity() instanceof EntityPlayer)) return;
-
-        String questName = "block_place";
-        EntityPlayer player = (EntityPlayer) event.getEntity();
+    public void onAnimalBred(BabyEntitySpawnEvent event) {
+        EntityPlayer player = event.getCausedByPlayer();
+        IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
+        Entity entity = event.getParentA();
         String goalConfigKey = QuestGoalUtils.getConfigKey(
-                EnumQuestGoalType.BLOCK,
-                event.getState().getBlock().getRegistryName(),
-                event.getState().getBlock().getMetaFromState(event.getState())
+                EnumQuestGoalType.ENTITY,
+                EntityList.getKey(entity),
+                0
         );
 
-        IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
+        String questName = "breed_animal";
         playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
         PonyMagicAPI.playerDataController.savePlayerData(playerData);
-
     }
 }

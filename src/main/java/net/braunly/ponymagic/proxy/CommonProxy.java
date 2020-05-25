@@ -19,7 +19,7 @@ import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
-import net.braunly.ponymagic.quests.handlers.BlockBreakEventHandler;
+import net.braunly.ponymagic.quests.handlers.*;
 import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.LevelUpEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
@@ -28,8 +28,6 @@ import net.braunly.ponymagic.items.ModItems;
 import net.braunly.ponymagic.network.packets.*;
 import net.braunly.ponymagic.potions.PotionShield;
 import net.braunly.ponymagic.potions.PotionStaminaHealthRegen;
-import net.braunly.ponymagic.quests.handlers.BlockPlaceEventHandler;
-import net.braunly.ponymagic.quests.handlers.EntityKillEventHandler;
 import net.braunly.ponymagic.util.OreDictUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
@@ -95,6 +93,12 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new BlockBreakEventHandler());
 		MinecraftForge.EVENT_BUS.register(new BlockPlaceEventHandler());
 		MinecraftForge.EVENT_BUS.register(new EntityKillEventHandler());
+		MinecraftForge.EVENT_BUS.register(new BreedAnimalEventHandler());
+		MinecraftForge.EVENT_BUS.register(new BrewPotionEventHandler());
+		MinecraftForge.EVENT_BUS.register(new CraftEventHandler());
+		MinecraftForge.EVENT_BUS.register(new SmeltedEventHandler());
+		MinecraftForge.EVENT_BUS.register(new RepairEventHandler());
+		MinecraftForge.EVENT_BUS.register(new TameAnimalEventHandler());
 
 		MinecraftForge.EVENT_BUS.register(new MagicHandlersContainer());
 

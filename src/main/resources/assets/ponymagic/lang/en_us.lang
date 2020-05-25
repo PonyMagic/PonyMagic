@@ -59,30 +59,32 @@ gui.level=Уровень: %s
 gui.freeskillpoints=Очки умений: %s
 
 quest.break_block.name=Break block
-quest.place_block.name=Place block
 quest.mine_ore.name=Mine ore
 quest.kill_entity.name=Kill
 quest.kill_monster.name=Kill monster
+quest.place_block.name=Place block
 quest.craft.name=Craft
 quest.craft_tool.name=Craft tool
 quest.craft_armor.name=Craft armor
 quest.smelt.name=Smelt
 quest.smelt_food.name=Smelt food
-quest.smelt_ore.name=Smelt ore
+quest.repair.name=Repait tool
+quest.enchant_with_book.name=Enchant with book
+quest.brew_potion.name=Brew a potion
+quest.breed_animal.name=Breed animal
+quest.tame_animal.name=Tame a animal
+
+quest.pickup_item.name=Pickup
+quest.achive.name=Achive
+quest.cast_spell.name=Cast spell
+
+quest.visit_biom.name=Travel to
+quest.activate_lighthouse.name=Activate lighthouse
+quest.listen_disc.name=Listen disc
+quest.trade_with_villager.name=Trade with villager
 quest.enchant.name=Enchant
 quest.enchant_armor.name=Enchant armor
 quest.enchant_book.name=Enchant book
-quest.repair.name=Repait tool
-quest.bread_animal.name=Bread animal
-quest.brew_potion.name=Brew potion
-quest.visit_biom.name=Travel to
-quest.trade_with_villager.name=Trade with villager
-quest.pickup_item.name=Pickup
-quest.burn_portal.name=Burn portal
-quest.activate_lighthouse.name=Activate lighthouse
-quest.achive.name=Achive
-quest.listen_disc.name=Listen disc
-quest.cast_spell.name=Cast spell
 
 skill.reset0.name=Обнуление
 skill.reset0.command=МГНОВЕННО
