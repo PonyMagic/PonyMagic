@@ -19,7 +19,7 @@ import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
-import net.braunly.ponymagic.quests.handlers.*;
+import net.braunly.ponymagic.quests.Quests;
 import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.LevelUpEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
@@ -89,16 +89,8 @@ public class CommonProxy {
 
 	public void init(FMLInitializationEvent event) {
 		PonyMagic.log.info("Handlers registration...");
-		// Experience handlers
-		MinecraftForge.EVENT_BUS.register(new BlockBreakEventHandler());
-		MinecraftForge.EVENT_BUS.register(new BlockPlaceEventHandler());
-		MinecraftForge.EVENT_BUS.register(new EntityKillEventHandler());
-		MinecraftForge.EVENT_BUS.register(new BreedAnimalEventHandler());
-		MinecraftForge.EVENT_BUS.register(new BrewPotionEventHandler());
-		MinecraftForge.EVENT_BUS.register(new CraftEventHandler());
-		MinecraftForge.EVENT_BUS.register(new SmeltedEventHandler());
-		MinecraftForge.EVENT_BUS.register(new RepairEventHandler());
-		MinecraftForge.EVENT_BUS.register(new TameAnimalEventHandler());
+		// Quests handlers
+		Quests.registerHandlers();
 
 		MinecraftForge.EVENT_BUS.register(new MagicHandlersContainer());
 

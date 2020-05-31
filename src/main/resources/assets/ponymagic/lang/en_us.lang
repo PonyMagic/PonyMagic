@@ -73,8 +73,8 @@ quest.enchant_with_book.name=Enchant with book
 quest.brew_potion.name=Brew a potion
 quest.breed_animal.name=Breed animal
 quest.tame_animal.name=Tame a animal
-
 quest.pickup_item.name=Pickup
+
 quest.achive.name=Achive
 quest.cast_spell.name=Cast spell
 
