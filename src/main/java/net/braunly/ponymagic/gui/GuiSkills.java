@@ -124,8 +124,8 @@ public class GuiSkills extends GuiScreen {
 		int h = 334;
 
 		float scale = Math.min(Math.min((float)(width) / w, (float)(height) / h), 1.0F);
-		int x = this.width - (int)(w * scale);
-		int y = 0;
+		int x = (this.width - (int)(w * scale)) / 2;
+		int y = (this.height - (int)(h * scale)) / 2;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.scale(scale, scale, scale);
