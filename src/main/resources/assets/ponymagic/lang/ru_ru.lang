@@ -58,9 +58,33 @@ gui.exp=Опыт: %1$s/%2$s
 gui.level=Уровень: %s
 gui.freeskillpoints=Очки умений: %s
 
-quest.block_break.name=Добыть блоки
-quest.block_place.name=Поставить блоки
-quest.entity_kill.name=Убить
+quest.break_block.name=Добыть блок
+quest.mine_ore.name=Добыть руду
+quest.kill_entity.name=Убить
+quest.kill_monster.name=Убить монстра
+quest.place_block.name=Поставить блок
+quest.craft.name=Скрафтить
+quest.craft_tool.name=Скрафтить инструмент
+quest.craft_armor.name=Скрафтить броню
+quest.smelt.name=Пожарить
+quest.smelt_food.name=Пожарить еду
+quest.repair.name=Починить
+quest.enchant_with_book.name=Зачаровать с книгой
+quest.brew_potion.name=Сварить зелье
+quest.breed_animal.name=Размножить
+quest.tame_animal.name=Приручить
+quest.pickup_item.name=Поднять
+
+quest.achieve.name=Получить достижение
+quest.cast_spell.name=Использовать способность
+
+quest.visit_biom.name=Посетить биом
+quest.activate_lighthouse.name=Активировать маяк
+quest.listen_disc.name=Послушать пластинку
+quest.trade_with_villager.name=Поторговать с жителём
+quest.enchant.name=Зачаровать
+quest.enchant_armor.name=Зачаровать броню
+quest.enchant_book.name=Зачаровать книгу
 
 skill.reset0.name=Обнуление
 skill.reset0.command=МГНОВЕННО

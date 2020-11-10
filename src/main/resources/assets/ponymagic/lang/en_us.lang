@@ -75,7 +75,7 @@ quest.breed_animal.name=Breed animal
 quest.tame_animal.name=Tame a animal
 quest.pickup_item.name=Pickup
 
-quest.achive.name=Achive
+quest.achieve.name=Achieve
 quest.cast_spell.name=Cast spell
 
 quest.visit_biom.name=Travel to

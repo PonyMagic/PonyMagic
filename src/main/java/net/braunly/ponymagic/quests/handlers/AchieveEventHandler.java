@@ -12,8 +12,8 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
-public class ArchiveEventHandler {
-    public ArchiveEventHandler() {
+public class AchieveEventHandler {
+    public AchieveEventHandler() {
 
     }
 
@@ -28,7 +28,7 @@ public class ArchiveEventHandler {
                 0
         );
 
-        String questName = "pickup_item";
+        String questName = "achieve";
         playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
 
         PonyMagicAPI.playerDataController.savePlayerData(playerData);

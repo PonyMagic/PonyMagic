@@ -1,7 +1,7 @@
 {
   "1": {
     "place_block": {
-      "minecraft:dirt": 10
+      "BLOCK#minecraft:dirt": 10
     }
   },
   "2": {},

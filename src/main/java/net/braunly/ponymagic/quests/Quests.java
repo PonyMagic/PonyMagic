@@ -16,7 +16,7 @@ public class Quests {
         MinecraftForge.EVENT_BUS.register(new RepairEventHandler());
         MinecraftForge.EVENT_BUS.register(new TameAnimalEventHandler());
         MinecraftForge.EVENT_BUS.register(new PickupEventHandler());
-        // FIXME: add translation
-        //MinecraftForge.EVENT_BUS.register(new ArchiveEventHandler());
+        // FIXME: test this event
+        //MinecraftForge.EVENT_BUS.register(new AchieveEventHandler());
     }
 }
