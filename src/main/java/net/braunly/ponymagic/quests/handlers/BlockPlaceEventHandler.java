@@ -18,7 +18,7 @@ public class BlockPlaceEventHandler {
     public void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
         if (!(event.getEntity() instanceof EntityPlayer)) return;
 
-        String questName = "block_place";
+        String questName = "place_block";
         EntityPlayer player = (EntityPlayer) event.getEntity();
         String goalConfigKey = QuestGoalUtils.getConfigKey(
                 EnumQuestGoalType.BLOCK,
