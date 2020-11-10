@@ -14,9 +14,9 @@ public class QuestGoalUtils {
 
     public static String getConfigKey(EnumQuestGoalType goalType, ResourceLocation resLoc, int meta) {
         if (meta > 0) {
-            return goalType.name().toLowerCase() + delimiter + resLoc.toString() + delimiter + meta;
+            return goalType.name() + delimiter + resLoc.toString() + delimiter + meta;
         } else {
-            return goalType.name().toLowerCase() + delimiter + resLoc.toString();
+            return goalType.name() + delimiter + resLoc.toString();
         }
     }
 
