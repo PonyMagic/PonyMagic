@@ -258,7 +258,7 @@
       "tpsurface": 1
     },
     "spellData": {
-      "radius": 10,
+      "distance": 10,
       "cooldown": 200
     }
   },
