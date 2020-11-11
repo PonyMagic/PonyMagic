@@ -13,38 +13,36 @@ public class LevelData implements ILevelDataStorage {
 	private int level = 0;
 	private int freeSkillPoint = 0;
 
-	private final HashMap<String, HashMap<String, Integer>> currentGoals = new HashMap<>();
+	private HashMap<String, HashMap<String, Integer>> currentGoals = new HashMap<>();
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		if (compound == null)
 			return;
+		HashMap<String, HashMap<String, Integer>> quests = new HashMap<>();
+
 		NBTTagCompound levelTags = compound.getCompoundTag("LevelData");
 		this.level = levelTags.getInteger("Level");
 		this.freeSkillPoint = levelTags.getInteger("FreeSkillPoint");
 
 		NBTTagList questsList = levelTags.getTagList("CurrentQuests", 10);
-		if (questsList.hasNoTags()) {
-			return;
-		}
 
 		for (int i = 0; i < questsList.tagCount(); i++) {
 			NBTTagCompound questsCompound = questsList.getCompoundTagAt(i);
 			HashMap<String, Integer> goalsMap = new HashMap<>();
 
 			NBTTagList goalsList = questsCompound.getTagList("Goals", 10);
-			if (!goalsList.hasNoTags()) {
-				for (int k = 0; k < goalsList.tagCount(); k++) {
-					NBTTagCompound goalCompound = goalsList.getCompoundTagAt(k);
-					goalsMap.put(
-							goalCompound.getString("Goal"),
-							goalCompound.getInteger("Count")
-					);
-				}
+			for (int k = 0; k < goalsList.tagCount(); k++) {
+				NBTTagCompound goalCompound = goalsList.getCompoundTagAt(k);
+				goalsMap.put(
+						goalCompound.getString("Goal"),
+						goalCompound.getInteger("Count")
+				);
 			}
-
-			this.currentGoals.put(questsCompound.getString("QuestName"), goalsMap);
+			quests.put(questsCompound.getString("QuestName"), goalsMap);
 		}
+
+		this.currentGoals = quests;
 	}
 
 	@Override
@@ -84,6 +82,7 @@ public class LevelData implements ILevelDataStorage {
 
 		HashMap<String, Integer> questGoals = this.currentGoals.get(questName);
 
+		// FIXME: Fix log (and etc.) variants (maybe?)
 		return !questGoals.isEmpty() && questGoals.containsKey(goalName);
 	}
 

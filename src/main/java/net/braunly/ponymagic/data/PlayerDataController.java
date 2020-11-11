@@ -48,6 +48,7 @@ public class PlayerDataController implements IPlayerDataController {
 			data.getLevelData().levelUp();
 			int newLevel = data.getLevelData().getLevel();
 
+			// FIXME: NPE on max level get
 			data.getLevelData().setGoals(LevelConfig.getRaceLevelConfig(data.getRace(), newLevel + 1).getQuestsWithGoals());
 
 			MinecraftForge.EVENT_BUS.post(new LevelUpEvent(

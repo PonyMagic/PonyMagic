@@ -13,6 +13,7 @@ public class QuestGoalUtils {
     private static final String delimiter = "#";
 
     public static String getConfigKey(EnumQuestGoalType goalType, ResourceLocation resLoc, int meta) {
+        // FIXME: Fix log (and etc.) variants
         if (meta > 0) {
             return goalType.name() + delimiter + resLoc.toString() + delimiter + meta;
         } else {
