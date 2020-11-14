@@ -46,14 +46,15 @@ public class PlayerDataController implements IPlayerDataController {
 
 		if (data.getLevelData().isLevelUp()) {
 			data.getLevelData().levelUp();
-			int newLevel = data.getLevelData().getLevel();
+			int nextLevel = data.getLevelData().getLevel() + 1;
 
-			// FIXME: NPE on max level get
-			data.getLevelData().setGoals(LevelConfig.getRaceLevelConfig(data.getRace(), newLevel + 1).getQuestsWithGoals());
-
+			if (nextLevel <= PonyMagic.MAX_LVL) {
+				data.getLevelData().setGoals(LevelConfig.getRaceLevelConfig(data.getRace(), nextLevel).getQuestsWithGoals());
+			}
 			MinecraftForge.EVENT_BUS.post(new LevelUpEvent(
+
 					data.getPlayer(),
-					newLevel
+					data.getLevelData().getLevel()
 			));
 		}
 
