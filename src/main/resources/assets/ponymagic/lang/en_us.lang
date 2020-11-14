@@ -59,8 +59,8 @@ gui.exp=Exp: %1$s/%2$s
 gui.level=Level: %s
 gui.freeskillpoints=Skill points: %s
 
-gui.quest.quest=Quest: %1$s
-gui.quest.goal=\u2023 %1$s - %2$s
+gui.quest.quest=%1$s:
+gui.quest.goal=\u2023%1$s - %2$s
 
 quest.break_block.name=Break block
 quest.mine_ore.name=Mine ore

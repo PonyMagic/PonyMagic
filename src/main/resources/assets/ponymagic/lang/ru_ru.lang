@@ -59,8 +59,8 @@ gui.exp=Опыт: %1$s/%2$s
 gui.level=Уровень: %s
 gui.freeskillpoints=Очки умений: %s
 
-gui.quest.quest=Quest: %1$s
-gui.quest.goal=\u2023 %1$s - %2$s
+gui.quest.quest=%1$s
+gui.quest.goal=\u2023%1$s - %2$s
 
 quest.break_block.name=Добыть блок
 quest.mine_ore.name=Добыть руду
