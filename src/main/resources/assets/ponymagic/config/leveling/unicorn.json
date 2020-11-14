@@ -1,11 +1,24 @@
 {
   "1": {
+    "break_block": {
+      "BLOCK#minecraft:dirt": 3,
+      "BLOCK#minecraft:grass": 2
+    },
     "place_block": {
-      "BLOCK#minecraft:dirt": 10
+      "BLOCK#minecraft:log": 3
     }
   },
-  "2": {},
-  "3": {},
+  "2": {
+    "place_block": {
+      "BLOCK#minecraft:log": 2,
+      "BLOCK#minecraft:dirt": 2
+    }
+  },
+  "3": {
+    "break_block": {
+      "BLOCK#minecraft:dirt": 5
+    }
+  },
   "4": {},
   "5": {},
   "6": {},

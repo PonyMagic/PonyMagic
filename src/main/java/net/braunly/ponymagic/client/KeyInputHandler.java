@@ -2,6 +2,7 @@ package net.braunly.ponymagic.client;
 
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.gui.GuiHandler;
+import net.braunly.ponymagic.gui.GuiQuests;
 import net.braunly.ponymagic.gui.GuiSkills;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +19,14 @@ public class KeyInputHandler {
 			if (!FMLClientHandler.instance().isGUIOpen(GuiSkills.class)) {
 				player.openGui(PonyMagic.instance, GuiHandler.SKILLS_GUI, player.world, (int) player.posX,
 						(int) player.posY, (int) player.posZ);
+			}
+		}
+		if (KeyBindings.quests_gui.isPressed()) {
+			EntityPlayer player = Minecraft.getMinecraft().player;
+			if (GuiQuests.isGuiOpen()) {
+				GuiQuests.closeGui();
+			} else {
+				GuiQuests.openGui();
 			}
 		}
 	}

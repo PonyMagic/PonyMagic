@@ -1,5 +1,6 @@
 package net.braunly.ponymagic.gui;
 
+import lombok.Getter;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
@@ -7,6 +8,7 @@ import net.braunly.ponymagic.client.KeyBindings;
 import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
 import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -15,21 +17,35 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GuiQuests extends GuiIngameForge {
+@SideOnly(Side.CLIENT)
+public class GuiQuests {
+    private final Minecraft mc;
     private IPlayerDataStorage playerData;
+    @Getter
+    private static boolean isGuiOpen = false;
 
     public GuiQuests(Minecraft mc) {
-        super(mc);
+        this.mc = mc;
+    }
+
+    public static void openGui() {
+        GuiQuests.isGuiOpen = true;
+    }
+
+    public static void closeGui() {
+        GuiQuests.isGuiOpen = false;
     }
 
     @SubscribeEvent
     public void onRender(RenderGameOverlayEvent event) {
-        if (event.isCancelable() || event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) {
+        if (!GuiQuests.isGuiOpen || event.isCancelable() || event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) {
             return;
         }
         if (mc.player.capabilities.isCreativeMode || mc.player.isSpectator())

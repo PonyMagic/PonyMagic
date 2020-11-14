@@ -1,12 +1,13 @@
 #PARSE_ESCAPES
 itemGroup.ponymagic=Pony Magic!
 key.categories.ponymagic=Pony Magic!
-key.skills=Меню скиллов
+key.skills=Skills menu
+key.quests=Show quests
 
-item.reset_book.name=Книга обнуления
-item.cloud_in_bottle.name=Облако в бутылке
+item.reset_book.name=Reset book
+item.cloud_in_bottle.name=Cloud in bottle
 
-event.levelup.string=§aТеперь у тебя §e%s§a уровень.
+event.levelup.string=§aNow you have §e%s§a level.
 
 commands.magic.usage=/magic <race|spell|test|setlevel|setexp|setpoints|reload>
 commands.magic.player_not_found=Player not found!
@@ -24,11 +25,11 @@ commands.magic.getquest.usage=/magic getquest <player>
 commands.magic.getquest.quest=Quest: %1$s\nGoals:
 commands.magic.getquest.goal=\u2023 %1$s - %2$s
 commands.cast.usage=/cast <spellname>
-commands.cast.withoutRace=Ты не имеешь расы!
-commands.cast.haveNoAccess=Твоя раса не может использовать это заклинание!
-commands.cast.notLearned=Заклинание не изучено!
-commands.cast.ok=Успешно!
-commands.cast.fail=Не удачно!
+commands.cast.withoutRace=You don't have any race!
+commands.cast.haveNoAccess=Your race can't use this spell!
+commands.cast.notLearned=Spell not learned!
+commands.cast.ok=Success!
+commands.cast.fail=Fail!
 
 commands.stamina.playerHasNoProps='%s' has no Stamina properties. This is a bug.
 commands.stamina.usage=/stamina <check|zero|fill|set|add|freeze>
@@ -51,12 +52,12 @@ commands.stamina.set.usage=/stamina set [player] <value>
 commands.stamina.setmax.success=Set maximum stamina to %1$.2f for %2$s
 commands.stamina.setmax.usage=/stamina setmax [player] <value>
 
-gui.skill.name=Название: 
-gui.skill.usage=Использование: 
+gui.skill.name=Name:
+gui.skill.usage=Use:
 
-gui.exp=Опыт: %1$s/%2$s
-gui.level=Уровень: %s
-gui.freeskillpoints=Очки умений: %s
+gui.exp=Exp: %1$s/%2$s
+gui.level=Level: %s
+gui.freeskillpoints=Skill points: %s
 
 gui.quest.quest=Quest: %1$s
 gui.quest.goal=\u2023 %1$s - %2$s
@@ -89,8 +90,8 @@ quest.enchant.name=Enchant
 quest.enchant_armor.name=Enchant armor
 quest.enchant_book.name=Enchant book
 
-skill.reset0.name=Обнуление
-skill.reset0.command=МГНОВЕННО
+skill.reset0.name=Reset
+skill.reset0.command=INSTANTLY
 skill.reset0.descr=Возвращает очки способносней за счёт 10%% опыта.
 skill.reset.fail=Недостаточно опыта или нет книги обнуления.
 
