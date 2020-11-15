@@ -198,7 +198,6 @@
     "skillLevel": 1,
     "stamina": 0,
     "depends": {
-      "solidcore": 1,
       "heal": 1
     },
     "spellData": {
@@ -230,7 +229,7 @@
       "level": 2
     },
     "depends": {
-      "healwave": 1
+      "solidcore": 1
     },
     "spellData": {
       "cooldown": 1200
@@ -272,7 +271,8 @@
       "level": 0
     },
     "depends": {
-      "readyforduel": 1
+      "readyforduel": 1,
+      "healwave": 1
     }
   },
   {
