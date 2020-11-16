@@ -15,14 +15,14 @@
   },
   {
     "name": "staminaPool",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "depends": {
     }
   },
   {
     "name": "staminaPool",
-    "price": 0,
+    "price": 2,
     "skillLevel": 2,
     "depends": {
       "staminaPool": 1
@@ -30,12 +30,12 @@
   },
   {
     "name": "staminaRegen",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1
   },
   {
     "name": "staminaRegen",
-    "price": 0,
+    "price": 2,
     "skillLevel": 2,
     "depends": {
       "staminaRegen": 1
@@ -43,7 +43,7 @@
   },
   {
     "name": "shregen",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "depends": {
     }
@@ -81,7 +81,7 @@
   },
   {
     "name": "extinguisher",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "effect": {
       "duration": 1200,
@@ -107,7 +107,7 @@
   },
   {
     "name": "unenchant",
-    "price": 0,
+    "price": 1,
     "skillLevel": 1,
     "stamina": 45,
     "depends": {
@@ -115,7 +115,7 @@
   },
   {
     "name": "shield",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 10,
     "effect": {
@@ -128,7 +128,7 @@
   },
   {
     "name": "hpregen",
-    "price": 1,
+    "price": 2,
     "skillLevel": 2,
     "stamina": 50,
     "effect": {
@@ -141,7 +141,7 @@
   },
   {
     "name": "tpbed",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 60,
     "effect": {
@@ -155,7 +155,7 @@
   },
   {
     "name": "solidcore",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "stamina": 30,
     "effect": {
@@ -168,7 +168,7 @@
   },
   {
     "name": "heal",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 30,
     "effect": {
@@ -181,7 +181,7 @@
   },
   {
     "name": "enchant",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "stamina": 90,
     "depends": {
@@ -194,7 +194,7 @@
   },
   {
     "name": "healwave",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 0,
     "depends": {
@@ -209,7 +209,7 @@
   },
   {
     "name": "tpsurface",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 30,
     "effect": {
@@ -222,7 +222,7 @@
   },
   {
     "name": "readyforduel",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "effect": {
       "duration": 300,
@@ -237,7 +237,7 @@
   },
   {
     "name": "slowfall",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 30,
     "effect": {
@@ -250,7 +250,7 @@
   },
   {
     "name": "blink",
-    "price": 0,
+    "price": 4,
     "skillLevel": 1,
     "stamina": 30,
     "depends": {
@@ -263,7 +263,7 @@
   },
   {
     "name": "revival",
-    "price": 0,
+    "price": 4,
     "skillLevel": 1,
     "stamina": 90,
     "effect": {
@@ -277,7 +277,7 @@
   },
   {
     "name": "fly",
-    "price": 0,
+    "price": 4,
     "skillLevel": 1,
     "stamina": 60,
     "effect": {

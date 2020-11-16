@@ -15,14 +15,14 @@
   },
   {
     "name": "staminaPool",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "depends": {
     }
   },
   {
     "name": "staminaPool",
-    "price": 0,
+    "price": 3,
     "skillLevel": 2,
     "depends": {
       "staminaPool": 1
@@ -30,14 +30,14 @@
   },
   {
     "name": "staminaRegen",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "depends": {
     }
   },
   {
     "name": "staminaRegen",
-    "price": 0,
+    "price": 3,
     "skillLevel": 2,
     "depends": {
       "staminaRegen": 1
@@ -45,7 +45,7 @@
   },
   {
     "name": "shregen",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "depends": {
     }
@@ -59,7 +59,7 @@
   },
   {
     "name": "speed",
-    "price": 0,
+    "price": 1,
     "skillLevel": 1,
     "stamina": 30,
     "effect": {
@@ -71,7 +71,7 @@
   },
   {
     "name": "flyduration",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "depends": {
       "swish": 1
@@ -79,7 +79,7 @@
   },
   {
     "name": "flyspeed",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "depends": {
       "speed": 1
@@ -87,7 +87,7 @@
   },
   {
     "name": "flyduration",
-    "price": 0,
+    "price": 3,
     "skillLevel": 2,
     "depends": {
       "flyduration": 1
@@ -95,7 +95,7 @@
   },
   {
     "name": "flyspeed",
-    "price": 0,
+    "price": 3,
     "skillLevel": 2,
     "depends": {
       "flyspeed": 1
@@ -103,14 +103,14 @@
   },
   {
     "name": "swish",
-    "price": 0,
+    "price": 1,
     "skillLevel": 1,
     "stamina": 30,
     "depends": {}
   },
   {
     "name": "haste",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 50,
     "effect": {
@@ -123,7 +123,7 @@
   },
   {
     "name": "highground",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "depends": {
       "flyspeed": 2,
@@ -135,7 +135,7 @@
   },
   {
     "name": "slowfallauto",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "effect": {
       "duration": 300,
@@ -147,7 +147,7 @@
   },
   {
     "name": "onedge",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "depends": {
       "highground": 1
@@ -158,7 +158,7 @@
   },
   {
     "name": "dodging",
-    "price": 0,
+    "price": 4,
     "skillLevel": 1,
     "depends": {
       "slowfallauto": 1
@@ -169,7 +169,7 @@
   },
   {
     "name": "archery",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 45,
     "effect": {
@@ -182,7 +182,7 @@
   },
   {
     "name": "dodgingbuff",
-    "price": 0,
+    "price": 4,
     "skillLevel": 1,
     "effect": {
       "duration": 100,

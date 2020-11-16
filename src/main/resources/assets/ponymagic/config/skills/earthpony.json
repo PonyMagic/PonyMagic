@@ -15,14 +15,14 @@
   },
   {
     "name": "staminaPool",
-    "price": 0,
+    "price": 1,
     "skillLevel": 1,
     "depends": {
     }
   },
   {
     "name": "staminaPool",
-    "price": 0,
+    "price": 2,
     "skillLevel": 2,
     "depends": {
       "staminaPool": 1
@@ -30,12 +30,12 @@
   },
   {
     "name": "staminaRegen",
-    "price": 0,
+    "price": 1,
     "skillLevel": 1
   },
   {
     "name": "staminaRegen",
-    "price": 0,
+    "price": 2,
     "skillLevel": 2,
     "depends": {
       "staminaRegen": 1
@@ -43,7 +43,7 @@
   },
   {
     "name": "shregen",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "depends": {
     }
@@ -59,7 +59,7 @@
   },
   {
     "name": "grow",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 10,
     "depends": {
@@ -70,7 +70,7 @@
   },
   {
     "name": "jump",
-    "price": 0,
+    "price": 1,
     "skillLevel": 1,
     "stamina": 30,
     "effect": {
@@ -82,7 +82,7 @@
   },
   {
     "name": "stepup",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "stamina": 30,
     "effect": {
@@ -95,7 +95,7 @@
   },
   {
     "name": "strength",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 30,
     "effect": {
@@ -108,7 +108,7 @@
   },
   {
     "name": "speed",
-    "price": 0,
+    "price": 2,
     "skillLevel": 1,
     "stamina": 30,
     "effect": {
@@ -121,7 +121,7 @@
   },
   {
     "name": "solidcore",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 30,
     "effect": {
@@ -134,7 +134,7 @@
   },
   {
     "name": "haste",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 50,
     "effect": {
@@ -147,7 +147,7 @@
   },
   {
     "name": "resist",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 60,
     "effect": {
@@ -160,7 +160,7 @@
   },
   {
     "name": "ironskin",
-    "price": 0,
+    "price": 3,
     "skillLevel": 1,
     "stamina": 50,
     "effect": {
@@ -173,7 +173,7 @@
   },
   {
     "name": "recoil",
-    "price": 0,
+    "price": 4,
     "skillLevel": 1,
     "stamina": 40,
     "effect": {
@@ -186,7 +186,7 @@
   },
   {
     "name": "repair",
-    "price": 0,
+    "price": 4,
     "skillLevel": 1,
     "stamina": 70,
     "effect": {
