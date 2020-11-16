@@ -60,18 +60,18 @@ public class GuiSkillsNet {
 				.add(new GuiButtonSkill("fly", 0, 41, 203, 0))
 				// T1
 				.add(new GuiButtonSkill("speed", 1, 105, 97, ImmutableSet.of("flyspeed#1"), 1))
-				.add(new GuiButtonSkill("flyduration", 2, 105, 161, ImmutableSet.of("flyduration#2"),
+				.add(new GuiButtonSkill("swish", 2, 105, 161, ImmutableSet.of("flyduration#1"),
 						1))
 				// T2
 				.add(new GuiButtonSkill("flyspeed", 3, 169, 97,
 						ImmutableSet.of("flyspeed#2"), 1))
 				.add(new GuiButtonSkill("flyduration", 4, 169, 161,
-						ImmutableSet.of("swish"), 2))
+						ImmutableSet.of("flyduration#2"), 1))
 				// T3
 				.add(new GuiButtonSkill("flyspeed", 5, 233, 97,
 						ImmutableSet.of("haste", "highground"), 2))
-				.add(new GuiButtonSkill("swish", 6, 233, 161,
-						ImmutableSet.of("slowfallauto", "highground"), 1))
+				.add(new GuiButtonSkill("flyduration", 6, 233, 161,
+						ImmutableSet.of("slowfallauto", "highground"), 2))
 				// T4
 				.add(new GuiButtonSkill("haste", 7, 297, 65, ImmutableSet.of(), 1))
 				.add(new GuiButtonSkill("highground", 8, 297, 129,
@@ -113,18 +113,18 @@ public class GuiSkillsNet {
 				.add(new GuiButtonSkill("enchant", 9, 233, 171, ImmutableSet.of("tpsurface"),
 						1))
 				// T4
+				.add(new GuiButtonSkill("readyforduel", 12, 297, 43, ImmutableSet.of("revival"), 1))
 				.add(new GuiButtonSkill("healwave", 4, 297, 107,
 						ImmutableSet.of("revival"), 1))
 				.add(new GuiButtonSkill("tpsurface", 11, 297, 171,
 						ImmutableSet.of("slowfall", "blink"), 1))
 				// T5
-				.add(new GuiButtonSkill("readyforduel", 12, 297, 43, ImmutableSet.of("revival"), 1))
+				.add(new GuiButtonSkill("revival", 15, 361, 75, 1))
 				.add(new GuiButtonSkill("slowfall", 13, 361, 139,
 						ImmutableSet.of("fly"), 1))
 				.add(new GuiButtonSkill("blink", 14, 361, 203,
 						ImmutableSet.of(), 1))
 				// T6
-				.add(new GuiButtonSkill("revival", 15, 361, 75, 1))
 				.add(new GuiButtonSkill("fly", 16, 425, 139, 1))
 				// Add shared skills
 				.addAll(sharedSkills).build();

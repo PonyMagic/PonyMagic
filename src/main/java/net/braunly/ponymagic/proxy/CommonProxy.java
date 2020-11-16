@@ -6,10 +6,6 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.stamina.StaminaHandler;
 import net.braunly.ponymagic.capabilities.stamina.StaminaSerializer;
 import net.braunly.ponymagic.capabilities.stamina.StaminaStorage;
-import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
-import net.braunly.ponymagic.capabilities.swish.SwishHandler;
-import net.braunly.ponymagic.capabilities.swish.SwishSerializer;
-import net.braunly.ponymagic.capabilities.swish.SwishStorage;
 import net.braunly.ponymagic.command.CommandCast;
 import net.braunly.ponymagic.command.CommandMagic;
 import net.braunly.ponymagic.command.CommandStamina;
@@ -74,7 +70,6 @@ public class CommonProxy {
 
 		// Register capability data
 		CapabilityManager.INSTANCE.register(IStaminaStorage.class, new StaminaSerializer(), StaminaStorage.class);
-		CapabilityManager.INSTANCE.register(ISwishCapability.class, new SwishSerializer(), SwishStorage.class);
 		CapabilityManager.INSTANCE.register(IPlayerDataStorage.class, new PlayerDataSerializer(), PlayerData.class);
 		
 		ModItems.init();
@@ -99,7 +94,6 @@ public class CommonProxy {
 
 		// Attach capabilities to player
 		MinecraftForge.EVENT_BUS.register(new StaminaHandler());
-		MinecraftForge.EVENT_BUS.register(new SwishHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerDataHandler());
 
 		MagicSoundHandler.init();

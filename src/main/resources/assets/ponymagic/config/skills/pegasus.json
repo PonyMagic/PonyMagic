@@ -74,6 +74,7 @@
     "price": 0,
     "skillLevel": 1,
     "depends": {
+      "swish": 1
     }
   },
   {
@@ -104,9 +105,8 @@
     "name": "swish",
     "price": 0,
     "skillLevel": 1,
-    "depends": {
-      "flyduration": 2
-    }
+    "stamina": 30,
+    "depends": {}
   },
   {
     "name": "haste",
@@ -127,7 +127,7 @@
     "skillLevel": 1,
     "depends": {
       "flyspeed": 2,
-      "swish": 1
+      "flyduration": 2
     },
     "spellData": {
       "damage_percent": 10
@@ -142,7 +142,7 @@
       "level": 1
     },
     "depends": {
-      "swish": 1
+      "flyduration": 2
     }
   },
   {

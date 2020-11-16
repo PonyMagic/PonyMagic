@@ -6,8 +6,6 @@ import me.braunly.ponymagic.api.enums.EnumStaminaType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
-import net.braunly.ponymagic.capabilities.swish.SwishProvider;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
@@ -17,7 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -137,13 +134,6 @@ public class MagicHandlersContainer {
 				player.removePotionEffect(speedPotion);
 			}
 
-			// Handle pegasus swish cooldown
-			if (playerData.getSkillData().isSkillLearned("swish")) {
-				ISwishCapability swish = player.getCapability(SwishProvider.SWISH, null);
-				if (!swish.canSwish() && staminaCurrent > (staminaMaximum/3)) {
-					swish.setCanSwish(true);
-				}
-			}
 		}
 		// Handle timers
 		if (playerData.getTickData().isTicking()) {
