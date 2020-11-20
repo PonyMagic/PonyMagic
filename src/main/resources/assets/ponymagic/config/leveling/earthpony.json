@@ -67,7 +67,7 @@
   },
   "6": {
     "smelt_food": {
-      "ITEM#minecraft:cooked_pork": 32
+      "ITEM#minecraft:cooked_porkchop": 32
     },
     "break_block": {
       "BLOCK#minecraft:log#3": 64,
@@ -99,9 +99,11 @@
       "ENTITY#minecraft:pig": 16
     },
     "place_block": {
-      "BLOCK#minecraft:spruce_boat": 1,
       "BLOCK#minecraft:ladder": 32,
       "BLOCK#minecraft:sapling#2": 16
+    },
+    "craft": {
+      "ITEM#minecraft:spruce_boat": 1
     },
     "craft_tool": {
       "ITEM#minecraft:iron_axe": 3
@@ -161,12 +163,12 @@
       "ENTITY#minecraft:enderman": 8
     },
     "break_block": {
-      "BLOCK#minecraft:reeds": 64,
       "BLOCK#minecraft:log#2": 64,
       "BLOCK#minecraft:leaves#2": 64
     },
     "craft": {
-      "BLOCK#minecraft:enchanting_table": 1
+      "ITEM#minecraft:paper": 32,
+      "ITEM#minecraft:enchanting_table": 1
     }
   },
   "13": {
@@ -179,7 +181,7 @@
     "place_block": {
       "BLOCK#minecraft:fence": 128,
       "BLOCK#minecraft:fence_gate": 5,
-      "BLOCK#minecraft:dirt:!": 64
+      "BLOCK#minecraft:dirt#1": 64
     },
     "enchant_with_book": {
       "ITEM#minecraft:diamond_pickaxe": 1,
@@ -212,10 +214,10 @@
     "place_block": {
       "BLOCK#minecraft:rail": 64,
       "BLOCK#minecraft:golden_rail": 16,
-      "BLOCK#minecraft:detector_rail:!": 32
+      "BLOCK#minecraft:detector_rail#1": 32
     },
     "craft": {
-      "ITEM#minecraft:cart": 3
+      "ITEM#minecraft:minecart": 3
     }
   },
   "16": {
@@ -255,7 +257,7 @@
       "BLOCK#minecraft:cactus": 16
     },
     "place_block": {
-      "BLOCK#minecraft:hay": 64,
+      "BLOCK#minecraft:hay_block": 64,
       "BLOCK#minecraft:dirt#2": 64,
       "BLOCK#minecraft:sapling#2": 64
     },
@@ -275,7 +277,7 @@
     "kill_entity": {
       "ENTITY#minecraft:witch": 1,
       "ENTITY#minecraft:zombie_pigman": 32,
-      "ENTITY#minecraft:sprout": 32
+      "ENTITY#minecraft:squid": 32
     },
     "enchant_with_book": {
       "ITEM#minecraft:bow": 3,
@@ -320,10 +322,10 @@
   },
   "22": {
     "place_block": {
-      "BLOCK#minecraft:bookshelf": 64,
-      "BLOCK#minecraft:brewing_stand": 1
+      "BLOCK#minecraft:bookshelf": 64
     },
     "craft": {
+      "ITEM#minecraft:brewing_stand": 1,
       "ITEM#minecraft:ender_eye": 32,
       "ITEM#minecraft:map": 16,
       "ITEM#minecraft:arrow": 256
@@ -391,7 +393,7 @@
       "ENTITY#minecraft:magma_cube": 16
     },
     "break_block": {
-      "BLOCK#minecraft:mushroom": 64,
+      "BLOCK#minecraft:red_mushroom": 64,
       "BLOCK#minecraft:mycelium": 64
     },
     "craft": {
@@ -406,7 +408,6 @@
     },
     "place_block": {
       "BLOCK#minecraft:quartz_block": 64,
-      "BLOCK#minecraft:painting": 16,
       "BLOCK#minecraft:red_flower": 16,
       "BLOCK#minecraft:red_flower#1": 16
     },
@@ -417,6 +418,9 @@
     "repair": {
       "ITEM#minecraft:diamond_chestplate": 3,
       "ITEM#minecraft:diamond_hoe": 3
+    },
+    "craft": {
+      "ITEM#minecraft:painting": 16
     }
   },
   "28": {

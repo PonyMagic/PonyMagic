@@ -60,7 +60,7 @@ gui.skills.effect.duration=Effect duration: %1$s
 gui.skills.effect.level=Effect level: %1$s
 
 gui.skills.level=Level: %s
-gui.skills/freeskillpoints=Skill points: %s
+gui.skills.freeskillpoints=Skill points: %s
 
 gui.quest.quest=%1$s:
 gui.quest.goal=\u2023%1$s - %2$s
@@ -75,12 +75,13 @@ quest.craft_tool.name=Craft tool
 quest.craft_armor.name=Craft armor
 quest.smelt.name=Smelt
 quest.smelt_food.name=Smelt food
-quest.repair.name=Repait tool
+quest.repair.name=Repair
 quest.enchant_with_book.name=Enchant with book
 quest.brew_potion.name=Brew a potion
 quest.breed_animal.name=Breed animal
-quest.tame_animal.name=Tame a animal
+quest.tame_animal.name=Tame an animal
 quest.pickup_item.name=Pickup
+quest.use_item.name=Use item
 
 quest.achieve.name=Achieve
 quest.cast_spell.name=Cast spell

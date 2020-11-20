@@ -81,6 +81,7 @@ quest.brew_potion.name=Сварить зелье
 quest.breed_animal.name=Размножить
 quest.tame_animal.name=Приручить
 quest.pickup_item.name=Поднять
+quest.use_item.name=Использовать
 
 quest.achieve.name=Получить достижение
 quest.cast_spell.name=Использовать способность
