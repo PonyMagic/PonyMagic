@@ -3,6 +3,7 @@ package net.braunly.ponymagic.quests.handlers;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumQuestGoalType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
@@ -28,6 +29,9 @@ public class RepairEventHandler {
             return;
         }
         EntityPlayer player = event.getEntityPlayer();
+
+        if (player.world.isRemote) return;
+
         IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 
         String goalConfigKey = QuestGoalUtils.getConfigKey(

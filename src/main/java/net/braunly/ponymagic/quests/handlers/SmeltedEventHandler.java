@@ -3,6 +3,7 @@ package net.braunly.ponymagic.quests.handlers;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumQuestGoalType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
@@ -21,6 +22,9 @@ public class SmeltedEventHandler {
     @SubscribeEvent(priority=EventPriority.NORMAL)
     public void onItemSmelt(PlayerEvent.ItemSmeltedEvent event) {
         EntityPlayer player = event.player;
+
+        if (player.world.isRemote) return;
+
         IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
         ItemStack itemStack = event.smelting;
         String goalConfigKey = QuestGoalUtils.getConfigKey(

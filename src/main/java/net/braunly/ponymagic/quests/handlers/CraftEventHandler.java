@@ -3,6 +3,7 @@ package net.braunly.ponymagic.quests.handlers;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumQuestGoalType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.util.OreDictUtils;
 import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.block.Block;
@@ -24,6 +25,9 @@ public class CraftEventHandler {
     @SubscribeEvent(priority=EventPriority.NORMAL)
     public void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
         EntityPlayer player = event.player;
+
+        if (player == null || player.world.isRemote) return;
+
         IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
         ItemStack itemStack = event.crafting;
         String goalConfigKey = QuestGoalUtils.getConfigKey(

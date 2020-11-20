@@ -3,6 +3,7 @@ package net.braunly.ponymagic.quests.handlers;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumQuestGoalType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -21,6 +22,9 @@ public class BreedAnimalEventHandler {
     @SubscribeEvent(priority=EventPriority.NORMAL)
     public void onAnimalBred(BabyEntitySpawnEvent event) {
         EntityPlayer player = event.getCausedByPlayer();
+
+        if (player == null || player.world.isRemote) return;
+
         IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
         Entity entity = event.getParentA();
         String goalConfigKey = QuestGoalUtils.getConfigKey(

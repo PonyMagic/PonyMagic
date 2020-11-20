@@ -3,6 +3,7 @@ package net.braunly.ponymagic.quests.handlers;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumQuestGoalType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.util.OreDictUtils;
 import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.block.Block;
@@ -21,6 +22,9 @@ public class PickupEventHandler {
     @SubscribeEvent(priority=EventPriority.NORMAL)
     public void onPickUpItem(PlayerEvent.ItemPickupEvent event) {
         EntityPlayer player = event.player;
+
+        if (player.world.isRemote) return;
+
         IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
         ItemStack itemStack = event.getStack();
         String goalConfigKey = QuestGoalUtils.getConfigKey(

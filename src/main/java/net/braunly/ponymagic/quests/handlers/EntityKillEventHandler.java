@@ -3,6 +3,7 @@ package net.braunly.ponymagic.quests.handlers;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumQuestGoalType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
+import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EnumCreatureType;
@@ -23,6 +24,9 @@ public class EntityKillEventHandler {
             return;
 
         EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
+
+        if (player.world.isRemote) return;
+
         IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
         String goalConfigKey = QuestGoalUtils.getConfigKey(
                 EnumQuestGoalType.ENTITY,
