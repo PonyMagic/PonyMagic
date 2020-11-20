@@ -69,6 +69,18 @@
     }
   },
   {
+    "name": "grow",
+    "price": 5,
+    "skillLevel": 2,
+    "stamina": 40,
+    "depends": {
+      "grow": 1
+    },
+    "spellData": {
+      "radius": 5
+    }
+  },
+  {
     "name": "jump",
     "price": 1,
     "skillLevel": 1,
@@ -103,7 +115,7 @@
       "level": 2
     },
     "depends": {
-      "stepup": 1
+      "haste": 1
     }
   },
   {
@@ -117,6 +129,15 @@
     },
     "depends": {
       "stepup": 1
+    }
+  },
+  {
+    "name": "dash",
+    "price": 4,
+    "skillLevel": 1,
+    "stamina": 30,
+    "depends": {
+      "speed": 1
     }
   },
   {
@@ -142,7 +163,7 @@
       "level": 3
     },
     "depends": {
-      "speed": 1
+      "stepup": 1
     }
   },
   {
@@ -155,7 +176,7 @@
       "level": 1
     },
     "depends": {
-      "solidcore": 1
+      "strength": 1
     }
   },
   {
@@ -181,7 +202,8 @@
       "level": 1
     },
     "depends": {
-      "resist": 1
+      "resist": 1,
+      "solidcore": 1
     }
   },
   {
@@ -194,6 +216,7 @@
       "level": 9
     },
     "depends": {
+      "solidcore": 1
     }
   }
 ]

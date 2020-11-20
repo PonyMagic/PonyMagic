@@ -53,7 +53,7 @@ public class CommonProxy {
 		PonyMagic.channel.registerMessage(ResetPacket.class, ResetPacket.class, 5, Side.SERVER);
 
 		PonyMagic.channel.registerMessage(LevelUpSoundPacket.class, LevelUpSoundPacket.class, 6, Side.CLIENT);
-		PonyMagic.channel.registerMessage(SwishPacket.class, SwishPacket.class, 7, Side.CLIENT);
+		PonyMagic.channel.registerMessage(MotionPacket.class, MotionPacket.class, 7, Side.CLIENT);
 
 		// Main config
 		Config.load(event.getSuggestedConfigurationFile());

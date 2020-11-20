@@ -133,22 +133,25 @@ public class GuiSkillsNet {
 				// Default
 				.add(new GuiButtonSkill("craft", 0, 41, 203, 0))
 				// T1
-				.add(new GuiButtonSkill("grow", 1, 105, 97, ImmutableSet.of(), 1))
+				.add(new GuiButtonSkill("grow", 1, 105, 97, ImmutableSet.of("grow#2"), 1))
 				.add(new GuiButtonSkill("jump", 2, 105, 161, ImmutableSet.of("stepup"), 1))
 				// T2
+				.add(new GuiButtonSkill("grow", 3, 169, 97, ImmutableSet.of(), 2))
 				.add(new GuiButtonSkill("stepup", 4, 169, 161,
-						ImmutableSet.of("strength", "speed"), 1))
+						ImmutableSet.of("haste", "speed"), 1))
 				// T3
-				.add(new GuiButtonSkill("strength", 7, 233, 129,
-						ImmutableSet.of("solidcore"), 1))
-				.add(new GuiButtonSkill("speed", 8, 233, 193, ImmutableSet.of("haste"), 1))
+				.add(new GuiButtonSkill("haste", 11, 233, 129, ImmutableSet.of("strength"), 1))
+				.add(new GuiButtonSkill("speed", 8, 233, 193, ImmutableSet.of("dash"), 1))
 				// T4
-				.add(new GuiButtonSkill("solidcore", 10, 297, 97,
-						ImmutableSet.of("resist"), 1))
-				.add(new GuiButtonSkill("haste", 11, 297, 193, ImmutableSet.of(), 1))
+				.add(new GuiButtonSkill("strength", 7, 297, 129,
+						ImmutableSet.of("solidcore", "resist"), 1))
+				.add(new GuiButtonSkill("dash", 9, 297, 193,
+						ImmutableSet.of(), 1))
 				// T5
 				.add(new GuiButtonSkill("resist", 12, 361, 97,
 						ImmutableSet.of("ironskin", "recoil"), 1))
+				.add(new GuiButtonSkill("solidcore", 10, 361, 161,
+						ImmutableSet.of("recoil", "repair"), 1))
 				// T6
 				.add(new GuiButtonSkill("ironskin", 13, 425, 65, 1))
 				.add(new GuiButtonSkill("recoil", 14, 425, 129, 1))

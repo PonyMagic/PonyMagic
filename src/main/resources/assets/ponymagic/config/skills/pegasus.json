@@ -105,7 +105,7 @@
     "name": "swish",
     "price": 1,
     "skillLevel": 1,
-    "stamina": 30,
+    "stamina": 15,
     "depends": {}
   },
   {

@@ -33,8 +33,14 @@ public class GuiButtonSkill extends GuiButton {
 
 	public void initButton(Minecraft mc, int x, int y, float scale) {
 		this.mc = mc;
-		this.resLoc = new ResourceLocation(PonyMagic.MODID,
-				"textures/gui/skills/" +  this.skillName + ".png");
+		if (this.skillLevel > 1) {
+			this.resLoc = new ResourceLocation(PonyMagic.MODID,
+					"textures/gui/skills/" + this.skillName + this.skillLevel + ".png");
+		} else {
+			this.resLoc = new ResourceLocation(PonyMagic.MODID,
+					"textures/gui/skills/" + this.skillName + ".png");
+		}
+
 		this.posX = x + this.x;
 		this.posY = y + this.y - 32;
 		this.scale = scale;

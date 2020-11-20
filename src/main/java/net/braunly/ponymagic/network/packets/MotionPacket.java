@@ -8,15 +8,15 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class SwishPacket implements IMessage, IMessageHandler<SwishPacket, IMessage> {
+public class MotionPacket implements IMessage, IMessageHandler<MotionPacket, IMessage> {
 	private double x = 0;
 	private double y = 0;
 	private double z = 0;
 
-	public SwishPacket() {
+	public MotionPacket() {
 	}
 
-	public SwishPacket(double x, double y, double z) {
+	public MotionPacket(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -37,7 +37,7 @@ public class SwishPacket implements IMessage, IMessageHandler<SwishPacket, IMess
 	}
 
 	@Override
-	public IMessage onMessage(SwishPacket message, MessageContext ctx) {
+	public IMessage onMessage(MotionPacket message, MessageContext ctx) {
 		IThreadListener thread = PonyMagic.proxy.getListener(ctx);
 		final EntityPlayer player = PonyMagic.proxy.getPlayer(ctx);
 
