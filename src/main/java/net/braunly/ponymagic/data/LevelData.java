@@ -112,6 +112,7 @@ public class LevelData implements ILevelDataStorage {
 
 	@Override
 	public void setGoals(ImmutableMap<String, ImmutableMap<String, Integer>> goals) {
+		this.currentGoals.clear();
 		for (String questName : goals.keySet()) {
 			this.currentGoals.put(
 					questName,
