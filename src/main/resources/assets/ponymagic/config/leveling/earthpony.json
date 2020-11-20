@@ -22,7 +22,7 @@
       "ENTITY#minecraft:zombie": 3
     },
     "craft": {
-      "ITEM#minecraft:torch": 16
+      "ITEM#minecraft:torch": 8
     }
   },
   "3": {
@@ -40,7 +40,7 @@
   "4": {
     "craft": {
       "ITEM#minecraft:chest": 6,
-      "ITEM#minecraft:wooden_door": 2
+      "ITEM#minecraft:wooden_door": 1
     },
     "place_block": {
       "BLOCK#minecraft:cobblestone": 32,
@@ -135,7 +135,7 @@
     "craft": {
       "ITEM#minecraft:shield": 2,
       "ITEM#minecraft:bow": 2,
-      "ITEM#minecraft:arrow": 64
+      "ITEM#minecraft:arrow": 32
     }
   },
   "11": {
@@ -194,7 +194,7 @@
       "ENTITY#minecraft:chicken": 8
     },
     "craft": {
-      "ITEM#minecraft:arrow": 128,
+      "ITEM#minecraft:arrow": 64,
       "ITEM#minecraft:fishing_rod": 2
     },
     "smelt_food": {
@@ -271,7 +271,7 @@
   },
   "19": {
     "craft": {
-      "ITEM#minecraft:cookie": 128,
+      "ITEM#minecraft:cookie": 32,
       "ITEM#minecraft:bread": 32
     },
     "kill_entity": {
@@ -328,7 +328,7 @@
       "ITEM#minecraft:brewing_stand": 1,
       "ITEM#minecraft:ender_eye": 32,
       "ITEM#minecraft:map": 16,
-      "ITEM#minecraft:arrow": 256
+      "ITEM#minecraft:arrow": 128
     },
     "break_block": {
       "BLOCK#minecraft:monster_egg#2": 32,
