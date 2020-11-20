@@ -109,8 +109,8 @@ public class CommandMagic extends CommandBase {
 		playerData.setRace(EnumRace.REGULAR);
 		playerData.setRace(race);
 		playerData.getLevelData().setLevel(level);
-		playerData.getLevelData().setFreeSkillPoints(level / 3);
-		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, playerData.getLevelData().getLevel()));
+		playerData.getLevelData().setFreeSkillPoints(level);
+		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, level));
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 		MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
 		MagicHandlersContainer.updatePlayerMaxStamina(player);
@@ -134,6 +134,7 @@ public class CommandMagic extends CommandBase {
 
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
 		playerData.getLevelData().setLevel(level);
+		playerData.getLevelData().setGoals(LevelConfig.getRaceLevelConfig(playerData.getRace(), level+1).getQuestsWithGoals());
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
 
