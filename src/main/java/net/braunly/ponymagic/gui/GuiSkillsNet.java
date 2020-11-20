@@ -73,12 +73,13 @@ public class GuiSkillsNet {
 				.add(new GuiButtonSkill("flyduration", 6, 233, 161,
 						ImmutableSet.of("slowfallauto", "highground"), 2))
 				// T4
-				.add(new GuiButtonSkill("haste", 7, 297, 65, ImmutableSet.of(), 1))
+				.add(new GuiButtonSkill("haste", 7, 297, 65, ImmutableSet.of("flyhaste"), 1))
 				.add(new GuiButtonSkill("highground", 8, 297, 129,
 						ImmutableSet.of("onedge"), 1))
 				.add(new GuiButtonSkill("slowfallauto", 9, 297, 193,
 						ImmutableSet.of("dodging"), 1))
 				// T5
+				.add(new GuiButtonSkill("flyhaste", 14, 361, 65, ImmutableSet.of(), 1))
 				.add(new GuiButtonSkill("onedge", 10, 361, 129, ImmutableSet.of("archery"), 1))
 				.add(new GuiButtonSkill("dodging", 11, 361, 193,
 						ImmutableSet.of("dodgingbuff"), 1))

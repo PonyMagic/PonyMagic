@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -185,6 +186,24 @@ public class MagicHandlersContainer {
 	}
 	
 	// Passives
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void handleMiningSpeed(PlayerEvent.BreakSpeed event) {
+		// NOTE: Needs client side to work. I don't know why
+		//if (event.getEntity().world.isRemote) return;
+
+		EntityPlayer player = event.getEntityPlayer();
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
+
+		// Handle pegasus flyhaste passive
+		if (player.capabilities.isFlying && playerData.getSkillData().isSkillLearned("flyhaste")) {
+			PonyMagic.log.info("====================");
+			PonyMagic.log.info(event.getOriginalSpeed());
+			event.setNewSpeed(player.inventory.getDestroySpeed(event.getState()));
+			PonyMagic.log.info(event.getNewSpeed());
+		}
+	}
+
 
 	// Player deal damage
 	@SubscribeEvent(priority = EventPriority.HIGHEST)

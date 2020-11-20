@@ -191,5 +191,13 @@
     "depends": {
       "dodging": 1
     }
+  },
+  {
+    "name": "flyhaste",
+    "price": 3,
+    "skillLevel": 1,
+    "depends": {
+      "haste": 1
+    }
   }
 ]
