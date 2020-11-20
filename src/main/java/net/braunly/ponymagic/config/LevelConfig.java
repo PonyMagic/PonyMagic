@@ -31,8 +31,8 @@ public class LevelConfig {
         }
         for (EnumRace race : EnumRace.values()) {
             // Load config only for playable races
-            // FIXME: i need to implement regular race
-            if (race.equals(EnumRace.REGULAR) || race.equals(EnumRace.ALICORN)) continue;
+            // FIXME: i need to implement alicorn race
+            if (race.equals(EnumRace.ALICORN)) continue;
 
             PonyMagic.log.info("Loading level config for {}", race.name().toLowerCase());
             File raceLevelConfigFile = new File(

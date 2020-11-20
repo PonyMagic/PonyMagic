@@ -33,7 +33,7 @@ public class SkillConfig {
         }
         for (EnumRace race : EnumRace.values()) {
             // Load config only for playable races
-            if (race.equals(EnumRace.REGULAR) || race.equals(EnumRace.ALICORN)) continue;
+            if (race.equals(EnumRace.ALICORN)) continue;
 
             PonyMagic.log.info("Loading skills config for {}", race.name().toLowerCase());
             File raceSkillsConfigFile = new File(
