@@ -141,9 +141,9 @@ public class GuiSkills extends GuiScreen {
 		GlStateManager.pushMatrix();
 		GlStateManager.scale(1.1F, 1.1F, 1.1F);  // looks nicer
 		drawCenteredString(this.fontRenderer,
-				new TextComponentTranslation("gui.skills/level", playerLevel).getFormattedText()
+				new TextComponentTranslation("gui.skills.level", playerLevel).getFormattedText()
 					+ "                    "
-					+ new TextComponentTranslation("gui.skills/freeskillpoints", playerFreeSkillPoints).getFormattedText(),
+					+ new TextComponentTranslation("gui.skills.freeskillpoints", playerFreeSkillPoints).getFormattedText(),
 				(int)((x + 250) * scale / 1.1F), (int)((y + 295) * scale / 1.1F), 16773290);  // y + 300 caused it to overlap with exp bar on smaller scales
 		GlStateManager.color(1, 1, 1, 1);  // icons shadow fix
 		GlStateManager.popMatrix();
@@ -256,7 +256,7 @@ public class GuiSkills extends GuiScreen {
 											).getFormattedText())
 											.add(new TextComponentTranslation(
 													"gui.skills.effect.level",
-													skillEffect.getOrDefault("level", 0)
+													skillEffect.getOrDefault("level", 0) + 1
 											).getFormattedText());
 								}
 							} else {
