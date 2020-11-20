@@ -52,12 +52,15 @@ commands.stamina.set.usage=/stamina set [player] <value>
 commands.stamina.setmax.success=Set maximum stamina to %1$.2f for %2$s
 commands.stamina.setmax.usage=/stamina setmax [player] <value>
 
-gui.skill.name=Name:
-gui.skill.usage=Use:
+gui.skills.hover_text=Hold [SHIFT] for details
+gui.skills.usage=Use: %1$s
+gui.skills.price=Price: %1$s
+gui.skills.stamina=Stamina: %1$s
+gui.skills.effect.duration=Effect duration: %1$s
+gui.skills.effect.level=Effect level: %1$s
 
-gui.exp=Exp: %1$s/%2$s
-gui.level=Level: %s
-gui.freeskillpoints=Skill points: %s
+gui.skills.level=Level: %s
+gui.skills/freeskillpoints=Skill points: %s
 
 gui.quest.quest=%1$s:
 gui.quest.goal=\u2023%1$s - %2$s

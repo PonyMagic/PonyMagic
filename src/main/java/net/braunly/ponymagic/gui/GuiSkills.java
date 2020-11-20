@@ -1,5 +1,6 @@
 package net.braunly.ponymagic.gui;
 
+import com.google.common.collect.ImmutableList;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
@@ -16,11 +17,11 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class GuiSkills extends GuiScreen {
 
@@ -140,9 +141,9 @@ public class GuiSkills extends GuiScreen {
 		GlStateManager.pushMatrix();
 		GlStateManager.scale(1.1F, 1.1F, 1.1F);  // looks nicer
 		drawCenteredString(this.fontRenderer,
-				new TextComponentTranslation("gui.level", playerLevel).getFormattedText()
+				new TextComponentTranslation("gui.skills/level", playerLevel).getFormattedText()
 					+ "                    "
-					+ new TextComponentTranslation("gui.freeskillpoints", playerFreeSkillPoints).getFormattedText(),
+					+ new TextComponentTranslation("gui.skills/freeskillpoints", playerFreeSkillPoints).getFormattedText(),
 				(int)((x + 250) * scale / 1.1F), (int)((y + 295) * scale / 1.1F), 16773290);  // y + 300 caused it to overlap with exp bar on smaller scales
 		GlStateManager.color(1, 1, 1, 1);  // icons shadow fix
 		GlStateManager.popMatrix();
@@ -222,21 +223,52 @@ public class GuiSkills extends GuiScreen {
 					skill.drawButton();
 				}
 
-				// Showing info for skill
+				// Showing info for skills
 				for (GuiButtonSkill skill : this.skillsNet) {
-
 					if (skill.isUnderMouse(mouseX, mouseY)) {
-						String[] text = {
-								playerRace.getColor() + new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".name").getFormattedText(),
-								new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".command").getFormattedText(),
-								new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".descr").getFormattedText(),
-								// new TextComponentTranslation("skill.stamina", Config.).getFormattedText(),
-						};
+						Skill skillConfig = SkillConfig.getRaceSkill(playerRace, skill.skillName, skill.skillLevel);
+						// Skill name and description
+						ImmutableList.Builder<String> skillHoverText = new ImmutableList.Builder<String>()
+								.add(playerRace.getColor() + new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".name").getFormattedText())
+								.add(new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".descr").getFormattedText());
+						// Skill details
+						if (skillConfig != null) {
+							if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
+								Map<String, Integer> skillEffect = skillConfig.getEffect();
+								skillHoverText
+										.add(new TextComponentTranslation(
+												"gui.skills.usage",
+												new TextComponentTranslation("skill." + skill.skillName + skill.skillLevel + ".command").getFormattedText()
+										).getFormattedText())
+										.add(new TextComponentTranslation(
+												"gui.skills.price",
+												skillConfig.getPrice()
+										).getFormattedText())
+										.add(new TextComponentTranslation(
+												"gui.skills.stamina",
+												skillConfig.getStamina()
+										).getFormattedText());
+								if (!skillEffect.isEmpty()) {
+									skillHoverText
+											.add(new TextComponentTranslation(
+													"gui.skills.effect.duration",
+													skillEffect.getOrDefault("duration", 0) / 20
+											).getFormattedText())
+											.add(new TextComponentTranslation(
+													"gui.skills.effect.level",
+													skillEffect.getOrDefault("level", 0)
+											).getFormattedText());
+								}
+							} else {
+								skillHoverText.add(
+										TextFormatting.DARK_PURPLE + (TextFormatting.ITALIC + new TextComponentTranslation("gui.skills.hover_text").getFormattedText())
+								);
+							}
+						}
 
-						List<String> skillHoverText = Arrays.asList(text);
-						// Lightning shadow fix
+						// Draw skill info text
 						RenderHelper.enableStandardItemLighting();
-						drawHoveringText(skillHoverText, mouseX, mouseY);
+						drawHoveringText(skillHoverText.build(), mouseX, mouseY);
 						RenderHelper.disableStandardItemLighting();
 					}
 				}
