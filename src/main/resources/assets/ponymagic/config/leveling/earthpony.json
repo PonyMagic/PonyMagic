@@ -70,8 +70,8 @@
       "ITEM#minecraft:cooked_pork": 32
     },
     "break_block": {
-      "BLOCK#minecraft:log:3": 64,
-      "BLOCK#minecraft:leaves:3": 64
+      "BLOCK#minecraft:log#3": 64,
+      "BLOCK#minecraft:leaves#3": 64
     },
     "craft": {
       "ITEM#minecraft:bed": 2
@@ -101,7 +101,7 @@
     "place_block": {
       "BLOCK#minecraft:spruce_boat": 1,
       "BLOCK#minecraft:ladder": 32,
-      "BLOCK#minecraft:sapling:2": 16
+      "BLOCK#minecraft:sapling#2": 16
     },
     "craft_tool": {
       "ITEM#minecraft:iron_axe": 3
@@ -118,7 +118,7 @@
       "BLOCK#minecraft:diamond_ore": 16
     },
     "place_block": {
-      "BLOCK#minecraft:carpet:11": 32,
+      "BLOCK#minecraft:carpet#11": 32,
       "BLOCK#minecraft:stonebrick": 32,
       "BLOCK#minecraft:chest": 8
     }
@@ -162,8 +162,8 @@
     },
     "break_block": {
       "BLOCK#minecraft:reeds": 64,
-      "BLOCK#minecraft:log:2": 64,
-      "BLOCK#minecraft:leaves:2": 64
+      "BLOCK#minecraft:log#2": 64,
+      "BLOCK#minecraft:leaves#2": 64
     },
     "craft": {
       "BLOCK#minecraft:enchanting_table": 1
@@ -206,8 +206,8 @@
   "15": {
     "break_block": {
       "BLOCK#minecraft:stone": 512,
-      "BLOCK#minecraft:stone:1": 32,
-      "BLOCK#minecraft:stone:3": 32
+      "BLOCK#minecraft:stone#1": 32,
+      "BLOCK#minecraft:stone#3": 32
     },
     "place_block": {
       "BLOCK#minecraft:rail": 64,
@@ -256,8 +256,8 @@
     },
     "place_block": {
       "BLOCK#minecraft:hay": 64,
-      "BLOCK#minecraft:dirt:2": 64,
-      "BLOCK#minecraft:sapling:2": 64
+      "BLOCK#minecraft:dirt#2": 64,
+      "BLOCK#minecraft:sapling#2": 64
     },
     "kill_monster": {
       "ENTITY#minecraft:creeper": 32,
@@ -329,8 +329,8 @@
       "ITEM#minecraft:arrow": 256
     },
     "break_block": {
-      "BLOCK#minecraft:monster_egg:2": 32,
-      "BLOCK#minecraft:monster_egg:3": 32
+      "BLOCK#minecraft:monster_egg#2": 32,
+      "BLOCK#minecraft:monster_egg#3": 32
     },
     "kill_entity": {
       "ENTITY#minecraft:silverfish": 32
@@ -401,14 +401,14 @@
   },
   "27": {
     "break_block": {
-      "BLOCK#minecraft:stonebrick:3": 64,
+      "BLOCK#minecraft:stonebrick#3": 64,
       "BLOCK#minecraft:netherrack": 128
     },
     "place_block": {
       "BLOCK#minecraft:quartz_block": 64,
       "BLOCK#minecraft:painting": 16,
       "BLOCK#minecraft:red_flower": 16,
-      "BLOCK#minecraft:red_flower:1": 16
+      "BLOCK#minecraft:red_flower#1": 16
     },
     "kill_monster": {
       "ENTITY#minecraft:creeper": 32,
@@ -421,7 +421,7 @@
   },
   "28": {
     "place_block": {
-      "BLOCK#minecraft:sapling:5": 64,
+      "BLOCK#minecraft:sapling#5": 64,
       "BLOCK#minecraft:bookshelf": 64,
       "BLOCK#minecraft:glowstone": 64
     },
@@ -446,7 +446,7 @@
       "BLOCK#minecraft:diamond_ore": 64
     },
     "craft": {
-      "ITEM#minecraft:dye:13": 64,
+      "ITEM#minecraft:dye#13": 64,
       "ITEM#minecraft:diamond_block": 64
     }
   },
@@ -454,7 +454,7 @@
     "craft": {
       "ITEM#minecraft:cake": 64,
       "ITEM#minecraft:cookie": 128,
-      "ITEM#minecraft:end_crystal": 1
+      "ITEM#minecraft:end_crystal": 16
     },
     "place_block": {
       "BLOCK#minecraft:jukebox": 1
