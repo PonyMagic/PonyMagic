@@ -51,9 +51,9 @@ minecraft {
 
 }
 
-sourceSets {
-    main { output.resourcesDir = output.classesDir }
-}
+//sourceSets {
+//    main { output.resourcesDir = output.classesDir }
+//}
 
 dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
