@@ -1,32 +1,467 @@
 {
-  "1": {},
-  "2": {},
-  "3": {},
-  "4": {},
-  "5": {},
-  "6": {},
-  "7": {},
-  "8": {},
-  "9": {},
-  "10": {},
-  "11": {},
-  "12": {},
-  "13": {},
-  "14": {},
-  "15": {},
-  "16": {},
-  "17": {},
-  "18": {},
-  "19": {},
-  "20": {},
-  "21": {},
-  "22": {},
-  "23": {},
-  "24": {},
-  "25": {},
-  "26": {},
-  "27": {},
-  "28": {},
-  "29": {},
-  "30": {}
+  "1": {
+    "break_block": {
+      "BLOCK#minecraft:log": 32,
+      "BLOCK#minecraft:stone": 16
+    },
+    "craft_tool": {
+      "ITEM#minecraft:stone_pickaxe": 3
+    },
+    "place_block": {
+      "BLOCK#minecraft:furnace": 1,
+      "BLOCK#minecraft:crafting_table": 1,
+      "BLOCK#minecraft:planks": 32
+    }
+  },
+  "2": {
+    "mine_ore": {
+      "BLOCK#minecraft:iron_ore": 16,
+      "BLOCK#minecraft:coal_ore": 16
+    },
+    "kill_monster": {
+      "ENTITY#minecraft:zombie": 3
+    },
+    "craft": {
+      "ITEM#minecraft:torch": 8
+    }
+  },
+  "3": {
+    "craft_tool": {
+      "ITEM#minecraft:iron_pickaxe": 3
+    },
+    "mine_ore": {
+      "BLOCK#minecraft:iron_ore": 16,
+      "BLOCK#minecraft:coal_ore": 16
+    },
+    "smelt": {
+      "ITEM#minecraft:iron_ingot": 32
+    }
+  },
+  "4": {
+    "craft": {
+      "ITEM#minecraft:chest": 6,
+      "ITEM#minecraft:wooden_door": 1
+    },
+    "place_block": {
+      "BLOCK#minecraft:cobblestone": 32,
+      "BLOCK#minecraft:torch": 32,
+      "BLOCK#minecraft:planks": 32
+    },
+    "mine_ore": {
+      "BLOCK#minecraft:iron_ore": 32
+    }
+  },
+  "5": {
+    "break_block": {
+      "BLOCK#minecraft:sand": 32,
+      "BLOCK#minecraft:stone": 64
+    },
+    "smelt": {
+      "ITEM#minecraft:glass": 32,
+      "ITEM#minecraft:stone": 32
+    },
+    "kill_monster": {
+      "ENTITY#minecraft:zombie": 8,
+      "ENTITY#minecraft:spider": 8
+    }
+  },
+  "6": {
+    "smelt_food": {
+      "ITEM#minecraft:cooked_porkchop": 32
+    },
+    "break_block": {
+      "BLOCK#minecraft:log#3": 64,
+      "BLOCK#minecraft:leaves#3": 64
+    },
+    "craft": {
+      "ITEM#minecraft:bed": 2
+    }
+  },
+  "7": {
+    "mine_ore": {
+      "BLOCK#minecraft:gold_ore": 16,
+      "BLOCK#minecraft:iron_ore": 64,
+      "BLOCK#minecraft:diamond_ore": 16
+    },
+    "craft_armor": {
+      "ITEM#minecraft:iron_helmet": 2,
+      "ITEM#minecraft:iron_chestplate": 2,
+      "ITEM#minecraft:iron_leggings": 2,
+      "ITEM#minecraft:iron_boots": 2
+    },
+    "craft": {
+      "ITEM#minecraft:iron_sword": 2
+    }
+  },
+  "8": {
+    "kill_entity": {
+      "ENTITY#minecraft:spider": 10,
+      "ENTITY#minecraft:pig": 16
+    },
+    "place_block": {
+      "BLOCK#minecraft:ladder": 32,
+      "BLOCK#minecraft:sapling#2": 16
+    },
+    "craft": {
+      "ITEM#minecraft:spruce_boat": 1
+    },
+    "craft_tool": {
+      "ITEM#minecraft:iron_axe": 3
+    }
+  },
+  "9": {
+    "craft_tool": {
+      "ITEM#minecraft:diamond_pickaxe": 2,
+      "ITEM#minecraft:iron_shovel": 3
+    },
+    "mine_ore": {
+      "BLOCK#minecraft:redstone_ore": 16,
+      "BLOCK#minecraft:lapis_ore": 16,
+      "BLOCK#minecraft:diamond_ore": 16
+    },
+    "place_block": {
+      "BLOCK#minecraft:carpet#11": 32,
+      "BLOCK#minecraft:stonebrick": 32,
+      "BLOCK#minecraft:chest": 8
+    }
+  },
+  "10": {
+    "break_block": {
+      "BLOCK#minecraft:obsidian": 32
+    },
+    "place_block": {
+      "BLOCK#minecraft:obsidian": 12
+    },
+    "craft": {
+      "ITEM#minecraft:shield": 2,
+      "ITEM#minecraft:bow": 2,
+      "ITEM#minecraft:arrow": 32
+    }
+  },
+  "11": {
+    "place_block": {
+      "BLOCK#minecraft:ender_chest": 1,
+      "BLOCK#minecraft:netherrack": 256
+    },
+    "pickup_item": {
+      "ITEM#minecraft:blaze_rod": 5,
+      "ITEM#minecraft:ghast_tear": 3
+    },
+    "mine_ore": {
+      "BLOCK#minecraft:quartz_ore": 32
+    },
+    "break_block": {
+      "BLOCK#minecraft:glowstone": 32
+    }
+  },
+  "12": {
+    "kill_entity": {
+      "ENTITY#minecraft:cow": 16
+    },
+    "kill_monster": {
+      "ENTITY#minecraft:creeper": 16,
+      "ENTITY#minecraft:enderman": 8
+    },
+    "break_block": {
+      "BLOCK#minecraft:log#2": 64,
+      "BLOCK#minecraft:leaves#2": 64
+    },
+    "craft": {
+      "ITEM#minecraft:paper": 32,
+      "ITEM#minecraft:enchanting_table": 1
+    }
+  },
+  "13": {
+    "repair": {
+      "ITEM#minecraft:diamond_sword": 3
+    },
+    "break_block": {
+      "BLOCK#minecraft:gravel": 64
+    },
+    "place_block": {
+      "BLOCK#minecraft:fence": 128,
+      "BLOCK#minecraft:fence_gate": 5,
+      "BLOCK#minecraft:dirt#1": 64
+    },
+    "enchant_with_book": {
+      "ITEM#minecraft:diamond_pickaxe": 1,
+      "ITEM#minecraft:iron_chestplate": 2
+    }
+  },
+  "14": {
+    "breed_animal": {
+      "ENTITY#minecraft:cow": 8,
+      "ENTITY#minecraft:chicken": 8
+    },
+    "craft": {
+      "ITEM#minecraft:arrow": 64,
+      "ITEM#minecraft:fishing_rod": 2
+    },
+    "smelt_food": {
+      "ITEM#minecraft:cooked_fish": 16,
+      "ITEM#minecraft:cooked_beef": 32
+    },
+    "break_block": {
+      "BLOCK#minecraft:sand": 64
+    }
+  },
+  "15": {
+    "break_block": {
+      "BLOCK#minecraft:stone": 512,
+      "BLOCK#minecraft:stone#1": 32,
+      "BLOCK#minecraft:stone#3": 32
+    },
+    "place_block": {
+      "BLOCK#minecraft:rail": 64,
+      "BLOCK#minecraft:golden_rail": 16,
+      "BLOCK#minecraft:detector_rail#1": 32
+    },
+    "craft": {
+      "ITEM#minecraft:minecart": 3
+    }
+  },
+  "16": {
+    "kill_monster": {
+      "ENTITY#minecraft:spider": 64,
+      "ENTITY#minecraft:zombie": 32
+    },
+    "break_block": {
+      "BLOCK#minecraft:web": 32
+    },
+    "mine_ore": {
+      "BLOCK#minecraft:coal_ore": 64,
+      "BLOCK#minecraft:diamond_ore": 16,
+      "BLOCK#minecraft:emerald_ore": 3
+    }
+  },
+  "17": {
+    "use_item": {
+      "ITEM#minecraft:apple": 64
+    },
+    "enchant_with_book": {
+      "ITEM#minecraft:diamond_chestplate": 1,
+      "ITEM#minecraft:diamond_boots": 1,
+      "ITEM#minecraft:diamond_sword": 1
+    },
+    "craft": {
+      "ITEM#minecraft:piston": 32,
+      "ITEM#minecraft:sticky_piston": 16,
+      "ITEM#minecraft:repeater": 32,
+      "ITEM#minecraft:diamond_hoe": 1
+    }
+  },
+  "18": {
+    "break_block": {
+      "BLOCK#minecraft:pumpkin": 16,
+      "BLOCK#minecraft:melon_block": 16,
+      "BLOCK#minecraft:cactus": 16
+    },
+    "place_block": {
+      "BLOCK#minecraft:hay_block": 64,
+      "BLOCK#minecraft:dirt#2": 64,
+      "BLOCK#minecraft:sapling#2": 64
+    },
+    "kill_monster": {
+      "ENTITY#minecraft:creeper": 32,
+      "ENTITY#minecraft:slime": 32
+    },
+    "tame_animal": {
+      "ENTITY#minecraft:ocelot": 1
+    }
+  },
+  "19": {
+    "craft": {
+      "ITEM#minecraft:cookie": 32,
+      "ITEM#minecraft:bread": 32
+    },
+    "kill_entity": {
+      "ENTITY#minecraft:witch": 1,
+      "ENTITY#minecraft:zombie_pigman": 32,
+      "ENTITY#minecraft:squid": 32
+    },
+    "enchant_with_book": {
+      "ITEM#minecraft:bow": 3,
+      "ITEM#minecraft:diamond_sword": 3
+    },
+    "repair": {
+      "ITEM#minecraft:diamond_sword": 3,
+      "ITEM#minecraft:diamond_hoe": 2
+    }
+  },
+  "20": {
+    "smelt_food": {
+      "ITEM#minecraft:cooked_rabbit": 14
+    },
+    "place_block": {
+      "BLOCK#minecraft:redstone_block": 156,
+      "BLOCK#minecraft:snow": 172,
+      "BLOCK#minecraft:concrete": 33
+    },
+    "mine_ore": {
+      "BLOCK#minecraft:redstone_ore": 64
+    },
+    "break_block": {
+      "BLOCK#minecraft:snow_layer": 128,
+      "BLOCK#minecraft:glowstone": 32
+    },
+    "craft": {
+      "ITEM#minecraft:redstone_lamp": 32,
+      "ITEM#minecraft:repeater": 32
+    }
+  },
+  "21": {
+    "mine_ore": {
+      "BLOCK#minecraft:lapis_ore": 16,
+      "BLOCK#minecraft:emerald_ore": 16
+    },
+    "pickup_item": {
+      "ITEM#minecraft:record_cat": 1,
+      "ITEM#minecraft:record_mellohi": 1,
+      "ITEM#minecraft:record_far": 1
+    }
+  },
+  "22": {
+    "place_block": {
+      "BLOCK#minecraft:bookshelf": 64
+    },
+    "craft": {
+      "ITEM#minecraft:brewing_stand": 1,
+      "ITEM#minecraft:ender_eye": 32,
+      "ITEM#minecraft:map": 16,
+      "ITEM#minecraft:arrow": 128
+    },
+    "break_block": {
+      "BLOCK#minecraft:monster_egg#2": 32,
+      "BLOCK#minecraft:monster_egg#3": 32
+    },
+    "kill_entity": {
+      "ENTITY#minecraft:silverfish": 32
+    }
+  },
+  "23": {
+    "use_item": {
+      "ITEM#minecraft:bow": 14,
+      "ITEM#minecraft:golden_apple": 8
+    },
+    "kill_monster": {
+      "ENTITY#minecraft:wither_skeleton": 16,
+      "ENTITY#minecraft:blaze": 16
+    },
+    "breed_animal": {
+      "ENTITY#minecraft:cow": 8,
+      "ENTITY#minecraft:pig": 16,
+      "ENTITY#minecraft:sheep": 32
+    }
+  },
+  "24": {
+    "tame_animal": {
+      "ENTITY#minecraft:ocelot": 3
+    },
+    "enchant_with_book": {
+      "ITEM#minecraft:diamond_helmet": 4,
+      "ITEM#minecraft:diamond_chestplate": 4,
+      "ITEM#minecraft:diamond_leggings": 4,
+      "ITEM#minecraft:diamond_boots": 4
+    },
+    "kill_monster": {
+      "ENTITY#minecraft:guardian": 16,
+      "ENTITY#minecraft:elder_guardian": 8
+    },
+    "break_block": {
+      "BLOCK#minecraft:prismarine": 32,
+      "BLOCK#minecraft:sea_lantern": 16
+    }
+  },
+  "25": {
+    "craft": {
+      "ITEM#minecraft:beacon": 1
+    },
+    "use_item": {
+      "ITEM#minecraft:bow": 88,
+      "ITEM#minecraft:golden_apple": 16
+    },
+    "place_block": {
+      "BLOCK#minecraft:dirt": 128
+    },
+    "kill_monster": {
+      "ENTITY#minecraft:wither": 1
+    }
+  },
+  "26": {
+    "kill_monster": {
+      "ENTITY#minecraft:witch": 3,
+      "ENTITY#minecraft:magma_cube": 16
+    },
+    "break_block": {
+      "BLOCK#minecraft:red_mushroom": 64,
+      "BLOCK#minecraft:mycelium": 64
+    },
+    "craft": {
+      "ITEM#minecraft:item_frame": 32,
+      "ITEM#minecraft:diamond_sword": 3
+    }
+  },
+  "27": {
+    "break_block": {
+      "BLOCK#minecraft:stonebrick#3": 64,
+      "BLOCK#minecraft:netherrack": 128
+    },
+    "place_block": {
+      "BLOCK#minecraft:quartz_block": 64,
+      "BLOCK#minecraft:red_flower": 16,
+      "BLOCK#minecraft:red_flower#1": 16
+    },
+    "kill_monster": {
+      "ENTITY#minecraft:creeper": 32,
+      "ENTITY#minecraft:spider": 64
+    },
+    "repair": {
+      "ITEM#minecraft:diamond_chestplate": 3,
+      "ITEM#minecraft:diamond_hoe": 3
+    },
+    "craft": {
+      "ITEM#minecraft:painting": 16
+    }
+  },
+  "28": {
+    "place_block": {
+      "BLOCK#minecraft:sapling#5": 64,
+      "BLOCK#minecraft:bookshelf": 64,
+      "BLOCK#minecraft:glowstone": 64
+    },
+    "kill_monster": {
+      "ENTITY#minecraft:creeper": 64,
+      "ENTITY#minecraft:spider": 64,
+      "ENTITY#minecraft:blaze": 64
+    }
+  },
+  "29": {
+    "break_block": {
+      "BLOCK#minecraft:end_stone": 64,
+      "BLOCK#minecraft:deadbush": 64,
+      "BLOCK#minecraft:melon_block": 128
+    },
+    "kill_monster": {
+      "ENTITY#minecraft:enderman": 64
+    },
+    "mine_ore": {
+      "BLOCK#minecraft:emerald_ore": 64,
+      "BLOCK#minecraft:quartz_ore": 64,
+      "BLOCK#minecraft:diamond_ore": 64
+    },
+    "craft": {
+      "ITEM#minecraft:dye#13": 64,
+      "ITEM#minecraft:diamond_block": 64
+    }
+  },
+  "30": {
+    "craft": {
+      "ITEM#minecraft:cake": 64,
+      "ITEM#minecraft:cookie": 128,
+      "ITEM#minecraft:end_crystal": 16
+    },
+    "place_block": {
+      "BLOCK#minecraft:jukebox": 1
+    }
+  }
 }
