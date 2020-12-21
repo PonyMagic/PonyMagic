@@ -3,10 +3,11 @@ package net.braunly.ponymagic.quests.handlers;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumQuestGoalType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
-import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.util.OreDictUtils;
 import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockOldLeaf;
+import net.minecraft.block.BlockOldLog;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent;
@@ -26,10 +27,16 @@ public class BlockBreakEventHandler {
 
         IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
         Block block = event.getState().getBlock();
+        int meta = block.getMetaFromState(event.getState());
+        
+        if (block instanceof BlockOldLog || block instanceof BlockOldLeaf) {
+            meta = event.getState().getValue(BlockOldLog.VARIANT).getMetadata();
+        }
+
         String goalConfigKey = QuestGoalUtils.getConfigKey(
                 EnumQuestGoalType.BLOCK,
                 block.getRegistryName(),
-                block.getMetaFromState(event.getState())
+                meta
         );
 
         String questName = "break_block";
