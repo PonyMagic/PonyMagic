@@ -7,6 +7,7 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
 import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -21,12 +22,15 @@ import java.util.Map;
 @SideOnly(Side.CLIENT)
 public class GuiQuests {
     private final Minecraft mc;
+    private final FontRenderer fontRenderer;
+
     private IPlayerDataStorage playerData;
     @Getter
     private static boolean isGuiOpen = false;
 
     public GuiQuests(Minecraft mc) {
         this.mc = mc;
+        this.fontRenderer = this.mc.fontRenderer;
     }
 
     public static void openGui() {
@@ -42,14 +46,14 @@ public class GuiQuests {
         if (!GuiQuests.isGuiOpen || event.isCancelable() || event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) {
             return;
         }
-        if (mc.player.capabilities.isCreativeMode || mc.player.isSpectator())
+        if (this.mc.player.capabilities.isCreativeMode || this.mc.player.isSpectator())
             return;
 
         getPlayerData();
         if (this.playerData == null || this.playerData.getLevelData().getCurrentGoals().isEmpty())
             return;
 
-        ScaledResolution resolution = event.getResolution();
+//        ScaledResolution resolution = event.getResolution();
 
         int xPos = 10;
         int yPos = 10;
@@ -60,12 +64,12 @@ public class GuiQuests {
             String questString = I18n.format("gui.quest.quest", questName);
 
             GlStateManager.pushMatrix();
-            float scaleFactor = 2.0F;
+            float scaleFactor = 1.25F;
             GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
-            mc.fontRenderer.drawStringWithShadow("§6§l" + questString, (int) (xPos / scaleFactor), (int)((yPos + yShift) / scaleFactor), 16777215);
+            this.fontRenderer.drawStringWithShadow("§6§l" + questString, (int) (xPos / scaleFactor), (int)((yPos + yShift) / scaleFactor), 16777215);
             GlStateManager.color(1, 1, 1, 1);
             GlStateManager.popMatrix();
-            yShift += 15;
+            yShift += 10;
 
             for (Map.Entry<String, Integer> goalEntry : questEntry.getValue().entrySet()) {
                 String goalString = I18n.format(
@@ -76,12 +80,12 @@ public class GuiQuests {
 
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
-                mc.fontRenderer.drawStringWithShadow("§l" + goalString, (int) (xPos / scaleFactor), (int)((yPos + yShift) / scaleFactor), 16777215);
+                this.fontRenderer.drawStringWithShadow(goalString, (int) (xPos / scaleFactor), (int)((yPos + yShift) / scaleFactor), 16777215);
                 GlStateManager.color(1, 1, 1, 1);
                 GlStateManager.popMatrix();
-                yShift += 15;
+                yShift += 10;
             }
-            yShift += 15;
+            yShift += 10;
         }
     }
 
