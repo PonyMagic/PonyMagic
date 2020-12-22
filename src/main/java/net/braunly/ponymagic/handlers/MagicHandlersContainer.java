@@ -193,14 +193,14 @@ public class MagicHandlersContainer {
 		//if (event.getEntity().world.isRemote) return;
 
 		EntityPlayer player = event.getEntityPlayer();
-		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
+		IPlayerDataStorage playerData = PonyMagicAPI.getPlayerDataStorage(player);
 
 		// Handle pegasus flyhaste passive
-		if (player.capabilities.isFlying && playerData.getSkillData().isSkillLearned("flyhaste")) {
-			PonyMagic.log.info("====================");
-			PonyMagic.log.info(event.getOriginalSpeed());
+		if (playerData.getRace() == EnumRace.PEGASUS &&
+				player.capabilities.isFlying &&
+				playerData.getSkillData().isSkillLearned("flyhaste")
+		) {
 			event.setNewSpeed(player.inventory.getDestroySpeed(event.getState()));
-			PonyMagic.log.info(event.getNewSpeed());
 		}
 	}
 
