@@ -16,7 +16,7 @@ public class PlayerData implements IPlayerDataStorage {
 	private ISkillDataStorage skillData = new SkillData();
 	private ITickDataStorage tickData = new TickData();
 
-	public String version = "v3.0";
+//	public String version = "v3.0";
 	public EntityPlayer player = null;
 
 	private String playername = null;
@@ -96,30 +96,30 @@ public class PlayerData implements IPlayerDataStorage {
 			compound.setString("Race", EnumRace.REGULAR.name());
 		}
 
-		compound.setString("Version", this.version);
+//		compound.setString("Version", this.version);
 
 		return compound;
 	}
 
 	@Override
 	public void setNBT(NBTTagCompound nbt) {
-		this.levelData.readFromNBT(nbt);
-		this.skillData.readFromNBT(nbt);
-		this.tickData.readFromNBT(nbt);
-
 		try {
 			this.race = EnumRace.getByName(nbt.getString("Race")).get();
+			this.levelData.readFromNBT(nbt);
+			this.skillData.readFromNBT(nbt);
+			this.tickData.readFromNBT(nbt);
 		} catch (NoSuchElementException e) {
-			this.race = EnumRace.REGULAR;
+			this.setRace(EnumRace.REGULAR);
 		}
-		if (!this.version.equals(nbt.getString("Version"))) {
-			this.migrateTo(this.version);
-		}
+
+//		if (!this.version.equals(nbt.getString("Version"))) {
+//			this.migrateTo(this.version);
+//		}
 
 	}
 
-	private void migrateTo(String version) {
-	}
+//	private void migrateTo(String version) {
+//	}
 
 	private void addDefaultSpell() {
 		// Add ONLY ONE default spell
