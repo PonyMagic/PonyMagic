@@ -20,7 +20,6 @@ public class PonyMagic {
 	public static final String CLIENTPROXY = "net.braunly.ponymagic.proxy.ClientProxy";
 	public static final String COMMONPROXY = "net.braunly.ponymagic.proxy.CommonProxy";
 
-	public static HashMap<Integer, Double> EXP_FOR_LVL = new HashMap<>();
 	public static final int MAX_LVL = 30;
 	public static final PonyMagicCreativeTab creativeTab = new PonyMagicCreativeTab();
 	
