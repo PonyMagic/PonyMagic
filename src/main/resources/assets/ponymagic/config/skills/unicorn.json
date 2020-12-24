@@ -1,0 +1,294 @@
+[
+  {
+    "name": "reset",
+    "price": 0,
+    "skillLevel": 0,
+    "depends": {
+    }
+  },
+  {
+    "name": "staminaPool",
+    "price": 0,
+    "skillLevel": 0,
+    "depends": {
+    }
+  },
+  {
+    "name": "staminaPool",
+    "price": 2,
+    "skillLevel": 1,
+    "depends": {
+    }
+  },
+  {
+    "name": "staminaPool",
+    "price": 2,
+    "skillLevel": 2,
+    "depends": {
+      "staminaPool": 1
+    }
+  },
+  {
+    "name": "staminaRegen",
+    "price": 2,
+    "skillLevel": 1
+  },
+  {
+    "name": "staminaRegen",
+    "price": 2,
+    "skillLevel": 2,
+    "depends": {
+      "staminaRegen": 1
+    }
+  },
+  {
+    "name": "shregen",
+    "price": 2,
+    "skillLevel": 1,
+    "depends": {
+    }
+  },
+  {
+    "name": "moonbeam",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "portal",
+    "price": 0,
+    "skillLevel": 1,
+    "stamina": 0,
+    "effect": {
+      "duration": 0,
+      "level": 0
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "teleport",
+    "price": 0,
+    "skillLevel": 1,
+    "depends": {
+    }
+  },
+  {
+    "name": "extinguisher",
+    "price": 2,
+    "skillLevel": 1,
+    "effect": {
+      "duration": 1200,
+      "level": 0
+    },
+    "depends": {
+    },
+    "spellData": {
+      "cooldown": 2400
+    }
+  },
+  {
+    "name": "hpregen",
+    "price": 1,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 600,
+      "level": 1
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "unenchant",
+    "price": 1,
+    "skillLevel": 1,
+    "stamina": 45,
+    "depends": {
+    }
+  },
+  {
+    "name": "shield",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 10,
+    "effect": {
+      "duration": 1200,
+      "level": 5
+    },
+    "depends": {
+      "extinguisher": 1
+    }
+  },
+  {
+    "name": "hpregen",
+    "price": 2,
+    "skillLevel": 2,
+    "stamina": 50,
+    "effect": {
+      "duration": 900,
+      "level": 2
+    },
+    "depends": {
+      "hpregen": 1
+    }
+  },
+  {
+    "name": "tpbed",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 60,
+    "effect": {
+      "duration": 600,
+      "level": 1
+    },
+    "depends": {
+      "hpregen": 1,
+      "unenchant": 1
+    }
+  },
+  {
+    "name": "solidcore",
+    "price": 2,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 1200,
+      "level": 1
+    },
+    "depends": {
+      "shield": 1
+    }
+  },
+  {
+    "name": "heal",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 20,
+      "level": 1
+    },
+    "depends": {
+      "hpregen": 2
+    }
+  },
+  {
+    "name": "enchant",
+    "price": 2,
+    "skillLevel": 1,
+    "stamina": 90,
+    "depends": {
+      "tpbed": 1
+    },
+    "spellData": {
+      "enchantment_level": 30,
+      "experience": 30
+    }
+  },
+  {
+    "name": "healwave",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 0,
+    "depends": {
+      "heal": 1
+    },
+    "spellData": {
+      "radius": 3,
+      "cooldown": 200,
+      "heal_percent": 10,
+      "stamina_percent": 50
+    }
+  },
+  {
+    "name": "tpsurface",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 1,
+      "level": 0
+    },
+    "depends": {
+      "enchant": 1
+    }
+  },
+  {
+    "name": "readyforduel",
+    "price": 3,
+    "skillLevel": 1,
+    "effect": {
+      "duration": 300,
+      "level": 2
+    },
+    "depends": {
+      "solidcore": 1
+    },
+    "spellData": {
+      "cooldown": 1200
+    }
+  },
+  {
+    "name": "slowfall",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 200,
+      "level": 1
+    },
+    "depends": {
+      "tpsurface": 1
+    }
+  },
+  {
+    "name": "blink",
+    "price": 4,
+    "skillLevel": 1,
+    "stamina": 30,
+    "depends": {
+      "tpsurface": 1
+    },
+    "spellData": {
+      "distance": 10,
+      "cooldown": 200
+    }
+  },
+  {
+    "name": "revival",
+    "price": 4,
+    "skillLevel": 1,
+    "stamina": 90,
+    "effect": {
+      "duration": 100,
+      "level": 0
+    },
+    "depends": {
+      "readyforduel": 1,
+      "healwave": 1
+    }
+  },
+  {
+    "name": "fly",
+    "price": 4,
+    "skillLevel": 1,
+    "stamina": 60,
+    "effect": {
+      "duration": 100,
+      "level": 1
+    },
+    "depends": {
+      "slowfall": 1
+    },
+    "spellData": {
+      "cooldown": 600
+    }
+  }
+]

@@ -7,28 +7,30 @@ import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.events.LevelUpEvent;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
-import me.braunly.ponymagic.api.events.LevelUpEvent;
+import net.braunly.ponymagic.config.LevelConfig;
+import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
+import net.braunly.ponymagic.util.QuestGoalUtils;
+import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.lang.invoke.WrongMethodTypeException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,7 +41,11 @@ public class CommandMagic extends CommandBase {
 	public final String name = "magic";
 	@Getter
 	public final int requiredPermissionLevel = 1;
-	private final String[] availableCommands = { "race", "spell", "test", "setlevel", "setexp", "setpoints" };
+	private final String[] availableCommands = {
+			"race", "reload", "spell",
+			"test", "setlevel", "setpoints",
+			"getquest"
+	};
 
 	@Override
 	@Nonnull
@@ -103,9 +109,8 @@ public class CommandMagic extends CommandBase {
 		playerData.setRace(EnumRace.REGULAR);
 		playerData.setRace(race);
 		playerData.getLevelData().setLevel(level);
-		playerData.getLevelData().addExp(PonyMagic.EXP_FOR_LVL.get(level));
-		playerData.getLevelData().setFreeSkillPoints(level / 3);
-		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, playerData.getLevelData().getLevel()));
+		playerData.getLevelData().setFreeSkillPoints(level);
+		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, level));
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 		MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
 		MagicHandlersContainer.updatePlayerMaxStamina(player);
@@ -114,18 +119,6 @@ public class CommandMagic extends CommandBase {
 		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), player);
 	}
 
-	@ParametersAreNonnullByDefault
-	private void executeSetExp(EntityPlayerMP player, String[] args) throws CommandException {
-		if (args.length < 2) {
-			throw new WrongUsageException("commands.magic.setexp.usage");
-		}
-		String playerName = args[1];
-		double exp = MathHelper.getDouble(args[2], 0D);
-
-		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
-		playerData.getLevelData().setExp(exp);
-		PonyMagicAPI.playerDataController.savePlayerData(playerData);
-	}
 
 	@ParametersAreNonnullByDefault
 	private void executeSetLevel(EntityPlayerMP player, String[] args) throws CommandException {
@@ -140,7 +133,8 @@ public class CommandMagic extends CommandBase {
 		}
 
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
-		playerData.getLevelData().setExp(PonyMagic.EXP_FOR_LVL.get(level));
+		playerData.getLevelData().setLevel(level);
+		playerData.getLevelData().setGoals(LevelConfig.getRaceLevelConfig(playerData.getRace(), level+1).getQuestsWithGoals());
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 	}
 
@@ -155,6 +149,30 @@ public class CommandMagic extends CommandBase {
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
 		playerData.getLevelData().setFreeSkillPoints(points);
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
+	}
+
+	@ParametersAreNonnullByDefault
+	private void executeReload(EntityPlayerMP player, String[] args) throws CommandException {
+		LevelConfig.load();
+		SkillConfig.load();
+	}
+
+	@ParametersAreNonnullByDefault
+	private void executeGetQuest(EntityPlayerMP player, String[] args) throws CommandException {
+		String playerName = args[1];
+
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
+		for (Map.Entry<String, HashMap<String, Integer>> questEntry : playerData.getLevelData().getCurrentGoals().entrySet()) {
+			String questName = new TextComponentTranslation("quest." + questEntry.getKey() + ".name").getUnformattedComponentText();
+			player.sendMessage(new TextComponentTranslation("commands.magic.getquest.quest", questName));
+			for (Map.Entry<String, Integer> goalEntry : questEntry.getValue().entrySet()) {
+				player.sendMessage(new TextComponentTranslation(
+						"commands.magic.getquest.goal",
+						QuestGoalUtils.getLocalizedGoalName(goalEntry.getKey()),
+						goalEntry.getValue()
+				));
+			}
+		}
 	}
 
 	@Override
@@ -182,14 +200,17 @@ public class CommandMagic extends CommandBase {
 			case "test":
 				executeTest(player, args);
 				break;
-			case "setexp":
-				executeSetExp(player, args);
-				break;
 			case "setpoints":
 				executeSetPoints(player, args);
 				break;
 			case "setlevel":
 				executeSetLevel(player, args);
+				break;
+			case "reload":
+				executeReload(player, args);
+				break;
+			case "getquest":
+				executeGetQuest(player, args);
 				break;
 			default:
 				throw new WrongUsageException("commands.magic.usage");

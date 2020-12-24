@@ -6,18 +6,16 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.capabilities.stamina.StaminaHandler;
 import net.braunly.ponymagic.capabilities.stamina.StaminaSerializer;
 import net.braunly.ponymagic.capabilities.stamina.StaminaStorage;
-import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
-import net.braunly.ponymagic.capabilities.swish.SwishHandler;
-import net.braunly.ponymagic.capabilities.swish.SwishSerializer;
-import net.braunly.ponymagic.capabilities.swish.SwishStorage;
 import net.braunly.ponymagic.command.CommandCast;
 import net.braunly.ponymagic.command.CommandMagic;
 import net.braunly.ponymagic.command.CommandStamina;
 import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.config.LevelConfig;
+import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
-import net.braunly.ponymagic.exp.DeathEventHandler;
+import net.braunly.ponymagic.quests.Quests;
 import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.LevelUpEventHandler;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
@@ -26,6 +24,7 @@ import net.braunly.ponymagic.items.ModItems;
 import net.braunly.ponymagic.network.packets.*;
 import net.braunly.ponymagic.potions.PotionShield;
 import net.braunly.ponymagic.potions.PotionStaminaHealthRegen;
+import net.braunly.ponymagic.util.OreDictUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.WorldServer;
@@ -54,10 +53,15 @@ public class CommonProxy {
 		PonyMagic.channel.registerMessage(ResetPacket.class, ResetPacket.class, 5, Side.SERVER);
 
 		PonyMagic.channel.registerMessage(LevelUpSoundPacket.class, LevelUpSoundPacket.class, 6, Side.CLIENT);
-		PonyMagic.channel.registerMessage(SwishPacket.class, SwishPacket.class, 7, Side.CLIENT);
+		PonyMagic.channel.registerMessage(MotionPacket.class, MotionPacket.class, 7, Side.CLIENT);
 
+		// Main config
 		Config.load(event.getSuggestedConfigurationFile());
-		PonyMagic.log.info("Config loaded!");
+		// Leveling configs
+		LevelConfig.init(event.getModConfigurationDirectory());
+		// Skills configs
+		SkillConfig.init(event.getModConfigurationDirectory());
+		PonyMagic.log.info("Configs loaded!");
 
 		// Inject custom potions
 		PonyMagic.log.info("Injecting custom potions...");
@@ -66,7 +70,6 @@ public class CommonProxy {
 
 		// Register capability data
 		CapabilityManager.INSTANCE.register(IStaminaStorage.class, new StaminaSerializer(), StaminaStorage.class);
-		CapabilityManager.INSTANCE.register(ISwishCapability.class, new SwishSerializer(), SwishStorage.class);
 		CapabilityManager.INSTANCE.register(IPlayerDataStorage.class, new PlayerDataSerializer(), PlayerData.class);
 		
 		ModItems.init();
@@ -81,8 +84,8 @@ public class CommonProxy {
 
 	public void init(FMLInitializationEvent event) {
 		PonyMagic.log.info("Handlers registration...");
-		// Experience handlers
-		MinecraftForge.EVENT_BUS.register(new DeathEventHandler());
+		// Quests handlers
+		Quests.registerHandlers();
 
 		MinecraftForge.EVENT_BUS.register(new MagicHandlersContainer());
 
@@ -91,13 +94,14 @@ public class CommonProxy {
 
 		// Attach capabilities to player
 		MinecraftForge.EVENT_BUS.register(new StaminaHandler());
-		MinecraftForge.EVENT_BUS.register(new SwishHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerDataHandler());
 
 		MagicSoundHandler.init();
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
+		// Init utils
+		OreDictUtils.getInstance();
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {

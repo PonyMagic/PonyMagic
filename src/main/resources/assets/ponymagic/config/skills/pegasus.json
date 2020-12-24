@@ -1,0 +1,203 @@
+[
+  {
+    "name": "reset",
+    "price": 0,
+    "skillLevel": 0,
+    "depends": {
+    }
+  },
+  {
+    "name": "staminaPool",
+    "price": 0,
+    "skillLevel": 0,
+    "depends": {
+    }
+  },
+  {
+    "name": "staminaPool",
+    "price": 3,
+    "skillLevel": 1,
+    "depends": {
+    }
+  },
+  {
+    "name": "staminaPool",
+    "price": 3,
+    "skillLevel": 2,
+    "depends": {
+      "staminaPool": 1
+    }
+  },
+  {
+    "name": "staminaRegen",
+    "price": 3,
+    "skillLevel": 1,
+    "depends": {
+    }
+  },
+  {
+    "name": "staminaRegen",
+    "price": 3,
+    "skillLevel": 2,
+    "depends": {
+      "staminaRegen": 1
+    }
+  },
+  {
+    "name": "shregen",
+    "price": 2,
+    "skillLevel": 1,
+    "depends": {
+    }
+  },
+  {
+    "name": "fly",
+    "price": 0,
+    "skillLevel": 1,
+    "depends": {
+    }
+  },
+  {
+    "name": "speed",
+    "price": 1,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 600,
+      "level": 2
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "flyduration",
+    "price": 2,
+    "skillLevel": 1,
+    "depends": {
+      "swish": 1
+    }
+  },
+  {
+    "name": "flyspeed",
+    "price": 2,
+    "skillLevel": 1,
+    "depends": {
+      "speed": 1
+    }
+  },
+  {
+    "name": "flyduration",
+    "price": 3,
+    "skillLevel": 2,
+    "depends": {
+      "flyduration": 1
+    }
+  },
+  {
+    "name": "flyspeed",
+    "price": 3,
+    "skillLevel": 2,
+    "depends": {
+      "flyspeed": 1
+    }
+  },
+  {
+    "name": "swish",
+    "price": 1,
+    "skillLevel": 1,
+    "stamina": 15,
+    "depends": {}
+  },
+  {
+    "name": "haste",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 50,
+    "effect": {
+      "duration": 600,
+      "level": 3
+    },
+    "depends": {
+      "flyspeed": 2
+    }
+  },
+  {
+    "name": "highground",
+    "price": 2,
+    "skillLevel": 1,
+    "depends": {
+      "flyspeed": 2,
+      "flyduration": 2
+    },
+    "spellData": {
+      "damage_percent": 10
+    }
+  },
+  {
+    "name": "slowfallauto",
+    "price": 3,
+    "skillLevel": 1,
+    "effect": {
+      "duration": 300,
+      "level": 1
+    },
+    "depends": {
+      "flyduration": 2
+    }
+  },
+  {
+    "name": "onedge",
+    "price": 3,
+    "skillLevel": 1,
+    "depends": {
+      "highground": 1
+    },
+    "spellData": {
+      "damage_percent": 20
+    }
+  },
+  {
+    "name": "dodging",
+    "price": 4,
+    "skillLevel": 1,
+    "depends": {
+      "slowfallauto": 1
+    },
+    "spellData": {
+      "chance": 15
+    }
+  },
+  {
+    "name": "archery",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 45,
+    "effect": {
+      "duration": 200,
+      "level": 1
+    },
+    "depends": {
+      "onedge": 1
+    }
+  },
+  {
+    "name": "dodgingbuff",
+    "price": 4,
+    "skillLevel": 1,
+    "effect": {
+      "duration": 100,
+      "level": 0
+    },
+    "depends": {
+      "dodging": 1
+    }
+  },
+  {
+    "name": "flyhaste",
+    "price": 3,
+    "skillLevel": 1,
+    "depends": {
+      "haste": 1
+    }
+  }
+]

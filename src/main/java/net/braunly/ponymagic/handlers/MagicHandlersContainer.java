@@ -6,17 +6,17 @@ import me.braunly.ponymagic.api.enums.EnumStaminaType;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.capabilities.swish.ISwishCapability;
-import net.braunly.ponymagic.capabilities.swish.SwishProvider;
 import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
+import net.braunly.ponymagic.skill.Skill;
 import net.braunly.ponymagic.spells.potion.SpellPotion;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -117,8 +117,12 @@ public class MagicHandlersContainer {
 					if (playerData.getSkillData().isSkillLearned("slowfallauto")) {
 						Potion slowFall = SpellPotion.getCustomPotion("slow_fall");
 						if (!player.isPotionActive(slowFall)) {
-							Integer[] config = Config.potions.get(String.format("%s#%d", "slow_fall_auto", 1));
-							player.addPotionEffect(new PotionEffect(slowFall, config[0], config[2]));
+							Skill slowfallautoConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "slowfallauto", 1);
+							player.addPotionEffect(new PotionEffect(
+									slowFall,
+									slowfallautoConfig.getEffect().get("duration"),
+									slowfallautoConfig.getEffect().get("duration")
+							));
 						}
 					}
 				}
@@ -131,13 +135,6 @@ public class MagicHandlersContainer {
 				player.removePotionEffect(speedPotion);
 			}
 
-			// Handle pegasus swish cooldown
-			if (playerData.getSkillData().isSkillLearned("swish")) {
-				ISwishCapability swish = player.getCapability(SwishProvider.SWISH, null);
-				if (!swish.canSwish() && staminaCurrent > (staminaMaximum/3)) {
-					swish.setCanSwish(true);
-				}
-			}
 		}
 		// Handle timers
 		if (playerData.getTickData().isTicking()) {
@@ -173,8 +170,8 @@ public class MagicHandlersContainer {
 			IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 
 			if (event.getAmount() > 0) {
-				Integer[] config = Config.potions.get(String.format("shield#%d", 1));
-				Double damageModifier = config[2] * 1.0D;
+				Skill shieldConfig = SkillConfig.getRaceSkill(EnumRace.UNICORN, "shield", 1);
+				double damageModifier = shieldConfig.getEffect().get("level") * 1.0D;
 				if (stamina.consume(event.getAmount() * damageModifier)) {
 					event.setAmount(0);
 					event.setCanceled(true);
@@ -190,6 +187,24 @@ public class MagicHandlersContainer {
 	
 	// Passives
 
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void handleMiningSpeed(PlayerEvent.BreakSpeed event) {
+		// NOTE: Needs client side to work. I don't know why
+		//if (event.getEntity().world.isRemote) return;
+
+		EntityPlayer player = event.getEntityPlayer();
+		IPlayerDataStorage playerData = PonyMagicAPI.getPlayerDataStorage(player);
+
+		// Handle pegasus flyhaste passive
+		if (playerData.getRace() == EnumRace.PEGASUS &&
+				player.capabilities.isFlying &&
+				playerData.getSkillData().isSkillLearned("flyhaste")
+		) {
+			event.setNewSpeed(player.inventory.getDestroySpeed(event.getState()));
+		}
+	}
+
+
 	// Player deal damage
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void handleDamagePassive(LivingHurtEvent event) {
@@ -201,14 +216,22 @@ public class MagicHandlersContainer {
 			
 			if (playerData.getSkillData().isSkillLearned("highground")) {
 				if (player.getPosition().getY() - event.getEntity().getPosition().getY() > 1 && player.onGround) {
-					event.setAmount(event.getAmount() + ((event.getAmount() / 100.0F) * Config.highgroundDamage));
+					Skill highgroundConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "highground", 1);
+					event.setAmount(event.getAmount() +
+							((event.getAmount() / 100.0F) *
+									highgroundConfig.getSpellData().get("damage_percent"))
+					);
 				}
 			}
 			
 			if (playerData.getSkillData().isSkillLearned("onedge")) {
 				IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
 				if (stamina.getStamina(EnumStaminaType.CURRENT) < 10) {
-					event.setAmount(event.getAmount() + ((event.getAmount() / 100.0F) * Config.onedgeDamage));
+					Skill onedgeConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "onedge", 1);
+					event.setAmount(event.getAmount() +
+							((event.getAmount() / 100.0F) *
+									onedgeConfig.getSpellData().get("damage_percent"))
+					);
 				}
 			}
 		}		
@@ -231,9 +254,15 @@ public class MagicHandlersContainer {
 		if (playerData.getRace() == EnumRace.PEGASUS) {
 			if (playerData.getSkillData().isSkillLearned("dodging")) {
 				float randNum = player.world.rand.nextFloat() * 100;
-				if (randNum < Config.dodgingChance) {
+				Skill dodgingConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "dodging", 1);
+				if (randNum < dodgingConfig.getSpellData().get("chance")) {
 					if (playerData.getSkillData().isSkillLearned("dodgingbuff")) {
-						player.addPotionEffect(new PotionEffect(SpellPotion.getVanillaPotion("absorption"), 5 * 20));
+						Skill dodgingbuffConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "dodgingbuff", 1);
+						player.addPotionEffect(new PotionEffect(
+								SpellPotion.getVanillaPotion("absorption"),
+								dodgingbuffConfig.getEffect().get("duration"),
+								dodgingbuffConfig.getEffect().get("level")
+						));
 					}
 					event.setAmount(0);
 					event.setCanceled(true);
@@ -244,9 +273,16 @@ public class MagicHandlersContainer {
 			if (event.getSource().isFireDamage() &&
 					playerData.getSkillData().isSkillLearned("extinguisher") &&
 					!playerData.getTickData().isTicking("extinguisher")) {
-				Integer[] config = Config.passives.get("extinguisher");
-				player.addPotionEffect(new PotionEffect(SpellPotion.getVanillaPotion("fire_resistance"), config[0]));
-				playerData.getTickData().startTicking("extinguisher", config[1]);
+				Skill extinguisherConfig = SkillConfig.getRaceSkill(EnumRace.UNICORN, "extinguisher", 1);
+				player.addPotionEffect(new PotionEffect(
+						SpellPotion.getVanillaPotion("fire_resistance"),
+						extinguisherConfig.getEffect().get("duration"),
+						extinguisherConfig.getEffect().get("level")
+				));
+				playerData.getTickData().startTicking(
+						"extinguisher",
+						extinguisherConfig.getSpellData().get("cooldown")
+				);
 				event.setAmount(0);
 				event.setCanceled(true);
 			}
@@ -254,9 +290,16 @@ public class MagicHandlersContainer {
 			if (event.getSource().isMagicDamage() &&
 					playerData.getSkillData().isSkillLearned("readyforduel") &&
 					!playerData.getTickData().isTicking("readyforduel")) {
-				Integer[] config = Config.passives.get("readyforduel");
-				player.addPotionEffect(new PotionEffect(SpellPotion.getCustomPotion("magic_shield"), config[0], 2));
-				playerData.getTickData().startTicking("readyforduel", config[1]);
+				Skill readyforduelConfig = SkillConfig.getRaceSkill(EnumRace.UNICORN, "readyforduel", 1);
+				player.addPotionEffect(new PotionEffect(
+						SpellPotion.getCustomPotion("magic_shield"),
+						readyforduelConfig.getEffect().get("duration"),
+						readyforduelConfig.getEffect().get("level")
+				));
+				playerData.getTickData().startTicking(
+						"readyforduel",
+						readyforduelConfig.getSpellData().get("cooldown")
+				);
 				event.setAmount(0);
 				event.setCanceled(true);
 			}

@@ -51,6 +51,10 @@ minecraft {
 
 }
 
+//sourceSets {
+//    main { output.resourcesDir = output.classesDir }
+//}
+
 dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
 }
@@ -103,4 +107,10 @@ tasks.withType(JavaCompile) {
 
 runClient {
     args '--username=player'
+}
+
+idea { 
+    module { 
+        inheritOutputDirs = true 
+    } 
 }

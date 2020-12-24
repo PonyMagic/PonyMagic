@@ -1,0 +1,222 @@
+[
+  {
+    "name": "reset",
+    "price": 0,
+    "skillLevel": 0,
+    "depends": {
+    }
+  },
+  {
+    "name": "staminaPool",
+    "price": 0,
+    "skillLevel": 0,
+    "depends": {
+    }
+  },
+  {
+    "name": "staminaPool",
+    "price": 1,
+    "skillLevel": 1,
+    "depends": {
+    }
+  },
+  {
+    "name": "staminaPool",
+    "price": 2,
+    "skillLevel": 2,
+    "depends": {
+      "staminaPool": 1
+    }
+  },
+  {
+    "name": "staminaRegen",
+    "price": 1,
+    "skillLevel": 1
+  },
+  {
+    "name": "staminaRegen",
+    "price": 2,
+    "skillLevel": 2,
+    "depends": {
+      "staminaRegen": 1
+    }
+  },
+  {
+    "name": "shregen",
+    "price": 2,
+    "skillLevel": 1,
+    "depends": {
+    }
+  },
+  {
+    "name": "craft",
+    "price": 0,
+    "skillLevel": 1,
+    "effect": {
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "grow",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 10,
+    "depends": {
+    },
+    "spellData": {
+      "radius": 3
+    }
+  },
+  {
+    "name": "grow",
+    "price": 5,
+    "skillLevel": 2,
+    "stamina": 40,
+    "depends": {
+      "grow": 1
+    },
+    "spellData": {
+      "radius": 5
+    }
+  },
+  {
+    "name": "jump",
+    "price": 1,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 1200,
+      "level": 2
+    },
+    "depends": {
+    }
+  },
+  {
+    "name": "stepup",
+    "price": 2,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 1200,
+      "level": 2
+    },
+    "depends": {
+      "jump": 1
+    }
+  },
+  {
+    "name": "strength",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 1200,
+      "level": 2
+    },
+    "depends": {
+      "haste": 1
+    }
+  },
+  {
+    "name": "speed",
+    "price": 2,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 1200,
+      "level": 3
+    },
+    "depends": {
+      "stepup": 1
+    }
+  },
+  {
+    "name": "dash",
+    "price": 4,
+    "skillLevel": 1,
+    "stamina": 30,
+    "depends": {
+      "speed": 1
+    }
+  },
+  {
+    "name": "solidcore",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 30,
+    "effect": {
+      "duration": 1200,
+      "level": 1
+    },
+    "depends": {
+      "strength": 1
+    }
+  },
+  {
+    "name": "haste",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 50,
+    "effect": {
+      "duration": 600,
+      "level": 3
+    },
+    "depends": {
+      "stepup": 1
+    }
+  },
+  {
+    "name": "resist",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 60,
+    "effect": {
+      "duration": 1200,
+      "level": 1
+    },
+    "depends": {
+      "strength": 1
+    }
+  },
+  {
+    "name": "ironskin",
+    "price": 3,
+    "skillLevel": 1,
+    "stamina": 50,
+    "effect": {
+      "duration": 600,
+      "level": 1
+    },
+    "depends": {
+      "resist": 1
+    }
+  },
+  {
+    "name": "recoil",
+    "price": 4,
+    "skillLevel": 1,
+    "stamina": 40,
+    "effect": {
+      "duration": 300,
+      "level": 1
+    },
+    "depends": {
+      "resist": 1,
+      "solidcore": 1
+    }
+  },
+  {
+    "name": "repair",
+    "price": 4,
+    "skillLevel": 1,
+    "stamina": 70,
+    "effect": {
+      "duration": 1400,
+      "level": 9
+    },
+    "depends": {
+      "solidcore": 1
+    }
+  }
+]

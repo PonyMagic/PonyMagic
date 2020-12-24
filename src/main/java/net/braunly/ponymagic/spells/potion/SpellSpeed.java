@@ -1,6 +1,7 @@
 package net.braunly.ponymagic.spells.potion;
 
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
+import net.braunly.ponymagic.skill.Skill;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class SpellSpeed extends SpellPotion {
@@ -10,13 +11,13 @@ public class SpellSpeed extends SpellPotion {
 	}
 
 	@Override
-	public boolean cast(EntityPlayer player, Integer level) {
+	public boolean cast(EntityPlayer player, Skill skillConfig) {
 		// Check for cast flood.
 		if (player.isPotionActive(getPotion()))
 			return false;
 
-		if (action(player, level)) {
-			float flySpeedMod = level / 80.0F;
+		if (action(player, skillConfig)) {
+			float flySpeedMod = skillConfig.getSkillLevel() / 80.0F;
 			MagicHandlersContainer.updatePlayerFlySpeed(player, flySpeedMod);
 			return true;
 		}

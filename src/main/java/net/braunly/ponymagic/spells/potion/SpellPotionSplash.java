@@ -2,7 +2,7 @@ package net.braunly.ponymagic.spells.potion;
 
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.skill.Skill;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -22,13 +22,16 @@ public class SpellPotionSplash extends SpellPotion {
 	}
 
 	@Override
-	boolean action(EntityPlayer player, Integer level) {
+	boolean action(EntityPlayer player, Skill skillConfig) {
 		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
-		Integer[] config = Config.potions.get(String.format("%s#%d", getSpellName(), level));
-		if (stamina.consume((double) config[1])) {
+		if (stamina != null && stamina.consume((double) skillConfig.getStamina())) {
 			Iterable<EntityLivingBase> entities = player.world.getEntitiesWithinAABB(EntityLivingBase.class,
 					player.getEntityBoundingBox().expand(range, range, range));
-			entities.forEach(e -> e.addPotionEffect(new PotionEffect(getPotion(), config[0], config[2])));
+			entities.forEach(e -> e.addPotionEffect(new PotionEffect(
+					getPotion(),
+					skillConfig.getEffect().get("duration"),
+					skillConfig.getEffect().get("level")
+			)));
 			stamina.sync((EntityPlayerMP) player);
 			return true;
 		}

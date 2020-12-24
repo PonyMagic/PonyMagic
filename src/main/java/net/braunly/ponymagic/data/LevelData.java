@@ -1,29 +1,48 @@
 package net.braunly.ponymagic.data;
 
-import me.braunly.ponymagic.api.events.LevelUpEvent;
+import com.google.common.collect.ImmutableMap;
 import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
 import net.braunly.ponymagic.PonyMagic;
-import net.braunly.ponymagic.config.Config;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.nbt.NBTTagList;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LevelData implements ILevelDataStorage {
 	private int level = 0;
 	private int freeSkillPoint = 0;
-	private double exp = 0.0D;
 
-	private boolean isLevelUp = false;
-	private boolean isLevelDown = false;
+	private HashMap<String, HashMap<String, Integer>> currentGoals = new HashMap<>();
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		if (compound == null)
 			return;
+		HashMap<String, HashMap<String, Integer>> quests = new HashMap<>();
+
 		NBTTagCompound levelTags = compound.getCompoundTag("LevelData");
 		this.level = levelTags.getInteger("Level");
 		this.freeSkillPoint = levelTags.getInteger("FreeSkillPoint");
-		this.exp = levelTags.getDouble("Exp");
+
+		NBTTagList questsList = levelTags.getTagList("CurrentQuests", 10);
+
+		for (int i = 0; i < questsList.tagCount(); i++) {
+			NBTTagCompound questsCompound = questsList.getCompoundTagAt(i);
+			HashMap<String, Integer> goalsMap = new HashMap<>();
+
+			NBTTagList goalsList = questsCompound.getTagList("Goals", 10);
+			for (int k = 0; k < goalsList.tagCount(); k++) {
+				NBTTagCompound goalCompound = goalsList.getCompoundTagAt(k);
+				goalsMap.put(
+						goalCompound.getString("Goal"),
+						goalCompound.getInteger("Count")
+				);
+			}
+			quests.put(questsCompound.getString("QuestName"), goalsMap);
+		}
+
+		this.currentGoals = quests;
 	}
 
 	@Override
@@ -31,8 +50,75 @@ public class LevelData implements ILevelDataStorage {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setInteger("Level", this.getLevel());
 		nbttagcompound.setInteger("FreeSkillPoint", this.getFreeSkillPoints());
-		nbttagcompound.setDouble("Exp", this.getExp());
+
+		NBTTagList questsList = new NBTTagList();
+		for (String questName : this.currentGoals.keySet()) {
+			NBTTagCompound questsCompound = new NBTTagCompound();
+			questsCompound.setString("QuestName", questName);
+			NBTTagList goalsList = new NBTTagList();
+			for (Map.Entry<String, Integer> goalEntry : this.currentGoals.get(questName).entrySet()) {
+				NBTTagCompound goalCompound = new NBTTagCompound();
+				goalCompound.setString("Goal", goalEntry.getKey());
+				goalCompound.setInteger("Count", goalEntry.getValue());
+				goalsList.appendTag(goalCompound);
+			}
+			questsCompound.setTag("Goals", goalsList);
+			questsList.appendTag(questsCompound);
+		}
+		nbttagcompound.setTag("CurrentQuests", questsList);
+
 		compound.setTag("LevelData", nbttagcompound);
+	}
+
+	@Override
+	public HashMap<String, HashMap<String, Integer>> getCurrentGoals() {
+		return this.currentGoals;
+	}
+
+	@Override
+	public boolean isCurrentGoal(String questName, String goalName) {
+		if (this.currentGoals.isEmpty() || !this.currentGoals.containsKey(questName))
+			return false;
+
+		HashMap<String, Integer> questGoals = this.currentGoals.get(questName);
+
+		// FIXME: Fix log (and etc.) variants (maybe?)
+		return !questGoals.isEmpty() && questGoals.containsKey(goalName);
+	}
+
+	@Override
+	public void decreaseGoal(String questName, String goalName) {
+		if (!isCurrentGoal(questName, goalName)) return;
+
+		HashMap<String, Integer> questGoals = this.currentGoals.get(questName);
+
+		int goal = questGoals.get(goalName);
+
+		PonyMagic.log.info(questName + " " + goalName + " " + goal);
+
+		goal -= 1;
+
+		if (goal == 0) {
+			questGoals.remove(goalName);
+		} else {
+			questGoals.put(goalName, goal);
+		}
+		if (questGoals.isEmpty()) {
+			this.currentGoals.remove(questName);
+		} else {
+			this.currentGoals.put(questName, questGoals);
+		}
+	}
+
+	@Override
+	public void setGoals(ImmutableMap<String, ImmutableMap<String, Integer>> goals) {
+		this.currentGoals.clear();
+		for (String questName : goals.keySet()) {
+			this.currentGoals.put(
+					questName,
+					new HashMap<>(goals.get(questName))
+			);
+		}
 	}
 
 	@Override
@@ -45,56 +131,20 @@ public class LevelData implements ILevelDataStorage {
 		if (level < 0 || level > PonyMagic.MAX_LVL) {
 			return;
 		}
-		this.setExp(PonyMagic.EXP_FOR_LVL.get(level));
+		// Make level up
+		this.level = level;
 	}
 
 	@Override
-	@Deprecated
 	public boolean isLevelUp() {
-		return this.level < PonyMagic.MAX_LVL && this.isLevelUp;
+		// Level up when current goals is empty
+		return this.level < PonyMagic.MAX_LVL && this.currentGoals.isEmpty();
 	}
 	
 	@Override
-	@Deprecated
-	public void levelUp(EntityPlayer player) {
-		if (this.getLevel() == PonyMagic.MAX_LVL)
-			return;
-		this.setLevel(this.getLevel() + 1);
-	}
-
-	@Override
-	public boolean isLevelChange() {
-		if (this.level < PonyMagic.MAX_LVL && this.exp >= PonyMagic.EXP_FOR_LVL.get(this.level + 1)) {
-			this.isLevelUp = true;
-		} else if (this.exp < PonyMagic.EXP_FOR_LVL.get(this.level)) {
-			this.isLevelDown = true;
-		}
-
-		return this.isLevelUp || this.isLevelDown;
-	}
-
-	@Override
-	public void changeLevel() {
-		if (!this.isLevelChange()) return;
-
-		if (this.isLevelUp && this.level < PonyMagic.MAX_LVL) {
-			// Make level up
-			this.level += 1;
-			if (this.level % 3 == 0) {
-				// Add free skill point for every 3 level
-				this.freeSkillPoint += 1;
-			}
-			this.isLevelUp = false;
-
-		} else if (this.isLevelDown && this.level > 0) {
-			// Make level down
-			if (this.level % 3 == 0) {
-				// Remove free skill point if level was ф multiple of three
-				this.freeSkillPoint -= 1;
-			}
-			this.level -= 1;
-			this.isLevelDown = false;
-		}
+	public void levelUp() {
+		this.setLevel(this.level + 1);
+		this.freeSkillPoint += 1;
 	}
 
 	@Override
@@ -110,31 +160,5 @@ public class LevelData implements ILevelDataStorage {
 	@Override
 	public void setFreeSkillPoints(int points) {
 		this.freeSkillPoint = points;
-	}
-
-	@Override
-	public double getExp() {
-		return this.exp;
-	}
-
-	@Override
-	public void setExp(double exp) {
-		if (Config.expModifier) {
-			exp *= Config.expModifierAmount;
-		}
-
-		if (exp < 0 && this.level == 0) {
-			exp = 0.0D;
-		}
-		if (exp > PonyMagic.EXP_FOR_LVL.get(PonyMagic.MAX_LVL)) {
-			exp = PonyMagic.EXP_FOR_LVL.get(PonyMagic.MAX_LVL);
-		}
-
-		this.exp = exp;
-	}
-
-	@Override
-	public void addExp(double exp) {
-		this.setExp(this.exp + exp);
 	}
 }

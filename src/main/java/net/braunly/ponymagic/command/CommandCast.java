@@ -5,6 +5,8 @@ import lombok.Getter;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
+import net.braunly.ponymagic.config.SkillConfig;
+import net.braunly.ponymagic.skill.Skill;
 import net.braunly.ponymagic.spells.Spell;
 import net.braunly.ponymagic.spells.SpellStorage;
 import net.minecraft.command.CommandBase;
@@ -72,8 +74,8 @@ public class CommandCast extends CommandBase {
 
 		int spellLevel = playerData.getSkillData().getSkillLevel(spellName);
 		Spell spell = SpellStorage.getInstance().getSpell(spellName);
-
-		if (spell.cast(player, spellLevel)) {
+		Skill skillConfig = SkillConfig.getRaceSkill(playerRace, spellName, spellLevel);
+		if (spell.cast(player, skillConfig)) {
 			player.sendMessage(new TextComponentTranslation("commands.cast.ok", ""));
 		} else {
 			player.sendMessage(new TextComponentTranslation("commands.cast.fail", ""));

@@ -17,7 +17,9 @@ public class LevelUpEventHandler {
 	public void levelUp(LevelUpEvent event) {
 		EntityPlayer player = event.getPlayer();
 
-		PonyMagic.channel.sendTo(new LevelUpSoundPacket(event.getLevel()), (EntityPlayerMP) player);
+		if (!player.world.isRemote) {
+			PonyMagic.channel.sendTo(new LevelUpSoundPacket(event.getLevel()), (EntityPlayerMP) player);
+		}
 		player.world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, player.posX, player.posY, player.posZ, 1D, 1D,
 				1D);
 	}

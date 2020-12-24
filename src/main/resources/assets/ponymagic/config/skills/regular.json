@@ -1,0 +1,19 @@
+[
+  {
+    "name": "reset",
+    "price": 0,
+    "skillLevel": 0,
+    "depends": {
+    }
+  },
+  {
+    "name": "get_race",
+    "price": 0,
+    "skillLevel": 0,
+    "depends": {
+    },
+    "spellData": {
+      "cooldown": 100000
+    }
+  }
+]

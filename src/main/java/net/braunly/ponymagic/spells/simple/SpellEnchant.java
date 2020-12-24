@@ -2,7 +2,7 @@ package net.braunly.ponymagic.spells.simple;
 
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
-import net.braunly.ponymagic.config.Config;
+import net.braunly.ponymagic.skill.Skill;
 import net.braunly.ponymagic.spells.NamedSpell;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -23,9 +23,9 @@ public class SpellEnchant extends NamedSpell {
 	}
 
 	@Override
-	public boolean cast(EntityPlayer player, Integer level) {
+	public boolean cast(EntityPlayer player, Skill skillConfig) {
 		ItemStack itemStack = player.getHeldItemMainhand();
-		int enchLevel = Config.spells.get(getSpellName())[1];
+		int enchLevel = skillConfig.getSpellData().get("enchantment_level");
 		if (itemStack.isEmpty() ||
 				!itemStack.isItemEnchantable() ||
 				itemStack.getItem().getItemEnchantability() <= 0 ||
@@ -34,12 +34,12 @@ public class SpellEnchant extends NamedSpell {
 		}
 		Random rand = player.world.rand;
 		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
-		if (stamina.consume((double) Config.spells.get(getSpellName())[0])) {
+		if (stamina.consume((double) skillConfig.getStamina())) {
 			List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(rand, itemStack, enchLevel,
 					false);
 			boolean isHeldBook = itemStack.getItem() == Items.BOOK;
 
-			player.addExperienceLevel(-Config.spells.get(getSpellName())[2]);
+			player.addExperienceLevel(-1 * skillConfig.getSpellData().get("experience"));
 
 			if (isHeldBook) {
 				itemStack = new ItemStack(Items.ENCHANTED_BOOK, itemStack.getCount());

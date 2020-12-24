@@ -4,7 +4,9 @@ import me.braunly.ponymagic.api.interfaces.ISkillDataStorage;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SkillData implements ISkillDataStorage {
 	private HashMap<String, Integer> skillData = new HashMap<String, Integer>();
@@ -48,6 +50,13 @@ public class SkillData implements ISkillDataStorage {
 			return 0;
 		}
 		return this.skillData.get(skillName);
+	}
+
+	@Override
+	public boolean isAnySkillLearned(Map<String, Integer> skillsMap) {
+		if (skillsMap == null || skillsMap.isEmpty())
+			return true;
+		return !Collections.disjoint(this.skillData.entrySet(), skillsMap.entrySet());
 	}
 
 	@Override

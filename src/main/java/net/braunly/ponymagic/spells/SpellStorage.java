@@ -58,7 +58,8 @@ public class SpellStorage {
 				.put("grow", new SpellGrow("grow"))
 				.put("unenchant", new SpellUnEnchant("unenchant"))
 				.put("enchant", new SpellEnchant("enchant"))
-				.put("swish", new SpellSwish("swish"))
+				.put("swish", new SpellDash("swish"))
+				.put("dash", new SpellDash("dash"))
 				.put("healwave", new SpellHealwave("healwave"))
 				.put("blink", new SpellBlink("blink"))
 				.build();

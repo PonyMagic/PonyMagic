@@ -12,47 +12,35 @@ import java.util.Set;
 public class GuiButtonSkill extends GuiButton {
 	private Minecraft mc;
 	private ResourceLocation resLoc;
-	public boolean knownSkill;
-	public String skillName;
-	public Set<String> depends;
-	public Set<String> lines;
 	public int posX;
 	public int posY;
 	public float scale;
-	public int minLevel;
+
+	public String skillName;
 	public int skillLevel;
+	public Set<String> lines;
 
-	// public GuiButtonSkill (String name, int id, int x, int y) {
-	// this(name, null, id, x, y, null, 1, 5);
-	// }
-	//
-	// public GuiButtonSkill (String name, String[] depends, int id, int x, int y) {
-	// this(name, depends, id, x, y, null, 1);
-	// }
-
-	public GuiButtonSkill(String name, int id, int x, int y, int skillLevel, int minLevel) {
-		this(name, ImmutableSet.of(), id, x, y, ImmutableSet.of(), skillLevel, minLevel);
+	public GuiButtonSkill(String name, int id, int x, int y, int skillLevel) {
+		this(name, id, x, y, ImmutableSet.of(), skillLevel);
 	}
 
-	public GuiButtonSkill(String name, Set<String> depends, int id, int x, int y, int skillLevel, int minLevel) {
-		this(name, depends, id, x, y, ImmutableSet.of(), skillLevel, minLevel);
-	}
-
-	public GuiButtonSkill(String name, Set<String> depends, int id, int x, int y, Set<String> lines, int skillLevel,
-			int minLevel) {
+	public GuiButtonSkill(String name, int id, int x, int y, Set<String> lines, int skillLevel) {
 		super(id, x, y, 32, 32, "");
 		this.skillName = name;
 		this.lines = lines;
-		this.minLevel = minLevel;
 		this.skillLevel = skillLevel;
-		this.depends = depends;
 	}
 
-	public void initButton(Minecraft mc, int mouseX, int mouseY, int x, int y, float scale, boolean knownSkill) {
+	public void initButton(Minecraft mc, int x, int y, float scale) {
 		this.mc = mc;
-		this.knownSkill = knownSkill;
-		this.resLoc = new ResourceLocation(PonyMagic.MODID,
-				"textures/gui/skills/" + (this.knownSkill ? this.skillName : "unknown") + ".png");
+		if (this.skillLevel > 1) {
+			this.resLoc = new ResourceLocation(PonyMagic.MODID,
+					"textures/gui/skills/" + this.skillName + this.skillLevel + ".png");
+		} else {
+			this.resLoc = new ResourceLocation(PonyMagic.MODID,
+					"textures/gui/skills/" + this.skillName + ".png");
+		}
+
 		this.posX = x + this.x;
 		this.posY = y + this.y - 32;
 		this.scale = scale;
@@ -77,12 +65,6 @@ public class GuiButtonSkill extends GuiButton {
 
 	@Override
 	public boolean mousePressed(Minecraft par1Minecraft, int mouseX, int mouseY) {
-		return this.enabled && this.visible && isUnderMouse(mouseX, mouseY); // mouseX >= this.xPosition && mouseY >=
-																				// this.yPosition && (float)mouseX <
-																				// (float)this.xPosition +
-																				// (float)this.width * GuiStats.SCALE &&
-																				// (float)mouseY < (float)this.yPosition
-																				// + (float)this.height *
-																				// GuiStats.SCALE;
+		return this.enabled && this.visible && isUnderMouse(mouseX, mouseY);
 	}
 }
