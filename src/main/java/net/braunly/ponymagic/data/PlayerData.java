@@ -5,6 +5,7 @@ import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import me.braunly.ponymagic.api.interfaces.ISkillDataStorage;
 import me.braunly.ponymagic.api.interfaces.ITickDataStorage;
+import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.config.LevelConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -45,9 +46,20 @@ public class PlayerData implements IPlayerDataStorage {
 
 	@Override
 	public void setRace(EnumRace race) {
+		if (this.race != EnumRace.REGULAR && race != EnumRace.REGULAR) {
+			int newLevel = this.levelData.getLevel() - Config.removeLevelsForRaceChange;
+			if (newLevel < 0) newLevel = 0;
+
+			this.levelData.setLevel(newLevel);
+			this.levelData.setFreeSkillPoints(newLevel);
+		} else {
+			this.levelData = new LevelData();
+		}
 		this.race = race;
-		this.levelData = new LevelData();
-		this.levelData.setGoals(LevelConfig.getRaceLevelConfig(race, 1).getQuestsWithGoals());
+		this.levelData.setGoals(LevelConfig.getRaceLevelConfig(
+				race,
+				this.levelData.getLevel() + 1
+		).getQuestsWithGoals());
 		this.skillData = new SkillData();
 		this.tickData = new TickData();
 		this.addDefaultSpell();
