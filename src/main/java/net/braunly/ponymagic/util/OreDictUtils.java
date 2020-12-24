@@ -27,6 +27,8 @@ public class OreDictUtils {
     }
 
     public boolean isOre(ItemStack itemStack) {
+        if (itemStack.isEmpty()) return false;
+
         for (int oreId : OreDictionary.getOreIDs(itemStack)) {
             if (oreDictIds.contains(oreId)) {
                 return true;
