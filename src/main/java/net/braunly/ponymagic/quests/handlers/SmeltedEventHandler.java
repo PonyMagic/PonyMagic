@@ -19,7 +19,7 @@ public class SmeltedEventHandler {
 
     }
 
-    @SubscribeEvent(priority=EventPriority.NORMAL)
+    @SubscribeEvent(priority=EventPriority.HIGH)
     public void onItemSmelt(PlayerEvent.ItemSmeltedEvent event) {
         EntityPlayer player = event.player;
 
@@ -33,12 +33,14 @@ public class SmeltedEventHandler {
                 itemStack.getItemDamage()
         );
 
-        String questName = "smelt";
-        playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
-
-        if (itemStack.getItem() instanceof ItemFood) {
-            questName = "smelt_food";
+        for (int i = 0; i < event.smelting.getCount(); i++){
+            String questName = "smelt";
             playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+
+            if (itemStack.getItem() instanceof ItemFood) {
+                questName = "smelt_food";
+                playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+            }
         }
         PonyMagicAPI.playerDataController.savePlayerData(playerData);
     }

@@ -22,7 +22,7 @@ public class CraftEventHandler {
 
     }
 
-    @SubscribeEvent(priority=EventPriority.NORMAL)
+    @SubscribeEvent(priority=EventPriority.HIGH)
     public void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
         EntityPlayer player = event.player;
 
@@ -36,15 +36,17 @@ public class CraftEventHandler {
                 itemStack.getItemDamage()
         );
 
-        String questName = "craft";
-        playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+        for (int i = 0; i < event.crafting.getCount(); i++) {
+            String questName = "craft";
+            playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
 
-        if (itemStack.getItem() instanceof ItemTool) {
-            questName = "craft_tool";
-            playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
-        } else if (itemStack.getItem() instanceof ItemArmor) {
-            questName = "craft_armor";
-            playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+            if (itemStack.getItem() instanceof ItemTool) {
+                questName = "craft_tool";
+                playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+            } else if (itemStack.getItem() instanceof ItemArmor) {
+                questName = "craft_armor";
+                playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+            }
         }
         PonyMagicAPI.playerDataController.savePlayerData(playerData);
     }

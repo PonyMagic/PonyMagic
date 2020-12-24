@@ -82,7 +82,7 @@ public class LevelData implements ILevelDataStorage {
 
 		HashMap<String, Integer> questGoals = this.currentGoals.get(questName);
 
-		// FIXME: Fix log (and etc.) variants (maybe?)
+		// FIXME: Fix log (and etc.) variants (maybe?) (fixed? see 1fc29b7d)
 		return !questGoals.isEmpty() && questGoals.containsKey(goalName);
 	}
 
@@ -93,8 +93,6 @@ public class LevelData implements ILevelDataStorage {
 		HashMap<String, Integer> questGoals = this.currentGoals.get(questName);
 
 		int goal = questGoals.get(goalName);
-
-		PonyMagic.log.info(questName + " " + goalName + " " + goal);
 
 		goal -= 1;
 
