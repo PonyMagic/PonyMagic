@@ -34,7 +34,9 @@ public class PickupEventHandler {
         );
 
         String questName = "pickup_item";
-        playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+        for (int i = 0; i < event.getStack().getCount(); i++) {
+            playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+        }
 
         PonyMagicAPI.playerDataController.savePlayerData(playerData);
     }
