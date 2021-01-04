@@ -115,8 +115,7 @@
       "ITEM#minecraft:iron_shovel": 3
     },
     "mine_ore": {
-      "BLOCK#minecraft:redstone_ore": 16,
-      "BLOCK#minecraft:lapis_ore": 16,
+      "BLOCK#minecraft:lapis_ore": 24,
       "BLOCK#minecraft:diamond_ore": 16
     },
     "place_block": {
@@ -298,7 +297,7 @@
       "BLOCK#minecraft:concrete": 33
     },
     "mine_ore": {
-      "BLOCK#minecraft:redstone_ore": 64
+      "BLOCK#minecraft:coal_ore": 64
     },
     "break_block": {
       "BLOCK#minecraft:snow_layer": 128,
