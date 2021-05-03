@@ -330,8 +330,8 @@
       "ITEM#minecraft:arrow": 128
     },
     "break_block": {
-      "BLOCK#minecraft:monster_egg#2": 32,
-      "BLOCK#minecraft:monster_egg#3": 32
+      "BLOCK#minecraft:nether_brick": 64,
+      "BLOCK#minecraft:nether_brick_stairs": 64
     },
     "kill_entity": {
       "ENTITY#minecraft:silverfish": 32
