@@ -10,6 +10,7 @@ import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.entity.EntityPortal;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
+import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.braunly.ponymagic.skill.Skill;
 import net.braunly.ponymagic.spells.potion.SpellPotion;
 import net.braunly.ponymagic.spells.simple.SpellBlink;
@@ -156,6 +157,14 @@ public class MagicHandlersContainer {
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void handleMaxStaminaValue(PlayerLoggedInEvent event) {
 		updatePlayerMaxStamina(event.player);
+	}
+
+	@SubscribeEvent(priority = EventPriority.NORMAL)
+	public void handleInitClientPlayerData(PlayerLoggedInEvent event) {
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(event.player);
+		if (playerData.getRace() == EnumRace.REGULAR) return;
+		
+		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), (EntityPlayerMP) playerData.getPlayer());
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGH)

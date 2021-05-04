@@ -70,7 +70,7 @@ public class GuiSkills extends GuiScreen {
 	}
 
 	private void initPlayerData() {
-		PonyMagic.channel.sendToServer(new RequestPlayerDataPacket());
+//		PonyMagic.channel.sendToServer(new RequestPlayerDataPacket());
 		this.playerData = PonyMagicAPI.getPlayerDataStorage(this.mc.player);
 //		PonyMagic.log.info("[GUI] Player data inited!");
 	}

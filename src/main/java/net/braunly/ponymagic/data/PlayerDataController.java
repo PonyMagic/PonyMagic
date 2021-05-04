@@ -6,9 +6,11 @@ import me.braunly.ponymagic.api.interfaces.IPlayerDataController;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.LevelConfig;
+import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.braunly.ponymagic.util.NBTJsonUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
@@ -59,6 +61,9 @@ public class PlayerDataController implements IPlayerDataController {
 		}
 
 		final NBTTagCompound compound = data.getNBT();
+
+		// Sync PlayerData with client-side
+		PonyMagic.channel.sendTo(new PlayerDataPacket(compound), (EntityPlayerMP) data.getPlayer());
 
 		try {
 			File saveDir = this.getWorldSaveDirectory();

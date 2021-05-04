@@ -13,6 +13,7 @@ public class QuestGoalUtils {
     private static final String delimiter = "#";
 
     public static String getConfigKey(EnumQuestGoalType goalType, ResourceLocation resLoc, int meta) {
+        // TODO: Add .replace("lit_", "") to fix redstone_ore mining error?
         if (meta > 0) {
             return goalType.name() + delimiter + resLoc.toString() + delimiter + meta;
         } else {
