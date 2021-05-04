@@ -9,7 +9,7 @@ item.cloud_in_bottle.name=Облако в бутылке
 
 event.levelup.string=§aТеперь у тебя §e%s§a уровень.
 
-commands.magic.usage=/magic <race|spell|test|setlevel|setexp|setpoibts>
+commands.magic.usage=/magic <race | spell | test | setlevel | setpoints | setportal | deleteportal | listportal | reload>
 commands.magic.player_not_found=Игрок не найден!
 commands.magic.race.usage=/magic race <игрок> <раса>
 commands.magic.race.not_found=Неизвестная раса. Доступные расы: earthpony, pegasus, unicorn, zebra, regular
@@ -19,11 +19,13 @@ commands.magic.spell.notAvailable=%s не может использовать э
 commands.magic.test.usage=/magic test <раса>
 commands.magic.setlevel.usage=/magic setlevel <игрок> <уровень>
 commands.magic.setlevel.max_level=Максимальный уровень игрока - 30
-commands.magic.setexp.usage=/magic setexp <игрок> <количество>
 commands.magic.setpoints.usage=/magic setpoints <игрок> <количество>
 commands.magic.getquest.usage=/magic getquest <игрок>
 commands.magic.getquest.quest=Квест: %1$s\nGoals:
 commands.magic.getquest.goal=\u2023 %1$s - %2$s
+commands.magic.setportal.usage=/magic setportal <имя> [<x> <y> <z>]
+commands.magic.deleteportal.usage=/magic deleteportal <имя>
+commands.magic.listportal.portal=%1$s: %2$s %3$s %4$s
 commands.cast.usage=/cast <способность>
 commands.cast.withoutRace=Ты не имеешь расы!
 commands.cast.haveNoAccess=Твоя раса не может использовать это заклинание!

@@ -11,6 +11,7 @@ import net.braunly.ponymagic.command.CommandMagic;
 import net.braunly.ponymagic.command.CommandStamina;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.config.LevelConfig;
+import net.braunly.ponymagic.config.PortalConfig;
 import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
@@ -61,6 +62,8 @@ public class CommonProxy {
 		LevelConfig.init(event.getModConfigurationDirectory());
 		// Skills configs
 		SkillConfig.init(event.getModConfigurationDirectory());
+		// Portals config
+		PortalConfig.init(event.getModConfigurationDirectory());
 		PonyMagic.log.info("Configs loaded!");
 
 		// Inject custom potions

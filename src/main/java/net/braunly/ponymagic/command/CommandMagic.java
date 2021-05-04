@@ -8,18 +8,17 @@ import me.braunly.ponymagic.api.events.LevelUpEvent;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.LevelConfig;
+import net.braunly.ponymagic.config.PortalConfig;
 import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.braunly.ponymagic.util.QuestGoalUtils;
-import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -42,9 +41,9 @@ public class CommandMagic extends CommandBase {
 	@Getter
 	public final int requiredPermissionLevel = 1;
 	private final String[] availableCommands = {
-			"race", "reload", "spell",
-			"test", "setlevel", "setpoints",
-			"getquest"
+			"race", "reload", "spell", "test",
+			"setlevel", "setpoints", "getquest",
+			"setportal", "deleteportal", "listportal"
 	};
 
 	@Override
@@ -155,10 +154,14 @@ public class CommandMagic extends CommandBase {
 	private void executeReload(EntityPlayerMP player, String[] args) throws CommandException {
 		LevelConfig.load();
 		SkillConfig.load();
+		PortalConfig.load();
 	}
 
 	@ParametersAreNonnullByDefault
 	private void executeGetQuest(EntityPlayerMP player, String[] args) throws CommandException {
+		if (args.length < 2) {
+			throw new WrongUsageException("commands.magic.getquest.usage");
+		}
 		String playerName = args[1];
 
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
@@ -175,6 +178,49 @@ public class CommandMagic extends CommandBase {
 		}
 	}
 
+	@ParametersAreNonnullByDefault
+	private void executeSetPortal(EntityPlayerMP player, String[] args) throws CommandException {
+		if (args.length < 2) {
+			throw new WrongUsageException("commands.magic.setportal.usage");
+		}
+
+		String portalName = args[1];
+		BlockPos portalPos = player.getPosition();
+		if (args.length == 5) {
+			portalPos = parseBlockPos(player, args, 2, true);
+		}
+
+		PortalConfig.addPortal(portalName, portalPos);
+		player.sendMessage(new TextComponentString(String.format("Portal %s created!", portalName)));
+	}
+
+	@ParametersAreNonnullByDefault
+	private void executeDeletePortal(EntityPlayerMP player, String[] args) throws CommandException {
+		if (args.length < 2) {
+			throw new WrongUsageException("commands.magic.deleteportal.usage");
+		}
+
+		String portalName = args[1];
+
+		PortalConfig.deletePortal(portalName);
+		player.sendMessage(new TextComponentString(String.format("Portal %s deleted!", portalName)));
+	}
+
+	@ParametersAreNonnullByDefault
+	private void executeListPortal(EntityPlayerMP player, String[] args) {
+		Map<String, BlockPos> portalsMap = PortalConfig.getPortalsMap();
+
+		for (Map.Entry<String, BlockPos> portalEntry : portalsMap.entrySet()) {
+			player.sendMessage(new TextComponentTranslation(
+					"commands.magic.listportal.portal",
+					portalEntry.getKey(),
+					portalEntry.getValue().getX(),
+					portalEntry.getValue().getY(),
+					portalEntry.getValue().getZ()
+			));
+		}
+	}
+
 	@Override
 	@ParametersAreNonnullByDefault
 	public void execute(MinecraftServer server, ICommandSender commandSender, String[] args) throws CommandException {
@@ -187,7 +233,6 @@ public class CommandMagic extends CommandBase {
 		String command = args[0].toLowerCase();
 
 		EntityPlayerMP player = Optional.ofNullable((EntityPlayerMP) commandSender.getCommandSenderEntity())
-				// FIXME: ...or just return?
 				.orElseThrow(() -> new WrongUsageException("commands.magic.player_not_found"));
 
 		switch (command) {
@@ -211,6 +256,15 @@ public class CommandMagic extends CommandBase {
 				break;
 			case "getquest":
 				executeGetQuest(player, args);
+				break;
+			case "setportal":
+				executeSetPortal(player, args);
+				break;
+			case "deleteportal":
+				executeDeletePortal(player, args);
+				break;
+			case "listportal":
+				executeListPortal(player, args);
 				break;
 			default:
 				throw new WrongUsageException("commands.magic.usage");

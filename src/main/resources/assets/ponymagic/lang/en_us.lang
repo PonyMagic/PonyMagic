@@ -9,7 +9,7 @@ item.cloud_in_bottle.name=Cloud in bottle
 
 event.levelup.string=§aNow you have §e%s§a level.
 
-commands.magic.usage=/magic <race|spell|test|setlevel|setexp|setpoints|reload>
+commands.magic.usage=/magic <race | spell | test | setlevel | setpoints | setportal | deleteportal | listportal | reload>
 commands.magic.player_not_found=Player not found!
 commands.magic.race.usage=/magic race <player> <race>
 commands.magic.race.not_found=Race not found. Available races: earthpony, pegasus, unicorn, zebra, regular
@@ -19,11 +19,13 @@ commands.magic.spell.notAvailable=%s can not use this spell!
 commands.magic.test.usage=/magic test <race>
 commands.magic.setlevel.usage=/magic setlevel <player> <level>
 commands.magic.setlevel.max_level=Maximum player level - 30
-commands.magic.setexp.usage=/magic setexp <player> <amount>
 commands.magic.setpoints.usage=/magic setpoints <player> <amount>
 commands.magic.getquest.usage=/magic getquest <player>
 commands.magic.getquest.quest=Quest: %1$s\nGoals:
 commands.magic.getquest.goal=\u2023 %1$s - %2$s
+commands.magic.setportal.usage=/magic setportal <name> [<x> <y> <z>]
+commands.magic.deleteportal.usage=/magic deleteportal <name>
+commands.magic.listportal.portal=%1$s: %2$s %3$s %4$s
 commands.cast.usage=/cast <spellname>
 commands.cast.withoutRace=You don't have any race!
 commands.cast.haveNoAccess=Your race can't use this spell!
