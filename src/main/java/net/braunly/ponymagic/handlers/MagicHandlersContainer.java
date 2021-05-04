@@ -8,15 +8,19 @@ import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.config.SkillConfig;
+import net.braunly.ponymagic.entity.EntityPortal;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
 import net.braunly.ponymagic.skill.Skill;
 import net.braunly.ponymagic.spells.potion.SpellPotion;
+import net.braunly.ponymagic.spells.simple.SpellBlink;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -303,6 +307,17 @@ public class MagicHandlersContainer {
 				event.setAmount(0);
 				event.setCanceled(true);
 			}
+		}
+	}
+
+	// Teleport player after interact with EntityPortal
+	@SubscribeEvent(priority = EventPriority.NORMAL)
+	public void onPlayerInteractWithPortal(PlayerInteractEvent.EntityInteract event) {
+		if (!(event.getTarget() instanceof EntityPortal) || event.getEntityPlayer().world.isRemote)
+			return;
+		BlockPos target = ((EntityPortal) event.getTarget()).getTarget();
+		if (target != null) {
+			SpellBlink.teleportTo(event.getEntityPlayer(), target.getX(), target.getY(), target.getZ());
 		}
 	}
 

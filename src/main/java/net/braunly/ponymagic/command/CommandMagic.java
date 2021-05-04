@@ -10,6 +10,7 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.LevelConfig;
 import net.braunly.ponymagic.config.PortalConfig;
 import net.braunly.ponymagic.config.SkillConfig;
+import net.braunly.ponymagic.entity.EntityPortal;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.braunly.ponymagic.util.QuestGoalUtils;
@@ -52,6 +53,34 @@ public class CommandMagic extends CommandBase {
 		return "commands.magic.usage";
 	}
 
+
+	@ParametersAreNonnullByDefault
+	private void executeTest(EntityPlayerMP player, String[] args) throws CommandException {
+		if (args.length < 2) {
+			throw new WrongUsageException("commands.magic.test.usage");
+		}
+		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player.getName());
+
+		String raceName = args[1];
+		EnumRace race = EnumRace.getByName(raceName)
+				.orElseThrow(() -> new WrongUsageException("commands.magic.race.not_found"));
+
+		int level = PonyMagic.MAX_LVL;
+		playerData.setRace(EnumRace.REGULAR);
+		playerData.setRace(race);
+		playerData.getLevelData().setLevel(level);
+		playerData.getLevelData().setFreeSkillPoints(level);
+		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, level));
+		PonyMagicAPI.playerDataController.savePlayerData(playerData);
+		MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
+		MagicHandlersContainer.updatePlayerMaxStamina(player);
+
+		player.world.spawnEntity(new EntityPortal(player.world, player.posX, player.posY, player.posZ, new BlockPos(-1786,70,-4615), "Портал в Нарнію"));
+
+		// Send changes to client
+		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), player);
+	}
+
 	@ParametersAreNonnullByDefault
 	private void executeRace(EntityPlayerMP player, String[] args) throws CommandException {
 		if (args.length < 2) {
@@ -91,31 +120,6 @@ public class CommandMagic extends CommandBase {
 		} else {
 			player.sendMessage(new TextComponentTranslation("commands.magic.spell.notAvailable", playerName));
 		}
-	}
-
-	@ParametersAreNonnullByDefault
-	private void executeTest(EntityPlayerMP player, String[] args) throws CommandException {
-		if (args.length < 2) {
-			throw new WrongUsageException("commands.magic.test.usage");
-		}
-		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player.getName());
-
-		String raceName = args[1];
-		EnumRace race = EnumRace.getByName(raceName)
-				.orElseThrow(() -> new WrongUsageException("commands.magic.race.not_found"));
-
-		int level = PonyMagic.MAX_LVL;
-		playerData.setRace(EnumRace.REGULAR);
-		playerData.setRace(race);
-		playerData.getLevelData().setLevel(level);
-		playerData.getLevelData().setFreeSkillPoints(level);
-		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, level));
-		PonyMagicAPI.playerDataController.savePlayerData(playerData);
-		MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
-		MagicHandlersContainer.updatePlayerMaxStamina(player);
-
-		// Send changes to client
-		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), player);
 	}
 
 

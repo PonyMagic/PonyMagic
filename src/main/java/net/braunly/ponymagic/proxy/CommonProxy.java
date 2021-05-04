@@ -16,6 +16,7 @@ import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
+import net.braunly.ponymagic.entity.ModEntity;
 import net.braunly.ponymagic.quests.Quests;
 import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.LevelUpEventHandler;
@@ -76,6 +77,7 @@ public class CommonProxy {
 		CapabilityManager.INSTANCE.register(IPlayerDataStorage.class, new PlayerDataSerializer(), PlayerData.class);
 		
 		ModItems.init();
+		ModEntity.init();
 	}
 
 	public void init(FMLInitializationEvent event) {

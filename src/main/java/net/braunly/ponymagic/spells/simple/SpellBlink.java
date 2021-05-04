@@ -31,7 +31,7 @@ public class SpellBlink extends NamedSpell {
             Vec3d vec3d1 = player.getLook(1);
             Vec3d vec3d2 = vec3d.addVector(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
             RayTraceResult result = player.world.rayTraceBlocks(vec3d, vec3d2, true, false, true);
-            if (result == null || !this.teleportTo(player, result.getBlockPos().getX() + 0.5D, result.getBlockPos().getY() + 1.0D, result.getBlockPos().getZ() + 0.5D)) {
+            if (result == null || !teleportTo(player, result.getBlockPos().getX() + 0.5D, result.getBlockPos().getY() + 1.0D, result.getBlockPos().getZ() + 0.5D)) {
                 stamina.add((double) skillConfig.getStamina());
                 return false;
             }
@@ -44,7 +44,7 @@ public class SpellBlink extends NamedSpell {
         return false;
     }
 
-    private boolean teleportTo(EntityPlayer player, double x, double y, double z) {
+    public static boolean teleportTo(EntityPlayer player, double x, double y, double z) {
         net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(player, x, y, z, 0);
         if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) return false;
         double d0 = player.posX;
