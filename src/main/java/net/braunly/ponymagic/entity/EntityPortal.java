@@ -1,6 +1,9 @@
 package net.braunly.ponymagic.entity;
 
 import com.google.common.base.Optional;
+import me.braunly.ponymagic.api.enums.EnumRace;
+import net.braunly.ponymagic.config.SkillConfig;
+import net.braunly.ponymagic.skill.Skill;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
@@ -44,8 +47,9 @@ public class EntityPortal extends Entity
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
         ++this.innerRotation;
-        // FIXME: config this
-        if (this.ticksExisted > 20 * 5) {
+
+        Skill skillConfig = SkillConfig.getRaceSkill(EnumRace.UNICORN, "portal", 1);
+        if (this.ticksExisted > skillConfig.getSpellData().get("duration")) {
             this.setDead();
         }
     }
