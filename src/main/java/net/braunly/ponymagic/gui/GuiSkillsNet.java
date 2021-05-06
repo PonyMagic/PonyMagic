@@ -92,9 +92,8 @@ public class GuiSkillsNet {
 
 		Set<GuiButtonSkill> unicornSkills = new ImmutableSet.Builder<GuiButtonSkill>()
 				// Default
-				.add(new GuiButtonSkill("moonbeam", 17, 41, 75, 1))
-				.add(new GuiButtonSkill("portal", 18, 41, 139, 1))
 				.add(new GuiButtonSkill("teleport", 0, 41, 203, 0))
+				.add(new GuiButtonSkill("portal", 18, 41, 139, 1))
 
 				// T1
 				.add(new GuiButtonSkill("extinguisher", 1, 105, 43, ImmutableSet.of("shield"),
