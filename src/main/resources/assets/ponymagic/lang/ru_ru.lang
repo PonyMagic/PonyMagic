@@ -6,6 +6,8 @@ key.quests=Показать квесты
 
 item.reset_book.name=Книга обнуления
 item.cloud_in_bottle.name=Облако в бутылке
+item.spell_book.name=Книга способности
+item.spell_book_portal.name=Книга способности: Портал
 
 event.levelup.string=§aТеперь у тебя §e%s§a уровень.
 

@@ -6,6 +6,8 @@ key.quests=Show quests
 
 item.reset_book.name=Reset book
 item.cloud_in_bottle.name=Cloud in bottle
+item.spell_book.name=Spell book
+item.spell_book_portal.name=Spell book: Portal
 
 event.levelup.string=§aNow you have §e%s§a level.
 
