@@ -64,7 +64,7 @@
     "name": "portal",
     "price": 0,
     "skillLevel": 1,
-    "stamina": 0,
+    "stamina": 90,
     "effect": {
       "duration": 0,
       "level": 0

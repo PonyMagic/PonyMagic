@@ -75,7 +75,15 @@ public class CommandCast extends CommandBase {
 		int spellLevel = playerData.getSkillData().getSkillLevel(spellName);
 		Spell spell = SpellStorage.getInstance().getSpell(spellName);
 		Skill skillConfig = SkillConfig.getRaceSkill(playerRace, spellName, spellLevel);
-		if (spell.cast(player, skillConfig)) {
+
+		boolean result;
+		if (args.length >= 2) {
+			result = spell.cast(player, skillConfig, args);
+		} else {
+			result = spell.cast(player, skillConfig);
+		}
+
+		if (result) {
 			player.sendMessage(new TextComponentTranslation("commands.cast.ok", ""));
 		} else {
 			player.sendMessage(new TextComponentTranslation("commands.cast.fail", ""));

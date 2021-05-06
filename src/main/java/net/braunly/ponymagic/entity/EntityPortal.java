@@ -9,6 +9,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -30,7 +31,8 @@ public class EntityPortal extends Entity
         this(worldIn);
         this.setPosition(x, y, z);
         this.setTarget(target);
-        this.setCustomNameTag(name);
+        this.setCustomNameTag(TextFormatting.BOLD + name);
+        this.setAlwaysRenderNameTag(true);
     }
 
     protected void entityInit() {

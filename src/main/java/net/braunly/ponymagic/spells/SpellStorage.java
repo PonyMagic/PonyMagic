@@ -62,6 +62,7 @@ public class SpellStorage {
 				.put("dash", new SpellDash("dash"))
 				.put("healwave", new SpellHealwave("healwave"))
 				.put("blink", new SpellBlink("blink"))
+				.put("portal", new SpellPortal("portal"))
 				.build();
 	}
 
