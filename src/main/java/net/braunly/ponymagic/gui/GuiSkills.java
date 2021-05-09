@@ -7,7 +7,6 @@ import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.client.KeyBindings;
 import net.braunly.ponymagic.config.SkillConfig;
-import net.braunly.ponymagic.network.packets.RequestPlayerDataPacket;
 import net.braunly.ponymagic.network.packets.ResetPacket;
 import net.braunly.ponymagic.network.packets.SkillUpPacket;
 import net.braunly.ponymagic.skill.Skill;
@@ -21,7 +20,8 @@ import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
 
 public class GuiSkills extends GuiScreen {
 

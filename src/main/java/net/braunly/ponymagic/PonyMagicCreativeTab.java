@@ -8,7 +8,6 @@ public class PonyMagicCreativeTab extends CreativeTabs
 {
 	public PonyMagicCreativeTab() {
 		super(PonyMagic.MODID);
-//		setBackgroundImageName("item_search.png");
 	}
 
 	@Override

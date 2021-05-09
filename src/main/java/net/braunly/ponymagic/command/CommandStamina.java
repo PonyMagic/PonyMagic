@@ -190,7 +190,7 @@ public class CommandStamina extends CommandBase {
 			return;
 		}
 		if (args.length < 1) {
-			throw new WrongUsageException("commands.stamina.usage");
+			throw new WrongUsageException(getUsage(commandSender));
 		}
 		String command = args[0].toLowerCase();
 		switch (command) {
@@ -215,7 +215,7 @@ public class CommandStamina extends CommandBase {
 			executeSetMax(server, commandSender, args);
 			break;
 		default:
-			throw new WrongUsageException("commands.stamina.usage");
+			throw new WrongUsageException(getUsage(commandSender));
 		}
 	}
 

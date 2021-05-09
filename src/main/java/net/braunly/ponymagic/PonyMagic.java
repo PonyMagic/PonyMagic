@@ -12,8 +12,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
-
 @Mod(modid = PonyMagic.MODID, useMetadata = true)
 public class PonyMagic {
 	public static final String MODID = "ponymagic";

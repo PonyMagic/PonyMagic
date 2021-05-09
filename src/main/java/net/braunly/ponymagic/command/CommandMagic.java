@@ -232,7 +232,7 @@ public class CommandMagic extends CommandBase {
 			return;
 		}
 		if (args.length < 1) {
-			throw new WrongUsageException("commands.magic.usage");
+			throw new WrongUsageException(getUsage(commandSender));
 		}
 		String command = args[0].toLowerCase();
 
@@ -271,7 +271,7 @@ public class CommandMagic extends CommandBase {
 				executeListPortal(player, args);
 				break;
 			default:
-				throw new WrongUsageException("commands.magic.usage");
+				throw new WrongUsageException(getUsage(commandSender));
 		}
 	}
 

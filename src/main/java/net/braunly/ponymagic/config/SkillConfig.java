@@ -9,11 +9,7 @@ import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.skill.Skill;
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
