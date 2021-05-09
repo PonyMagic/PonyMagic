@@ -14,14 +14,14 @@ public class KeyInputHandler {
 
 	@SubscribeEvent
 	public void onKeyInput(InputEvent.KeyInputEvent event) {
-		if (KeyBindings.skills_gui.isPressed()) {
+		if (KeyBindings.skillsGui.isPressed()) {
 			EntityPlayer player = Minecraft.getMinecraft().player;
 			if (!FMLClientHandler.instance().isGUIOpen(GuiSkills.class)) {
 				player.openGui(PonyMagic.instance, GuiHandler.SKILLS_GUI, player.world, (int) player.posX,
 						(int) player.posY, (int) player.posZ);
 			}
 		}
-		if (KeyBindings.quests_gui.isPressed()) {
+		if (KeyBindings.questsGui.isPressed()) {
 			EntityPlayer player = Minecraft.getMinecraft().player;
 			if (GuiQuests.isGuiOpen()) {
 				GuiQuests.closeGui();

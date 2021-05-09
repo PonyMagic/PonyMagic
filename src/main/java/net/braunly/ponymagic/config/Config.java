@@ -5,7 +5,6 @@ import net.minecraftforge.common.config.Configuration;
 import java.io.File;
 
 public class Config {
-	// FIXME: rewrite configuration
 	// Main
 	public static int vanillaExpLvlForSkillReset;
 	public static int removeLevelsForRaceChange;
@@ -20,8 +19,9 @@ public class Config {
 	// Fly
 	public static Double flySpendingValue;
 
-	public static void load(File file) {
-		Configuration config = new Configuration(file);
+	// FIXME: rewrite configuration
+	public Config(File configFile) {
+		Configuration config = new Configuration(configFile);
 		config.load();
 
 		// Main

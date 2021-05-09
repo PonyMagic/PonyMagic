@@ -5,7 +5,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 
 public class MagicSoundHandler {
-
 	public static SoundEvent LEVEL_UP;
 
 	public static void init() {

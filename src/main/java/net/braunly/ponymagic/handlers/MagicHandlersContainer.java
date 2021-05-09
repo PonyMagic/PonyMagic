@@ -8,32 +8,23 @@ import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.Config;
 import net.braunly.ponymagic.config.SkillConfig;
-import net.braunly.ponymagic.entity.EntityPortal;
 import net.braunly.ponymagic.network.packets.FlySpeedPacket;
-import net.braunly.ponymagic.network.packets.PlayerDataPacket;
 import net.braunly.ponymagic.skill.Skill;
 import net.braunly.ponymagic.spells.potion.SpellPotion;
-import net.braunly.ponymagic.spells.simple.SpellBlink;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import static net.braunly.ponymagic.spells.potion.SpellPotion.getVanillaPotion;
 
 public class MagicHandlersContainer {
-	public MagicHandlersContainer() {
-	}
-
 	@SubscribeEvent
 	public void handlePlayerUpdate(PlayerTickEvent event) {
 		if (event.side == Side.CLIENT)
@@ -69,7 +60,7 @@ public class MagicHandlersContainer {
 				&& (player.onGround || player.isInWater())
 				&& !player.capabilities.isFlying
 				&& !player.isPotionActive(shieldPotion)) {
-			Double staminaRegen = 0.0D;
+			Double staminaRegen;
 
 			if (player.getFoodStats().getFoodLevel() > Config.lowFoodLevel) {
 				staminaRegen = Config.defaultStaminaRegen;
@@ -132,18 +123,7 @@ public class MagicHandlersContainer {
 				player.capabilities.allowFlying = false;
 				player.sendPlayerAbilities();
 
-				// Handle auto slowfall
-				if (playerDataStorage.getSkillData().isSkillLearned("slowfallauto")) {
-					Potion slowFall = SpellPotion.getCustomPotion("slow_fall");
-					if (!player.isPotionActive(slowFall)) {
-						Skill slowfallautoConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "slowfallauto", 1);
-						player.addPotionEffect(new PotionEffect(
-								slowFall,
-								slowfallautoConfig.getEffect().get("duration"),
-								slowfallautoConfig.getEffect().get("duration")
-						));
-					}
-				}
+				processAutoSlowFall(playerDataStorage);
 			}
 		}
 
@@ -152,6 +132,22 @@ public class MagicHandlersContainer {
 		if (player.isPotionActive(speedPotion) && player.getActivePotionEffect(speedPotion).getDuration() < 10) {
 			updatePlayerFlySpeed(playerDataStorage, 0.0F);
 			player.removePotionEffect(speedPotion);
+		}
+	}
+
+	private void processAutoSlowFall(IPlayerDataStorage playerDataStorage) {
+		EntityPlayer player = playerDataStorage.getPlayer();
+		// Handle auto slowfall
+		if (playerDataStorage.getSkillData().isSkillLearned("slowfallauto")) {
+			Potion slowFall = SpellPotion.getCustomPotion("slow_fall");
+			if (!player.isPotionActive(slowFall)) {
+				Skill slowfallautoConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "slowfallauto", 1);
+				player.addPotionEffect(new PotionEffect(
+						slowFall,
+						slowfallautoConfig.getEffect().get("duration"),
+						slowfallautoConfig.getEffect().get("duration")
+				));
+			}
 		}
 	}
 
@@ -197,8 +193,7 @@ public class MagicHandlersContainer {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void handleMiningSpeed(PlayerEvent.BreakSpeed event) {
-		// NOTE: Needs client side to work. I don't know why
-		//if (event.getEntity().world.isRemote) return;
+		// NOTE: Needs client side to work. I don't know why: `if (event.getEntity().world.isRemote) return;`
 
 		EntityPlayer player = event.getEntityPlayer();
 		if (!player.capabilities.isFlying)
@@ -321,7 +316,6 @@ public class MagicHandlersContainer {
 				flySpeedMod = lvl / 100.0F;
 			}
 
-//			player.capabilities.setFlySpeed(0.05F + flySpeedMod + mod);
 			PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod + mod), (EntityPlayerMP) player);
 		}
 	}

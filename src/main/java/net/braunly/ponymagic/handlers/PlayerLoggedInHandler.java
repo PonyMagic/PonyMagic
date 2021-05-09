@@ -11,8 +11,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class PlayerLoggedInHandler {
-    public PlayerLoggedInHandler() {}
-
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void handlePlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.player instanceof EntityPlayerMP) {

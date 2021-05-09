@@ -18,14 +18,17 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class ResetPacket implements IMessage, IMessageHandler<ResetPacket, IMessage> {
 	public ResetPacket() {
+		// default constructor
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
+		// unused
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
+		// unused
 	}
 
 	@Override
@@ -36,28 +39,29 @@ public class ResetPacket implements IMessage, IMessageHandler<ResetPacket, IMess
 		thread.addScheduledTask(new Runnable() {
 			@Override
 			public void run() {
-				if (player != null) {
-					if (player.experienceLevel >= Config.vanillaExpLvlForSkillReset || player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
-						if (player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
-							for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
-				                ItemStack itemstack = player.inventory.getStackInSlot(i);
+				if (player == null) {
+					return;
+				}
+				if (player.experienceLevel >= Config.vanillaExpLvlForSkillReset || player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
+					if (player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
+						for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+							ItemStack itemstack = player.inventory.getStackInSlot(i);
 
-				                if (itemstack.getItem() instanceof ItemResetBook) {
-				                    player.inventory.deleteStack(itemstack);
-				                    break;
-				                }
-				            }
-						} else {
-							player.addExperienceLevel(-1 * Config.vanillaExpLvlForSkillReset);
+							if (itemstack.getItem() instanceof ItemResetBook) {
+								player.inventory.deleteStack(itemstack);
+								break;
+							}
 						}
-						IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
-						playerData.reset();
-						PonyMagicAPI.playerDataController.savePlayerData(playerData);
-						MagicHandlersContainer.updatePlayerFlySpeed(playerData, 0.0F);
-						MagicHandlersContainer.updatePlayerMaxStamina(playerData);
 					} else {
-						player.sendMessage(new TextComponentTranslation("skill.reset.fail", ""));
+						player.addExperienceLevel(-1 * Config.vanillaExpLvlForSkillReset);
 					}
+					IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
+					playerData.reset();
+					PonyMagicAPI.playerDataController.savePlayerData(playerData);
+					MagicHandlersContainer.updatePlayerFlySpeed(playerData, 0.0F);
+					MagicHandlersContainer.updatePlayerMaxStamina(playerData);
+				} else {
+					player.sendMessage(new TextComponentTranslation("skill.reset.fail", ""));
 				}
 			}
 		});

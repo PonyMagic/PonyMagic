@@ -1,6 +1,7 @@
 package net.braunly.ponymagic.gui;
 
 import com.google.common.collect.ImmutableSet;
+import lombok.Getter;
 import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -12,13 +13,19 @@ import java.util.Set;
 public class GuiButtonSkill extends GuiButton {
 	private Minecraft mc;
 	private ResourceLocation resLoc;
-	public int posX;
-	public int posY;
-	public float scale;
+	@Getter
+	private int posX;
+	@Getter
+	private int posY;
+	@Getter
+	private float scale;
 
-	public String skillName;
-	public int skillLevel;
-	public Set<String> lines;
+	@Getter
+	private final String skillName;
+	@Getter
+	private final int skillLevel;
+	@Getter
+	private final Set<String> lines;
 
 	public GuiButtonSkill(String name, int id, int x, int y, int skillLevel) {
 		this(name, id, x, y, ImmutableSet.of(), skillLevel);
@@ -57,7 +64,11 @@ public class GuiButtonSkill extends GuiButton {
 	}
 
 	public boolean isUnderMouse(int mouseX, int mouseY) {
-		float minX, maxX, minY, maxY;
+		float minX;
+		float maxX;
+		float minY;
+		float maxY;
+
 		minX = this.posX * this.scale; maxX = (this.posX + this.width) * this.scale;
 		minY = this.posY * this.scale; maxY = (this.posY + this.height) * this.scale;
 		return mouseX >= minX && mouseX < maxX && mouseY >= minY && mouseY < maxY;

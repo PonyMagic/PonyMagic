@@ -8,8 +8,6 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class EntityPortalInteractHandler {
-    public EntityPortalInteractHandler() {}
-
     // Teleport player after interact with EntityPortal
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onPlayerInteractWithPortal(PlayerInteractEvent.EntityInteract event) {

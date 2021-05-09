@@ -181,10 +181,10 @@ public class GuiSkillsNet {
 		for (GuiButtonSkill skill : this.skillsNet.get(race)) {
 			if (skillName.contains("#")) {
 				String[] parts = skillName.split("#");
-				if (skill.skillName.equals(parts[0]) && skill.skillLevel == Integer.parseInt(parts[1])) {
+				if (skill.getSkillName().equals(parts[0]) && skill.getSkillLevel() == Integer.parseInt(parts[1])) {
 					return skill;
 				}
-			} else if (skill.skillName.equals(skillName)) {
+			} else if (skill.getSkillName().equals(skillName)) {
 				return skill;
 			}
 		}

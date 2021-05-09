@@ -72,14 +72,14 @@ public class PlayerDataController implements IPlayerDataController {
 			File saveDir = this.getWorldSaveDirectory();
 			File file = new File(saveDir, filename + "_new");
 			File file1 = new File(saveDir, filename);
-			NBTJsonUtil.SaveFile(file, compound);
+			NBTJsonUtil.saveFile(file, compound);
 			if (file1.exists() && !file1.delete()) {
 				PonyMagic.log.error("Can't delete old player data json file.");
 			}
 			if (!file.renameTo(file1)) {
 				PonyMagic.log.error("Can't rename new player data json file");
 			}
-		} catch (IOException | JsonException exception) {
+		} catch (IOException exception) {
 			PonyMagic.log.catching(exception);
 		}
 	}
@@ -91,7 +91,7 @@ public class PlayerDataController implements IPlayerDataController {
             try {
                 File file = new File(saveDir, uuid);
                 if (file.exists()) {
-                    return NBTJsonUtil.LoadFile(file);
+                    return NBTJsonUtil.loadFile(file);
                 }
             } catch (IOException | JsonException exception) {
                 PonyMagic.log.error("Error loading player data from : " + uuid);

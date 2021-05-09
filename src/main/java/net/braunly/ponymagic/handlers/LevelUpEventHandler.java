@@ -9,10 +9,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class LevelUpEventHandler {
-
-	public LevelUpEventHandler() {
-	}
-
 	@SubscribeEvent
 	public void levelUp(LevelUpEvent event) {
 		EntityPlayer player = event.getPlayer();
