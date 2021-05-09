@@ -43,7 +43,6 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new GuiStamina(Minecraft.getMinecraft()));
 		MinecraftForge.EVENT_BUS.register(new GuiTimers(Minecraft.getMinecraft()));
 		MinecraftForge.EVENT_BUS.register(new GuiQuests(Minecraft.getMinecraft()));
-//		MinecraftForge.EVENT_BUS.register(new RenderHandler());
 	}
 
 	@Override
