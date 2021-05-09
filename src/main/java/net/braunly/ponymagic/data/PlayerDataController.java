@@ -7,6 +7,7 @@ import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.PonyMagic;
 import net.braunly.ponymagic.config.LevelConfig;
 import net.braunly.ponymagic.network.packets.PlayerDataPacket;
+import net.braunly.ponymagic.util.JsonException;
 import net.braunly.ponymagic.util.NBTJsonUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,10 +17,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.io.File;
+import java.io.IOException;
 
 
 public class PlayerDataController implements IPlayerDataController {
-	private MinecraftServer server;
+	private final MinecraftServer server;
 
 	public PlayerDataController(MinecraftServer server) {
 		this.server = server;
@@ -44,6 +46,7 @@ public class PlayerDataController implements IPlayerDataController {
 
     @Override
 	public void savePlayerData(IPlayerDataStorage data) {
+		// TODO: Add caching or save in world save event
 		final String filename = data.getUUID() + ".json";
 
 		if (data.getLevelData().isLevelUp()) {
@@ -70,12 +73,14 @@ public class PlayerDataController implements IPlayerDataController {
 			File file = new File(saveDir, filename + "_new");
 			File file1 = new File(saveDir, filename);
 			NBTJsonUtil.SaveFile(file, compound);
-			if (file1.exists()) {
-				file1.delete();
+			if (file1.exists() && !file1.delete()) {
+				PonyMagic.log.error("Can't delete old player data json file.");
 			}
-			file.renameTo(file1);
-		} catch (Exception e) {
-			PonyMagic.log.catching(e);
+			if (!file.renameTo(file1)) {
+				PonyMagic.log.error("Can't rename new player data json file");
+			}
+		} catch (IOException | JsonException exception) {
+			PonyMagic.log.catching(exception);
 		}
 	}
 
@@ -88,9 +93,9 @@ public class PlayerDataController implements IPlayerDataController {
                 if (file.exists()) {
                     return NBTJsonUtil.LoadFile(file);
                 }
-            } catch (Exception e) {
+            } catch (IOException | JsonException exception) {
                 PonyMagic.log.error("Error loading player data from : " + uuid);
-                PonyMagic.log.catching(e);
+                PonyMagic.log.catching(exception);
             }
         }
 
@@ -98,22 +103,17 @@ public class PlayerDataController implements IPlayerDataController {
     }
 
     private File getWorldSaveDirectory() {
-		try {
-			if (this.server == null)
-				return null;
-			File saves = new File(".");
-			if (!this.server.isDedicatedServer()) {
-				saves = new File(Minecraft.getMinecraft().mcDataDir, "saves");
-			}
-			File savedir = new File(new File(saves, this.server.getFolderName()), PonyMagic.MODID);
-			if (!savedir.exists()) {
-				savedir.mkdir();
-			}
-			return savedir;
-
-		} catch (Exception e) {
-			PonyMagic.log.error("Error getting worldsave", e);
+		if (this.server == null)
+			return null;
+		File saves = new File(".");
+		if (!this.server.isDedicatedServer()) {
+			saves = new File(Minecraft.getMinecraft().mcDataDir, "saves");
 		}
-		return null;
+		File savedir = new File(new File(saves, this.server.getFolderName()), PonyMagic.MODID);
+		if (!savedir.exists() && !savedir.mkdir()) {
+			PonyMagic.log.error("Can't create player data save dir!");
+			return null;
+		}
+		return savedir;
 	}
 }
