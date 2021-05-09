@@ -50,7 +50,6 @@ public class CommonProxy {
 		PonyMagic.channel.registerMessage(PlayerDataPacket.class, PlayerDataPacket.class, 1, Side.CLIENT);
 		PonyMagic.channel.registerMessage(FlySpeedPacket.class, FlySpeedPacket.class, 2, Side.CLIENT);
 
-		PonyMagic.channel.registerMessage(RequestPlayerDataPacket.class, RequestPlayerDataPacket.class, 3, Side.SERVER);
 		PonyMagic.channel.registerMessage(SkillUpPacket.class, SkillUpPacket.class, 4, Side.SERVER);
 		PonyMagic.channel.registerMessage(ResetPacket.class, ResetPacket.class, 5, Side.SERVER);
 

@@ -87,7 +87,6 @@ public class GuiTimers extends GuiIngameForge {
     }
 
     private void getPlayerData() {
-//        PonyMagic.channel.sendToServer(new RequestPlayerDataPacket());
         this.playerData = PonyMagicAPI.getPlayerDataStorage(mc.player);
     }
 }
