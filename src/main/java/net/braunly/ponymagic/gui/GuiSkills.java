@@ -292,6 +292,7 @@ public class GuiSkills extends GuiScreen {
 		);
 		if (skillConfig == null) {
 			PonyMagic.log.error("Skill config for {}#{} not found!", skill.skillName, skill.skillLevel);
+			return false;
 		}
 		// Check for free skill points and learned dependencies
 		return this.playerData.getLevelData().getFreeSkillPoints() >= skillConfig.getPrice() &&
