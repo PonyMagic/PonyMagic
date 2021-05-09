@@ -1,8 +1,10 @@
 package net.braunly.ponymagic.util;
 
 import me.braunly.ponymagic.api.enums.EnumQuestGoalType;
+import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityList;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -33,28 +35,33 @@ public class QuestGoalUtils {
         return configKey.split(delimiter).length > 2 ? Integer.parseInt(configKey.split(delimiter)[2]) : 0;
     }
 
-    @Nullable
     public static ItemStack getItemStack(String configKey) {
         EnumQuestGoalType type = getGoalType(configKey);
-        switch (type) {
-            case BLOCK:
-                return new ItemStack(Block.getBlockFromName(getResLoc(configKey).toString()), 1, getMeta(configKey));
-            case ITEM:
-                return new ItemStack(Item.getByNameOrId(getResLoc(configKey).toString()), 1, getMeta(configKey));
-            default:
-                return null;
+        Item item = null;
+        if (type == EnumQuestGoalType.BLOCK) {
+            item = Item.getItemFromBlock(Block.REGISTRY.getObject(getResLoc(configKey)));
+        } else if (type == EnumQuestGoalType.ITEM) {
+            item = Item.REGISTRY.getObject(getResLoc(configKey));
         }
+        if (item == null) {
+            item = Items.AIR;
+        }
+        return new ItemStack(item, 1, getMeta(configKey));
     }
-
-    @Nullable
+    
     public static String getLocalizedGoalName(String configKey) {
         EnumQuestGoalType type = getGoalType(configKey);
         switch (type) {
             case BLOCK:
             case ITEM:
-                return getItemStack(configKey).getDisplayName();
+                ItemStack item = getItemStack(configKey);
+                return item.getDisplayName();
             case ENTITY:
-                return EntityList.getTranslationName(getResLoc(configKey));
+                String name = EntityList.getTranslationName(getResLoc(configKey));
+                if (name != null) {
+                    return name;
+                }
+                PonyMagic.log.warn("Can't get localized goal name");
             case CUSTOM:
                 return "custom";
             default:
