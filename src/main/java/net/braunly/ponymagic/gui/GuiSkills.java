@@ -273,9 +273,9 @@ public class GuiSkills extends GuiScreen {
 					}
 				}
 			}
-		} catch (NullPointerException exc) {
-			PonyMagic.log.info("[GUI] ERROR - NullPointerException");
-			exc.printStackTrace();
+		} catch (NullPointerException exception) {
+			PonyMagic.log.error("[GUI] ERROR - NullPointerException");
+			PonyMagic.log.catching(exception);
 			this.mc.displayGuiScreen(null);
 		}
 	}

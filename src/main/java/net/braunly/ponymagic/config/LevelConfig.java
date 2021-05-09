@@ -31,7 +31,6 @@ public class LevelConfig {
         }
         for (EnumRace race : EnumRace.values()) {
             // Load config only for playable races
-            // FIXME: i need to implement alicorn race
             if (race.equals(EnumRace.ALICORN)) continue;
 
             PonyMagic.log.info("Loading level config for {}", race.name().toLowerCase());
@@ -50,9 +49,9 @@ public class LevelConfig {
             try {
                 // Load race config file
                 jsonRaceConfig = gson.fromJson(new FileReader(raceLevelConfigFile), JsonObject.class);
-            } catch (FileNotFoundException exc ) {
+            } catch (FileNotFoundException exception) {
                 // already checked above
-                exc.printStackTrace();
+                PonyMagic.log.catching(exception);
             }
             if (jsonRaceConfig != null) {
                 for (int level = 1; level <= PonyMagic.MAX_LVL; level++) {
@@ -78,7 +77,7 @@ public class LevelConfig {
                     );
                 }
             } else {
-                PonyMagic.log.entry("Level config not loaded!");
+                PonyMagic.log.error("Level config not loaded!");
             }
             raceConfigs.put(
                     race,
@@ -99,8 +98,8 @@ public class LevelConfig {
             );
             FileUtils.copyInputStreamToFile(inputStream, configFile);
             PonyMagic.log.info("Created default level config {}", configFile.getName());
-        } catch (IOException exc) {
-            exc.printStackTrace();
+        } catch (IOException exception) {
+            PonyMagic.log.catching(exception);
         }
     }
 }

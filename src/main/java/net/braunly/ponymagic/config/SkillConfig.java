@@ -51,9 +51,9 @@ public class SkillConfig {
             try {
                 // Load race config file
                 jsonSkillsArray = gson.fromJson(new FileReader(raceSkillsConfigFile), JsonArray.class);
-            } catch (FileNotFoundException exc ) {
+            } catch (FileNotFoundException exception) {
                 // already checked above
-                exc.printStackTrace();
+                PonyMagic.log.catching(exception);
             }
             if (jsonSkillsArray != null) {
                 for (JsonElement jsonSkill: jsonSkillsArray) {
@@ -65,7 +65,7 @@ public class SkillConfig {
                     );
                 }
             } else {
-                PonyMagic.log.entry("Skills config not loaded!");
+                PonyMagic.log.error("Skills config not loaded!");
             }
 
             raceSkillsConfig.put(
@@ -87,8 +87,8 @@ public class SkillConfig {
             );
             FileUtils.copyInputStreamToFile(inputStream, configFile);
             PonyMagic.log.info("Created default skills config {}", configFile.getName());
-        } catch (IOException exc) {
-            exc.printStackTrace();
+        } catch (IOException exception) {
+            PonyMagic.log.catching(exception);
         }
     }
 }

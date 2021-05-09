@@ -45,9 +45,9 @@ public class PortalConfig {
         try {
             // Load portals config file
             jsonPortalsMap = gson.fromJson(new FileReader(configFile), JsonObject.class);
-        } catch (FileNotFoundException exc ) {
+        } catch (FileNotFoundException exception) {
             // already checked above
-            exc.printStackTrace();
+            PonyMagic.log.catching(exception);
         }
         Type typeToken = new TypeToken<HashMap<String, List<Integer>>>(){}.getType();
         HashMap<String, List<Integer>> clonedMap = gson.fromJson(jsonPortalsMap, typeToken);
@@ -57,7 +57,7 @@ public class PortalConfig {
                 portalsMap.put(entry.getKey(), new BlockPos(cords.get(0), cords.get(1), cords.get(2)));
             }
         } else {
-            PonyMagic.log.info("Portals config format error!");
+            PonyMagic.log.error("Portals config format error!");
         }
     }
 
@@ -90,8 +90,8 @@ public class PortalConfig {
             gson.toJson(saveMap, file);
             file.close();
             PonyMagic.log.info("Portals config saved!");
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            PonyMagic.log.catching(exception);
         }
     }
 }
