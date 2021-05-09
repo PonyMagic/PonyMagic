@@ -48,7 +48,8 @@ public class QuestGoalUtils {
         }
         return new ItemStack(item, 1, getMeta(configKey));
     }
-    
+
+    @Nullable
     public static String getLocalizedGoalName(String configKey) {
         EnumQuestGoalType type = getGoalType(configKey);
         switch (type) {
@@ -62,6 +63,7 @@ public class QuestGoalUtils {
                     return name;
                 }
                 PonyMagic.log.warn("Can't get localized goal name");
+                return null;
             case CUSTOM:
                 return "custom";
             default:
