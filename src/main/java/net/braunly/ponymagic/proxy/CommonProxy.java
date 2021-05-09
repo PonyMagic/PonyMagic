@@ -17,7 +17,6 @@ import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
 import net.braunly.ponymagic.entity.ModEntity;
-import net.braunly.ponymagic.quests.Quests;
 import net.braunly.ponymagic.gui.GuiHandler;
 import net.braunly.ponymagic.handlers.*;
 import net.braunly.ponymagic.items.ModItems;

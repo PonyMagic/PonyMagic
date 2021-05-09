@@ -1,7 +1,6 @@
 package net.braunly.ponymagic.util;
 
 import me.braunly.ponymagic.api.enums.EnumQuestGoalType;
-import net.braunly.ponymagic.PonyMagic;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityList;
 import net.minecraft.init.Items;
@@ -10,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 public class QuestGoalUtils {
     private static final String delimiter = "#";
