@@ -18,9 +18,7 @@ import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
 import net.braunly.ponymagic.entity.ModEntity;
 import net.braunly.ponymagic.gui.GuiHandler;
-import net.braunly.ponymagic.handlers.LevelUpEventHandler;
-import net.braunly.ponymagic.handlers.MagicHandlersContainer;
-import net.braunly.ponymagic.handlers.MagicSoundHandler;
+import net.braunly.ponymagic.handlers.*;
 import net.braunly.ponymagic.items.ModItems;
 import net.braunly.ponymagic.network.packets.*;
 import net.braunly.ponymagic.potions.PotionShield;
@@ -84,9 +82,15 @@ public class CommonProxy {
 		// Quests handlers
 		Quests.registerHandlers();
 
+		// Stamina regeneration and player skills handlers
 		MinecraftForge.EVENT_BUS.register(new MagicHandlersContainer());
-
+		// Player data initialization on PlayerLoggedIn event
+		MinecraftForge.EVENT_BUS.register(new PlayerLoggedInHandler());
+		// Teleport player on interact with EntityPortal entity
+		MinecraftForge.EVENT_BUS.register(new EntityPortalInteractHandler());
+		// LevelUp event handler
 		MinecraftForge.EVENT_BUS.register(new LevelUpEventHandler());
+		// Register GUI handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(PonyMagic.instance, new GuiHandler());
 
 		// Attach capabilities to player
@@ -102,16 +106,22 @@ public class CommonProxy {
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
+		// Register server commands
 		event.registerServerCommand(new CommandCast());
 		event.registerServerCommand(new CommandMagic());
 		event.registerServerCommand(new CommandStamina());
 	}
 
 	private void injectPotions() {
+		// Inject custom potions to PotionCore
 		new PotionShield();
 		new PotionStaminaHealthRegen();
 		POTIONS.put(PotionShield.NAME, PotionShield.instance);
 		POTIONS.put(PotionStaminaHealthRegen.NAME, PotionStaminaHealthRegen.instance);
+	}
+
+	public void registerRenderers() {
+		// Server side don't have any renderers
 	}
 
 	public IThreadListener getListener(MessageContext ctx) {
@@ -120,10 +130,5 @@ public class CommonProxy {
 
 	public EntityPlayer getPlayer(MessageContext ctx) {
 		return ctx.getServerHandler().player;
-	}
-
-	public void registerRenderers() {
-		// TODO Auto-generated method stub
-
 	}
 }

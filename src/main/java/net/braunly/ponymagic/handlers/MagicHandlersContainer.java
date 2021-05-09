@@ -36,23 +36,32 @@ public class MagicHandlersContainer {
 
 	@SubscribeEvent
 	public void handlePlayerUpdate(PlayerTickEvent event) {
-
 		if (event.side == Side.CLIENT)
 			return;
 
 		EntityPlayer player = event.player;
-		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
+		IPlayerDataStorage playerDataStorage = PonyMagicAPI.playerDataController.getPlayerData(player);
 
-		if (player.capabilities.isCreativeMode || player.isSpectator() || playerData.getRace() == EnumRace.REGULAR) {
+		if (player.capabilities.isCreativeMode || player.isSpectator() || playerDataStorage.getRace() == EnumRace.REGULAR) {
 			// Creatives, spectators and regulars not processing.
 			return;
 		}
 
-		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
-		Double staminaCurrent = stamina.getStamina(EnumStaminaType.CURRENT);
-		Double staminaMaximum = stamina.getStamina(EnumStaminaType.MAXIMUM);
+		IStaminaStorage staminaStorage = PonyMagicAPI.getStaminaStorage(player);
 
+		processStaminaRegen(playerDataStorage, staminaStorage);
+
+		if (playerDataStorage.getRace() == EnumRace.PEGASUS) {
+			processPegasusFly(playerDataStorage, staminaStorage);
+		}
+		processSkillTimers(playerDataStorage);
+	}
+
+	private void processStaminaRegen(IPlayerDataStorage playerDataStorage, IStaminaStorage staminaStorage) {
 		// Stamina regeneration
+		EntityPlayer player = playerDataStorage.getPlayer();
+		Double staminaCurrent = staminaStorage.getStamina(EnumStaminaType.CURRENT);
+		Double staminaMaximum = staminaStorage.getStamina(EnumStaminaType.MAXIMUM);
 
 		Potion shieldPotion = SpellPotion.getCustomPotion("shield");
 		if (staminaCurrent < staminaMaximum
@@ -68,11 +77,10 @@ public class MagicHandlersContainer {
 				staminaRegen = Config.lowFoodStaminaRegen;
 			}
 
-			if (playerData.getSkillData().isSkillLearned("staminaRegen")) {
-				int lvl = playerData.getSkillData().getSkillLevel("staminaRegen");
+			if (playerDataStorage.getSkillData().isSkillLearned("staminaRegen")) {
+				int lvl = playerDataStorage.getSkillData().getSkillLevel("staminaRegen");
 				staminaRegen += lvl / 20.0D; // TODO: config
 			}
-
 
 			if (player.isInWater()) {
 				staminaRegen = Config.waterStaminaRegen;
@@ -83,88 +91,76 @@ public class MagicHandlersContainer {
 			}
 
 			player.addExhaustion(0.005f);
-			stamina.add(staminaRegen);
-			stamina.sync((EntityPlayerMP) player);
+			staminaStorage.add(staminaRegen);
+			staminaStorage.sync((EntityPlayerMP) player);
 		}
 
 		// Take all stamina on low food level
 		if (player.getFoodStats().getFoodLevel() == 0 && staminaCurrent > 0) {
-			stamina.add(-0.5D);
-			stamina.sync((EntityPlayerMP) player);
+			staminaStorage.add(-0.5D);
+			staminaStorage.sync((EntityPlayerMP) player);
+		}
+	}
+
+	private void processPegasusFly(IPlayerDataStorage playerDataStorage, IStaminaStorage staminaStorage) {
+		EntityPlayer player = playerDataStorage.getPlayer();
+		Double staminaCurrent = staminaStorage.getStamina(EnumStaminaType.CURRENT);
+
+		// Enable fly ability
+		if (staminaCurrent > 5 && !player.capabilities.allowFlying) {
+			player.capabilities.allowFlying = true;
+			player.sendPlayerAbilities();
 		}
 
-		if (playerData.getRace() == EnumRace.PEGASUS) {
-			if (staminaCurrent > 5) {
-				player.capabilities.allowFlying = true;
-				player.sendPlayerAbilities();
+		if (player.capabilities.isFlying) {
+			Double flySpendingValue;
+
+			// Fly duration
+			if (playerDataStorage.getSkillData().isSkillLearned("flyduration")) {
+				int lvl = playerDataStorage.getSkillData().getSkillLevel("flyduration");
+				flySpendingValue = Config.flySpendingValue - lvl / 50.0D; // TODO: config
+			} else {
+				flySpendingValue = Config.flySpendingValue;
 			}
 
-			if (player.capabilities.isFlying) {
-				Double flySpendingValue;
+			if (staminaStorage.consume(flySpendingValue)) { // 0.8 stps
+				staminaStorage.sync((EntityPlayerMP) player);
+			} else {
+				// Disable fly ability
+				player.fallDistance = 0;
+				player.capabilities.isFlying = false;
+				player.capabilities.allowFlying = false;
+				player.sendPlayerAbilities();
 
-				// Fly duration
-				if (playerData.getSkillData().isSkillLearned("flyduration")) {
-					int lvl = playerData.getSkillData().getSkillLevel("flyduration");
-					flySpendingValue = Config.flySpendingValue - lvl / 50.0D; // TODO: config
-				} else {
-					flySpendingValue = Config.flySpendingValue;
-				}
-
-				if (stamina.consume(flySpendingValue)) { // 0.8 stps
-					stamina.sync((EntityPlayerMP) player);
-				} else {
-					player.fallDistance = 0;
-					player.capabilities.isFlying = false;
-					player.capabilities.allowFlying = false;
-					player.sendPlayerAbilities();
-
-					// Handle auto slowfall
-					if (playerData.getSkillData().isSkillLearned("slowfallauto")) {
-						Potion slowFall = SpellPotion.getCustomPotion("slow_fall");
-						if (!player.isPotionActive(slowFall)) {
-							Skill slowfallautoConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "slowfallauto", 1);
-							player.addPotionEffect(new PotionEffect(
-									slowFall,
-									slowfallautoConfig.getEffect().get("duration"),
-									slowfallautoConfig.getEffect().get("duration")
-							));
-						}
+				// Handle auto slowfall
+				if (playerDataStorage.getSkillData().isSkillLearned("slowfallauto")) {
+					Potion slowFall = SpellPotion.getCustomPotion("slow_fall");
+					if (!player.isPotionActive(slowFall)) {
+						Skill slowfallautoConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "slowfallauto", 1);
+						player.addPotionEffect(new PotionEffect(
+								slowFall,
+								slowfallautoConfig.getEffect().get("duration"),
+								slowfallautoConfig.getEffect().get("duration")
+						));
 					}
 				}
 			}
-
-			// Remove fly speed modification from speed skill
-			Potion speedPotion = getVanillaPotion("speed");
-			if (player.isPotionActive(speedPotion) && player.getActivePotionEffect(speedPotion).getDuration() < 10) {
-				updatePlayerFlySpeed(player, 0.0F);
-				player.removePotionEffect(speedPotion);
-			}
-
 		}
-		// Handle timers
+
+		// Remove fly speed modification from speed skill
+		Potion speedPotion = getVanillaPotion("speed");
+		if (player.isPotionActive(speedPotion) && player.getActivePotionEffect(speedPotion).getDuration() < 10) {
+			updatePlayerFlySpeed(playerDataStorage, 0.0F);
+			player.removePotionEffect(speedPotion);
+		}
+	}
+
+	private void processSkillTimers(IPlayerDataStorage playerData) {
 		if (playerData.getTickData().isTicking()) {
 			// this works twice per tick ._.
 			playerData.getTickData().tick();
 			PonyMagicAPI.playerDataController.savePlayerData(playerData);
 		}
-	}
-
-	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public void handlePegasusFlySpeed(PlayerLoggedInEvent event) {
-		updatePlayerFlySpeed(event.player, 0.0F);
-	}
-
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void handleMaxStaminaValue(PlayerLoggedInEvent event) {
-		updatePlayerMaxStamina(event.player);
-	}
-
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void handleInitClientPlayerData(PlayerLoggedInEvent event) {
-		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(event.player);
-		if (playerData.getRace() == EnumRace.REGULAR) return;
-		
-		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), (EntityPlayerMP) playerData.getPlayer());
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGH)
@@ -174,7 +170,6 @@ public class MagicHandlersContainer {
 
 		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 		if (player.capabilities.isCreativeMode) {
-			// Creative mode - god mode
 			return;
 		}
 
@@ -206,17 +201,17 @@ public class MagicHandlersContainer {
 		//if (event.getEntity().world.isRemote) return;
 
 		EntityPlayer player = event.getEntityPlayer();
-		IPlayerDataStorage playerData = PonyMagicAPI.getPlayerDataStorage(player);
+		if (!player.capabilities.isFlying)
+			return;
 
+		IPlayerDataStorage playerData = PonyMagicAPI.getPlayerDataStorage(player);
 		// Handle pegasus flyhaste passive
 		if (playerData.getRace() == EnumRace.PEGASUS &&
-				player.capabilities.isFlying &&
-				playerData.getSkillData().isSkillLearned("flyhaste")
+			playerData.getSkillData().isSkillLearned("flyhaste")
 		) {
 			event.setNewSpeed(player.inventory.getDestroySpeed(event.getState()));
 		}
 	}
-
 
 	// Player deal damage
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -227,14 +222,14 @@ public class MagicHandlersContainer {
 			EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
 			IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 			
-			if (playerData.getSkillData().isSkillLearned("highground")) {
-				if (player.getPosition().getY() - event.getEntity().getPosition().getY() > 1 && player.onGround) {
-					Skill highgroundConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "highground", 1);
-					event.setAmount(event.getAmount() +
-							((event.getAmount() / 100.0F) *
-									highgroundConfig.getSpellData().get("damage_percent"))
-					);
-				}
+			if (playerData.getSkillData().isSkillLearned("highground") &&
+				player.onGround &&
+				player.getPosition().getY() - event.getEntity().getPosition().getY() > 1
+			) {
+				Skill highgroundConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "highground", 1);
+				event.setAmount(event.getAmount() +
+						((event.getAmount() / 100.0F) * highgroundConfig.getSpellData().get("damage_percent"))
+				);
 			}
 			
 			if (playerData.getSkillData().isSkillLearned("onedge")) {
@@ -242,8 +237,7 @@ public class MagicHandlersContainer {
 				if (stamina.getStamina(EnumStaminaType.CURRENT) < 10) {
 					Skill onedgeConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "onedge", 1);
 					event.setAmount(event.getAmount() +
-							((event.getAmount() / 100.0F) *
-									onedgeConfig.getSpellData().get("damage_percent"))
+							((event.getAmount() / 100.0F) * onedgeConfig.getSpellData().get("damage_percent"))
 					);
 				}
 			}
@@ -258,89 +252,72 @@ public class MagicHandlersContainer {
 
 		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 		if (player.capabilities.isCreativeMode) {
-			// Creative mode - god mode
 			return;
 		}
 
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
-
-		if (playerData.getRace() == EnumRace.PEGASUS) {
-			if (playerData.getSkillData().isSkillLearned("dodging")) {
-				float randNum = player.world.rand.nextFloat() * 100;
-				Skill dodgingConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "dodging", 1);
-				if (randNum < dodgingConfig.getSpellData().get("chance")) {
-					if (playerData.getSkillData().isSkillLearned("dodgingbuff")) {
-						Skill dodgingbuffConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "dodgingbuff", 1);
-						player.addPotionEffect(new PotionEffect(
-								SpellPotion.getVanillaPotion("absorption"),
-								dodgingbuffConfig.getEffect().get("duration"),
-								dodgingbuffConfig.getEffect().get("level")
-						));
-					}
-					event.setAmount(0);
-					event.setCanceled(true);
+		if (playerData.getSkillData().isSkillLearned("dodging")) {
+			float randNum = player.world.rand.nextFloat() * 100;
+			Skill dodgingConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "dodging", 1);
+			if (randNum < dodgingConfig.getSpellData().get("chance")) {
+				if (playerData.getSkillData().isSkillLearned("dodgingbuff")) {
+					Skill dodgingbuffConfig = SkillConfig.getRaceSkill(EnumRace.PEGASUS, "dodgingbuff", 1);
+					player.addPotionEffect(new PotionEffect(
+							SpellPotion.getVanillaPotion("absorption"),
+							dodgingbuffConfig.getEffect().get("duration"),
+							dodgingbuffConfig.getEffect().get("level")
+					));
 				}
+				event.setAmount(0);
+				event.setCanceled(true);
 			}
-		} else if (playerData.getRace() == EnumRace.UNICORN) {
+		} else if (playerData.getSkillData().isSkillLearned("extinguisher") &&
+				event.getSource().isFireDamage() &&
+				!playerData.getTickData().isTicking("extinguisher")) {
 			// extinguisher passive
-			if (event.getSource().isFireDamage() &&
-					playerData.getSkillData().isSkillLearned("extinguisher") &&
-					!playerData.getTickData().isTicking("extinguisher")) {
-				Skill extinguisherConfig = SkillConfig.getRaceSkill(EnumRace.UNICORN, "extinguisher", 1);
-				player.addPotionEffect(new PotionEffect(
-						SpellPotion.getVanillaPotion("fire_resistance"),
-						extinguisherConfig.getEffect().get("duration"),
-						extinguisherConfig.getEffect().get("level")
-				));
-				playerData.getTickData().startTicking(
-						"extinguisher",
-						extinguisherConfig.getSpellData().get("cooldown")
-				);
-				event.setAmount(0);
-				event.setCanceled(true);
-			}
+			Skill extinguisherConfig = SkillConfig.getRaceSkill(EnumRace.UNICORN, "extinguisher", 1);
+			player.addPotionEffect(new PotionEffect(
+					SpellPotion.getVanillaPotion("fire_resistance"),
+					extinguisherConfig.getEffect().get("duration"),
+					extinguisherConfig.getEffect().get("level")
+			));
+			playerData.getTickData().startTicking(
+					"extinguisher",
+					extinguisherConfig.getSpellData().get("cooldown")
+			);
+			event.setAmount(0);
+			event.setCanceled(true);
+		} else if (playerData.getSkillData().isSkillLearned("readyforduel") &&
+				event.getSource().isMagicDamage() &&
+				!playerData.getTickData().isTicking("readyforduel")) {
 			// readyforduel passive
-			if (event.getSource().isMagicDamage() &&
-					playerData.getSkillData().isSkillLearned("readyforduel") &&
-					!playerData.getTickData().isTicking("readyforduel")) {
-				Skill readyforduelConfig = SkillConfig.getRaceSkill(EnumRace.UNICORN, "readyforduel", 1);
-				player.addPotionEffect(new PotionEffect(
-						SpellPotion.getCustomPotion("magic_shield"),
-						readyforduelConfig.getEffect().get("duration"),
-						readyforduelConfig.getEffect().get("level")
-				));
-				playerData.getTickData().startTicking(
-						"readyforduel",
-						readyforduelConfig.getSpellData().get("cooldown")
-				);
-				event.setAmount(0);
-				event.setCanceled(true);
-			}
+			Skill readyforduelConfig = SkillConfig.getRaceSkill(EnumRace.UNICORN, "readyforduel", 1);
+			player.addPotionEffect(new PotionEffect(
+					SpellPotion.getCustomPotion("magic_shield"),
+					readyforduelConfig.getEffect().get("duration"),
+					readyforduelConfig.getEffect().get("level")
+			));
+			playerData.getTickData().startTicking(
+					"readyforduel",
+					readyforduelConfig.getSpellData().get("cooldown")
+			);
+			event.setAmount(0);
+			event.setCanceled(true);
 		}
 	}
 
-	// Teleport player after interact with EntityPortal
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void onPlayerInteractWithPortal(PlayerInteractEvent.EntityInteract event) {
-		if (!(event.getTarget() instanceof EntityPortal) || event.getEntityPlayer().world.isRemote)
-			return;
-		BlockPos target = ((EntityPortal) event.getTarget()).getTarget();
-		if (target != null) {
-			SpellBlink.teleportTo(event.getEntityPlayer(), target.getX(), target.getY(), target.getZ());
-		}
-	}
+	// Static helpers
 
-	public static void updatePlayerFlySpeed(EntityPlayer player, float mod) {
+	public static void updatePlayerFlySpeed(IPlayerDataStorage playerDataStorage, float mod) {
+		EntityPlayer player = playerDataStorage.getPlayer();
 		if (player.world.isRemote)
 			return;
 
-		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
-
-		if (playerData.getRace() == EnumRace.PEGASUS) {
+		if (playerDataStorage.getRace() == EnumRace.PEGASUS) {
 			// Handle passive skill
 			float flySpeedMod = 0.0F;
-			if (playerData.getSkillData().isSkillLearned("flyspeed")) {
-				int lvl = playerData.getSkillData().getSkillLevel("flyspeed");
+			if (playerDataStorage.getSkillData().isSkillLearned("flyspeed")) {
+				int lvl = playerDataStorage.getSkillData().getSkillLevel("flyspeed");
 				flySpeedMod = lvl / 100.0F;
 			}
 
@@ -349,14 +326,14 @@ public class MagicHandlersContainer {
 		}
 	}
 
-	public static void updatePlayerMaxStamina(EntityPlayer player) {
+	public static void updatePlayerMaxStamina(IPlayerDataStorage playerDataStorage) {
+		EntityPlayer player = playerDataStorage.getPlayer();
 		if (player.world.isRemote)
 			return;
 
-		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
-		if (playerData.getSkillData().isSkillLearned("staminaPool")) {
-			int lvl = playerData.getSkillData().getSkillLevel("staminaPool");
+		if (playerDataStorage.getSkillData().isSkillLearned("staminaPool")) {
+			int lvl = playerDataStorage.getSkillData().getSkillLevel("staminaPool");
 			stamina.set(EnumStaminaType.MAXIMUM, (double) ((lvl + 2) * 50));
 		} else {
 			stamina.set(EnumStaminaType.MAXIMUM, 100.0D);  // Default stamina

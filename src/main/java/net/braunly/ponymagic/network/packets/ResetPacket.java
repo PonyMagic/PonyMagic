@@ -53,8 +53,8 @@ public class ResetPacket implements IMessage, IMessageHandler<ResetPacket, IMess
 						IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 						playerData.reset();
 						PonyMagicAPI.playerDataController.savePlayerData(playerData);
-						MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
-						MagicHandlersContainer.updatePlayerMaxStamina(player);
+						MagicHandlersContainer.updatePlayerFlySpeed(playerData, 0.0F);
+						MagicHandlersContainer.updatePlayerMaxStamina(playerData);
 					} else {
 						player.sendMessage(new TextComponentTranslation("skill.reset.fail", ""));
 					}

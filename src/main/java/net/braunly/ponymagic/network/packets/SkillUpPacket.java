@@ -60,8 +60,8 @@ public class SkillUpPacket implements IMessage, IMessageHandler<SkillUpPacket, I
 					playerData.getLevelData().addFreeSkillPoints(-1 * skillConfig.getPrice());
 					playerData.getSkillData().upSkillLevel(skillConfig.getName());
 					PonyMagicAPI.playerDataController.savePlayerData(playerData);
-					MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
-					MagicHandlersContainer.updatePlayerMaxStamina(player);
+					MagicHandlersContainer.updatePlayerFlySpeed(playerData, 0.0F);
+					MagicHandlersContainer.updatePlayerMaxStamina(playerData);
 				}
 			}
 		});

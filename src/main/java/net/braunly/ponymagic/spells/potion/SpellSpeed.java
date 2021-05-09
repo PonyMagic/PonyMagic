@@ -1,5 +1,7 @@
 package net.braunly.ponymagic.spells.potion;
 
+import me.braunly.ponymagic.api.PonyMagicAPI;
+import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.handlers.MagicHandlersContainer;
 import net.braunly.ponymagic.skill.Skill;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +20,8 @@ public class SpellSpeed extends SpellPotion {
 
 		if (action(player, skillConfig)) {
 			float flySpeedMod = skillConfig.getSkillLevel() / 80.0F;
-			MagicHandlersContainer.updatePlayerFlySpeed(player, flySpeedMod);
+			IPlayerDataStorage playerDataStorage = PonyMagicAPI.playerDataController.getPlayerData(player);
+			MagicHandlersContainer.updatePlayerFlySpeed(playerDataStorage, flySpeedMod);
 			return true;
 		}
 		return false;

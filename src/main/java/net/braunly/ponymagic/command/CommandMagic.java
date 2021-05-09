@@ -72,8 +72,8 @@ public class CommandMagic extends CommandBase {
 		playerData.getLevelData().setFreeSkillPoints(level);
 		MinecraftForge.EVENT_BUS.post(new LevelUpEvent(player, level));
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
-		MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
-		MagicHandlersContainer.updatePlayerMaxStamina(player);
+		MagicHandlersContainer.updatePlayerFlySpeed(playerData, 0.0F);
+		MagicHandlersContainer.updatePlayerMaxStamina(playerData);
 
 		player.world.spawnEntity(new EntityPortal(player.world, player.posX, player.posY, player.posZ, new BlockPos(-1786,70,-4615), "Портал в Нарнію"));
 
@@ -95,8 +95,8 @@ public class CommandMagic extends CommandBase {
 		// Set new race
 		playerData.setRace(race);
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
-		MagicHandlersContainer.updatePlayerFlySpeed(player, 0.0F);
-		MagicHandlersContainer.updatePlayerMaxStamina(player);
+		MagicHandlersContainer.updatePlayerFlySpeed(playerData, 0.0F);
+		MagicHandlersContainer.updatePlayerMaxStamina(playerData);
 		
 		// Send changes to client
 		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), player);
