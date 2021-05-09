@@ -16,7 +16,5 @@ public class Quests {
         MinecraftForge.EVENT_BUS.register(new TameAnimalEventHandler());
         MinecraftForge.EVENT_BUS.register(new PickupEventHandler());
         MinecraftForge.EVENT_BUS.register(new ItemUseEventHandler());
-        // FIXME: test this event
-        //MinecraftForge.EVENT_BUS.register(new AchieveEventHandler());
     }
 }

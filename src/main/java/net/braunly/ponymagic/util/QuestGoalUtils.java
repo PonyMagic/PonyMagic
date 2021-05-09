@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class QuestGoalUtils {
     private static final String delimiter = "#";
@@ -24,7 +25,7 @@ public class QuestGoalUtils {
     }
 
     public static EnumQuestGoalType getGoalType(String configKey) {
-        return EnumQuestGoalType.getByName(configKey.split(delimiter)[0]).orElse(EnumQuestGoalType.CUSTOM);
+        return EnumQuestGoalType.getByName(configKey.split(delimiter)[0]).orElse(EnumQuestGoalType.ITEM);
     }
 
     public static ResourceLocation getResLoc(String configKey) {
@@ -58,14 +59,7 @@ public class QuestGoalUtils {
                 ItemStack item = getItemStack(configKey);
                 return item.getDisplayName();
             case ENTITY:
-                String name = EntityList.getTranslationName(getResLoc(configKey));
-                if (name != null) {
-                    return name;
-                }
-                PonyMagic.log.warn("Can't get localized goal name");
-                return null;
-            case CUSTOM:
-                return "custom";
+                return EntityList.getTranslationName(getResLoc(configKey));
             default:
                 return null;
         }
