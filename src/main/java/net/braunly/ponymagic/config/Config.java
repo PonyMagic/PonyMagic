@@ -1,96 +1,92 @@
 package net.braunly.ponymagic.config;
 
-import net.minecraftforge.common.config.Configuration;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import net.braunly.ponymagic.PonyMagic;
+import org.apache.commons.io.FileUtils;
 
-import java.io.File;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Config {
-	// Main
-	public static int vanillaExpLvlForSkillReset;
-	public static int removeLevelsForRaceChange;
+	private static String configPath = null;
+	private static final Map<String, String> configMap = new HashMap<>();
 
-	// Stamina
-	public static Double defaultStaminaPool;
-	public static Double defaultStaminaRegen;
-	public static Double lowFoodStaminaRegen;
-	public static Double waterStaminaRegen;
-	public static int lowFoodLevel;
+	private Config() {
+		throw new IllegalStateException("Utility class");
+	}
 
-	// Fly
-	public static Double flySpendingValue;
+	public static void init(File modConfigDir) {
+		configPath = modConfigDir.getAbsolutePath() + "/" + PonyMagic.MODID + "/main.json";
+		load();
+	}
 
-	// FIXME: rewrite configuration
-	public Config(File configFile) {
-		Configuration config = new Configuration(configFile);
-		config.load();
 
-		// Main
-		vanillaExpLvlForSkillReset = config.getInt(
-				"vanillaExpLvlForSkillReset",
-				"Main",
-				30,
-				0,
-				250,
-				"Remove vanilla exp levels for skills reset"
-		);
-		removeLevelsForRaceChange = config.getInt(
-				"removeLevelsForRaceChange",
-				"Main",
-				3,
-				0,
-				30,
-				"Remove levels for race change"
-		);
+	public static void load() {
+		if (configPath == null) {
+			PonyMagic.log.error("Main config not initialized!");
+			return;
+		}
 
-		// Stamina
-		defaultStaminaPool = config.get(
-				"Stamina",
-				"defaultStaminaPool",
-				100.0D,
-				"Default stamina",
-				0.0D,
-				1000.0D
-		).getDouble();
-		defaultStaminaRegen = config.get(
-				"Stamina",
-				"defaultStaminaRegen",
-				0.15D,
-				"Normal stamina regen level",
-				0.0D,
-				100.0D
-		).getDouble();
-		waterStaminaRegen = config.get(
-				"Stamina",
-				"waterStaminaRegen",
-				0.025D,
-				"Stamina regen level when swimming in water",
-				0.0D,
-				100.0D).getDouble();
-		lowFoodStaminaRegen = config.get(
-				"Stamina",
-				"lowFoodStaminaRegen",
-				0.05D,
-				"Low-food stamina regen",
-				0.0D,
-				100.0D
-		).getDouble();
-		lowFoodLevel = config.getInt(
-				"lowFoodLevel",
-				"Stamina",
-				8,
-				0,
-				20,
-				"Low-food level for stamina regen"
-		);
-		flySpendingValue = config.get(
-				"Stamina",
-				"flySpendingValue",
-				0.08D,
-				"Stamina for flying",
-				0.0D,
-				100.0D
-		).getDouble();
+		PonyMagic.log.info("Loading main config file");
+		File configFile = new File(configPath);
+		if (!configFile.exists()) {
+			// Copy default config
+			makeDefaultConfig(configFile);
+		}
 
-		config.save();
+		Gson gson = new Gson();
+		JsonObject jsonMap = null;
+
+		try {
+			// Load config file
+			jsonMap = gson.fromJson(new FileReader(configFile), JsonObject.class);
+		} catch (FileNotFoundException exception) {
+			// already checked above
+			PonyMagic.log.catching(exception);
+		}
+		Type typeToken = new TypeToken<HashMap<String, String>>(){}.getType();
+		HashMap<String, String> loadedMap = gson.fromJson(jsonMap, typeToken);
+		if (loadedMap != null) {
+			configMap.putAll(loadedMap);
+		} else {
+			PonyMagic.log.error("Main config format error!");
+		}
+	}
+
+	public static int getRemoveLevelsForRaceChange() {
+		return Integer.parseInt(configMap.getOrDefault("remove_levels_for_race_change", "3"));
+	}
+	public static int getVanillaExpLvlForSkillReset() {
+		return Integer.parseInt(configMap.getOrDefault("vanilla_exp_for_skill_reset", "30"));
+	}
+	public static Double getFlySpendingValue() {
+		return Double.parseDouble(configMap.getOrDefault("stamina_for_fly_per_tick", "0.08"));
+	}
+	public static Double getDefaultStaminaRegen() {
+		return Double.parseDouble(configMap.getOrDefault("default_stamina_regen_per_tick", "0.15"));
+	}
+	public static Double getLowFoodStaminaRegen() {
+		return Double.parseDouble(configMap.getOrDefault("low_food_stamina_regen", "0.05"));
+	}
+	public static Double getWaterStaminaRegen() {
+		return Double.parseDouble(configMap.getOrDefault("water_stamina_regen_per_tick", "0.025"));
+	}
+	public static int getLowFoodLevel() {
+		return Integer.parseInt(configMap.getOrDefault("low_food_level", "8"));
+	}
+
+	private static void makeDefaultConfig(File configFile) {
+		try {
+			String defaultConfigPath = "/assets/" + PonyMagic.MODID + "/config/main.json";
+			InputStream inputStream = LevelConfig.class.getResourceAsStream(defaultConfigPath);
+			FileUtils.copyInputStreamToFile(inputStream, configFile);
+			PonyMagic.log.info("Created default main config {}", configFile.getName());
+		} catch (IOException exception) {
+			PonyMagic.log.catching(exception);
+		}
 	}
 }

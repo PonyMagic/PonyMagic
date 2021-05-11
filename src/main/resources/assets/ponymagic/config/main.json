@@ -1,0 +1,9 @@
+{
+  "vanilla_exp_for_skill_reset": "30",
+  "remove_levels_for_race_change": "3",
+  "default_stamina_regen_per_tick": "0.15",
+  "water_stamina_regen_per_tick": "0.025",
+  "low_food_stamina_regen": "0.05",
+  "low_food_level": "8",
+  "stamina_for_fly_per_tick": "0.08"
+}

@@ -42,7 +42,8 @@ public class ResetPacket implements IMessage, IMessageHandler<ResetPacket, IMess
 				if (player == null) {
 					return;
 				}
-				if (player.experienceLevel >= Config.vanillaExpLvlForSkillReset || player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
+				if (player.experienceLevel >= Config.getVanillaExpLvlForSkillReset() ||
+						player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
 					if (player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
 						for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
 							ItemStack itemstack = player.inventory.getStackInSlot(i);
@@ -53,7 +54,7 @@ public class ResetPacket implements IMessage, IMessageHandler<ResetPacket, IMess
 							}
 						}
 					} else {
-						player.addExperienceLevel(-1 * Config.vanillaExpLvlForSkillReset);
+						player.addExperienceLevel(-1 * Config.getVanillaExpLvlForSkillReset());
 					}
 					IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 					playerData.reset();

@@ -62,10 +62,10 @@ public class MagicHandlersContainer {
 				&& !player.isPotionActive(shieldPotion)) {
 			Double staminaRegen;
 
-			if (player.getFoodStats().getFoodLevel() > Config.lowFoodLevel) {
-				staminaRegen = Config.defaultStaminaRegen;
+			if (player.getFoodStats().getFoodLevel() > Config.getLowFoodLevel()) {
+				staminaRegen = Config.getDefaultStaminaRegen();
 			} else {
-				staminaRegen = Config.lowFoodStaminaRegen;
+				staminaRegen = Config.getLowFoodStaminaRegen();
 			}
 
 			if (playerDataStorage.getSkillData().isSkillLearned("staminaRegen")) {
@@ -74,7 +74,7 @@ public class MagicHandlersContainer {
 			}
 
 			if (player.isInWater()) {
-				staminaRegen = Config.waterStaminaRegen;
+				staminaRegen = Config.getWaterStaminaRegen();
 			}
 
 			if (player.isPotionActive(SpellPotion.getCustomPotion("staminahealthregen"))) {
@@ -109,9 +109,9 @@ public class MagicHandlersContainer {
 			// Fly duration
 			if (playerDataStorage.getSkillData().isSkillLearned("flyduration")) {
 				int lvl = playerDataStorage.getSkillData().getSkillLevel("flyduration");
-				flySpendingValue = Config.flySpendingValue - lvl / 50.0D; // TODO: config
+				flySpendingValue = Config.getFlySpendingValue() - lvl / 50.0D; // TODO: config
 			} else {
-				flySpendingValue = Config.flySpendingValue;
+				flySpendingValue = Config.getFlySpendingValue();
 			}
 
 			if (staminaStorage.consume(flySpendingValue)) { // 0.8 stps

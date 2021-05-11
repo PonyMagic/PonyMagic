@@ -55,7 +55,7 @@ public class CommonProxy {
 		PonyMagic.channel.registerMessage(MotionPacket.class, MotionPacket.class, 7, Side.CLIENT);
 
 		// Main config
-		new Config(event.getSuggestedConfigurationFile());
+		Config.init(event.getModConfigurationDirectory());
 		// Leveling configs
 		LevelConfig.init(event.getModConfigurationDirectory());
 		// Skills configs
