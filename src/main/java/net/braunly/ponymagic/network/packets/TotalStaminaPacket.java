@@ -40,18 +40,12 @@ public class TotalStaminaPacket implements IMessage, IMessageHandler<TotalStamin
 		IThreadListener thread = PonyMagic.proxy.getListener(ctx);
 		final EntityPlayer player = PonyMagic.proxy.getPlayer(ctx);
 
-		thread.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				if (player != null) {
-					IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
-					if (stamina != null) {
-						stamina.set(EnumStaminaType.CURRENT, message.current);
-						stamina.set(EnumStaminaType.MAXIMUM, message.maximum);
-
-						// PonyMagic.log.info("PACKET: " + stamina.getStamina(EnumStaminaType.CURRENT) +
-						// "/" + stamina.getStamina(EnumStaminaType.MAXIMUM));
-					}
+		thread.addScheduledTask(() -> {
+			if (player != null) {
+				IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
+				if (stamina != null) {
+					stamina.set(EnumStaminaType.CURRENT, message.current);
+					stamina.set(EnumStaminaType.MAXIMUM, message.maximum);
 				}
 			}
 		});

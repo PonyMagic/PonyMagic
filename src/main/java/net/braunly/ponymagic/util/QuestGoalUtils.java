@@ -11,27 +11,32 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nullable;
 
 public class QuestGoalUtils {
-    private static final String delimiter = "#";
+    private static final String DELIMITER = "#";
+
+    private QuestGoalUtils
+            () {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static String getConfigKey(EnumQuestGoalType goalType, ResourceLocation resLoc, int meta) {
-        // TODO: Add .replace("lit_", "") to fix redstone_ore mining error?
+        // NOTE: Add .replace("lit_", "") to fix redstone_ore mining error?
         if (meta > 0) {
-            return goalType.name() + delimiter + resLoc.toString() + delimiter + meta;
+            return goalType.name() + DELIMITER + resLoc.toString() + DELIMITER + meta;
         } else {
-            return goalType.name() + delimiter + resLoc.toString();
+            return goalType.name() + DELIMITER + resLoc.toString();
         }
     }
 
     public static EnumQuestGoalType getGoalType(String configKey) {
-        return EnumQuestGoalType.getByName(configKey.split(delimiter)[0]).orElse(EnumQuestGoalType.ITEM);
+        return EnumQuestGoalType.getByName(configKey.split(DELIMITER)[0]).orElse(EnumQuestGoalType.ITEM);
     }
 
     public static ResourceLocation getResLoc(String configKey) {
-        return new ResourceLocation(configKey.split(delimiter)[1]);
+        return new ResourceLocation(configKey.split(DELIMITER)[1]);
     }
 
     public static int getMeta(String configKey) {
-        return configKey.split(delimiter).length > 2 ? Integer.parseInt(configKey.split(delimiter)[2]) : 0;
+        return configKey.split(DELIMITER).length > 2 ? Integer.parseInt(configKey.split(DELIMITER)[2]) : 0;
     }
 
     public static ItemStack getItemStack(String configKey) {

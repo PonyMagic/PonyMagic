@@ -9,19 +9,20 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class OpenGuiPacket implements IMessage, IMessageHandler<OpenGuiPacket, IMessage> {
-	private int GUI_ID = 0;
+	private int guiId = 0;
 
 	public OpenGuiPacket() {
+		// stub
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		GUI_ID = buf.readInt();
+		guiId = buf.readInt();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeInt(GUI_ID);
+		buf.writeInt(guiId);
 	}
 
 	@Override
@@ -29,13 +30,10 @@ public class OpenGuiPacket implements IMessage, IMessageHandler<OpenGuiPacket, I
 		IThreadListener thread = PonyMagic.proxy.getListener(ctx);
 		final EntityPlayer player = PonyMagic.proxy.getPlayer(ctx);
 
-		thread.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				if (player != null) {
-					player.openGui(PonyMagic.instance, message.GUI_ID, player.world, (int) player.posX,
-							(int) player.posY, (int) player.posZ);
-				}
+		thread.addScheduledTask(() -> {
+			if (player != null) {
+				player.openGui(PonyMagic.instance, message.guiId, player.world, (int) player.posX,
+						(int) player.posY, (int) player.posZ);
 			}
 		});
 		return null;

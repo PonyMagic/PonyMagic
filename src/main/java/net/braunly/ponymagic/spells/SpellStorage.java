@@ -45,7 +45,7 @@ public class SpellStorage {
 				.put("nightvision", new SpellPotion("night_vision", true))
 				.put("strength", new SpellPotion("strength", true))
 				.put("haste", new SpellPotion("haste", true))
-				.put("hpregen", new SpellPotion("regeneration", true)) // FIXME: vanilla?
+				.put("hpregen", new SpellPotion("regeneration", true))
 				.put("heal", new SpellPotion("instant_health", true))
 				.put("poison", new SpellPotion("poison", true))
 				.put("invisibility", new SpellPotion("invisibility", true))

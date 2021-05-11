@@ -52,11 +52,11 @@ public class LevelData implements ILevelDataStorage {
 		nbttagcompound.setInteger("FreeSkillPoint", this.getFreeSkillPoints());
 
 		NBTTagList questsList = new NBTTagList();
-		for (String questName : this.currentGoals.keySet()) {
+		for (Map.Entry<String, HashMap<String, Integer>> questEntry : this.currentGoals.entrySet()) {
 			NBTTagCompound questsCompound = new NBTTagCompound();
-			questsCompound.setString("QuestName", questName);
+			questsCompound.setString("QuestName", questEntry.getKey());
 			NBTTagList goalsList = new NBTTagList();
-			for (Map.Entry<String, Integer> goalEntry : this.currentGoals.get(questName).entrySet()) {
+			for (Map.Entry<String, Integer> goalEntry : questEntry.getValue().entrySet()) {
 				NBTTagCompound goalCompound = new NBTTagCompound();
 				goalCompound.setString("Goal", goalEntry.getKey());
 				goalCompound.setInteger("Count", goalEntry.getValue());
@@ -82,7 +82,7 @@ public class LevelData implements ILevelDataStorage {
 
 		HashMap<String, Integer> questGoals = this.currentGoals.get(questName);
 
-		// FIXME: Fix log (and etc.) variants (maybe?) (fixed? see 1fc29b7d)
+		// NOTE: Fix log (and etc.) variants (maybe?) (fixed? see 1fc29b7d)
 		return !questGoals.isEmpty() && questGoals.containsKey(goalName);
 	}
 

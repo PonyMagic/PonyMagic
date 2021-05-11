@@ -14,14 +14,11 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiStamina extends GuiIngameForge {
 
-	private static Minecraft mc;
-	private static final ResourceLocation texturepath = new ResourceLocation(PonyMagic.MODID,
+	private static final ResourceLocation TEXTURE_PATH = new ResourceLocation(PonyMagic.MODID,
 			"textures/gui/stamina_bar.png");
 
 	public GuiStamina(Minecraft mc) {
 		super(mc);
-		GuiStamina.mc = mc;
-
 	}
 
 	@SubscribeEvent
@@ -32,14 +29,8 @@ public class GuiStamina extends GuiIngameForge {
 
 		IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(mc.player);
 
-		// PonyMagic.log.info("GUI: " + stamina.getStamina(EnumStaminaType.CURRENT) +
-		// "/" + stamina.getStamina(EnumStaminaType.MAXIMUM));
-
 		if (stamina == null || mc.player.capabilities.isCreativeMode || mc.player.isSpectator())
 			return;
-
-		// int xPos = 2;
-		// int yPos = 2;
 
 		int barWidth = 182;
 
@@ -49,7 +40,7 @@ public class GuiStamina extends GuiIngameForge {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glDisable(GL11.GL_LIGHTING);
-		mc.getTextureManager().bindTexture(texturepath);
+		mc.getTextureManager().bindTexture(TEXTURE_PATH);
 
 		int current = (int) (stamina.getStamina(EnumStaminaType.CURRENT) / stamina.getStamina(EnumStaminaType.MAXIMUM)
 				* barWidth);

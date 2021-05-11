@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class PickupEventHandler {
     public PickupEventHandler() {
-
+        // stub
     }
 
     @SubscribeEvent(priority=EventPriority.NORMAL)

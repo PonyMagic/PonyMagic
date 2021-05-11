@@ -5,6 +5,11 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class Quests {
 
+    private Quests() {
+        throw new IllegalStateException("Utility class");
+    }
+
+
     public static void registerHandlers() {
         MinecraftForge.EVENT_BUS.register(new BlockBreakEventHandler());
         MinecraftForge.EVENT_BUS.register(new BlockPlaceEventHandler());

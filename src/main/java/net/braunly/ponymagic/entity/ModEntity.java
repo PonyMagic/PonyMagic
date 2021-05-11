@@ -7,18 +7,18 @@ import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModEntity {
-    public static EntityEntry entityPortal;
+    public static final EntityEntry ENTITY_PORTAL = EntityEntryBuilder.create().entity(EntityPortal.class)
+            .id(new ResourceLocation(PonyMagic.MODID, "portal"), 0)
+            .name("portal").tracker(32, 2, false)
+            .build();
 
-    public static void init() {
-        entityPortal = EntityEntryBuilder.create().entity(EntityPortal.class)
-                .id(new ResourceLocation(PonyMagic.MODID, "portal"), 0)
-                .name("portal").tracker(32, 2, false)
-                .build();
+    private ModEntity() {
+        throw new IllegalStateException("Utility class");
     }
 
     public static void register(IForgeRegistry<EntityEntry> registry) {
         registry.registerAll(
-                entityPortal
+                ENTITY_PORTAL
         );
     }
 }

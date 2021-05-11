@@ -19,6 +19,10 @@ public class LevelConfig {
     // Race quests config
     private static final Map<EnumRace, ImmutableMap<Integer, LevelGoal>> raceConfigs = new HashMap<>();
 
+    private LevelConfig() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static void init(File modConfigDir) {
         levelingConfigDir = modConfigDir.getAbsolutePath() + "/" + PonyMagic.MODID + "/leveling";
         load();
@@ -92,9 +96,9 @@ public class LevelConfig {
 
     private static void makeDefaultConfig(File configFile) {
         try {
-            String DEFAULT_CONFIG_PATH = "/assets/" + PonyMagic.MODID + "/config/leveling/";
+            String defaultConfigPath = "/assets/" + PonyMagic.MODID + "/config/leveling/";
             InputStream inputStream = LevelConfig.class.getResourceAsStream(
-                    DEFAULT_CONFIG_PATH + configFile.getName()
+                    defaultConfigPath + configFile.getName()
             );
             FileUtils.copyInputStreamToFile(inputStream, configFile);
             PonyMagic.log.info("Created default level config {}", configFile.getName());

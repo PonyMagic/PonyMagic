@@ -33,13 +33,10 @@ public class FlySpeedPacket implements IMessage, IMessageHandler<FlySpeedPacket,
 		IThreadListener thread = PonyMagic.proxy.getListener(ctx);
 		final EntityPlayer player = PonyMagic.proxy.getPlayer(ctx);
 
-		thread.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				if (player != null) {
-					player.capabilities.setFlySpeed(0.05F + message.flySpeed);
-					player.sendPlayerAbilities();
-				}
+		thread.addScheduledTask(() -> {
+			if (player != null) {
+				player.capabilities.setFlySpeed(0.05F + message.flySpeed);
+				player.sendPlayerAbilities();
 			}
 		});
 		return null;

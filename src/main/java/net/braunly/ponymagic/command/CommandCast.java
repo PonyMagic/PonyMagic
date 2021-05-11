@@ -1,7 +1,6 @@
 package net.braunly.ponymagic.command;
 
 import com.google.common.collect.Lists;
-import lombok.Getter;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
@@ -27,12 +26,26 @@ import java.util.List;
 import java.util.Optional;
 
 public class CommandCast extends CommandBase {
-	@Getter
-	public final List<String> aliases = Lists.newArrayList("cast");
-	@Getter
-	public final String name = "cast";
-	@Getter
-	public final int requiredPermissionLevel = 0;
+	public static final String NAME = "cast";
+	public static final int REQUIRED_PERMISSION_LEVEL = 0;
+	public static final List<String> aliases = Lists.newArrayList(NAME);
+
+	@Override
+	@Nonnull
+	public String getName() {
+		return NAME;
+	}
+
+	@Override
+	public int getRequiredPermissionLevel() {
+		return REQUIRED_PERMISSION_LEVEL;
+	}
+
+	@Override
+	@Nonnull
+	public List<String> getAliases() {
+		return aliases;
+	}
 
 	@Override
 	@Nonnull

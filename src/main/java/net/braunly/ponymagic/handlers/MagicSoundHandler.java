@@ -5,10 +5,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 
 public class MagicSoundHandler {
-	public static SoundEvent LEVEL_UP;
+	public static final SoundEvent LEVEL_UP = createSoundEvent("levelup");
 
-	public static void init() {
-		LEVEL_UP = createSoundEvent("levelup");
+	private MagicSoundHandler()  {
+		throw new IllegalStateException("Utility class");
 	}
 
 	private static SoundEvent createSoundEvent(String soundName) {

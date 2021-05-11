@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class EntityKillEventHandler {
     public EntityKillEventHandler() {
-
+        // stub
     }
 
     @SubscribeEvent(priority=EventPriority.NORMAL)

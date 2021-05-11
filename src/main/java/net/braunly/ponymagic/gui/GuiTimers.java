@@ -16,8 +16,6 @@ import java.util.Map;
 public class GuiTimers extends GuiIngameForge {
 
     private IPlayerDataStorage playerData;
-    private final ResourceLocation skillAvailable = new ResourceLocation(PonyMagic.MODID,
-            "textures/gui/skill_available.png");
     private final ResourceLocation skillActive = new ResourceLocation(PonyMagic.MODID, "textures/gui/skill_active.png");
 
     public GuiTimers(Minecraft mc) {
@@ -40,13 +38,6 @@ public class GuiTimers extends GuiIngameForge {
 
         int xPos = resolution.getScaledWidth() / 2 - 95;
         int yPos = resolution.getScaledHeight() - 36;
-
-//        GL11.glEnable(GL11.GL_BLEND);
-//        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-//        GL11.glDisable(GL11.GL_LIGHTING);
-
-//        GlStateManager.enableBlend();
-
         int c = 1;
 
         for (Map.Entry<String, Integer> entry : this.playerData.getTickData().getTimers().entrySet()) {
@@ -55,17 +46,12 @@ public class GuiTimers extends GuiIngameForge {
             String text = "" + ticks / 40;
 
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            float f = 1.0F;
 
             // Some distance between timer icons
             int x = xPos - 36 * c;
             if (c > 1) {
                 x -= 5 * (c - 1) ;
             }
-
-            // draw bg
-//            mc.getTextureManager().bindTexture(this.skillAvailable);
-//            drawModalRectWithCustomSizedTexture(x - 2, yPos - 2, 0, 0, 36, 36, 36, 36);
 
             // draw border as timer
             mc.getTextureManager().bindTexture(this.skillActive);

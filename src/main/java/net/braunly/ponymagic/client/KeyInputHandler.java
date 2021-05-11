@@ -22,7 +22,6 @@ public class KeyInputHandler {
 			}
 		}
 		if (KeyBindings.questsGui.isPressed()) {
-			EntityPlayer player = Minecraft.getMinecraft().player;
 			if (GuiQuests.isGuiOpen()) {
 				GuiQuests.closeGui();
 			} else {

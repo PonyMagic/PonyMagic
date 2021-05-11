@@ -317,6 +317,8 @@ public class MagicHandlersContainer {
 			}
 
 			PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod + mod), (EntityPlayerMP) player);
+		} else {
+			// FIXME: disable fly ability
 		}
 	}
 

@@ -16,10 +16,11 @@ import net.braunly.ponymagic.config.SkillConfig;
 import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
-import net.braunly.ponymagic.entity.ModEntity;
 import net.braunly.ponymagic.gui.GuiHandler;
-import net.braunly.ponymagic.handlers.*;
-import net.braunly.ponymagic.items.ModItems;
+import net.braunly.ponymagic.handlers.EntityPortalInteractHandler;
+import net.braunly.ponymagic.handlers.LevelUpEventHandler;
+import net.braunly.ponymagic.handlers.MagicHandlersContainer;
+import net.braunly.ponymagic.handlers.PlayerLoggedInHandler;
 import net.braunly.ponymagic.network.packets.*;
 import net.braunly.ponymagic.potions.PotionShield;
 import net.braunly.ponymagic.potions.PotionStaminaHealthRegen;
@@ -72,9 +73,6 @@ public class CommonProxy {
 		// Register capability data
 		CapabilityManager.INSTANCE.register(IStaminaStorage.class, new StaminaSerializer(), StaminaStorage.class);
 		CapabilityManager.INSTANCE.register(IPlayerDataStorage.class, new PlayerDataSerializer(), PlayerData.class);
-		
-		ModItems.init();
-		ModEntity.init();
 	}
 
 	public void init(FMLInitializationEvent event) {
@@ -96,8 +94,6 @@ public class CommonProxy {
 		// Attach capabilities to player
 		MinecraftForge.EVENT_BUS.register(new StaminaHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerDataHandler());
-
-		MagicSoundHandler.init();
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {

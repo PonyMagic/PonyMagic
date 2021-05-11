@@ -50,8 +50,6 @@ public class GuiQuests {
         if (this.playerData == null || this.playerData.getLevelData().getCurrentGoals().isEmpty())
             return;
 
-//        ScaledResolution resolution = event.getResolution();
-
         int xPos = 10;
         int yPos = 10;
         int yShift = 0;

@@ -1,5 +1,6 @@
 package net.braunly.ponymagic.data;
 
+import lombok.Getter;
 import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.interfaces.ILevelDataStorage;
 import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
@@ -17,10 +18,10 @@ public class PlayerData implements IPlayerDataStorage {
 	private ISkillDataStorage skillData = new SkillData();
 	private ITickDataStorage tickData = new TickData();
 
-//	public String version = "v3.0";
-	public EntityPlayer player = null;
+	@Getter
+	private EntityPlayer player = null;
 
-	private String playername = null;
+	private String playerName = null;
 	private String uuid = null;
 	private EnumRace race = EnumRace.REGULAR;
 
@@ -73,7 +74,7 @@ public class PlayerData implements IPlayerDataStorage {
     @Override
     public void setPlayer(EntityPlayer player) {
         this.player = player;
-        this.playername = player.getName();
+        this.playerName = player.getName();
         this.uuid = player.getPersistentID().toString();
     }
 
@@ -100,16 +101,13 @@ public class PlayerData implements IPlayerDataStorage {
 		this.skillData.saveToNBT(compound);
 		this.tickData.saveToNBT(compound);
 
-		compound.setString("PlayerName", this.playername);
+		compound.setString("PlayerName", this.playerName);
 		compound.setString("UUID", this.uuid);
 		if (this.race != null) {
 			compound.setString("Race", this.race.name());
 		} else {
 			compound.setString("Race", EnumRace.REGULAR.name());
 		}
-
-//		compound.setString("Version", this.version);
-
 		return compound;
 	}
 
@@ -124,14 +122,7 @@ public class PlayerData implements IPlayerDataStorage {
 			this.setRace(EnumRace.REGULAR);
 		}
 
-//		if (!this.version.equals(nbt.getString("Version"))) {
-//			this.migrateTo(this.version);
-//		}
-
 	}
-
-//	private void migrateTo(String version) {
-//	}
 
 	private void addDefaultSpell() {
 		// Add ONLY ONE default spell

@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class BlockBreakEventHandler {
     public BlockBreakEventHandler() {
-
+        // stub
     }
 
     @SubscribeEvent(priority=EventPriority.NORMAL)

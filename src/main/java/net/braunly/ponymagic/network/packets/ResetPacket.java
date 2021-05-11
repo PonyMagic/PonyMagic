@@ -36,34 +36,31 @@ public class ResetPacket implements IMessage, IMessageHandler<ResetPacket, IMess
 		IThreadListener thread = PonyMagic.proxy.getListener(ctx);
 		final EntityPlayer player = PonyMagic.proxy.getPlayer(ctx);
 
-		thread.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				if (player == null) {
-					return;
-				}
-				if (player.experienceLevel >= Config.getVanillaExpLvlForSkillReset() ||
-						player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
-					if (player.inventory.hasItemStack(new ItemStack(ModItems.resetBook))) {
-						for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
-							ItemStack itemstack = player.inventory.getStackInSlot(i);
+		thread.addScheduledTask(() -> {
+			if (player == null) {
+				return;
+			}
+			if (player.experienceLevel >= Config.getVanillaExpLvlForSkillReset() ||
+					player.inventory.hasItemStack(new ItemStack(ModItems.RESET_BOOK))) {
+				if (player.inventory.hasItemStack(new ItemStack(ModItems.RESET_BOOK))) {
+					for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+						ItemStack itemstack = player.inventory.getStackInSlot(i);
 
-							if (itemstack.getItem() instanceof ItemResetBook) {
-								player.inventory.deleteStack(itemstack);
-								break;
-							}
+						if (itemstack.getItem() instanceof ItemResetBook) {
+							player.inventory.deleteStack(itemstack);
+							break;
 						}
-					} else {
-						player.addExperienceLevel(-1 * Config.getVanillaExpLvlForSkillReset());
 					}
-					IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
-					playerData.reset();
-					PonyMagicAPI.playerDataController.savePlayerData(playerData);
-					MagicHandlersContainer.updatePlayerFlySpeed(playerData, 0.0F);
-					MagicHandlersContainer.updatePlayerMaxStamina(playerData);
 				} else {
-					player.sendMessage(new TextComponentTranslation("skill.reset.fail", ""));
+					player.addExperienceLevel(-1 * Config.getVanillaExpLvlForSkillReset());
 				}
+				IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
+				playerData.reset();
+				PonyMagicAPI.playerDataController.savePlayerData(playerData);
+				MagicHandlersContainer.updatePlayerFlySpeed(playerData, 0.0F);
+				MagicHandlersContainer.updatePlayerMaxStamina(playerData);
+			} else {
+				player.sendMessage(new TextComponentTranslation("skill.reset.fail", ""));
 			}
 		});
 		return null;

@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class BreedAnimalEventHandler {
     public BreedAnimalEventHandler() {
-
+        // stub
     }
 
     @SubscribeEvent(priority=EventPriority.NORMAL)

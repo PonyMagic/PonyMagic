@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class BlockPlaceEventHandler {
     public BlockPlaceEventHandler() {
-
+        // stub
     }
 
     @SubscribeEvent(priority=EventPriority.NORMAL)

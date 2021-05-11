@@ -1,7 +1,6 @@
 package net.braunly.ponymagic.command;
 
 import com.google.common.collect.Lists;
-import lombok.Getter;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumStaminaType;
 import me.braunly.ponymagic.api.interfaces.IStaminaStorage;
@@ -23,13 +22,27 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CommandStamina extends CommandBase {
-	@Getter
-	public final List<String> aliases = Lists.newArrayList("stamina");
-	@Getter
-	public final String name = "stamina";
-	@Getter
-	public final int requiredPermissionLevel = 1;
+	public static final String NAME = "stamina";
+	public static final List<String> ALIASES = Lists.newArrayList(NAME);
+	public static final int REQUIRED_PERMISSION_LEVEL = 1;
 	private final String[] availableCommands = { "add", "check", "empty", "fill", "restore", "set", "setmax", "zero" };
+
+	@Override
+	@Nonnull
+	public String getName() {
+		return NAME;
+	}
+
+	@Override
+	public int getRequiredPermissionLevel() {
+		return REQUIRED_PERMISSION_LEVEL;
+	}
+
+	@Override
+	@Nonnull
+	public List<String> getAliases() {
+		return ALIASES;
+	}
 
 	@Override
 	@Nonnull

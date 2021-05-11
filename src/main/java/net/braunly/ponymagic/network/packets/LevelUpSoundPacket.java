@@ -16,7 +16,7 @@ public class LevelUpSoundPacket implements IMessage, IMessageHandler<LevelUpSoun
 	private int level;
 
 	public LevelUpSoundPacket() {
-		// TODO Auto-generated constructor stub
+		// Auto-generated constructor stub
 	}
 
 	public LevelUpSoundPacket(int level) {
@@ -38,13 +38,10 @@ public class LevelUpSoundPacket implements IMessage, IMessageHandler<LevelUpSoun
 		IThreadListener thread = PonyMagic.proxy.getListener(ctx);
 		final EntityPlayer player = PonyMagic.proxy.getPlayer(ctx);
 
-		thread.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				if (player != null) {
-					player.sendMessage(new TextComponentTranslation("event.levelup.string", message.level));
-					player.world.playSound(player, player.getPosition(), MagicSoundHandler.LEVEL_UP, SoundCategory.PLAYERS, 5f, 1f);
-				}
+		thread.addScheduledTask(() -> {
+			if (player != null) {
+				player.sendMessage(new TextComponentTranslation("event.levelup.string", message.level));
+				player.world.playSound(player, player.getPosition(), MagicSoundHandler.LEVEL_UP, SoundCategory.PLAYERS, 5f, 1f);
 			}
 		});
 		return null;

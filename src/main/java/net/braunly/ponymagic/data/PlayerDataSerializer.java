@@ -10,12 +10,13 @@ public class PlayerDataSerializer implements IStorage<IPlayerDataStorage> {
 
 	@Override
 	public NBTBase writeNBT(Capability<IPlayerDataStorage> capability, IPlayerDataStorage instance, EnumFacing side) {
+		// stub
 		return null;
 	}
 
 	@Override
 	public void readNBT(Capability<IPlayerDataStorage> capability, IPlayerDataStorage instance, EnumFacing side, NBTBase nbt) {
-
+		// stub
 	}
 
 }

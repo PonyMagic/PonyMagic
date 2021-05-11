@@ -116,33 +116,33 @@ public class NBTJsonUtil {
 			json.cut(1);
 			return new NBTTagString(s.toString().replace("\\\"", "\""));
 		}
-		String s = "";
+		StringBuilder s = new StringBuilder();
 		while (!json.startsWith(",", "]", "}")) {
-			s += json.cut(1);
+			s.append(json.cut(1));
 		}
-		s = s.trim().toLowerCase();
-		if (s.isEmpty())
+		s = new StringBuilder(s.toString().trim().toLowerCase());
+		if (s.length() == 0)
 			return null;
 		try {
-			if (s.endsWith("d")) {
+			if (s.toString().endsWith("d")) {
 				return new NBTTagDouble(Double.parseDouble(s.substring(0, s.length() - 1)));
 			}
-			if (s.endsWith("f")) {
+			if (s.toString().endsWith("f")) {
 				return new NBTTagFloat(Float.parseFloat(s.substring(0, s.length() - 1)));
 			}
-			if (s.endsWith("b")) {
+			if (s.toString().endsWith("b")) {
 				return new NBTTagByte(Byte.parseByte(s.substring(0, s.length() - 1)));
 			}
-			if (s.endsWith("s")) {
+			if (s.toString().endsWith("s")) {
 				return new NBTTagShort(Short.parseShort(s.substring(0, s.length() - 1)));
 			}
-			if (s.endsWith("l")) {
+			if (s.toString().endsWith("l")) {
 				return new NBTTagLong(Long.parseLong(s.substring(0, s.length() - 1)));
 			}
-			if (s.contains("."))
-				return new NBTTagDouble(Double.parseDouble(s));
+			if (s.toString().contains("."))
+				return new NBTTagDouble(Double.parseDouble(s.toString()));
 			else
-				return new NBTTagInt(Integer.parseInt(s));
+				return new NBTTagInt(Integer.parseInt(s.toString()));
 		} catch (NumberFormatException ex) {
 			throw new JsonException("Unable to convert: " + s + " to a number", json);
 		}

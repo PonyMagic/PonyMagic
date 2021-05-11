@@ -84,7 +84,6 @@ public class GuiSkills extends GuiScreen {
 			return;
 		}
 
-		// :FIXME: Move to SERVER side
 		if (!isSkillLearned(skill) && isSkillAvailable(skill)) {
 			PonyMagic.channel.sendToServer(new SkillUpPacket(skill.getSkillName(), skill.getSkillLevel()));
 			initPlayerData();

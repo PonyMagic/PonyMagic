@@ -64,7 +64,7 @@ public class TickData implements ITickDataStorage {
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        HashMap<String, Integer> timers = new HashMap<>();
+        HashMap<String, Integer> timersNew = new HashMap<>();
 
         if (compound == null)
             return;
@@ -73,9 +73,9 @@ public class TickData implements ITickDataStorage {
 
         for (int i = 0; i < list.tagCount(); i++) {
             NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
-            timers.put(nbttagcompound.getString("Name"), nbttagcompound.getInteger("Ticks"));
+            timersNew.put(nbttagcompound.getString("Name"), nbttagcompound.getInteger("Ticks"));
         }
-        this.timers = timers;
+        this.timers = timersNew;
     }
 
     @Override

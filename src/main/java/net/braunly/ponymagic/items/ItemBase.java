@@ -10,8 +10,4 @@ public class ItemBase extends Item {
 		setRegistryName(name);
 		setCreativeTab(PonyMagic.creativeTab);		
 	}
-	
-//	public void registerItemModel() {
-//		SpecialItems.proxy.registerItemRenderer(this, 0, name);
-//	}
 }

@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SkillData implements ISkillDataStorage {
-	private HashMap<String, Integer> skillData = new HashMap<String, Integer>();
+	private HashMap<String, Integer> skillDataMap = new HashMap<>();
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
-		HashMap<String, Integer> skillData = new HashMap<String, Integer>();
+		HashMap<String, Integer> skillDataNew = new HashMap<>();
 
 		if (compound == null)
 			return;
@@ -25,15 +25,15 @@ public class SkillData implements ISkillDataStorage {
 
 		for (int i = 0; i < list.tagCount(); i++) {
 			NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
-			skillData.put(nbttagcompound.getString("Name"), nbttagcompound.getInteger("Level"));
+			skillDataNew.put(nbttagcompound.getString("Name"), nbttagcompound.getInteger("Level"));
 		}
-		this.skillData = skillData;
+		this.skillDataMap = skillDataNew;
 	}
 
 	@Override
 	public void saveToNBT(NBTTagCompound compound) {
 		NBTTagList list = new NBTTagList();
-		for (String skillName : this.skillData.keySet()) {
+		for (String skillName : this.skillDataMap.keySet()) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			nbttagcompound.setString("Name", skillName);
 			nbttagcompound.setInteger("Level", this.getSkillLevel(skillName));
@@ -45,18 +45,17 @@ public class SkillData implements ISkillDataStorage {
 
 	@Override
 	public int getSkillLevel(String skillName) {
-		if (!this.skillData.containsKey(skillName)) {
-			this.skillData.put(skillName, 0);
+		if (!this.skillDataMap.containsKey(skillName)) {
 			return 0;
 		}
-		return this.skillData.get(skillName);
+		return this.skillDataMap.get(skillName);
 	}
 
 	@Override
 	public boolean isAnySkillLearned(Map<String, Integer> skillsMap) {
 		if (skillsMap == null || skillsMap.isEmpty())
 			return true;
-		return !Collections.disjoint(this.skillData.entrySet(), skillsMap.entrySet());
+		return !Collections.disjoint(this.skillDataMap.entrySet(), skillsMap.entrySet());
 	}
 
 	@Override
@@ -66,11 +65,11 @@ public class SkillData implements ISkillDataStorage {
 
 	@Override
 	public void upSkillLevel(String skillName) {
-		this.skillData.put(skillName, this.getSkillLevel(skillName) + 1);
+		this.skillDataMap.put(skillName, this.getSkillLevel(skillName) + 1);
 	}
 
 	@Override
 	public void reset() {
-		this.skillData.clear();
+		this.skillDataMap.clear();
 	}
 }

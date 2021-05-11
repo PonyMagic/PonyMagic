@@ -41,14 +41,11 @@ public class MotionPacket implements IMessage, IMessageHandler<MotionPacket, IMe
 		IThreadListener thread = PonyMagic.proxy.getListener(ctx);
 		final EntityPlayer player = PonyMagic.proxy.getPlayer(ctx);
 
-		thread.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				if (player != null) {
-					player.motionX += message.x;// * d10;
-		            player.motionY += message.y;// * d10;
-		            player.motionZ += message.z;// * d10;
-				}
+		thread.addScheduledTask(() -> {
+			if (player != null) {
+				player.motionX += message.x;
+				player.motionY += message.y;
+				player.motionZ += message.z;
 			}
 		});
 		return null;

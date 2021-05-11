@@ -19,7 +19,7 @@ public class SkillUpPacket implements IMessage, IMessageHandler<SkillUpPacket, I
 	private int skillLevel;
 
 	public SkillUpPacket() {
-		// TODO Auto-generated constructor stub
+		// Auto-generated constructor stub
 	}
 
 	public SkillUpPacket(String skillName, int skillLevel) {
@@ -47,7 +47,6 @@ public class SkillUpPacket implements IMessage, IMessageHandler<SkillUpPacket, I
 		thread.addScheduledTask(() -> {
 			if (player != null && message.skillName != null) {
 				IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
-				// PonyMagic.log.info("SKILLUP");
 				Skill skillConfig = SkillConfig.getRaceSkill(
 						playerData.getRace(),
 						message.skillName,

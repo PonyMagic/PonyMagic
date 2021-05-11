@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class SmeltedEventHandler {
     public SmeltedEventHandler() {
-
+        // stub
     }
 
     @SubscribeEvent(priority=EventPriority.HIGH)

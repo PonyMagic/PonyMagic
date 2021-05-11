@@ -1,7 +1,6 @@
 package net.braunly.ponymagic.command;
 
 import com.google.common.collect.Lists;
-import lombok.Getter;
 import me.braunly.ponymagic.api.PonyMagicAPI;
 import me.braunly.ponymagic.api.enums.EnumRace;
 import me.braunly.ponymagic.api.events.LevelUpEvent;
@@ -35,17 +34,31 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CommandMagic extends CommandBase {
-	@Getter
-	public final List<String> aliases = Lists.newArrayList("magic");
-	@Getter
-	public final String name = "magic";
-	@Getter
-	public final int requiredPermissionLevel = 1;
+	public static final String NAME = "magic";
+	public static final int REQUIRED_PERMISSION_LEVEL = 1;
+	public static final List<String> aliases = Lists.newArrayList(NAME);
 	private final String[] availableCommands = {
 			"race", "reload", "spell", "test",
 			"setlevel", "setpoints", "getquest",
 			"setportal", "deleteportal", "listportal"
 	};
+
+	@Override
+	@Nonnull
+	public String getName() {
+		return NAME;
+	}
+
+	@Override
+	public int getRequiredPermissionLevel() {
+		return REQUIRED_PERMISSION_LEVEL;
+	}
+
+	@Override
+	@Nonnull
+	public List<String> getAliases() {
+		return aliases;
+	}
 
 	@Override
 	@Nonnull
@@ -117,6 +130,8 @@ public class CommandMagic extends CommandBase {
 		if (playerData.getRace().hasSpell(spellName)) {
 			playerData.getSkillData().upSkillLevel(spellName);
 			PonyMagicAPI.playerDataController.savePlayerData(playerData);
+			player.sendMessage(new TextComponentString(String.format("%s now has %s spell",
+					playerName, spellName)));
 		} else {
 			player.sendMessage(new TextComponentTranslation("commands.magic.spell.notAvailable", playerName));
 		}
@@ -139,6 +154,8 @@ public class CommandMagic extends CommandBase {
 		playerData.getLevelData().setLevel(level);
 		playerData.getLevelData().setGoals(LevelConfig.getRaceLevelConfig(playerData.getRace(), level+1).getQuestsWithGoals());
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
+		player.sendMessage(new TextComponentString(String.format("%s now has %s level",
+				playerName, playerData.getLevelData().getLevel())));
 	}
 
 	@ParametersAreNonnullByDefault
@@ -152,13 +169,16 @@ public class CommandMagic extends CommandBase {
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(playerName);
 		playerData.getLevelData().setFreeSkillPoints(points);
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
+		player.sendMessage(new TextComponentString(String.format("%s now has %s free skill points",
+				playerName, playerData.getLevelData().getFreeSkillPoints())));
 	}
 
 	@ParametersAreNonnullByDefault
-	private void executeReload(EntityPlayerMP player, String[] args) throws CommandException {
+	private void executeReload(EntityPlayerMP player) {
 		LevelConfig.load();
 		SkillConfig.load();
 		PortalConfig.load();
+		player.sendMessage(new TextComponentString("Configs reloaded!"));
 	}
 
 	@ParametersAreNonnullByDefault
@@ -256,7 +276,7 @@ public class CommandMagic extends CommandBase {
 				executeSetLevel(player, args);
 				break;
 			case "reload":
-				executeReload(player, args);
+				executeReload(player);
 				break;
 			case "getquest":
 				executeGetQuest(player, args);

@@ -24,7 +24,7 @@ public class ItemSpellBook extends ItemBase{
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		if (world.isRemote) {
-			return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
+			return new ActionResult<>(EnumActionResult.PASS, player.getHeldItem(hand));
 		}
 		IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
 		if (playerData.getRace().hasSpell(this.spellName) &&
@@ -35,9 +35,9 @@ public class ItemSpellBook extends ItemBase{
 			ItemStack itemStackInHand = player.getHeldItem(hand);
 			itemStackInHand.setCount(itemStackInHand.getCount() - 1);
 			PonyMagicAPI.playerDataController.savePlayerData(playerData);
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+			return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 		}
-		return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
+		return new ActionResult<>(EnumActionResult.PASS, player.getHeldItem(hand));
 	}
 
 }

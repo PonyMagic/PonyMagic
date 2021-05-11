@@ -23,7 +23,7 @@ public class ItemCloudInBottle extends ItemBase {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		if (world.isRemote) {
-			return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
+			return new ActionResult<>(EnumActionResult.PASS, player.getHeldItem(hand));
 		}
 		BlockPos blockPos = player.getPosition();
 		blockPos = blockPos.down(1);
@@ -38,9 +38,9 @@ public class ItemCloudInBottle extends ItemBase {
 
 			player.getHeldItemMainhand().setCount(player.getHeldItemMainhand().getCount() - 1);
 			itemStackInHand.setCount(itemStackInHand.getCount() - 1);
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+			return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 		}
-		return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
+		return new ActionResult<>(EnumActionResult.PASS, player.getHeldItem(hand));
     }
 
 }

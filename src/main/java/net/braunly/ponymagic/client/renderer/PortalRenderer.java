@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class PortalRenderer extends Render<EntityPortal>
 {
     private static final ResourceLocation PORTAL_TEXTURES = new ResourceLocation(PonyMagic.MODID,"textures/entity/portal.png");
-    private final ModelBase modelPortal = new ModelEnderCrystal(0.0F, false);
+    private static final ModelBase modelPortal = new ModelEnderCrystal(0.0F, false);
 
     public PortalRenderer(RenderManager renderManagerIn)
     {
@@ -27,6 +27,7 @@ public class PortalRenderer extends Render<EntityPortal>
     /**
      * Renders the desired {@code T} type Entity.
      */
+    @Override
     public void doRender(EntityPortal entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         float f = (float)entity.innerRotation + partialTicks;
@@ -42,7 +43,7 @@ public class PortalRenderer extends Render<EntityPortal>
             GlStateManager.enableOutlineMode(this.getTeamColor(entity));
         }
 
-        this.modelPortal.render(entity, 0.0F, f * 3.0F, f1 * 0.2F, 0.0F, 0.0F, 0.0625F);
+        modelPortal.render(entity, 0.0F, f * 3.0F, f1 * 0.2F, 0.0F, 0.0F, 0.0625F);
 
         if (this.renderOutlines)
         {
@@ -57,6 +58,7 @@ public class PortalRenderer extends Render<EntityPortal>
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
+    @Override
     protected ResourceLocation getEntityTexture(EntityPortal entity)
     {
         return PORTAL_TEXTURES;

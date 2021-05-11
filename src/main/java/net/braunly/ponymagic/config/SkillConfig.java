@@ -17,6 +17,11 @@ public class SkillConfig {
     private static String skillsConfigDir = null;
     private static final Map<EnumRace, ImmutableMap<String, Skill>> raceSkillsConfig = new HashMap<>();
 
+    private SkillConfig() {
+        throw new IllegalStateException("Utility class");
+    }
+
+
     public static void init(File modConfigDir) {
         skillsConfigDir = modConfigDir.getAbsolutePath() + "/" + PonyMagic.MODID + "/skills";
         load();
@@ -77,9 +82,9 @@ public class SkillConfig {
 
     private static void makeDefaultConfig(File configFile) {
         try {
-            String DEFAULT_CONFIG_PATH = "/assets/" + PonyMagic.MODID + "/config/skills/";
+            String defaultConfigPath = "/assets/" + PonyMagic.MODID + "/config/skills/";
             InputStream inputStream = LevelConfig.class.getResourceAsStream(
-                    DEFAULT_CONFIG_PATH + configFile.getName()
+                    defaultConfigPath + configFile.getName()
             );
             FileUtils.copyInputStreamToFile(inputStream, configFile);
             PonyMagic.log.info("Created default skills config {}", configFile.getName());

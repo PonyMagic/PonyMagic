@@ -14,8 +14,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class StaminaHandler {
 
+	// Stamina capability
 	private static final ResourceLocation STAMINA = new ResourceLocation(PonyMagic.MODID, "stamina");
-	// private static final EnumFacing facingStub = EnumFacing.DOWN;
 
 	@SubscribeEvent
 	public void attachCapability(AttachCapabilitiesEvent<Entity> event) {

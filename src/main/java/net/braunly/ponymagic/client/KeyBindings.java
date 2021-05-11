@@ -5,12 +5,16 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.input.Keyboard;
 
 public class KeyBindings {
-	public static KeyBinding skillsGui;
-	public static KeyBinding questsGui;
+	public static final KeyBinding skillsGui =
+			new KeyBinding("key.skills", Keyboard.KEY_O, "key.categories.ponymagic");
+	public static final KeyBinding questsGui =
+			new KeyBinding("key.quests", Keyboard.KEY_P, "key.categories.ponymagic");
+
+	private KeyBindings() {
+		throw new IllegalStateException("Utility class");
+	}
 
 	public static void init() {
-		skillsGui = new KeyBinding("key.skills", Keyboard.KEY_O, "key.categories.ponymagic");
-		questsGui = new KeyBinding("key.quests", Keyboard.KEY_P, "key.categories.ponymagic");
 		ClientRegistry.registerKeyBinding(skillsGui);
 		ClientRegistry.registerKeyBinding(questsGui);
 	}

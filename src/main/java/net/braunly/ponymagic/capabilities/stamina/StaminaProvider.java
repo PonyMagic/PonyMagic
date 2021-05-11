@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class StaminaProvider implements ICapabilitySerializable<NBTBase> {
 
-	private IStaminaStorage instance = PonyMagicAPI.STAMINA.getDefaultInstance();
+	private final IStaminaStorage instance = PonyMagicAPI.STAMINA.getDefaultInstance();
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

@@ -18,6 +18,10 @@ public class PortalConfig {
     @Getter
     private static final Map<String, BlockPos> portalsMap = new HashMap<>();
 
+    private PortalConfig() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static void init(File modConfigDir) {
         configFilePath = modConfigDir.getAbsolutePath() + "/" + PonyMagic.MODID + "/portals.json";
         load();

@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class CraftEventHandler {
     public CraftEventHandler() {
-
+        // stub
     }
 
     @SubscribeEvent(priority=EventPriority.HIGH)

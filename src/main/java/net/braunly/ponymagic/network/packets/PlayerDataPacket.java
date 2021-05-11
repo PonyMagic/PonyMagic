@@ -16,7 +16,7 @@ public class PlayerDataPacket implements IMessage, IMessageHandler<PlayerDataPac
 	private NBTTagCompound compound;
 
 	public PlayerDataPacket() {
-		// TODO Auto-generated constructor stub
+		// Auto-generated constructor stub
 	}
 
 	public PlayerDataPacket(NBTTagCompound compound) {
@@ -38,15 +38,10 @@ public class PlayerDataPacket implements IMessage, IMessageHandler<PlayerDataPac
 		IThreadListener thread = PonyMagic.proxy.getListener(ctx);
 		final EntityPlayer player = PonyMagic.proxy.getPlayer(ctx);
 
-		thread.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				if (player != null) {
-					IPlayerDataStorage playerData = PonyMagicAPI.getPlayerDataStorage(player);
-					playerData.setNBT(message.compound);
-					// PonyMagic.log.info("RECIEVED");
-					// PonyMagic.log.info(playerData.levelData.getLevel());
-				}
+		thread.addScheduledTask(() -> {
+			if (player != null) {
+				IPlayerDataStorage playerData = PonyMagicAPI.getPlayerDataStorage(player);
+				playerData.setNBT(message.compound);
 			}
 		});
 		return null;
