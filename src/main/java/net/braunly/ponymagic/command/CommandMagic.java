@@ -110,6 +110,7 @@ public class CommandMagic extends CommandBase {
 		PonyMagicAPI.playerDataController.savePlayerData(playerData);
 		MagicHandlersContainer.updatePlayerFlySpeed(playerData, 0.0F);
 		MagicHandlersContainer.updatePlayerMaxStamina(playerData);
+		MagicHandlersContainer.disablePlayerFlyAbility(player);
 		
 		// Send changes to client
 		PonyMagic.channel.sendTo(new PlayerDataPacket(playerData.getNBT()), player);

@@ -117,11 +117,7 @@ public class MagicHandlersContainer {
 			if (staminaStorage.consume(flySpendingValue)) { // 0.8 stps
 				staminaStorage.sync((EntityPlayerMP) player);
 			} else {
-				// Disable fly ability
-				player.fallDistance = 0;
-				player.capabilities.isFlying = false;
-				player.capabilities.allowFlying = false;
-				player.sendPlayerAbilities();
+				disablePlayerFlyAbility(player);
 
 				processAutoSlowFall(playerDataStorage);
 			}
@@ -317,8 +313,6 @@ public class MagicHandlersContainer {
 			}
 
 			PonyMagic.channel.sendTo(new FlySpeedPacket(flySpeedMod + mod), (EntityPlayerMP) player);
-		} else {
-			// FIXME: disable fly ability
 		}
 	}
 
@@ -335,6 +329,16 @@ public class MagicHandlersContainer {
 			stamina.set(EnumStaminaType.MAXIMUM, 100.0D);  // Default stamina
 		}
 		stamina.sync((EntityPlayerMP) player);
+	}
+
+	public static void disablePlayerFlyAbility(EntityPlayer player) {
+		if (player.world.isRemote) return;
+
+		// Disable fly ability
+		player.fallDistance = 0;
+		player.capabilities.isFlying = false;
+		player.capabilities.allowFlying = false;
+		player.sendPlayerAbilities();
 	}
 
 }
