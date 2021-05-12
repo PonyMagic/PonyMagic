@@ -24,7 +24,7 @@ def gitVersionName() {
 }
 
 def modName = "Pony Magic"
-def modUrl = "https://gitlab.com/mc4ep/pony-magic"
+def modUrl = "https://github.com/PonyMagic/PonyMagic"
 def modDescription = """Some pony magic"""
 
 group = "net.braunly"
