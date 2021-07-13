@@ -45,6 +45,10 @@
     "name": "shregen",
     "price": 2,
     "skillLevel": 1,
+    "effect": {
+      "duration": 1200,
+      "level": 1
+    },
     "depends": {
     }
   },
