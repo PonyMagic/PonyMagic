@@ -17,10 +17,7 @@ import net.braunly.ponymagic.data.PlayerData;
 import net.braunly.ponymagic.data.PlayerDataHandler;
 import net.braunly.ponymagic.data.PlayerDataSerializer;
 import net.braunly.ponymagic.gui.GuiHandler;
-import net.braunly.ponymagic.handlers.EntityPortalInteractHandler;
-import net.braunly.ponymagic.handlers.LevelUpEventHandler;
-import net.braunly.ponymagic.handlers.MagicHandlersContainer;
-import net.braunly.ponymagic.handlers.PlayerLoggedInHandler;
+import net.braunly.ponymagic.handlers.*;
 import net.braunly.ponymagic.network.packets.*;
 import net.braunly.ponymagic.potions.PotionShield;
 import net.braunly.ponymagic.potions.PotionStaminaHealthRegen;
@@ -82,8 +79,10 @@ public class CommonProxy {
 
 		// Stamina regeneration and player skills handlers
 		MinecraftForge.EVENT_BUS.register(new MagicHandlersContainer());
-		// Player data initialization on PlayerLoggedIn event
+		// Client PlayerData initialization on PlayerLoggedIn event
 		MinecraftForge.EVENT_BUS.register(new PlayerLoggedInHandler());
+		// Client PlayerData initialization on PlayerRespawn event
+		MinecraftForge.EVENT_BUS.register(new PlayerRespawnHandler());
 		// Teleport player on interact with EntityPortal entity
 		MinecraftForge.EVENT_BUS.register(new EntityPortalInteractHandler());
 		// LevelUp event handler
