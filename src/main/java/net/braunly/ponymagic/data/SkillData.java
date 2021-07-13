@@ -55,7 +55,12 @@ public class SkillData implements ISkillDataStorage {
 	public boolean isAnySkillLearned(Map<String, Integer> skillsMap) {
 		if (skillsMap == null || skillsMap.isEmpty())
 			return true;
-		return !Collections.disjoint(this.skillDataMap.entrySet(), skillsMap.entrySet());
+		for (Map.Entry<String, Integer> depSkill : skillsMap.entrySet()) {
+			if (this.getSkillLevel(depSkill.getKey()) >= depSkill.getValue()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
