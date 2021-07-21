@@ -107,6 +107,8 @@ Pony Magic - это модификация для Minecraft 1.12.2, котора
 - Jorest - за тестировние
 - niroy - за идеи способностей
 - Lavenda - за идеи способностей
+- afflixia - за английский перевод
+- ACGaming - за немецкий перевод
 
 ### Сборка мода
 - `./gradlew setupDecompWorkspace`

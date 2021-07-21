@@ -109,3 +109,5 @@ Zebra Abilities:
 - Jorest - for testing
 - niroy - for ability ideas
 - Lavenda - for ability ideas
+- afflixia - for English translation
+- ACGaming - for German translation
