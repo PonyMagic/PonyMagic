@@ -213,7 +213,7 @@
     "place_block": {
       "BLOCK#minecraft:rail": 64,
       "BLOCK#minecraft:golden_rail": 16,
-      "BLOCK#minecraft:detector_rail#1": 32
+      "BLOCK#minecraft:detector_rail": 32
     },
     "craft": {
       "ITEM#minecraft:minecart": 3
