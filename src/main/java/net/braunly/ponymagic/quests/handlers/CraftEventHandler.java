@@ -6,6 +6,7 @@ import me.braunly.ponymagic.api.interfaces.IPlayerDataStorage;
 import net.braunly.ponymagic.util.QuestGoalUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -35,7 +36,7 @@ public class CraftEventHandler {
             String questName = "craft";
             playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
 
-            if (itemStack.getItem() instanceof ItemTool) {
+            if (itemStack.getItem() instanceof ItemTool || itemStack.getItem() instanceof ItemHoe) {
                 questName = "craft_tool";
                 playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
             } else if (itemStack.getItem() instanceof ItemArmor) {
