@@ -33,15 +33,13 @@ public class CraftEventHandler {
         );
 
         for (int i = 0; i < event.crafting.getCount(); i++) {
-            String questName = "craft";
-            playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+            playerData.getLevelData().decreaseGoal("craft", goalConfigKey);
+            playerData.getLevelData().decreaseGoal("smelt_by_craft", goalConfigKey);
 
             if (itemStack.getItem() instanceof ItemTool || itemStack.getItem() instanceof ItemHoe) {
-                questName = "craft_tool";
-                playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+                playerData.getLevelData().decreaseGoal("craft_tool", goalConfigKey);
             } else if (itemStack.getItem() instanceof ItemArmor) {
-                questName = "craft_armor";
-                playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+                playerData.getLevelData().decreaseGoal("craft_armor", goalConfigKey);
             }
         }
         PonyMagicAPI.playerDataController.savePlayerData(playerData);

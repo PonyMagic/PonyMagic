@@ -89,6 +89,8 @@ quest.use_item.name=Использовать предмет
 
 quest.achieve.name=Получить достижение
 quest.cast_spell.name=Скастовать
+quest.craft_by_smelt.name=Скрафтить
+quest.smelt_by_craft.name=Переплавить
 
 quest.visit_biom.name=Путешествовать в
 quest.activate_lighthouse.name=Активировать маяк

@@ -89,6 +89,8 @@ quest.use_item.name=Use item
 
 quest.achieve.name=Achieve
 quest.cast_spell.name=Cast spell
+quest.craft_by_smelt.name=Craft
+quest.smelt_by_craft.name=Smelt
 
 quest.visit_biom.name=Travel to
 quest.activate_lighthouse.name=Activate lighthouse

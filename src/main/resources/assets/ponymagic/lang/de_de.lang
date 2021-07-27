@@ -89,6 +89,8 @@ quest.use_item.name=Gegenstand verwenden
 
 quest.achieve.name=Erreichen
 quest.cast_spell.name=Zauberspruch sprechen
+quest.craft_by_smelt.name=Herstellen
+quest.smelt_by_craft.name=Schmelzen
 
 quest.visit_biom.name=Reisen zu
 quest.activate_lighthouse.name=Leuchtturm aktivieren

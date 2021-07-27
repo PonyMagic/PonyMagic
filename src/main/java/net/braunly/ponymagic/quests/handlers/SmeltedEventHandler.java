@@ -31,12 +31,11 @@ public class SmeltedEventHandler {
         );
 
         for (int i = 0; i < event.smelting.getCount(); i++){
-            String questName = "smelt";
-            playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+            playerData.getLevelData().decreaseGoal("smelt", goalConfigKey);
+            playerData.getLevelData().decreaseGoal("craft_by_smelt", goalConfigKey);
 
             if (itemStack.getItem() instanceof ItemFood) {
-                questName = "smelt_food";
-                playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+                playerData.getLevelData().decreaseGoal("smelt_food", goalConfigKey);
             }
         }
         PonyMagicAPI.playerDataController.savePlayerData(playerData);
