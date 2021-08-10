@@ -17,12 +17,19 @@ public class SpellPortal extends NamedSpell {
 
     @Override
     public boolean cast(EntityPlayer player, Skill skillConfig, String[] args) {
+        if (args.length != 2) return  false;
+
         IStaminaStorage stamina = PonyMagicAPI.getStaminaStorage(player);
-        if (args.length == 2 && stamina.consume((double) skillConfig.getStamina())) {
-
-            BlockPos target = PortalConfig.getPortal(args[1]);
-            player.world.spawnEntity(new EntityPortal(player.world, player.posX, player.posY, player.posZ, target, args[1]));
-
+        String portalName = args[1];
+        String configPortalName = String.format(
+                "%s#%s#%s",
+                player.world.getWorldInfo().getWorldName(),
+                player.world.provider.getDimension(),
+                portalName
+        );
+        BlockPos target = PortalConfig.getPortal(configPortalName);
+        if (target != null && stamina.consume((double) skillConfig.getStamina())) {
+            player.world.spawnEntity(new EntityPortal(player.world, player.posX, player.posY, player.posZ, target, portalName));
             stamina.sync((EntityPlayerMP) player);
             return true;
         }

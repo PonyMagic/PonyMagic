@@ -215,7 +215,14 @@ public class CommandMagic extends CommandBase {
 			portalPos = parseBlockPos(player, args, 2, true);
 		}
 
-		PortalConfig.addPortal(portalName, portalPos);
+		String configPortalName = String.format(
+				"%s#%s#%s",
+				player.world.getWorldInfo().getWorldName(),
+				player.world.provider.getDimension(),
+				portalName
+		);
+
+		PortalConfig.addPortal(configPortalName, portalPos);
 		player.sendMessage(new TextComponentString(String.format("Portal %s created!", portalName)));
 	}
 
@@ -227,7 +234,14 @@ public class CommandMagic extends CommandBase {
 
 		String portalName = args[1];
 
-		PortalConfig.deletePortal(portalName);
+		String configPortalName = String.format(
+				"%s#%s#%s",
+				player.world.getWorldInfo().getWorldName(),
+				player.world.provider.getDimension(),
+				portalName
+		);
+
+		PortalConfig.deletePortal(configPortalName);
 		player.sendMessage(new TextComponentString(String.format("Portal %s deleted!", portalName)));
 	}
 
@@ -236,6 +250,7 @@ public class CommandMagic extends CommandBase {
 		Map<String, BlockPos> portalsMap = PortalConfig.getPortalsMap();
 
 		for (Map.Entry<String, BlockPos> portalEntry : portalsMap.entrySet()) {
+			// TODO: show world and DIM names
 			player.sendMessage(new TextComponentTranslation(
 					"commands.magic.listportal.portal",
 					portalEntry.getKey(),
