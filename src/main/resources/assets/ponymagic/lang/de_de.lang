@@ -4,6 +4,13 @@ key.categories.ponymagic=Pony Magic!
 key.skills=Fertigkeiten-Menü
 key.quests=Quests anzeigen
 
+race.regular.name=regulär
+race.unicorn.name=Einhorn
+race.pegasus.name=Pegasus
+race.earthpony.name=Erdpony
+race.zebra.name=Zebra
+race.alicorn.name=Alihorn
+
 item.reset_book.name=Reset-Buch
 item.cloud_in_bottle.name=Flaschenwolke
 item.spell_book.name=Zauberbuch

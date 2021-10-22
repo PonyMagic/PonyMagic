@@ -4,6 +4,13 @@ key.categories.ponymagic=Pony Magic!
 key.skills=Skills menu
 key.quests=Show quests
 
+race.regular.name=without race
+race.unicorn.name=Unicorn
+race.pegasus.name=Pegasus
+race.earthpony.name=Earthpony
+race.zebra.name=Zebra
+race.alicorn.name=Alicorn
+
 item.reset_book.name=Reset book
 item.cloud_in_bottle.name=Cloud in bottle
 item.spell_book.name=Spell book

@@ -4,6 +4,13 @@ key.categories.ponymagic=小马魔法！
 key.skills=技能菜单
 key.quests=任务显示
 
+race.regular.name=without race
+race.unicorn.name=Unicorn
+race.pegasus.name=Pegasus
+race.earthpony.name=Earthpony
+race.zebra.name=Zebra
+race.alicorn.name=Alicorn
+
 item.reset_book.name=重置书
 item.cloud_in_bottle.name=云瓶
 item.spell_book.name=魔法书

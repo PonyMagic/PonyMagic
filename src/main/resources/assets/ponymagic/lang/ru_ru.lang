@@ -4,6 +4,13 @@ key.categories.ponymagic=Pony Magic!
 key.skills=Меню скиллов
 key.quests=Показать квесты
 
+race.regular.name=без расы
+race.unicorn.name=Единорог
+race.pegasus.name=Пегас
+race.earthpony.name=Земнопони
+race.zebra.name=Зебра
+race.alicorn.name=Аликорн
+
 item.reset_book.name=Книга обнуления
 item.cloud_in_bottle.name=Облако в бутылке
 item.spell_book.name=Книга способности
