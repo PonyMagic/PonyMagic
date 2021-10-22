@@ -30,8 +30,10 @@ public class BlockPlaceEventHandler {
         );
 
         IPlayerDataStorage playerData = PonyMagicAPI.playerDataController.getPlayerData(player);
-        playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
-        PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        boolean isNeedSave = playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+        if (isNeedSave) {
+            PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        }
 
     }
 }

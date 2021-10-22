@@ -87,8 +87,8 @@ public class LevelData implements ILevelDataStorage {
 	}
 
 	@Override
-	public void decreaseGoal(String questName, String goalName) {
-		if (!isCurrentGoal(questName, goalName)) return;
+	public boolean decreaseGoal(String questName, String goalName) {
+		if (!isCurrentGoal(questName, goalName)) return false;
 
 		HashMap<String, Integer> questGoals = this.currentGoals.get(questName);
 
@@ -106,6 +106,8 @@ public class LevelData implements ILevelDataStorage {
 		} else {
 			this.currentGoals.put(questName, questGoals);
 		}
+
+		return true;
 	}
 
 	@Override

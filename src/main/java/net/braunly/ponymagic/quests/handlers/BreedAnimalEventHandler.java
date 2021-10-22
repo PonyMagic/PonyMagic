@@ -31,7 +31,9 @@ public class BreedAnimalEventHandler {
         );
 
         String questName = "breed_animal";
-        playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
-        PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        boolean isNeedSave = playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+        if (isNeedSave) {
+            PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        }
     }
 }

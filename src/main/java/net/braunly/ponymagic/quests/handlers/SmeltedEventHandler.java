@@ -29,15 +29,18 @@ public class SmeltedEventHandler {
                 itemStack.getItem().getRegistryName(),
                 itemStack.getItemDamage()
         );
+        boolean isNeedSave = false;
 
         for (int i = 0; i < event.smelting.getCount(); i++){
-            playerData.getLevelData().decreaseGoal("smelt", goalConfigKey);
-            playerData.getLevelData().decreaseGoal("craft_by_smelt", goalConfigKey);
+            isNeedSave |= playerData.getLevelData().decreaseGoal("smelt", goalConfigKey);
+            isNeedSave |= playerData.getLevelData().decreaseGoal("craft_by_smelt", goalConfigKey);
 
             if (itemStack.getItem() instanceof ItemFood) {
-                playerData.getLevelData().decreaseGoal("smelt_food", goalConfigKey);
+                isNeedSave |= playerData.getLevelData().decreaseGoal("smelt_food", goalConfigKey);
             }
         }
-        PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        if (isNeedSave) {
+            PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        }
     }
 }

@@ -36,13 +36,15 @@ public class RepairEventHandler {
         );
 
         String questName = "repair";
-        playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+        boolean isNeedSave = playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
 
         if (event.getIngredientInput().getItem() instanceof ItemEnchantedBook) {
             questName = "enchant_with_book";
-            playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+            isNeedSave |= playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
         }
 
-        PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        if (isNeedSave) {
+            PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        }
     }
 }

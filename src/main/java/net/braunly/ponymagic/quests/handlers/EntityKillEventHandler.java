@@ -34,14 +34,16 @@ public class EntityKillEventHandler {
         );
 
         String questName = "kill_entity";
-        playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+        boolean isNeedSave = playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
 
         if (event.getEntityLiving().isCreatureType(EnumCreatureType.MONSTER, false)) {
             questName = "kill_monster";
-            playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+            isNeedSave |= playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
         }
 
-        PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        if (isNeedSave) {
+            PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        }
 
     }
 }

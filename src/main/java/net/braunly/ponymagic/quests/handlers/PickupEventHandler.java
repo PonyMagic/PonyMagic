@@ -28,12 +28,15 @@ public class PickupEventHandler {
                 itemStack.getItem().getRegistryName(),
                 itemStack.getItemDamage()
         );
+        boolean isNeedSave = false;
 
         String questName = "pickup_item";
         for (int i = 0; i < event.getStack().getCount(); i++) {
-            playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+            isNeedSave |= playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
         }
 
-        PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        if (isNeedSave) {
+            PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        }
     }
 }

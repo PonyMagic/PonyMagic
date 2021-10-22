@@ -39,12 +39,14 @@ public class BlockBreakEventHandler {
         );
 
         String questName = "break_block";
-        playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+        boolean isNeedSave = playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
 
         if (OreDictUtils.getInstance().isOre(block.getItem(event.getWorld(), event.getPos(), event.getState()))) {
             questName = "mine_ore";
-            playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+            isNeedSave |= playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
         }
-        PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        if (isNeedSave) {
+            PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        }
     }
 }

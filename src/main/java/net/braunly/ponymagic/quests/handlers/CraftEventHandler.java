@@ -31,17 +31,20 @@ public class CraftEventHandler {
                 itemStack.getItem().getRegistryName(),
                 itemStack.getItemDamage()
         );
+        boolean isNeedSave = false;
 
         for (int i = 0; i < event.crafting.getCount(); i++) {
-            playerData.getLevelData().decreaseGoal("craft", goalConfigKey);
-            playerData.getLevelData().decreaseGoal("smelt_by_craft", goalConfigKey);
+            isNeedSave |= playerData.getLevelData().decreaseGoal("craft", goalConfigKey);
+            isNeedSave |= playerData.getLevelData().decreaseGoal("smelt_by_craft", goalConfigKey);
 
             if (itemStack.getItem() instanceof ItemTool || itemStack.getItem() instanceof ItemHoe) {
-                playerData.getLevelData().decreaseGoal("craft_tool", goalConfigKey);
+                isNeedSave |= playerData.getLevelData().decreaseGoal("craft_tool", goalConfigKey);
             } else if (itemStack.getItem() instanceof ItemArmor) {
-                playerData.getLevelData().decreaseGoal("craft_armor", goalConfigKey);
+                isNeedSave |= playerData.getLevelData().decreaseGoal("craft_armor", goalConfigKey);
             }
         }
-        PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        if (isNeedSave) {
+            PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        }
     }
 }

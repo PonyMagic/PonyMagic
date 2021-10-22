@@ -33,9 +33,11 @@ public class ItemUseEventHandler {
         );
 
         String questName = "use_item";
-        playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+        boolean isNeedSave = playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
 
-        PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        if (isNeedSave) {
+            PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        }
     }
 
     @SubscribeEvent(priority=EventPriority.NORMAL)
@@ -54,8 +56,10 @@ public class ItemUseEventHandler {
         );
 
         String questName = "use_item";
-        playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
+        boolean isNeedSave = playerData.getLevelData().decreaseGoal(questName, goalConfigKey);
 
-        PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        if (isNeedSave) {
+            PonyMagicAPI.playerDataController.savePlayerData(playerData);
+        }
     }
 }
