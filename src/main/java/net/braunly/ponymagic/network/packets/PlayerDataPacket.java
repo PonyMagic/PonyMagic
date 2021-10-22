@@ -36,9 +36,9 @@ public class PlayerDataPacket implements IMessage, IMessageHandler<PlayerDataPac
 	@Override
 	public IMessage onMessage(PlayerDataPacket message, MessageContext ctx) {
 		IThreadListener thread = PonyMagic.proxy.getListener(ctx);
-		final EntityPlayer player = PonyMagic.proxy.getPlayer(ctx);
 
 		thread.addScheduledTask(() -> {
+			EntityPlayer player = PonyMagic.proxy.getPlayer(ctx);
 			if (player != null) {
 				IPlayerDataStorage playerData = PonyMagicAPI.getPlayerDataStorage(player);
 				playerData.setNBT(message.compound);

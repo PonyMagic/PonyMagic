@@ -11,13 +11,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class PlayerLoggedInHandler {
-    @SubscribeEvent(priority = EventPriority.NORMAL)
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public void handlePlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.player instanceof EntityPlayerMP) {
             IPlayerDataStorage playerDataStorage = PonyMagicAPI.playerDataController.getPlayerData(event.player);
             if (playerDataStorage.getRace() == EnumRace.REGULAR) return;
 
-            PonyMagic.channel.sendTo(new PlayerDataPacket(playerDataStorage.getNBT()), (EntityPlayerMP) event.player);
+            PonyMagic.channel.sendTo(new PlayerDataPacket(playerDataStorage.getNBT()), (EntityPlayerMP) playerDataStorage.getPlayer());
 
             MagicHandlersContainer.updatePlayerMaxStamina(playerDataStorage);
             MagicHandlersContainer.updatePlayerFlySpeed(playerDataStorage, 0.0F);

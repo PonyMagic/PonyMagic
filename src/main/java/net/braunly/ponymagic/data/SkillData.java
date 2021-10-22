@@ -4,7 +4,6 @@ import me.braunly.ponymagic.api.interfaces.ISkillDataStorage;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
