@@ -95,8 +95,6 @@ Pegasus Abilities:
 Zebra Abilities:
 ![Zebra Abilities](img/zebra.png)
 
-
-
 ### Many thanks to these ponies:
 - Akell - for organizing the development; help with algorithms and abilities; drawing textures; testing
 - Orhideous - for help with debugging and refactoring the code
@@ -116,3 +114,15 @@ Zebra Abilities:
 - Lavenda - for ability ideas
 - afflixia - for English translation
 - ACGaming - for German translation
+
+### Build this mod:
+- Clone project  
+  `git clone https://github.com/PonyMagic/PonyMagic.git`
+- Configure workspace  
+  `./gradlew setupDecompWorkspace` or `./gradlew setupCiWorkspace`
+- Build mod  
+  `./gradlew reobfJar`  
+- Find mod jar-file in `build/libs/`  
+
+### License
+[GNU LGPLv3](LICENSE.txt)
