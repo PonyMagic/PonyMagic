@@ -1,120 +1,118 @@
 # [Pony Magic 3.0](https://www.curseforge.com/minecraft/mc-mods/pony-magic/files)
 [![Discord](https://img.shields.io/discord/479572843114528788?color=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square)](https://discord.gg/d6cX4sa)
 
-Pony Magic - это модификация для Minecraft 1.12.2, которая добавляет возможность использовать различную магию. Создавался для использования в сборке с [Mine Little Pony](https://github.com/MineLittlePony/MineLittlePony)  
-Мод добавляет четыре "расы" пони, систему энергии (маны) и 40+ способностей. 
+### THIS PROJECT WILL NOT BE PORTED OR UPDATED. ONLY CRITICAL BUGFIXES AND PRs
 
-### Установка:
-- установить [Minecraft forge 1.12.2](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.12.2.html)
-- скачать [Potion Core 1.8](https://www.curseforge.com/minecraft/mc-mods/potion-core/files/2736248) и скопировать в папку `mods/`
-- скачать [Pony Magic](https://www.curseforge.com/minecraft/mc-mods/pony-magic/files) и скопировать в `mods/`  
 
-### Настройка:  
-Большинство элементов мода можно настроить с помощью конфиг-файлов в папке `config/ponymagic/`  
+[На русском](README_ru.md)
 
-### Использование:  
-Для начала нужно определиться с расой (у каждой уникальные способности).  
-- Единороги (`unicorn`) - могут телепортироваться, исцелять себя и союзников, купаться в лаве и управлять зачарованиями предметов
-- Земнопони (`earthpony`) - устойчивы в бою, могут ускорять рост растений и чинить экипировку 
-- Зебры (`zebra`) - могут управлять эффектами зелий
-- Пегасы (`pegasus`) - могут летать  
+Pony Magic is a modification for Minecraft 1.12.2 that adds the ability to use various magic. Created for use in assembly with [Mine Little Pony](https://github.com/MineLittlePony/MineLittlePony)
+The mod adds four "races" of ponies, an energy system (mana) and 40+ abilities.
 
-Затем, выдать расу командой: `/magic race <playername> <racename>`  
-После этого игроку открывается доступ к веткам прокачки способностей расы (кнопка `O`) и к квестам (кнопка `P`).
+### Installation:
+- install [Minecraft forge 1.12.2](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.12.2.html)
+- download [Potion Core 1.8](https://www.curseforge.com/minecraft/mc-mods/potion-core/files/2736248) and copy it to the `mods/` folder
+- download [Pony Magic](https://www.curseforge.com/minecraft/mc-mods/pony-magic/files) and copy to `mods/`
 
-##### Квесты  
-![Квесты](img/quests.png)  
+### Configuration:
+Most of the mod's elements can be configured using the config files in the `config/ponymagic/` folder
 
-Для того, чтобы иметь возможность изучить какую-нибудь способность, - нужно проходить квесты.  
-Прохождение квестов награждает очком способностей, которое можно потратить на изучение того или иного навыка в меню способностей.    
+### Usage:
+First you need to choose the race (each has unique abilities).
+- Unicorns (`unicorn`) - can teleport, heal themselves and allies, swim in lava and manage item enchantments
+- Earthpony (`earthpony`) - resistant in battle, can accelerate the growth of plants and repair equipment
+- Zebras (`zebra`) - can control the effects of potions
+- Pegasus (`pegasus`) - can fly
 
-##### Обнуление способностей  
-Для сброса способностей нужен предмет "Книга обнуления" или 30 уровней ванильного опыта.   
+Then, apply a race with the command: `/magic race <playername> <racename>`
+After that, the player will have access to the branches of leveling the abilities of the race (button `O`) and to quests (button`P`).
 
-##### Выносливость / энергия / стамина / мана / синяя полоска
-![Стамина](img/stamina.png)  
+##### Quests
+![Quests](img/quests.png)
 
-Изначально все расы имеют 100 единиц стамины.  
-Восстановление происходит, если игрок сыт и стоит на блоке. Так же, есть слабая регенерация, если игрок плавает в воде.  
-Максимальное количество и скорость регенерации можно увеличить с помощью соответствующих способностей.  
-Выносливость израсходуется на использование активных способностей и при полёте у пегасов.  
-Есть некоторые особые скиллы, которые тратят выносливость при определённых действиях или вообще её не требуют.  
-##### Способности / скиллы / умения  
-![Способности](img/unicorn.png)  
+In order to be able to learn any ability, you need to complete quests.
+Completing quests rewards an ability points, which can be spent on learning a particular skill in the abilities menu.
 
-Чтобы получить доступ к скиллу его нужно изучить за очки способностей.  
-Способности делятся на два типа: активные и пассивные.  
-Активные используются с помощью команды `/cast <spellname>`  
-Пассивные активируются сами или действуют постоянно.  
-Некоторые способности можно выключать (абсолютный щит).  
-Краткое описание скилла есть в подсказке в окне способностей.  
-Так же, есть расовая способность, которую не нужно изучать.  
-Начальные расовые способности единорогов и земнопони зависят от сборки сервера.  
+##### Reset Abilities
+To reset the abilities, you need the "Reset Book" item or 30 levels of vanilla experience.
 
-#### Команды:  
-Изменение расы:  
-`/magic race <username> <race>`  
-Тестирование расы (максимальный уровень):  
-`/magic test <race>`  
-Использование способности:  
-`/cast <skillname>`  
-Прокачка скилла:  
-`/magic spell <username> <spellname>`  
-Изменение уровня:  
-`/magic setlevel <username> <level>`  
-Изменение количества доступных очков способностей:  
-`/magic setpoints <username> <points>`  
-Проверка количества энергии:  
-`/stamina check [username]`  
-Убрать всю энергию:  
-`/stamina zero|empty [username]`  
-Восстановить всю энергию:  
-`/stamina fill|restore [username]`  
-Добавить определённое количество:  
-`/stamina add [username] <amount>`  
-Изменить на определённое количество:  
-`/stamina set [username] <amount>`  
-Установить уровень максимальной энергии:  
+##### Energy / Stamina / Mana / Blue Bar
+![Stamina](img/stamina.png)
+
+Initially, all races have 100 units of stamina.
+Recovery occurs if the player don't hungry and stay on the block. Also, there is weak regeneration if the player is swimming in water.
+The maximum amount and speed of regeneration can be increased using the corresponding abilities.
+Stamina will be spent on using active abilities and when flying with pegasus.
+There are some special skills that spend stamina on certain actions or do not require it at all.
+##### Abilities / skills
+![Abilities](img/unicorn.png)
+
+To gain access to a skill, you need to study it for ability points.
+Abilities are divided into two types: active and passive.
+Active are used with the command `/cast <spellname>`
+Passives activate themselves or act constantly.
+Some abilities can be turned off (absolute shield).
+A short description of the skill is in the tooltip in the abilities window.
+Also, there is a racial ability that does not need to be learned.
+The initial racial abilities of unicorns and earthpony depend on the server build.
+
+#### Commands:
+Race Change:
+`/magic race <username> <race>`
+Race Testing (Max Level):
+`/magic test <race>`
+Using the ability:
+`/cast <skillname>`
+Skill leveling:
+`/magic spell <username> <spellname>`
+Level change:
+`/magic setlevel <username> <level>`
+Changing the number of available ability points:
+`/magic setpoints <username> <points>`
+Checking the amount of energy:
+`/stamina check [username]`
+Remove all energy:
+`/stamina zero | empty [username]`
+Restore all energy:
+`/stamina fill | restore [username]`
+Add a certain amount:
+`/stamina add [username] <amount>`
+Change by a certain amount:
+`/stamina set [username] <amount>`
+Set maximum energy level:
 `/stamina setmax [username] <amount>`
 
-### Скриншоты:  
-Способности единорогов:  
-![Способности единорогов](img/unicorn.png)  
+### Screenshots:
+Unicorn Abilities:
+![Unicorn Abilities](img/unicorn.png)
 
-Способности земнопони:  
-![Способности земнопони](img/earthpony.png)  
+Earthpony Abilities:
+![Earthpony Abilities](img/earthpony.png)
 
-Способности пегасов:  
-![Способности пегасов](img/pegasus.png)
-  
-Способности зебр:  
-![Способности зебр](img/zebra.png)
+Pegasus Abilities:
+![Pegasus Abilities](img/pegasus.png)
 
-### Большое спасибо этим пони:
-- Akell - за организацию разработки; придумывание алгоритмов и способностей; рисование текстур; тестирование
-- Orhideous - за помощь с дебагом и рефакторингом кода
-- Polyacov_Yury - за помощь с дебагом и рефакторингом кода
-- Jerry - за идеи способностей; рисование текстур; тестирование
-- KostaRMax - за рисование текстур и тестирование
-- Queen_Stan - за рисование текстур и тестирование
-- Zloba - за рисование текстур
-- Kwaarr - за идеи способностей и тестировние
-- XenoOxotnik - за идеи способностей и тестировние
-- Tol_Eres - за идеи способностей и тестировние
-- Holllow - за идеи способностей и тестировние
-- Wecanfly - за идеи способностей и тестировние
-- Walking_Trouble - за идеи способностей и тестировние
-- Jorest - за тестировние
-- niroy - за идеи способностей
-- Lavenda - за идеи способностей
-- afflixia - за английский перевод
-- ACGaming - за немецкий перевод
+Zebra Abilities:
+![Zebra Abilities](img/zebra.png)
 
-### Сборка мода
-- `./gradlew setupDecompWorkspace`
-- `./gradlew reobfJar`  
 
-Файл артефакта в `build/libs/`
 
-### Лицензия
-[GNU LGPLv3](LICENSE.txt)
+### Many thanks to these ponies:
+- Akell - for organizing the development; help with algorithms and abilities; drawing textures; testing
+- Orhideous - for help with debugging and refactoring the code
+- Polyacov_Yury - for help with debugging and refactoring the code
+- Jerry - for ability ideas; drawing textures; testing
+- KostaRMax - for texture drawing and testing
+- Queen_Stan - for texture drawing and testing
+- Zloba - for drawing textures
+- Kwaarr - for ability ideas and testing
+- XenoOxotnik - for ability ideas and testing
+- Tol_Eres - for ability ideas and testing
+- Holllow - for ability ideas and testing
+- Wecanfly - for ability ideas and testing
+- Walking_Trouble - for ability ideas and testing
+- Jorest - for testing
+- niroy - for ability ideas
+- Lavenda - for ability ideas
+- afflixia - for English translation
+- ACGaming - for German translation
